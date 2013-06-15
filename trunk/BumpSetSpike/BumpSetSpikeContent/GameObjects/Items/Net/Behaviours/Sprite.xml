@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<XnaContent>
+  <Asset Type="MBHEngineContentDefs.SpriteRenderDefinition">
+    <mSpriteFileName>Sprites\Net_sp</mSpriteFileName>
+    <mAttachmentPoints>
+      <Item>
+        <mName>SpikePoint</mName>
+        <mOffset>12.0 98.0</mOffset>
+        <mMoveWithSpriteFacing>true</mMoveWithSpriteFacing>
+      </Item>
+    </mAttachmentPoints>
+  </Asset>
+</XnaContent>
+

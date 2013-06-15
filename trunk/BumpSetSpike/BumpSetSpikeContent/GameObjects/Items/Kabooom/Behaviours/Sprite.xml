@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<XnaContent>
+  <Asset Type="MBHEngineContentDefs.SpriteRenderDefinition">
+    <mSpriteFileName>Sprites\Kapooow_sp</mSpriteFileName>
+    <mFrameHeight>32</mFrameHeight>
+    <mHasShadow>false</mHasShadow>
+    <mAnimationSets>
+      <Item>
+        <mTicksPerFrame>30</mTicksPerFrame>
+        <mName>Kabooom</mName>
+        <mStartingFrame>0</mStartingFrame>
+        <mNumFrames>1</mNumFrames>
+        <mLooping>false</mLooping>
+        <mRemoveGameObjectOnComplete>true</mRemoveGameObjectOnComplete>
+      </Item>
+    </mAnimationSets>
+  </Asset>
+</XnaContent>
+
