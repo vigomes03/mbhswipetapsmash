@@ -119,7 +119,10 @@ namespace BumpSetSpike.Behaviour
 
             Int32 mMaxHitCount = 1;
 
-            if (mCollisionResults.Count > 0 && mHitCount < mMaxHitCount)
+            mGetCurrentStateMsg.Reset();
+            GameObjectManager.pInstance.pPlayer.OnMessage(mGetCurrentStateMsg, mParentGOH);
+
+            if (mCollisionResults.Count > 0 && mHitCount < mMaxHitCount && mGetCurrentStateMsg.mState_In != Player.State.Receiving)
             {
                 mSetActiveAnimationMsg.Reset();
                 mSetActiveAnimationMsg.mAnimationSetName_In = "Bump";
@@ -147,11 +150,8 @@ namespace BumpSetSpike.Behaviour
             mCollisionResults.Clear();
             GameObjectManager.pInstance.GetGameObjectsInRange(mParentGOH, ref mCollisionResults, mBallClassifications);
 
-            if (mCollisionResults.Count > 0 && mHitCount < mMaxHitCount)
-            {                
-                mGetCurrentStateMsg.Reset();
-                GameObjectManager.pInstance.pPlayer.OnMessage(mGetCurrentStateMsg, mParentGOH);
-
+            if (mCollisionResults.Count > 0 && mHitCount < mMaxHitCount && mGetCurrentStateMsg.mState_In != Player.State.Receiving)
+            {
                 if (mGetCurrentStateMsg.mState_In != Player.State.Receiving)
                 {
                     mHitCount++;

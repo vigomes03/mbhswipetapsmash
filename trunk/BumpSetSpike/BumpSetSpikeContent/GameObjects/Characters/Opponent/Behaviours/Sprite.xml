@@ -4,9 +4,16 @@
     <mSpriteFileName>Sprites\PlayerBlue</mSpriteFileName>
     <mFrameHeight>64</mFrameHeight>
     <mHasShadow>false</mHasShadow>
+    <mAttachmentPoints>
+      <Item>
+        <mName>Blood</mName>
+        <mOffset>0.0 -24.0</mOffset>
+        <mMoveWithSpriteFacing>true</mMoveWithSpriteFacing>
+      </Item>
+    </mAttachmentPoints>
     <mAnimationSets>
       <Item>
-        <mTicksPerFrame>2</mTicksPerFrame>
+        <mTicksPerFrame>5</mTicksPerFrame>
         <mName>Idle</mName>
         <mStartingFrame>0</mStartingFrame>
         <mNumFrames>8</mNumFrames>
@@ -20,7 +27,7 @@
         <mLooping>true</mLooping>
       </Item>
       <Item>
-        <mTicksPerFrame>2</mTicksPerFrame>
+        <mTicksPerFrame>1</mTicksPerFrame>
         <mName>Bump</mName>
         <mStartingFrame>16</mStartingFrame>
         <mNumFrames>3</mNumFrames>

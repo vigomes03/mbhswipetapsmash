@@ -397,14 +397,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GameObjects\Characters\Player\Behaviours\Copy of Sprite.xml">
-      <SubType>Designer</SubType>
-      <Name>Copy of Sprite</Name>
-      <Importer>XmlImporter</Importer>
-      <Processor>PassThroughProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="GameObjects\Characters\Partner\Behaviours\Sprite.xml">
       <SubType>Designer</SubType>
       <Name>Sprite</Name>
