@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<XnaContent>
+  <Asset Type="MBHEngineContentDefs.SpriteRenderDefinition">
+    <mSpriteFileName>Sprites\Ball</mSpriteFileName>
+    <mFrameHeight>8</mFrameHeight>
+    <mHasShadow>false</mHasShadow>
+    <mAttachmentPoints>
+      <Item>
+        <mName>Dust</mName>
+        <mOffset>0.0 4.0</mOffset>
+        <mMoveWithSpriteFacing>true</mMoveWithSpriteFacing>
+      </Item>
+    </mAttachmentPoints>
+    <mAnimationSets>
+      <Item>
+        <mTicksPerFrame>10</mTicksPerFrame>
+        <mName>SpinSlow</mName>
+        <mStartingFrame>0</mStartingFrame>
+        <mNumFrames>2</mNumFrames>
+        <mLooping>true</mLooping>
+      </Item>
+      <Item>
+        <mTicksPerFrame>2</mTicksPerFrame>
+        <mName>SpinFast</mName>
+        <mStartingFrame>0</mStartingFrame>
+        <mNumFrames>2</mNumFrames>
+        <mLooping>true</mLooping>
+      </Item>
+      <Item>
+        <mTicksPerFrame>1</mTicksPerFrame>
+        <mName>SpinNone</mName>
+        <mStartingFrame>0</mStartingFrame>
+        <mNumFrames>1</mNumFrames>
+        <mLooping>false</mLooping>
+      </Item>
+    </mAnimationSets>
+  </Asset>
+</XnaContent>
+
