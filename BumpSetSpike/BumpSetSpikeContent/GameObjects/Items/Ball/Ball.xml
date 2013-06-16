@@ -9,7 +9,7 @@
     <mScale>1 1</mScale>
     <mCollisionBoxDimensions>8.0 8.0</mCollisionBoxDimensions>
     <mCollisionRoot>0 0</mCollisionRoot>
-    <mMotionRoot>4 4</mMotionRoot>
+    <mMotionRoot>16 16</mMotionRoot>
     <mClassifications>
       <Item>SAFE_HOUSE</Item>
     </mClassifications>
