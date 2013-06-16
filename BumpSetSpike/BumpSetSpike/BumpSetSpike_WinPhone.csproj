@@ -118,9 +118,9 @@
     <Content Include="IconSmall.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\BumpSetSpikeContentDefs\BumpSetSpikeContentDefs.csproj">
+    <ProjectReference Include="..\..\BumpSetSpikeContentDefs\BumpSetSpikeContentDefs_WinPhone.csproj">
       <Project>{D139400F-ED92-4819-8290-47CB3FEC44B6}</Project>
-      <Name>BumpSetSpikeContentDefs</Name>
+      <Name>BumpSetSpikeContentDefs_WinPhone</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\MBHEngineContentDefs\MBHEngineContentDefs_WinPhone.csproj">
       <Project>{72C0D2F2-EEB2-49BE-9E06-A2363D619A9E}</Project>

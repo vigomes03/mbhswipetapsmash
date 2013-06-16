@@ -64,7 +64,7 @@ namespace BumpSetSpike.Behaviour
             {
                 GestureSample gesture = new GestureSample();
 
-                if (InputManager.pInstance.CheckGesture(GestureType.Tap, ref gesture))
+                if (InputManager.pInstance.CheckGesture(GestureType.Tap, ref gesture) || InputManager.pInstance.CheckAction(InputManager.InputActions.A, true))
                 {
                     if (mCurrentState == State.OnTitle)
                     {

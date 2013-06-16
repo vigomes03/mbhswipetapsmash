@@ -130,7 +130,7 @@ namespace BumpSetSpike.Behaviour
         {
             GestureSample gesture = new GestureSample();
 
-            if(InputManager.pInstance.CheckGesture(GestureType.Tap, ref gesture))
+            if(InputManager.pInstance.CheckGesture(GestureType.Tap, ref gesture) || InputManager.pInstance.CheckAction(InputManager.InputActions.A, true))
             {
                 if (mCurrentState == State.Jump && GameflowManager.pInstance.pState == GameflowManager.State.GamePlay)
                 {
@@ -149,12 +149,27 @@ namespace BumpSetSpike.Behaviour
             // Start with a fresh gesture.
             gesture = new GestureSample();
 
-            if (InputManager.pInstance.CheckGesture(GestureType.Flick, ref gesture))
+            if (InputManager.pInstance.CheckGesture(GestureType.Flick, ref gesture) || InputManager.pInstance.CheckAction(InputManager.InputActions.A, true))
             {
                 if (mCurrentState == State.Idle && GameflowManager.pInstance.pState == GameflowManager.State.GamePlay)
                 {
+#if WINDOWS_PHONE
                     mParentGOH.pDirection.mForward = gesture.Delta * (Single)gameTime.ElapsedGameTime.TotalSeconds * 0.05f;
+#else
+                    mCollisionResults.Clear();
+                    GameObjectManager.pInstance.GetGameObjectsInRange(mParentGOH, ref mCollisionResults, mBallClassifications);
 
+                    List<GameObject> mBalls = GameObjectManager.pInstance.GetGameObjectsOfClassification(MBHEngineContentDefs.GameObjectDefinition.Classifications.SAFE_HOUSE);
+
+                    if (mBalls.Count > 0)
+                    {
+                        mParentGOH.pDirection.mForward = mBalls[0].pCollisionRect.pCenterPoint - mParentGOH.pCollisionRect.pCenterPoint;
+
+                        mParentGOH.pDirection.mForward.Normalize();
+
+                        mParentGOH.pDirection.mForward *= 6.0f;
+                    }
+#endif
                     mCurrentState = State.Jump;
 
                     ScoreManager.pInstance.AddScore(ScoreManager.ScoreType.Jump, mParentGOH.pPosition);
@@ -397,7 +412,7 @@ namespace BumpSetSpike.Behaviour
         {
             if (msg is OnMatchRestartMessage || msg is OnGameRestartMessage)
             {
-                Single netBuffer = 30.0f;
+                //Single netBuffer = 30.0f;
 
                 //mParentGOH.pPosX = (Single)RandomManager.pInstance.RandomPercent() * (mTopLeft.X + netBuffer) - netBuffer;
             }

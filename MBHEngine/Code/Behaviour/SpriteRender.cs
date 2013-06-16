@@ -487,13 +487,9 @@ namespace MBHEngine.Behaviour
             {
                 Int32 baseIndex = (mAnimations[mActiveAnimation].mStartingFrame + mCurrentAnimationFrame) * mFrameHeight;
                 Rectangle rect = new Rectangle(0, baseIndex, mTexture.Width, mFrameHeight);
-
-                Vector2 pos = mParentGOH.pPosition;
-                //pos.X = (Single)System.Math.Round(pos.X);
-                //pos.Y = (Single)System.Math.Round(pos.Y);
-
+                
                 batch.Draw(mTexture,
-                           pos,
+                           mParentGOH.pPosition,
                            rect,
                            mColor,
                            mParentGOH.pRotation,
