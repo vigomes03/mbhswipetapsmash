@@ -48,6 +48,9 @@ namespace BumpSetSpike
             //CommandLineManager.pInstance.pArgs = args;
 
             mGraphics = new GraphicsDeviceManager(this);
+            
+            // WINDOWS_PHONE = 800x480
+
 #if SMALL_WINDOW
             mGraphics.PreferredBackBufferWidth = 640;
             mGraphics.PreferredBackBufferHeight = 360;
@@ -60,14 +63,16 @@ namespace BumpSetSpike
 
             // Avoid the "jitter".
             // http://forums.create.msdn.com/forums/p/9934/53561.aspx#53561
-            IsFixedTimeStep = false;
+            // Set to TRUE so that we can target 30fps to match windows phone.
+            // Should be FALSE to fix jitter issue.
+            IsFixedTimeStep = true;
+
+            // Frame rate is 30 fps by default for Windows Phone.
+            TargetElapsedTime = TimeSpan.FromTicks(333333);
 
             //mGraphics.GraphicsDevice.PresentationParameters.MultiSampleType = MultiSampleType.TwoSamples;
             //mGraphics.GraphicsDevice.RenderState.MultiSampleAntiAlias = true;
             mGraphics.PreferMultiSampling = true;
-
-            // Frame rate is 30 fps by default for Windows Phone.
-            TargetElapsedTime = TimeSpan.FromTicks(333333);
         }
 
         /// <summary>

@@ -85,9 +85,9 @@ namespace MBHEngine.Render
 #if WINDOWS_PHONE
             mZoomAmount = 4.0f;
 #elif SMALL_WINDOW
-            mZoomAmount = 4.0f;
+            mZoomAmount = 3.2f;
 #else
-            mZoomAmount = 8.0f;
+            mZoomAmount = 6.4f;
 #endif
 
             mTransform =
@@ -112,7 +112,7 @@ namespace MBHEngine.Render
             // Calculate the percent of the tween that has been completed.
             Single percent = (Single)mCurBlendFrames / (Single)mBlendFrames;
 
-#if WINDOWS_PHONE
+#if WINDOWS_PHONE || WINDOWS
             Vector2 curPos = Vector2.SmoothStep(mLastPosition, mTargetPosition, percent);
             curPos.X = (Single)System.Math.Round(curPos.X);
             curPos.Y = (Single)System.Math.Round(curPos.Y);
