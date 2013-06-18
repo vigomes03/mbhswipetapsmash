@@ -34,10 +34,12 @@ namespace BumpSetSpike
         /// </summary>
         private Int32 mFrameSkip = 0;
         private Int32 mFameSkipCount = 0;
+        private Boolean mFreeze = false;
+#if DEBUG
         private Boolean mSkipKeyIncDown = false;
         private Boolean mSkipKeyDecDown = false;
-        private Boolean mFreeze = false;
         private Boolean mFreezeKeyDown = false;
+#endif
         
         /// <summary>
         /// Constuctor

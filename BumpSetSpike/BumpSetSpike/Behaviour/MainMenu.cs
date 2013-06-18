@@ -14,18 +14,35 @@ using MBHEngine.Input;
 
 namespace BumpSetSpike.Behaviour
 {
+    /// <summary>
+    /// Simple class for waiting for the user to tap the screen to start the game.
+    /// </summary>
     class MainMenu : MBHEngine.Behaviour.Behaviour
     {
+        /// <summary>
+        /// Manages the state of the object.
+        /// </summary>
         private enum State
         {
             OnTitle = 0,
             MoveToCourt,
         }
 
+        /// <summary>
+        /// The current state of the object.
+        /// </summary>
         private State mCurrentState;
 
+        /// <summary>
+        /// We don't have a great way of knowing when the camera has reached its desination, so
+        /// instead we just start a timer that takes the same amount of time and wait for it to
+        /// expire.
+        /// </summary>
         private StopWatch mWatch;
 
+        /// <summary>
+        /// Preallocated to avoid GC.
+        /// </summary>
         private Player.OnGameRestartMessage mGameRestartMsg;
 
         /// <summary>
@@ -51,15 +68,22 @@ namespace BumpSetSpike.Behaviour
 
             mWatch = StopWatchManager.pInstance.GetNewStopWatch();
 
+            // Make the timer last the same amount of time it will take the camera to reach
+            // its destination.
             mWatch.pLifeTime = CameraManager.pInstance.pNumBlendFrames;
             mWatch.pIsPaused = true;
 
             mGameRestartMsg = new Player.OnGameRestartMessage();
         }
 
+        /// <summary>
+        /// See parent.
+        /// </summary>
+        /// <param name="gameTime"></param>
         public override void Update(GameTime gameTime)
         {
-
+            // If we are in the main menu, start looking for button presses.
+            // TODO: Move this to update passes.
             if (GameflowManager.pInstance.pState == GameflowManager.State.MainMenu)
             {
                 GestureSample gesture = new GestureSample();
@@ -68,6 +92,7 @@ namespace BumpSetSpike.Behaviour
                 {
                     if (mCurrentState == State.OnTitle)
                     {
+                        // Move down to the gameplay camera position.
                         CameraManager.pInstance.pTargetPosition = new Vector2(0, -30.0f);
                         mCurrentState = State.MoveToCourt;
 
@@ -75,6 +100,7 @@ namespace BumpSetSpike.Behaviour
                     }
                 }
 
+                // Once the timer expires the camera should be in place and the game can start.
                 if (mCurrentState == State.MoveToCourt && mWatch.IsExpired())
                 {
                     GameObjectManager.pInstance.BroadcastMessage(mGameRestartMsg, mParentGOH);
@@ -84,18 +110,6 @@ namespace BumpSetSpike.Behaviour
                     mWatch.pIsPaused = true;
                 }
             }
-        }
-
-        /// <summary>
-        /// The main interface for communicating between behaviours.  Using polymorphism, we
-        /// define a bunch of different messages deriving from BehaviourMessage.  Each behaviour
-        /// can then check for particular upcasted messahe types, and either grab some data 
-        /// from it (set message) or store some data in it (get message).
-        /// </summary>
-        /// <param name="msg">The message being communicated to the behaviour.</param>
-        public override void OnMessage(ref BehaviourMessage msg)
-        {
-
         }
     }
 }

@@ -11,7 +11,7 @@
     <mCollisionRoot>0 0</mCollisionRoot>
     <mMotionRoot>16 16</mMotionRoot>
     <mClassifications>
-      <Item>SAFE_HOUSE</Item>
+      <Item>VOLLEY_BALL</Item>
     </mClassifications>
     <mBehaviourFileNames>
       <Item>Sprite</Item>

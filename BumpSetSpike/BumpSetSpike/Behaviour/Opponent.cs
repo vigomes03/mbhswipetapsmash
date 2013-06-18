@@ -13,8 +13,14 @@ using BumpSetSpike.Gameflow;
 
 namespace BumpSetSpike.Behaviour
 {
+    /// <summary>
+    /// The AI players we are playing against.
+    /// </summary>
     class Opponent : MBHEngine.Behaviour.Behaviour
     {
+        /// <summary>
+        /// The current state of this character.
+        /// </summary>
         private enum State
         {
             Idle = 0,
@@ -22,18 +28,40 @@ namespace BumpSetSpike.Behaviour
             Dead,
         }
 
+        /// <summary>
+        /// The current state of this character.
+        /// </summary>
         private State mCurrentState;
 
+        /// <summary>
+        /// Tracks how long we should be in the current state.
+        /// </summary>
         private StopWatch mStateTimer;
 
+        /// <summary>
+        /// Preallocated to avoid GC.
+        /// </summary>
         private List<MBHEngineContentDefs.GameObjectDefinition.Classifications> mBallClassifications;
 
+        /// <summary>
+        /// Preallocated to avoid GC.
+        /// </summary>
         private List<GameObject> mCollisionResults;
 
+        /// <summary>
+        /// The opponent only gets knocked around during the initial hit. Once it hits the ground,
+        /// it will not knock them around. This tracks when that happens.
+        /// </summary>
         private Boolean mKabooomAvail;
 
+        /// <summary>
+        /// Tracks where the character started so that they can be reset when the game restarts.
+        /// </summary>
         private Vector2 mStartPos;
 
+        /// <summary>
+        /// Preallocated messages to avoid GC.
+        /// </summary>
         private SpriteRender.SetActiveAnimationMessage mSetActiveAnimationMsg;
         private SpriteRender.SetSpriteEffectsMessage mSetSpriteEffectsMsg;
         private SpriteRender.GetAttachmentPointMessage mGetAttachmentPointMsg;
@@ -56,16 +84,12 @@ namespace BumpSetSpike.Behaviour
         /// <param name="fileName">The file to load from.</param>
         public override void LoadContent(String fileName)
         {
-            //PartnerDefinition def = GameObjectManager.pInstance.pContentManager.Load<PartnerDefinition>(fileName);
-
             base.LoadContent(fileName);
-
-            //DamageFlashDefinition def = GameObjectManager.pInstance.pContentManager.Load<DamageFlashDefinition>(fileName);
 
             mCurrentState = State.Idle;
 
             mBallClassifications = new List<MBHEngineContentDefs.GameObjectDefinition.Classifications>(1);
-            mBallClassifications.Add(MBHEngineContentDefs.GameObjectDefinition.Classifications.SAFE_HOUSE);
+            mBallClassifications.Add(MBHEngineContentDefs.GameObjectDefinition.Classifications.VOLLEY_BALL);
 
             mCollisionResults = new List<GameObject>(16);
 
@@ -79,11 +103,16 @@ namespace BumpSetSpike.Behaviour
             mGetCurrentStateMsg = new Player.GetCurrentStateMessage();
         }
 
+        /// <summary>
+        /// See parent.
+        /// </summary>
         public override void OnAdd()
         {
+            // The opponents just always face left.
             mSetSpriteEffectsMsg.mSpriteEffects_In = Microsoft.Xna.Framework.Graphics.SpriteEffects.FlipHorizontally;
             mParentGOH.OnMessage(mSetSpriteEffectsMsg);
 
+            // Save this so that it can be restarted later.
             mStartPos = mParentGOH.pPosition;
         }
 
@@ -93,17 +122,22 @@ namespace BumpSetSpike.Behaviour
         /// <param name="gameTime">The amount of time that has passed this frame.</param>
         public override void Update(GameTime gameTime)
         {
+            // Apply momentum and gravity to the character.
             mParentGOH.pDirection.mForward.Y += 0.2f;
             mParentGOH.pPosition += mParentGOH.pDirection.mForward;
 
+            // Define the area that this character can move.
             Vector2 topLeft = new Vector2(-90.0f, -80.0f);
             Vector2 bottomRight = new Vector2(90.0f, 0.0f);
 
             if (mParentGOH.pPosY > bottomRight.Y)
             {
+                // Clamp to the ground.
                 mParentGOH.pPosY = bottomRight.Y;
                 mParentGOH.pDirection.mForward = Vector2.Zero;
 
+                // If they were being knocked around, we don't want to switch to a dead state
+                // until they hit the ground.
                 if (mCurrentState == State.Knocked)
                 {
                     mCurrentState = State.Dead;
@@ -126,9 +160,11 @@ namespace BumpSetSpike.Behaviour
                 mParentGOH.pDirection.mForward.X = 0.0f;
             }
 
+            // Get the ball.
             mCollisionResults.Clear();
             GameObjectManager.pInstance.GetGameObjectsInRange(mParentGOH.pPosition, 45.0f, ref mCollisionResults, mBallClassifications);
 
+            // Get the current state of the player.
             mGetCurrentStateMsg.Reset();
             GameObjectManager.pInstance.pPlayer.OnMessage(mGetCurrentStateMsg, mParentGOH);
 
@@ -146,7 +182,7 @@ namespace BumpSetSpike.Behaviour
                 mSetActiveAnimationMsg.mDoNotRestartIfCompleted_In = true;
                 mParentGOH.OnMessage(mSetActiveAnimationMsg);
             }
-            else if (mCollisionResults.Count > 0 && mCollisionResults[0].pPosition.X > 0.0f && mGetCurrentStateMsg.mState_In != Player.State.Receiving)
+            else if (mCollisionResults.Count > 0 && mCollisionResults[0].pPosition.X > 0.0f && mGetCurrentStateMsg.mState_Out != Player.State.Receiving)
             {
                 mSetActiveAnimationMsg.Reset();
                 mSetActiveAnimationMsg.mAnimationSetName_In = "Bump";
@@ -169,8 +205,11 @@ namespace BumpSetSpike.Behaviour
                 }
             }
 
-            if (mGetCurrentStateMsg.mState_In != Player.State.Receiving)
+            // If the player is no longer recieving the ball, then we start checking for
+            // KABOOOM hits. We wait so that the opponent is not hit by the serve itself.
+            if (mGetCurrentStateMsg.mState_Out != Player.State.Receiving)
             {
+                // Find the ball again, but this time only if it is colliding with us.
                 mCollisionResults.Clear();
                 GameObjectManager.pInstance.GetGameObjectsInRange(mParentGOH, ref mCollisionResults, mBallClassifications);
 
@@ -202,7 +241,7 @@ namespace BumpSetSpike.Behaviour
                 }
             }
 
-            DebugMessageDisplay.pInstance.AddDynamicMessage("Partner: " + mParentGOH.pPosition);
+            //DebugMessageDisplay.pInstance.AddDynamicMessage("Partner: " + mParentGOH.pPosition);
         }
 
         /// <summary>
@@ -216,7 +255,6 @@ namespace BumpSetSpike.Behaviour
         {
             if (msg is Player.OnMatchRestartMessage)
             {
-                //mCurrentState = State.Idle;
                 mKabooomAvail = true;
             }
             else if (msg is Player.OnGameRestartMessage)
@@ -227,6 +265,7 @@ namespace BumpSetSpike.Behaviour
             }
             else if (msg is Ball.OnPlayOverMessage)
             {
+                // The ball has hit the ground. We don't want bouncing balls to KABOOOM the opponent.
                 mKabooomAvail = false;
             }
         }

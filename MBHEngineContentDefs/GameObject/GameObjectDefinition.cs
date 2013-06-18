@@ -18,7 +18,7 @@ namespace MBHEngineContentDefs
             PLAYER = 0,
             ENEMY,
             ALLY,
-            SAFE_HOUSE,
+            VOLLEY_BALL,
             WALL,
 
             COUNT,

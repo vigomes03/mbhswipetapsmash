@@ -12,24 +12,52 @@ using MBHEngine.Behaviour;
 
 namespace BumpSetSpike.Gameflow
 {
+    /// <summary>
+    /// Used for saving and loading the game.
+    /// </summary>
     public class SaveGameManager
     {
+        /// <summary>
+        /// Anything that gets saved needs to go in here.
+        /// </summary>
         public struct SaveGameData
         {
+            /// <summary>
+            /// Top scores in the game.
+            /// </summary>
             public LeaderBoardManager.Records mRecords;
         }
 
+        /// <summary>
+        /// Singleton.
+        /// </summary>
         private static SaveGameManager mInstance;
 
+#if WINDOWS_PHONE
+        /// <summary>
+        /// Name of the file where we will save our data.
+        /// </summary>
         private String fileName = "SwipeTapSmash";
 
+        /// <summary>
+        /// The data that will get saved and loaded.
+        /// </summary>
         private SaveGameData mSaveData;
+#endif
 
+        /// <summary>
+        /// Call this before using the singleton.
+        /// </summary>
         public void Inititalize()
         {
+#if WINDOWS_PHONE
             mSaveData = new SaveGameData();
+#endif
         }
 
+        /// <summary>
+        /// Access to the singleton.
+        /// </summary>
         public static SaveGameManager pInstance
         {
             get
@@ -43,8 +71,13 @@ namespace BumpSetSpike.Gameflow
             }
         }
 
+        /// <summary>
+        /// Load the save game.
+        /// </summary>
+        /// <remarks>Only works on Windows Phone.</remarks>
         public void ReadSaveGameXML()
         {
+#if WINDOWS_PHONE
             try
             {
                 using (IsolatedStorageFile myIsolatedStorage = IsolatedStorageFile.GetUserStoreForApplication())
@@ -61,10 +94,16 @@ namespace BumpSetSpike.Gameflow
             {
                 // Something
             }
+#endif
         }
 
+        /// <summary>
+        /// Saves the current state of the game.
+        /// </summary>
+        /// <remarks>Only works on Windows Phone.</remarks>
         public void WriteSaveGameXML()
         {
+#if WINDOWS_PHONE
             // Write to the Isolated Storage
             XmlWriterSettings xmlWriterSettings = new XmlWriterSettings();
             xmlWriterSettings.Indent = true;
@@ -81,8 +120,10 @@ namespace BumpSetSpike.Gameflow
                     }
                 }
             }
+#endif
         }
 
+#if false
         public void ReadSaveGame()
         {
             // open isolated storage, and load data from the savefile if it exists.
@@ -134,5 +175,6 @@ namespace BumpSetSpike.Gameflow
                 }
             }
         }
+#endif
     }
 }
