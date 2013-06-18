@@ -6,8 +6,14 @@ using Microsoft.Xna.Framework;
 
 namespace BumpSetSpike.Gameflow
 {
+    /// <summary>
+    /// Singleton for helping manage the state of the game.
+    /// </summary>
     public class GameflowManager
     {
+        /// <summary>
+        /// The current state of the game.
+        /// </summary>
         public enum State
         {
             Undefined = -1,
@@ -16,15 +22,27 @@ namespace BumpSetSpike.Gameflow
             Lose,
         }
 
+        /// <summary>
+        /// Singleton.
+        /// </summary>
         private static GameflowManager mInstance;
 
+        /// <summary>
+        /// The current state of the game.
+        /// </summary>
         private State mCurrentState;
 
+        /// <summary>
+        /// Constructor.
+        /// </summary>
         public GameflowManager()
         {
             mCurrentState = State.MainMenu;
         }
 
+        /// <summary>
+        /// Access to the singleton.
+        /// </summary>
         public static GameflowManager pInstance
         {
             get
@@ -38,6 +56,9 @@ namespace BumpSetSpike.Gameflow
             }
         }
 
+        /// <summary>
+        /// Access to the current state of the game.
+        /// </summary>
         public State pState
         {
             get

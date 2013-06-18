@@ -12,22 +12,44 @@ using System.Collections.Generic;
 
 namespace BumpSetSpike.Behaviour
 {
+    /// <summary>
+    /// Used for showing the points the player earns, in the world and at the position they were earned.
+    /// For example, a spike point might be shown at the point of impact with the hand and ball.
+    /// </summary>
     class PointDisplay : MBHEngine.Behaviour.Behaviour
     {
+        /// <summary>
+        /// Sets which point value to display.
+        /// </summary>
         public class SetScoreMessage : BehaviourMessage
         {
+            /// <summary>
+            /// Point value to display.
+            /// </summary>
             public Int32 mScore_In;
 
+            /// <summary>
+            /// See parent.
+            /// </summary>
             public override void Reset()
             {
                 mScore_In = 0;
             }
         }
 
+        /// <summary>
+        /// How long to show the points for before vanishing.
+        /// </summary>
         private StopWatch mDisplayWatch;
 
+        /// <summary>
+        /// For each digit displayed, we have a different number sprite.
+        /// </summary>
         private List<GameObject> mScoreNums;
 
+        /// <summary>
+        /// Preallocated to avoid GC.
+        /// </summary>
         private SpriteRender.SetActiveAnimationMessage mSetActiveAnimationMsg;
 
         /// <summary>
@@ -73,31 +95,49 @@ namespace BumpSetSpike.Behaviour
             }
         }
 
+        /// <summary>
+        /// See parent.
+        /// </summary>
+        /// <param name="gameTime"></param>
         public override void Update(GameTime gameTime)
         {
+            // Float up a little bit every frame.
             mParentGOH.pPosY -= 0.1f;
 
+            // Once enough time has passed, this guy can vanish.
             if (mDisplayWatch.IsExpired())
             {
                 GameObjectManager.pInstance.Remove(mParentGOH);
                 return;
             }
 
+            // If we are still alive, update all the sprites positions based on our
+            // position. Remeber that this object is just a container. 
             UpdateNumberPositions();
         }
 
+        /// <summary>
+        /// See parent.
+        /// </summary>
         public override void Reset()
         {
             CleanUpScore();
         }
 
+        /// <summary>
+        /// See parent.
+        /// </summary>
         public override void OnAdd()
         {
             mDisplayWatch = StopWatchManager.pInstance.GetNewStopWatch();
 
+            // These numbers vanish in 1 second.
             mDisplayWatch.pLifeTime = 30.0f;
         }
 
+        /// <summary>
+        /// See parent.
+        /// </summary>
         public override void OnRemove()
         {
             CleanUpScore();
@@ -109,6 +149,10 @@ namespace BumpSetSpike.Behaviour
             }
         }
 
+        /// <summary>
+        /// The numbers are like children of this object, so this function needs to
+        /// update all the positions to move with us.
+        /// </summary>
         private void UpdateNumberPositions()
         {
             Int32 count = mScoreNums.Count;
@@ -123,6 +167,9 @@ namespace BumpSetSpike.Behaviour
             }
         }
 
+        /// <summary>
+        /// Free up all the objects we added to the GameObjectManager.
+        /// </summary>
         private void CleanUpScore()
         {
             for (Int32 i = mScoreNums.Count - 1; i >= 0; i--)
@@ -133,6 +180,10 @@ namespace BumpSetSpike.Behaviour
             mScoreNums.Clear();
         }
 
+        /// <summary>
+        /// Update the current score.
+        /// </summary>
+        /// <param name="score"></param>
         private void SetScore(Int32 score)
         {
             AddEachDigit(score, 0);
@@ -140,6 +191,11 @@ namespace BumpSetSpike.Behaviour
             UpdateNumberPositions();
         }
 
+        /// <summary>
+        /// Recursive function to set all the digits in the score.
+        /// </summary>
+        /// <param name="score"></param>
+        /// <param name="count"></param>
         private void AddEachDigit(Int32 score, Int32 count)
         {
             if(score >= 10)

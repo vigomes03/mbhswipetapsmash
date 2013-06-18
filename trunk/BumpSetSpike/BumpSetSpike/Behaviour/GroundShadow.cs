@@ -12,18 +12,33 @@ using System.Collections.Generic;
 
 namespace BumpSetSpike.Behaviour
 {
+    /// <summary>
+    /// A shadow object that just follows an object but locked to the ground.
+    /// </summary>
     class GroundShadow : MBHEngine.Behaviour.Behaviour
     {
+        /// <summary>
+        /// Tells this behaviour who to follow.
+        /// </summary>
         public class SetTargetMessage : MBHEngine.Behaviour.BehaviourMessage
         {
+            /// <summary>
+            /// The object to follow.
+            /// </summary>
             public GameObject mTarget_In;
 
+            /// <summary>
+            /// See parent.
+            /// </summary>
             public override void Reset()
             {
                 mTarget_In = null;
             }
         };
 
+        /// <summary>
+        /// The object to follow.
+        /// </summary>
         private GameObject mTarget;
 
         /// <summary>
@@ -46,10 +61,15 @@ namespace BumpSetSpike.Behaviour
             base.LoadContent(fileName);
         }
 
+        /// <summary>
+        /// See parent.
+        /// </summary>
+        /// <param name="gameTime"></param>
         public override void PostUpdate(GameTime gameTime)
         {
             if (null != mTarget)
             {
+                // Follow the target but only in the X.
                 mParentGOH.pPosX = mTarget.pPosition.X;
             }
         }

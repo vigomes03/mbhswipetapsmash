@@ -13,30 +13,56 @@ using BumpSetSpike.Gameflow;
 
 namespace BumpSetSpike.Behaviour
 {
+    /// <summary>
+    /// Displays the number of Hits (both current and the record).
+    /// </summary>
     class HitCountDisplay : MBHEngine.Behaviour.Behaviour
     {
+        /// <summary>
+        /// Increments the current hit count by 1.
+        /// </summary>
         public class IncrementHitCountMessage : BehaviourMessage
         {
-            public override void Reset()
-            {
-                
-            }
+            /// <summary>
+            /// See parent.
+            /// </summary>
+            public override void Reset() { }
         }
 
+        /// <summary>
+        /// Resets the hit count to 0.
+        /// </summary>
         public class ClearHitCountMessage : BehaviourMessage
         {
-            public override void Reset()
-            {
-                
-            }
+            /// <summary>
+            /// See parent.
+            /// </summary>
+            public override void Reset() { }
         }
 
+        /// <summary>
+        /// A list of Objects, one for each number sprite in the hit count.
+        /// </summary>
         private List<GameObject> mHitCounterNums;
 
+        /// <summary>
+        /// The number to display.
+        /// </summary>
         private Int32 mHitCount;
 
+        /// <summary>
+        /// This behaviour is used for both the current hit count and the record, but with slightly
+        /// different functionality. This Boolean tells us which logic to use.
+        /// </summary>
         private Boolean mDisplayRecord;
 
+        private Int32 mNumCharDisplay;
+
+        private Int32 mMaxScore;
+
+        /// <summary>
+        /// Preallocated to avoid GC.
+        /// </summary>
         private SpriteRender.SetActiveAnimationMessage mSetActiveAnimationMsg;
 
         /// <summary>
@@ -60,11 +86,14 @@ namespace BumpSetSpike.Behaviour
 
             base.LoadContent(fileName);
 
-            mDisplayRecord = def.mDisplayRecord;
+            mNumCharDisplay = 3;
 
-            mHitCounterNums = new List<GameObject>(3);
+            mDisplayRecord = def.mDisplayRecord;
+            mHitCounterNums = new List<GameObject>(mNumCharDisplay);
 
             mHitCount = 0;
+
+            mMaxScore = (Int32)(System.Math.Pow(10.0, (Double)mNumCharDisplay)) - 1;
 
             mSetActiveAnimationMsg = new SpriteRender.SetActiveAnimationMessage();
         }
@@ -91,12 +120,19 @@ namespace BumpSetSpike.Behaviour
             }
         }
 
+        /// <summary>
+        /// See parent.
+        /// </summary>
+        /// <param name="gameTime"></param>
         public override void Update(GameTime gameTime)
         {
+            // The high score constantly checks to see if the current score is the new
+            // top score, and updates the display when needed.
             if (mDisplayRecord)
             {
                 Int32 curBest = LeaderBoardManager.pInstance.pTopHits;
 
+                // Has the current game beaten the top score?
                 if (curBest > mHitCount)
                 {
                     SetScore(curBest);
@@ -104,9 +140,13 @@ namespace BumpSetSpike.Behaviour
             }
         }
 
+        /// <summary>
+        /// See parent.
+        /// </summary>
         public override void OnAdd()
         {
-            for (Int32 i = 0; i < 3; i++)
+            // For each character in the score, we create an induvidual sprite.
+            for (Int32 i = 0; i < mNumCharDisplay; i++)
             {
                 GameObject g = GameObjectFactory.pInstance.GetTemplate("GameObjects\\UI\\NumFontUI\\NumFontUI");
                 g.pPosition = mParentGOH.pPosition;
@@ -117,12 +157,17 @@ namespace BumpSetSpike.Behaviour
                 mHitCounterNums.Add(g);
             }
 
+            // In the case of the Record, we need to set the score now, since it won't be 
+            // set on the fly.
             if (mDisplayRecord)
             {
                 SetScore(LeaderBoardManager.pInstance.pTopHits);
             }
         }
 
+        /// <summary>
+        /// Cleans up all the GameObjects created to display the score.
+        /// </summary>
         private void CleanUpScore()
         {
             for (Int32 i = mHitCounterNums.Count - 1; i >= 0; i--)
@@ -133,16 +178,24 @@ namespace BumpSetSpike.Behaviour
             mHitCounterNums.Clear();
         }
 
+        /// <summary>
+        /// Updates the score and display.
+        /// </summary>
+        /// <param name="score"></param>
         private void SetScore(Int32 score)
         {
-            if (score > 999)
+            // Cap the score based on the number of characters we can display.
+            if (score > mMaxScore)
             {
-                score = 999;
+                score = mMaxScore;
             }
 
             mHitCount = score;
 
-            for (Int32 i = 0; i < 3; i++)
+            // Start by setting every character to 0 so that if the score went down we won't
+            // be left with numbers on the left side since it will only set numbers that are
+            // significant.
+            for (Int32 i = 0; i < mHitCounterNums.Count; i++)
             {
                 mSetActiveAnimationMsg.mAnimationSetName_In = "0";
                 GameObject go = mHitCounterNums[i];
@@ -152,13 +205,20 @@ namespace BumpSetSpike.Behaviour
             AddEachDigit(score, 0);
         }
 
+        /// <summary>
+        /// Recursive function for setting up each character of the score.
+        /// </summary>
+        /// <param name="score"></param>
+        /// <param name="count"></param>
         private void AddEachDigit(Int32 score, Int32 count)
         {
+            // Jump through each character of the score.
             if(score >= 10)
             {
                AddEachDigit(score / 10, count + 1);
             }
 
+            // What is the digit at this power of 10.
             Int32 digit = score % 10;
 
             switch (digit)
@@ -215,7 +275,8 @@ namespace BumpSetSpike.Behaviour
                 }
             }
 
-            GameObject go = mHitCounterNums[2 - count];
+            // Grab the corrisponding GameObject for this digit.
+            GameObject go = mHitCounterNums[(mHitCounterNums.Count - 1) - count];
             go.OnMessage(mSetActiveAnimationMsg, mParentGOH);
         }
     }

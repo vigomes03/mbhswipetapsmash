@@ -20,7 +20,7 @@
     <SilverlightManifestTemplate>Properties\AppManifest.xml</SilverlightManifestTemplate>
     <XnaWindowsPhoneManifestTemplate>Properties\WMAppManifest.xml</XnaWindowsPhoneManifestTemplate>
     <TileImage>IconSmall.png</TileImage>
-    <TileTitle>BumpSetSpike</TileTitle>
+    <TileTitle>Swipe Tap Smash</TileTitle>
     <SupportedCultures>
     </SupportedCultures>
     <ApplicationIcon>Game.ico</ApplicationIcon>

@@ -15,14 +15,6 @@ namespace BumpSetSpike.Behaviour
 {
     class Partner : MBHEngine.Behaviour.Behaviour
     {
-        private enum State
-        {
-            Idle = 0,
-            Bump,
-        }
-
-        private State mCurrentState;
-
         private StopWatch mStateTimer;
 
         private List<MBHEngineContentDefs.GameObjectDefinition.Classifications> mBallClassifications;
@@ -57,11 +49,9 @@ namespace BumpSetSpike.Behaviour
             base.LoadContent(fileName);
 
             //DamageFlashDefinition def = GameObjectManager.pInstance.pContentManager.Load<DamageFlashDefinition>(fileName);
-
-            mCurrentState = State.Idle;
-
+            
             mBallClassifications = new List<MBHEngineContentDefs.GameObjectDefinition.Classifications>(1);
-            mBallClassifications.Add(MBHEngineContentDefs.GameObjectDefinition.Classifications.SAFE_HOUSE);
+            mBallClassifications.Add(MBHEngineContentDefs.GameObjectDefinition.Classifications.VOLLEY_BALL);
 
             mCollisionResults = new List<GameObject>(16);
 
@@ -122,7 +112,7 @@ namespace BumpSetSpike.Behaviour
             mGetCurrentStateMsg.Reset();
             GameObjectManager.pInstance.pPlayer.OnMessage(mGetCurrentStateMsg, mParentGOH);
 
-            if (mCollisionResults.Count > 0 && mHitCount < mMaxHitCount && mGetCurrentStateMsg.mState_In != Player.State.Receiving)
+            if (mCollisionResults.Count > 0 && mHitCount < mMaxHitCount && mGetCurrentStateMsg.mState_Out != Player.State.Receiving)
             {
                 mSetActiveAnimationMsg.Reset();
                 mSetActiveAnimationMsg.mAnimationSetName_In = "Bump";
@@ -150,16 +140,14 @@ namespace BumpSetSpike.Behaviour
             mCollisionResults.Clear();
             GameObjectManager.pInstance.GetGameObjectsInRange(mParentGOH, ref mCollisionResults, mBallClassifications);
 
-            if (mCollisionResults.Count > 0 && mHitCount < mMaxHitCount && mGetCurrentStateMsg.mState_In != Player.State.Receiving)
+            if (mCollisionResults.Count > 0 && mHitCount < mMaxHitCount && mGetCurrentStateMsg.mState_Out != Player.State.Receiving)
             {
-                if (mGetCurrentStateMsg.mState_In != Player.State.Receiving)
+                if (mGetCurrentStateMsg.mState_Out != Player.State.Receiving)
                 {
                     mHitCount++;
 
                     mCollisionResults[0].pDirection.mForward.X = 0.0f;
                     mCollisionResults[0].pDirection.mForward.Y = -5.0f;
-
-                    mCurrentState = State.Bump;
                 }
             }
 
