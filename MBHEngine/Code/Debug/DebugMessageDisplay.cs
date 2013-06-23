@@ -92,10 +92,8 @@ namespace MBHEngine.Debug
         /// </summary>
         private DebugMessage mDefaultHeader;
 
-        /// <summary>
-        /// Constructor.
-        /// </summary>
-        private DebugMessageDisplay()
+        [Conditional("ALLOW_GARBAGE")]
+        public void Initialize()
         {
             // Create the font
             mFont = GameObjectManager.pInstance.pContentManager.Load<SpriteFont>("Fonts\\DebugDisplay");
@@ -127,6 +125,7 @@ namespace MBHEngine.Debug
         /// Renders the dynamic messages.
         /// </summary>
         /// <param name="spriteBatch">Sprite batch used for rendering.</param>
+        [Conditional("ALLOW_GARBAGE")]
         private void RenderDynamicMsgs(SpriteBatch spriteBatch)
         {
             Int32 spacing = mFont.LineSpacing;
@@ -152,6 +151,7 @@ namespace MBHEngine.Debug
         /// Renders the constant messages.
         /// </summary>
         /// <param name="spriteBatch">Sprite batch used for rendering.</param>
+        [Conditional("ALLOW_GARBAGE")]
         private void RenderConstMsgs(SpriteBatch spriteBatch)
         {
             // Determine the starting alpha value
@@ -205,6 +205,7 @@ namespace MBHEngine.Debug
         /// This is so that if there renderer is not called at the same frequency as the 
         /// update, we won't get duplicate messages.
         /// </summary>
+        [Conditional("ALLOW_GARBAGE")]
         public void ClearDynamicMessages()
         {
             // When we finish rendering we want to clear the dynamic messages

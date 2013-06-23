@@ -270,7 +270,7 @@ namespace MBHEngine.GameObject
             {
                 if (mBehaviours[i].pIsEnabled &&
                     (0 == mBehaviours[i].pUpdatePasses.Count ||
-                    mBehaviours[i].pUpdatePasses.Contains(curPass)))
+                    mBehaviours[i].pUpdatePasses.Contains((Int32)curPass)))
                 {
                     mBehaviours[i].PreUpdate(gameTime);
                 }
@@ -289,7 +289,7 @@ namespace MBHEngine.GameObject
             {
                 if (mBehaviours[i].pIsEnabled &&
                     (0 == mBehaviours[i].pUpdatePasses.Count ||
-                    mBehaviours[i].pUpdatePasses.Contains(curPass)))
+                    mBehaviours[i].pUpdatePasses.Contains((Int32)curPass)))
                 {
                     mBehaviours[i].Update(gameTime);
                 }
@@ -309,7 +309,7 @@ namespace MBHEngine.GameObject
             {
                 if (mBehaviours[i].pIsEnabled &&
                     (0 == mBehaviours[i].pUpdatePasses.Count ||
-                    mBehaviours[i].pUpdatePasses.Contains(curPass)))
+                    mBehaviours[i].pUpdatePasses.Contains((Int32)curPass)))
                 {
                     mBehaviours[i].PostUpdate(gameTime);
                 }
@@ -335,7 +335,7 @@ namespace MBHEngine.GameObject
             {
                 if (mBehaviours[i].pIsEnabled &&
                     (null == mBehaviours[i].pRenderPassExclusions ||
-                    !(mBehaviours[i].pRenderPassExclusions.Contains(curPass))))
+                    !(mBehaviours[i].pRenderPassExclusions.Contains((Int32)curPass))))
                 {
                     mBehaviours[i].Render(batch, effect);
                 }

@@ -22,13 +22,15 @@ namespace MBHEngine.Behaviour
 
         /// <summary>
         /// If populated, the object will only be updated during these passes.
+        /// BehaviourDefinition.Passes but using Int32 to avoid boxing.
         /// </summary>
-        protected List<BehaviourDefinition.Passes> mUpdatePasses;
+        protected List<Int32> mUpdatePasses;
 
         /// <summary>
         /// Do not render when the current GameObject pass is in this list.
+        /// BehaviourDefinition.Passes but using Int32 to avoid boxing.
         /// </summary>
-        protected List<BehaviourDefinition.Passes> mRenderPassExclusions;
+        protected List<Int32> mRenderPassExclusions;
 
         /// <summary>
         /// If false, this behaviour will enter a state where it no longer receives 
@@ -66,17 +68,31 @@ namespace MBHEngine.Behaviour
                 // No data stored here right now, so leaving it commented out for the time being.
                 BehaviourDefinition def = GameObjectManager.pInstance.pContentManager.Load<BehaviourDefinition>(fileName);
 
-                mUpdatePasses = def.mUpdatePasses;
+                if (def.mUpdatePasses != null)
+                {
+                    mUpdatePasses = new List<Int32>(def.mUpdatePasses.Count);
+                    for (Int32 i = 0; i < def.mUpdatePasses.Count; i++)
+                    {
+                        mUpdatePasses.Add((Int32)def.mUpdatePasses[i]);
+                    }
+                }
 
-                mRenderPassExclusions = def.mRenderPassExclusions;
+                if (def.mRenderPassExclusions != null)
+                {
+                    mRenderPassExclusions = new List<Int32>(def.mRenderPassExclusions.Count);
+                    for (Int32 i = 0; i < def.mRenderPassExclusions.Count; i++)
+                    {
+                        mRenderPassExclusions.Add((Int32)def.mRenderPassExclusions[i]);
+                    }
+                }
 
                 mIsEnabled = def.mIsEnabled;
             }
 
             if (null == mUpdatePasses)
             {
-                mUpdatePasses = new List<BehaviourDefinition.Passes>(1);
-                mUpdatePasses.Add(BehaviourDefinition.Passes.DEFAULT);
+                mUpdatePasses = new List<Int32>(1);
+                mUpdatePasses.Add((Int32)BehaviourDefinition.Passes.DEFAULT);
             }
         }
 
@@ -179,7 +195,7 @@ namespace MBHEngine.Behaviour
         /// <summary>
         /// A list of all the passes that can be active for this object to recieve updates.
         /// </summary>
-        public virtual List<BehaviourDefinition.Passes> pUpdatePasses
+        public virtual List<Int32> pUpdatePasses
         {
             get
             {
@@ -191,7 +207,7 @@ namespace MBHEngine.Behaviour
         /// A list of all the passes that if currently active should signal this Behaviour to NOT be rendered.
         /// The Behaviour does not want to be rendered during these Passes. If null just always render.
         /// </summary>
-        public virtual List<BehaviourDefinition.Passes> pRenderPassExclusions
+        public virtual List<Int32> pRenderPassExclusions
         {
             get
             {

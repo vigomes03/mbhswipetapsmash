@@ -16,6 +16,7 @@
     <XnaProfile>Reach</XnaProfile>
     <XnaCrossPlatformGroupID>157e68c6-6805-47ce-ba16-2cade1d63d02</XnaCrossPlatformGroupID>
     <XnaOutputType>Library</XnaOutputType>
+    <XnaRefreshLevel>1</XnaRefreshLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|Windows Phone' ">
     <DebugSymbols>true</DebugSymbols>

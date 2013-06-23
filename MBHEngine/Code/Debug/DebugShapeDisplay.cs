@@ -25,29 +25,43 @@ namespace MBHEngine.Debug
         /// <summary>
         /// Preallocated verticies for rendering solid lines.
         /// </summary>
-        private VertexPositionColor[] mVertsLines = new VertexPositionColor[1000000];
+        private VertexPositionColor[] mVertsLines;
 
         /// <summary>
         /// Preallocated verticies used for rendering the semi-transparent fill on some shapes.
         /// </summary>
-        private VertexPositionColor[] mVertsFill = new VertexPositionColor[1000000];
+        private VertexPositionColor[] mVertsFill;
 
         /// <summary>
         /// Keep track of the currently used verticies.
         /// </summary>
-        private int mLineCount = 0;
-        private int mFillCount = 0;
+        private int mLineCount;
+        private int mFillCount;
 
         /// <summary>
         /// A simple effect needed to render our polys.
         /// </summary>
         private BasicEffect mSimpleColorEffect;
-
+		
         /// <summary>
-        /// Constructor.  Called automatically when the pInstance is accessed the first time.
+        /// Constructor.  Defined private to avoid creation outside of the singleton.
         /// </summary>
         private DebugShapeDisplay()
         {
+        }
+
+        /// <summary>
+        /// Call before using the singleton.
+        /// </summary>
+        [Conditional("ALLOW_GARBAGE")]
+        public void Initialize()
+        {
+            mLineCount = 0;
+            mFillCount = 0;
+
+            mVertsLines = new VertexPositionColor[1000000];
+            mVertsFill = new VertexPositionColor[1000000];
+
             mSimpleColorEffect = new BasicEffect(GameObjectManager.pInstance.pGraphicsDevice);
             mSimpleColorEffect.VertexColorEnabled = true;
         }
@@ -310,6 +324,7 @@ namespace MBHEngine.Debug
         /// Call this once per frame.
         /// </summary>
         /// <remarks>This needs to be called before anything is added this frame.</remarks>
+        [Conditional("ALLOW_GARBAGE")]
         public void Update()
         {
             // Reset the used verticies for the next frame.

@@ -15,7 +15,7 @@ namespace MBHEngine.GameObject
     /// By calling update and Render on this class, all the GameObjects it contains
     /// will be updated and rendered.
     /// </summary>
-    public class GameObjectManager
+    public class GameObjectManager : IComparer<GameObject>
     {
         /// <summary>
         /// Tracks what is going on in Update() so that different callback functions can
@@ -59,7 +59,7 @@ namespace MBHEngine.GameObject
         /// A list of all game object which were defined to have a Classifications. This allows
         /// for much quicker look up of all GameObjects of a particular type.
         /// </summary>
-        private Dictionary<GameObjectDefinition.Classifications, List<GameObject>> mGameObjectsByClassification;
+        private Dictionary<Int32, List<GameObject>> mGameObjectsByClassification;
 
         /// <summary>
         /// A list of all the GameObjects that need to be added at the next possible
@@ -161,19 +161,7 @@ namespace MBHEngine.GameObject
         /// </summary>
         private GameObjectManager()
         {
-            mGameObjects                    = new List<GameObject>();
-            mDynamicGameObjects             = new List<GameObject>();
-            mGameObjectsByClassification    = new Dictionary<GameObjectDefinition.Classifications,List<GameObject>>();
-            Int32 numEnum = (Int32)GameObjectDefinition.Classifications.COUNT;
-            for (Int32 i = 0; i < numEnum; i++)
-            {
-                mGameObjectsByClassification[(GameObjectDefinition.Classifications)i] = new List<GameObject>();
-            }
-            // Note: mStaticGameObject is allocated in OnMapInfoChange.
-            mGameObjectsToAdd               = new List<GameObject>();
-            mGameObjectsToRemove            = new List<GameObject>();
-            mGameObjectsToAddNextFrame      = new List<GameObject>();
-            mGameObjectsToRemoveNextFrame   = new List<GameObject>();
+
         }
 
         /// <summary>
@@ -183,6 +171,20 @@ namespace MBHEngine.GameObject
         /// <param name="graphics">Used for rendering.</param>
         public void Initialize(ContentManager content, GraphicsDeviceManager graphics)
         {
+            mGameObjects = new List<GameObject>();
+            mDynamicGameObjects = new List<GameObject>();
+            mGameObjectsByClassification = new Dictionary<Int32, List<GameObject>>();
+            Int32 numEnum = (Int32)GameObjectDefinition.Classifications.COUNT;
+            for (Int32 i = 0; i < numEnum; i++)
+            {
+                mGameObjectsByClassification[i] = new List<GameObject>();
+            }
+            // Note: mStaticGameObject is allocated in OnMapInfoChange.
+            mGameObjectsToAdd = new List<GameObject>();
+            mGameObjectsToRemove = new List<GameObject>();
+            mGameObjectsToAddNextFrame = new List<GameObject>();
+            mGameObjectsToRemoveNextFrame = new List<GameObject>();
+
             mContent = content;
             mGraphics = graphics;
 
@@ -213,6 +215,24 @@ namespace MBHEngine.GameObject
         }
 
         /// <summary>
+        /// Implementation of the IComparer interface. 
+        /// </summary>
+        /// <remarks>
+        /// We implemented this interface (rather than using delegates) because using a delegate
+        /// (eg. passinging the sort fuction itself to List.Sort) causes memory allocations which
+        /// will eventually trigger the GC.
+        /// </remarks>
+        /// <param name="x">Left side.</param>
+        /// <param name="y">Right side.</param>
+        /// <returns>0 The objects have equal render priority.</returns>
+        /// <returns>-1 x has a higher render priority than y.</returns>
+        /// <returns>1 y has a higher render priority than x.</returns>
+        public int Compare(GameObject x, GameObject y)
+        {
+            return CompareByRenderPriority(x, y);
+        }
+
+        /// <summary>
         /// Used to sort the game objects based on render priority.  We want the higher
         /// priority (which is a smaller number) to appear later on the list.
         /// This implementation also sorts top to bottom in screen space.  This is for 
@@ -223,7 +243,7 @@ namespace MBHEngine.GameObject
         /// <returns>0 The objects have equal render priority.</returns>
         /// <returns>-1 x has a higher render priority than y.</returns>
         /// <returns>1 y has a higher render priority than x.</returns>
-        private static int CompareByRenderPriority(GameObject x, GameObject y)
+        private int CompareByRenderPriority(GameObject x, GameObject y)
         {
             // Is x allocated?
             if (x == null)
@@ -376,7 +396,7 @@ namespace MBHEngine.GameObject
 
                 for (Int32 tag = 0; tag < mGameObjectsToRemove[i].pClassifications.Count; tag++)
                 {
-                    mGameObjectsByClassification[(GameObjectDefinition.Classifications)tag].Remove(mGameObjectsToRemove[i]);
+                    mGameObjectsByClassification[tag].Remove(mGameObjectsToRemove[i]);
                 }
 
                 // What happens if someone adds and removes an element within the same
@@ -429,7 +449,7 @@ namespace MBHEngine.GameObject
                 {
                     GameObjectDefinition.Classifications tag = mGameObjectsToAdd[i].pClassifications[tagIndex];
 
-                    mGameObjectsByClassification[tag].Add(mGameObjectsToAdd[i]);
+                    mGameObjectsByClassification[(Int32)tag].Add(mGameObjectsToAdd[i]);
                 }
 
                 // If this game object is already in the list, don't add it again.
@@ -530,7 +550,7 @@ namespace MBHEngine.GameObject
         /// <param name="showDebugInfo">True if debug information should be shown this frame.</param>
         public void Render(SpriteBatch batch, Boolean showDebugInfo)
         {
-            mGameObjects.Sort(CompareByRenderPriority);
+            mGameObjects.Sort(this);
 
             // Keep track of the blend modes so that we can detect when it needs to change.
             GameObjectDefinition.BlendMode currentBlend = GameObjectDefinition.BlendMode.UNDEFINED;
@@ -757,14 +777,18 @@ namespace MBHEngine.GameObject
             {
                 for (Int32 j = 0; j < classifications.Count; j++)
                 {
-                    if (candidates[i].pClassifications.Contains(classifications[j]))
+                    for (Int32 k = 0; k < candidates[i].pClassifications.Count; k++)
                     {
-                        if (Vector2.DistanceSquared(centerPoint, candidates[i].pPosition) < radSqr)
+                        // Does this game object have one of the classifications we are interested in?
+                        if (candidates[i].pClassifications[k] == classifications[j])
                         {
-                            refObjects.Add(candidates[i]);
+                            if (Vector2.DistanceSquared(centerPoint, candidates[i].pPosition) < radSqr)
+                            {
+                                refObjects.Add(candidates[i]);
 
-                            // This object has already been added, so move on to the next object.
-                            break;
+                                // This object has already been added, so move on to the next object.
+                                break;
+                            }
                         }
                     }
                 }
@@ -872,17 +896,20 @@ namespace MBHEngine.GameObject
                 // For each object, check each of its classifications (if it has any).
                 for (Int32 j = 0; j < classifications.Count; j++)
                 {
-                    // Does this game object have one of the classifications we are interested in?
-                    if (candidates[i].pClassifications.Contains(classifications[j]))
+                    for (Int32 k = 0; k < candidates[i].pClassifications.Count; k++)
                     {
-                        // Does this game object overlap the source object?
-                        if (source.pCollisionRect.Intersects(candidates[i].pCollisionRect))
+                        // Does this game object have one of the classifications we are interested in?
+                        if (candidates[i].pClassifications[k] == classifications[j])
                         {
-                            // Add it to the preallocated list which was passed in.
-                            refObjects.Add(candidates[i]);
+                            // Does this game object overlap the source object?
+                            if (source.pCollisionRect.Intersects(candidates[i].pCollisionRect))
+                            {
+                                // Add it to the preallocated list which was passed in.
+                                refObjects.Add(candidates[i]);
 
-                            // This object has already been added, so move on to the next object.
-                            break;
+                                // This object has already been added, so move on to the next object.
+                                break;
+                            }
                         }
                     }
                 }
@@ -896,7 +923,7 @@ namespace MBHEngine.GameObject
         /// <returns>A list of all GameObject which have the specified Classifications.</returns>
         public List<GameObject> GetGameObjectsOfClassification(GameObjectDefinition.Classifications classification)
         {
-            return mGameObjectsByClassification[classification];
+            return mGameObjectsByClassification[(Int32)classification];
         }
 
         /// <summary>

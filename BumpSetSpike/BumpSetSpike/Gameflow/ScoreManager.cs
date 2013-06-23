@@ -49,7 +49,7 @@ namespace BumpSetSpike.Gameflow
         /// <summary>
         /// Maps a type of move to a point value.
         /// </summary>
-        private Dictionary<ScoreType, Int32> mScoreMapping;
+        private Dictionary<Int32, Int32> mScoreMapping;
 
         /// <summary>
         /// Preallocated to avoid GC.
@@ -63,23 +63,30 @@ namespace BumpSetSpike.Gameflow
         {
             mSetScoreMsg = new PointDisplay.SetScoreMessage();
 
-            mScoreMapping = new Dictionary<ScoreType,int>
+            mScoreMapping = new Dictionary<Int32, Int32>
             {
-                { ScoreType.Spike,      10 },
-                { ScoreType.Jump,       5 },
-                { ScoreType.Net,        20 },
-                { ScoreType.Kabooom,    20 },
+                { (Int32)ScoreType.Spike,      10 },
+                { (Int32)ScoreType.Jump,       5 },
+                { (Int32)ScoreType.Net,        20 },
+                { (Int32)ScoreType.Kabooom,    20 },
 
-                { ScoreType.FingerTips, 25 },
-                { ScoreType.HighPoint,  25 },
-                { ScoreType.LowPoint,   40 },
-                { ScoreType.HangTime,   100 },
-                { ScoreType.FadeAway,   50 },
-                { ScoreType.Upwards,    75 },
-                { ScoreType.Speedy,     75 },
+                { (Int32)ScoreType.FingerTips, 25 },
+                { (Int32)ScoreType.HighPoint,  25 },
+                { (Int32)ScoreType.LowPoint,   40 },
+                { (Int32)ScoreType.HangTime,   100 },
+                { (Int32)ScoreType.FadeAway,   50 },
+                { (Int32)ScoreType.Upwards,    75 },
+                { (Int32)ScoreType.Speedy,     75 },
             };
 
             System.Diagnostics.Debug.Assert(mScoreMapping.Count == (Int32)ScoreType.Count);
+        }
+
+        /// <summary>
+        /// Call this before using the class for the first time.
+        /// </summary>
+        public void Initialize()
+        {
         }
 
         /// <summary>
@@ -105,15 +112,17 @@ namespace BumpSetSpike.Gameflow
         /// <param name="positionInWorld">Where the points should appear in world space.</param>
         private void AddScore(Int32 score, Vector2 positionInWorld)
         {
+            // TODO: Bring this back once we have a proper score attack mode.
+            /*
             GameObject points = GameObjectFactory.pInstance.GetTemplate("GameObjects\\UI\\PointDisplay\\PointDisplay");
             points.pPosition = positionInWorld;
 
             mSetScoreMsg.Reset();
             mSetScoreMsg.mScore_In = score;
             points.OnMessage(mSetScoreMsg);
-
-            // TODO: Bring this back once we have a proper score attack mode.
-            //GameObjectManager.pInstance.Add(points);
+             
+            GameObjectManager.pInstance.Add(points);
+            */
 
             mTotalScore = score;
         }
@@ -125,7 +134,7 @@ namespace BumpSetSpike.Gameflow
         /// <param name="positionInWorld">Where the points should appear in world space.</param>
         public void AddScore(ScoreType type, Vector2 positionInWorld)
         {
-            AddScore(mScoreMapping[type], positionInWorld);
+            AddScore(mScoreMapping[(Int32)type], positionInWorld);
         }
 
         /// <summary>
