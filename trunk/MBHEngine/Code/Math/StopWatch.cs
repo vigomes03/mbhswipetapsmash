@@ -29,15 +29,16 @@ namespace MBHEngine.Math
 
         /// <summary>
         /// If populated, the object will only be updated during these passes.
+        /// Contains BehaviourDefinition.Passes but using Int32 to avoid boxing.
         /// </summary>
-        protected List<BehaviourDefinition.Passes> mUpdatePasses;
+        protected List<Int32> mUpdatePasses;
 
         /// <summary>
         /// Constructor.
         /// </summary>
         public StopWatch()
         {
-            mUpdatePasses = new List<BehaviourDefinition.Passes>(4);
+            mUpdatePasses = new List<Int32>(4);
 
             ResetValues();
         }
@@ -48,7 +49,7 @@ namespace MBHEngine.Math
         /// <param name="lifeTime">The number of frames the StopWatch counts down from.</param>
         public StopWatch(Single lifeTime)
         {
-            mUpdatePasses = new List<BehaviourDefinition.Passes>(4);
+            mUpdatePasses = new List<Int32>(4);
 
             ResetValues();
 
@@ -82,7 +83,7 @@ namespace MBHEngine.Math
             {
                 BehaviourDefinition.Passes curPass = GameObjectManager.pInstance.pCurUpdatePass;
 
-                if (0 == mUpdatePasses.Count || mUpdatePasses.Contains(curPass))
+                if (0 == mUpdatePasses.Count || mUpdatePasses.Contains((Int32)curPass))
                 {
                     mNumFramesPassed += numFrames;
                 }
@@ -121,7 +122,7 @@ namespace MBHEngine.Math
         /// <param name="pass">The pass on which this StopWatch should be updated.</param>
         public void SetUpdatePass(BehaviourDefinition.Passes pass)
         {
-            mUpdatePasses.Add(pass);
+            mUpdatePasses.Add((Int32)pass);
         }
 
         /// <summary>

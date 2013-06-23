@@ -42,7 +42,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\BumpSetSpikeContentDefs\BumpSetSpikeContentDefs.csproj">
+    <ProjectReference Include="..\..\BumpSetSpikeContentDefs\BumpSetSpikeContentDefs_WinPhone.csproj">
       <Project>{D139400F-ED92-4819-8290-47CB3FEC44B6}</Project>
       <Name>BumpSetSpikeContentDefs</Name>
     </ProjectReference>
@@ -67,13 +67,6 @@
       <Name>Partner</Name>
       <Importer>XmlImporter</Importer>
       <Processor>PassThroughProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Sprites\Ball.png">
-      <Name>Ball</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -254,13 +247,6 @@
       <Name>Blood</Name>
       <Importer>XmlImporter</Importer>
       <Processor>PassThroughProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Sprites\Blood.png">
-      <Name>Blood</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>

@@ -88,7 +88,7 @@ namespace MBHEngine.Behaviour
             // By default we have no target.
             mTarget = null;
 
-            mSetActiveAnimationMsg = new SpriteRender.SetActiveAnimationMessage(); ;
+            mSetActiveAnimationMsg = new SpriteRender.SetActiveAnimationMessage();
             mSetDestinationMsg = new PathFind.SetDestinationMessage();
             mSetSourceMsg = new PathFind.SetSourceMessage();
             mGetCurrentBestNodeMsg = new PathFind.GetCurrentBestNodeMessage();

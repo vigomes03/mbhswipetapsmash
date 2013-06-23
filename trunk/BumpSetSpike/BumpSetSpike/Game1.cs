@@ -53,6 +53,8 @@ namespace BumpSetSpike
             
             // WINDOWS_PHONE = 800x480
 
+            
+#if WINDOWS
 #if SMALL_WINDOW
             mGraphics.PreferredBackBufferWidth = 640;
             mGraphics.PreferredBackBufferHeight = 360;
@@ -60,6 +62,8 @@ namespace BumpSetSpike
             mGraphics.PreferredBackBufferWidth = 1280; // 1366; // 1280;
             mGraphics.PreferredBackBufferHeight = 720; // 768; // 720;
 #endif
+#endif
+
             //mGraphics.IsFullScreen = true;
             Content.RootDirectory = "Content";
 
@@ -74,7 +78,9 @@ namespace BumpSetSpike
 
             //mGraphics.GraphicsDevice.PresentationParameters.MultiSampleType = MultiSampleType.TwoSamples;
             //mGraphics.GraphicsDevice.RenderState.MultiSampleAntiAlias = true;
-            mGraphics.PreferMultiSampling = true;
+            
+			// THIS BREAKS ON WP8!
+			//mGraphics.PreferMultiSampling = true;
         }
 
         /// <summary>
@@ -94,6 +100,9 @@ namespace BumpSetSpike
             CameraManager.pInstance.Initialize(mGraphics.GraphicsDevice);
             CameraManager.pInstance.pNumBlendFrames = 30;
             StopWatchManager.pInstance.Initialize();
+            ScoreManager.pInstance.Initialize();
+            DebugShapeDisplay.pInstance.Initialize();
+            DebugMessageDisplay.pInstance.Initialize();
 
             CameraManager.pInstance.pTargetPosition = new Vector2(0, -100.0f); // -30
 
@@ -125,9 +134,6 @@ namespace BumpSetSpike
         /// </summary>
         protected override void LoadContent()
         {
-            // Create a new SpriteBatch, which can be used to draw textures.
-            mSpriteBatch = new SpriteBatch(GraphicsDevice);
-
             // Add any objects desired to the Game Object Factory.  These will be allocated now and can
             // be retrived later without any heap allocations.
             //
@@ -273,43 +279,6 @@ namespace BumpSetSpike
 
                 this.Exit();
             }
-
-            // we use raw touch points for selection, since they are more appropriate
-            // for that use than gestures. so we need to get that raw touch data.
-            TouchCollection touches = TouchPanel.GetState();
-
-            // see if we have a new primary point down. when the first touch
-            // goes down, we do hit detection to try and select one of our sprites.
-            if (touches.Count > 0 && touches[0].State == TouchLocationState.Pressed)
-            {
-                // convert the touch position into a Point for hit testing
-                Point touchPoint = new Point((int)touches[0].Position.X, (int)touches[0].Position.Y);
-
-                //CameraManager.pInstance.pTargetPosition = touches[0].Position;
-            }
-
-            /*
-            // next we handle all of the gestures. since we may have multiple gestures available,
-            // we use a loop to read in all of the gestures. this is important to make sure the 
-            // TouchPanel's queue doesn't get backed up with old data
-            while (TouchPanel.IsGestureAvailable)
-            {
-                // read the next gesture from the queue
-                GestureSample gesture = TouchPanel.ReadGesture();
-
-                // we can use the type of gesture to determine our behavior
-                switch (gesture.GestureType)
-                {
-
-                    // on drags, we just want to move the selected sprite with the drag
-                    case GestureType.FreeDrag:
-                    {
-                        CameraManager.pInstance.pTargetPosition -= gesture.Delta / CameraManager.pInstance.pZoomScale;
-                    }
-                    break;
-                }
-            }
-            */
 #if DEBUG
             KeyboardState keyboardState = Keyboard.GetState();
 
