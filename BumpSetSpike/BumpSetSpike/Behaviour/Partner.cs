@@ -152,14 +152,7 @@ namespace BumpSetSpike.Behaviour
                 }
             }
 
-            /*
-            mParentGOH.pPosY = Math.Min(0.0f, mParentGOH.pPosY);
-            mParentGOH.pPosY = Math.Max(-30.0f, mParentGOH.pPosY);
-            mParentGOH.pPosX = Math.Max(-45.0f, mParentGOH.pPosX);
-            mParentGOH.pPosX = Math.Min(45.0f, mParentGOH.pPosX);
-            */
-
-            DebugMessageDisplay.pInstance.AddDynamicMessage("Partner: " + mParentGOH.pPosition);
+            //DebugMessageDisplay.pInstance.AddDynamicMessage("Partner: " + mParentGOH.pPosition);
         }
 
         /// <summary>

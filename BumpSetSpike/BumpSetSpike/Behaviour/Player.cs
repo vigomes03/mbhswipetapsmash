@@ -424,7 +424,7 @@ namespace BumpSetSpike.Behaviour
                 }
             }
 
-            DebugMessageDisplay.pInstance.AddDynamicMessage("Player: " + mParentGOH.pPosition);
+            //DebugMessageDisplay.pInstance.AddDynamicMessage("Player: " + mParentGOH.pPosition);
         }
 
         /// <summary>

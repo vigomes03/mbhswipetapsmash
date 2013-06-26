@@ -53,7 +53,7 @@ namespace MBHEngine.Debug
         /// <summary>
         /// Call before using the singleton.
         /// </summary>
-        [Conditional("ALLOW_GARBAGE")]
+        [Conditional("ALLOW_DEBUG_SHAPES")]
         public void Initialize()
         {
             mLineCount = 0;
@@ -324,7 +324,7 @@ namespace MBHEngine.Debug
         /// Call this once per frame.
         /// </summary>
         /// <remarks>This needs to be called before anything is added this frame.</remarks>
-        [Conditional("ALLOW_GARBAGE")]
+        [Conditional("ALLOW_DEBUG_SHAPES")]
         public void Update()
         {
             // Reset the used verticies for the next frame.

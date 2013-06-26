@@ -94,7 +94,7 @@ namespace BumpSetSpike.Behaviour
             // TODO: Move this to update passes.
             if (GameObjectManager.pInstance.pCurUpdatePass == BehaviourDefinition.Passes.MAIN_MENU)
             {
-                if (InputManager.pInstance.CheckGesture(GestureType.Tap, ref mGesture) || InputManager.pInstance.CheckAction(InputManager.InputActions.A, true))
+                if (InputManager.pInstance.CheckGesture(GestureType.Tap, ref mGesture) || InputManager.pInstance.CheckAction(InputManager.InputActions.START, true))
                 {
                     if (mCurrentState == State.OnTitle)
                     {

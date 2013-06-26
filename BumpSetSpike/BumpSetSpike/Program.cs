@@ -10,7 +10,7 @@ namespace BumpSetSpike
         /// </summary>
         static void Main(string[] args)
         {
-            using (Game1 game = new Game1())
+            using (Game1 game = new Game1(args))
             {
                 game.Run();
             }
