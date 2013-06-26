@@ -44,6 +44,14 @@ namespace BumpSetSpike.Behaviour
                     {
                         return new MainMenu(go, fileName);
                     }
+                case "BumpSetSpike.Behaviour.GameOver":
+                    {
+                        return new GameOver(go, fileName);
+                    }
+                case "BumpSetSpike.Behaviour.NewHighScore":
+                    {
+                        return new NewHighScore(go, fileName);
+                    }
                 case "BumpSetSpike.Behaviour.PointDisplay":
                     {
                         return new PointDisplay(go, fileName);
@@ -51,6 +59,10 @@ namespace BumpSetSpike.Behaviour
                 case "BumpSetSpike.Behaviour.HitCountDisplay":
                     {
                         return new HitCountDisplay(go, fileName);
+                    }
+                case "BumpSetSpike.Behaviour.Wobble":
+                    {
+                        return new Wobble(go, fileName);
                     }
                 default:
                     {

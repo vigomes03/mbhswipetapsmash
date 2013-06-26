@@ -65,13 +65,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Behaviour\BallDefinition.cs" />
+    <Compile Include="Behaviour\GameOverDefinition.cs" />
     <Compile Include="Behaviour\HitCountDisplayDefinition.cs" />
+    <Compile Include="Behaviour\NewHighScoreDefinition.cs" />
     <Compile Include="Behaviour\PointDisplayDefinition.cs" />
     <Compile Include="Behaviour\MainMenuDefinition.cs" />
     <Compile Include="Behaviour\OpponentDefinition.cs" />
     <Compile Include="Behaviour\GroundShadowDefinition.cs" />
     <Compile Include="Behaviour\PartnerDefinition.cs" />
     <Compile Include="Behaviour\PlayerDefinition.cs" />
+    <Compile Include="Behaviour\WobbleDefinition.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
