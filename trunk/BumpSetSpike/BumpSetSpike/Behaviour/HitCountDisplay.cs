@@ -41,6 +41,25 @@ namespace BumpSetSpike.Behaviour
         }
 
         /// <summary>
+        /// Access to the current hit count.
+        /// </summary>
+        public class GetCurrentHitCountMessage : BehaviourMessage
+        {
+            /// <summary>
+            /// How many points has the player scored this game.
+            /// </summary>
+            public Int32 mCount_Out;
+
+            /// <summary>
+            /// See parent.
+            /// </summary>
+            public override void Reset()
+            {
+                mCount_Out = 0;
+            }
+        }
+
+        /// <summary>
         /// A list of Objects, one for each number sprite in the hit count.
         /// </summary>
         private List<GameObject> mHitCounterNums;
@@ -117,6 +136,11 @@ namespace BumpSetSpike.Behaviour
                 ScoreManager.pInstance.OnMatchOver();
 
                 SetScore(0);
+            }
+            else if (!mDisplayRecord && msg is GetCurrentHitCountMessage)
+            {
+                GetCurrentHitCountMessage temp = (GetCurrentHitCountMessage)msg;
+                temp.mCount_Out = mHitCount;
             }
         }
 

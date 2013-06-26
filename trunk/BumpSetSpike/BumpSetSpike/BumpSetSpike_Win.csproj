@@ -96,13 +96,16 @@
   <ItemGroup>
     <Compile Include="Behaviour\ClientBehaviourCreator.cs" />
     <Compile Include="Behaviour\Ball.cs" />
+    <Compile Include="Behaviour\GameOver.cs" />
     <Compile Include="Behaviour\HitCountDisplay.cs" />
+    <Compile Include="Behaviour\NewHighScore.cs" />
     <Compile Include="Behaviour\PointDisplay.cs" />
     <Compile Include="Behaviour\MainMenu.cs" />
     <Compile Include="Behaviour\Opponent.cs" />
     <Compile Include="Behaviour\GroundShadow.cs" />
     <Compile Include="Behaviour\Partner.cs" />
     <Compile Include="Behaviour\Player.cs" />
+    <Compile Include="Behaviour\Wobble.cs" />
     <Compile Include="Gameflow\LeaderBoardManager.cs" />
     <Compile Include="Gameflow\SaveGameManager.cs" />
     <Compile Include="Gameflow\ScoreManager.cs" />

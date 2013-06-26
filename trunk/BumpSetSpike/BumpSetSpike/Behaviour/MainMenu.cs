@@ -41,6 +41,11 @@ namespace BumpSetSpike.Behaviour
         private StopWatch mWatch;
 
         /// <summary>
+        /// Used for grabbing the current gesture info.
+        /// </summary>
+        private GestureSample mGesture;
+
+        /// <summary>
         /// Preallocated to avoid GC.
         /// </summary>
         private Player.OnGameRestartMessage mGameRestartMsg;
@@ -73,6 +78,8 @@ namespace BumpSetSpike.Behaviour
             mWatch.pLifeTime = CameraManager.pInstance.pNumBlendFrames;
             mWatch.pIsPaused = true;
 
+            mGesture = new GestureSample();
+
             mGameRestartMsg = new Player.OnGameRestartMessage();
         }
 
@@ -86,9 +93,7 @@ namespace BumpSetSpike.Behaviour
             // TODO: Move this to update passes.
             if (GameflowManager.pInstance.pState == GameflowManager.State.MainMenu)
             {
-                GestureSample gesture = new GestureSample();
-
-                if (InputManager.pInstance.CheckGesture(GestureType.Tap, ref gesture) || InputManager.pInstance.CheckAction(InputManager.InputActions.A, true))
+                if (InputManager.pInstance.CheckGesture(GestureType.Tap, ref mGesture) || InputManager.pInstance.CheckAction(InputManager.InputActions.A, true))
                 {
                     if (mCurrentState == State.OnTitle)
                     {

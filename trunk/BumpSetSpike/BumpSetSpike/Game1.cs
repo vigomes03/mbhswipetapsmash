@@ -231,7 +231,20 @@ namespace BumpSetSpike
             record.pPosX = x;
             record.pPosY = y;
             GameObjectManager.pInstance.Add(record);
-                        
+
+            x = ((mGraphics.GraphicsDevice.Viewport.Width * 0.5f) / CameraManager.pInstance.pZoomScale);
+            y = ((mGraphics.GraphicsDevice.Viewport.Height * 0.5f) / CameraManager.pInstance.pZoomScale);
+
+            GameObject gameOver = new GameObject("GameObjects\\UI\\GameOver\\GameOver");
+            gameOver.pPosX = x;
+            gameOver.pPosY = y;
+            GameObjectManager.pInstance.Add(gameOver);
+
+            GameObject newHighScore = new GameObject("GameObjects\\UI\\NewHighScore\\NewHighScore");
+            newHighScore.pPosX = x;
+            newHighScore.pPosY = y + 32;
+            GameObjectManager.pInstance.Add(newHighScore);
+
             // The vingette effect used to dim out the edges of the screen.
             //GameObject ving = new GameObject("GameObjects\\Interface\\Vingette\\Vingette");
 #if SMALL_WINDOW
