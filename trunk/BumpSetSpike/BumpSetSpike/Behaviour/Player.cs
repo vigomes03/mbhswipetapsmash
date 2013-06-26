@@ -11,6 +11,7 @@ using MBHEngine.Debug;
 using System.Collections.Generic;
 using BumpSetSpike.Gameflow;
 using MBHEngine.Input;
+using MBHEngineContentDefs;
 
 namespace BumpSetSpike.Behaviour
 {
@@ -173,7 +174,7 @@ namespace BumpSetSpike.Behaviour
             if(InputManager.pInstance.CheckGesture(GestureType.Tap, ref gesture) || InputManager.pInstance.CheckAction(InputManager.InputActions.A, true))
             {
                 // If we are jumping and the player taps the screen, we spike the ball.
-                if (mCurrentState == State.Jump && GameflowManager.pInstance.pState == GameflowManager.State.GamePlay)
+                if (mCurrentState == State.Jump && GameObjectManager.pInstance.pCurUpdatePass == BehaviourDefinition.Passes.GAME_PLAY)
                 {
                     mCurrentState = State.SpikeAttempt;
 
@@ -182,11 +183,11 @@ namespace BumpSetSpike.Behaviour
                     mStateTimer.pLifeTime = 5.0f;
                     mStateTimer.Restart();
                 }
-                else if (GameflowManager.pInstance.pState == GameflowManager.State.Lose)
+                else if (GameObjectManager.pInstance.pCurUpdatePass == BehaviourDefinition.Passes.GAME_OVER)
                 {
                     // If the game is over, tapping the screen restarts the match.
                     GameObjectManager.pInstance.BroadcastMessage(mGameRestartMsg, mParentGOH);
-                    GameflowManager.pInstance.pState = GameflowManager.State.GamePlay;
+                    GameObjectManager.pInstance.pCurUpdatePass = BehaviourDefinition.Passes.GAME_PLAY;
                 }
             }
 
@@ -197,7 +198,7 @@ namespace BumpSetSpike.Behaviour
             if (InputManager.pInstance.CheckGesture(GestureType.Flick, ref gesture) || InputManager.pInstance.CheckAction(InputManager.InputActions.A, true))
             {
                 // Only allow jumping if you are currently in the Idle state.
-                if (mCurrentState == State.Idle && GameflowManager.pInstance.pState == GameflowManager.State.GamePlay)
+                if (mCurrentState == State.Idle && GameObjectManager.pInstance.pCurUpdatePass == BehaviourDefinition.Passes.GAME_PLAY)
                 {
 #if WINDOWS_PHONE
                     mParentGOH.pDirection.mForward = gesture.Delta * (Single)gameTime.ElapsedGameTime.TotalSeconds * 0.05f;
@@ -248,7 +249,7 @@ namespace BumpSetSpike.Behaviour
                 mFramesInAir = 0;
 
                 // We may have lost the game so look sad.
-                if (GameflowManager.pInstance.pState == GameflowManager.State.Lose)
+                if (GameObjectManager.pInstance.pCurUpdatePass == BehaviourDefinition.Passes.GAME_OVER)
                 {
                     mSetActiveAnimationMsg.mAnimationSetName_In = "Sad";
                     mParentGOH.OnMessage(mSetActiveAnimationMsg);

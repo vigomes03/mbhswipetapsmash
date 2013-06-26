@@ -11,6 +11,7 @@ using MBHEngine.Debug;
 using System.Collections.Generic;
 using BumpSetSpike.Gameflow;
 using MBHEngine.Input;
+using MBHEngineContentDefs;
 
 namespace BumpSetSpike.Behaviour
 {
@@ -91,7 +92,7 @@ namespace BumpSetSpike.Behaviour
         {
             // If we are in the main menu, start looking for button presses.
             // TODO: Move this to update passes.
-            if (GameflowManager.pInstance.pState == GameflowManager.State.MainMenu)
+            if (GameObjectManager.pInstance.pCurUpdatePass == BehaviourDefinition.Passes.MAIN_MENU)
             {
                 if (InputManager.pInstance.CheckGesture(GestureType.Tap, ref mGesture) || InputManager.pInstance.CheckAction(InputManager.InputActions.A, true))
                 {
@@ -109,7 +110,7 @@ namespace BumpSetSpike.Behaviour
                 if (mCurrentState == State.MoveToCourt && mWatch.IsExpired())
                 {
                     GameObjectManager.pInstance.BroadcastMessage(mGameRestartMsg, mParentGOH);
-                    GameflowManager.pInstance.pState = GameflowManager.State.GamePlay;
+                    GameObjectManager.pInstance.pCurUpdatePass = BehaviourDefinition.Passes.GAME_PLAY;
 
                     mWatch.Restart();
                     mWatch.pIsPaused = true;

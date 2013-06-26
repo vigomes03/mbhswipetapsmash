@@ -14,9 +14,9 @@ namespace MBHEngineContentDefs
         /// </summary>
         public enum Passes
         {
-            DEFAULT = 0,
-            PLACEMENT,
-            POPUP,
+            MAIN_MENU = 0,
+            GAME_PLAY,
+            GAME_OVER,
         }
 
         /// <summary>

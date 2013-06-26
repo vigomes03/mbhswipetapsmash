@@ -11,6 +11,7 @@ using MBHEngine.Debug;
 using System.Collections.Generic;
 using BumpSetSpike.Gameflow;
 using MBHEngine.Input;
+using MBHEngineContentDefs;
 
 namespace BumpSetSpike.Behaviour
 {
@@ -52,25 +53,16 @@ namespace BumpSetSpike.Behaviour
         /// <param name="gameTime"></param>
         public override void Update(GameTime gameTime)
         {
-            if (GameflowManager.pInstance.pState == GameflowManager.State.Lose)
-            {
-                // If we aren't already rendering, check if we should start.
-                if (!mParentGOH.pDoRender)
-                {
-                    // This thing only gets displayed if we have a new highscore. The high score
-                    // isn't overwritten until the game starts again, so we just compare the current
-                    // score the the current high score.
-                    GameObjectManager.pInstance.BroadcastMessage(mGetCurrentHitCountMsg, mParentGOH);
+            mParentGOH.pDoRender = false;
 
-                    if (mGetCurrentHitCountMsg.mCount_Out > LeaderBoardManager.pInstance.pTopHits)
-                    {
-                        mParentGOH.pDoRender = true;
-                    }
-                }
-            }
-            else
+            // This thing only gets displayed if we have a new highscore. The high score
+            // isn't overwritten until the game starts again, so we just compare the current
+            // score the the current high score.
+            GameObjectManager.pInstance.BroadcastMessage(mGetCurrentHitCountMsg, mParentGOH);
+
+            if (mGetCurrentHitCountMsg.mCount_Out > LeaderBoardManager.pInstance.pTopHits)
             {
-                mParentGOH.pDoRender = false;
+                mParentGOH.pDoRender = true;
             }
         }
     }
