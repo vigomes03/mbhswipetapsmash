@@ -92,7 +92,7 @@ namespace MBHEngine.Behaviour
             if (null == mUpdatePasses)
             {
                 mUpdatePasses = new List<Int32>(1);
-                mUpdatePasses.Add((Int32)BehaviourDefinition.Passes.DEFAULT);
+                //mUpdatePasses.Add((Int32)BehaviourDefinition.Passes.DEFAULT);
             }
         }
 

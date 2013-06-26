@@ -10,6 +10,7 @@ using MBHEngine.Render;
 using MBHEngine.Debug;
 using System.Collections.Generic;
 using BumpSetSpike.Gameflow;
+using MBHEngineContentDefs;
 
 namespace BumpSetSpike.Behaviour
 {
@@ -123,7 +124,7 @@ namespace BumpSetSpike.Behaviour
             else
             {
 
-                if (GameflowManager.pInstance.pState == GameflowManager.State.Lose)
+                if (GameObjectManager.pInstance.pCurUpdatePass == BehaviourDefinition.Passes.GAME_OVER)
                 {
                     mSetActiveAnimationMsg.Reset();
                     mSetActiveAnimationMsg.mAnimationSetName_In = "Sad";

@@ -11,6 +11,7 @@ using MBHEngine.Debug;
 using System.Collections.Generic;
 using BumpSetSpike.Gameflow;
 using MBHEngine.Input;
+using MBHEngineContentDefs;
 
 namespace BumpSetSpike.Behaviour
 {
@@ -52,25 +53,13 @@ namespace BumpSetSpike.Behaviour
         /// <param name="gameTime"></param>
         public override void Update(GameTime gameTime)
         {
-            // If we are in the main menu, start looking for button presses.
-            // TODO: Move this to update passes.
-            if (GameflowManager.pInstance.pState == GameflowManager.State.Lose)
-            {
-                // Only show this object when the player has lost.
-                mParentGOH.pDoRender = true;
+            GestureSample gesture = new GestureSample();
 
-                GestureSample gesture = new GestureSample();
-
-                if (InputManager.pInstance.CheckGesture(GestureType.Tap, ref gesture) || InputManager.pInstance.CheckAction(InputManager.InputActions.A, true))
-                {
-                    // Restart the game
-                    GameObjectManager.pInstance.BroadcastMessage(mGameRestartMsg, mParentGOH);
-                    GameflowManager.pInstance.pState = GameflowManager.State.GamePlay;
-                }
-            }
-            else
+            if (InputManager.pInstance.CheckGesture(GestureType.Tap, ref gesture) || InputManager.pInstance.CheckAction(InputManager.InputActions.A, true))
             {
-                mParentGOH.pDoRender = false;
+                // Restart the game
+                GameObjectManager.pInstance.BroadcastMessage(mGameRestartMsg, mParentGOH);
+                GameObjectManager.pInstance.pCurUpdatePass = BehaviourDefinition.Passes.GAME_PLAY;
             }
         }
     }

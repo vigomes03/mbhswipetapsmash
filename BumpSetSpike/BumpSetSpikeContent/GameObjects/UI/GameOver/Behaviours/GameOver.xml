@@ -1,6 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <XnaContent>
   <Asset Type="BumpSetSpikeContentDefs.GameOverDefinition">
+    <mUpdatePasses>
+      <Item>GAME_OVER</Item>
+    </mUpdatePasses>
   </Asset>
 </XnaContent>
 

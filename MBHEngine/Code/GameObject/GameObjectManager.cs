@@ -206,7 +206,7 @@ namespace MBHEngine.GameObject
             // For now just hard code it. Eventually this should be driven by the Game side.
             mDefaultEffect = content.Load<Effect>("Shaders\\Default");
 #endif
-            mCurrentUpdatePass = BehaviourDefinition.Passes.DEFAULT;
+            mCurrentUpdatePass = BehaviourDefinition.Passes.MAIN_MENU;
 
             // Just an arbitrary choice.
             mCellSize = 100;

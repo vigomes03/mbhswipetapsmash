@@ -10,6 +10,7 @@ using MBHEngine.Render;
 using MBHEngine.Debug;
 using System.Collections.Generic;
 using BumpSetSpike.Gameflow;
+using MBHEngineContentDefs;
 
 namespace BumpSetSpike.Behaviour
 {
@@ -117,7 +118,7 @@ namespace BumpSetSpike.Behaviour
         {
             // While in the main menu, the ball should not be rendered.
             // TODO: Move to render passes.
-            if (GameflowManager.pInstance.pState == GameflowManager.State.MainMenu)
+            if (GameObjectManager.pInstance.pCurUpdatePass == MBHEngineContentDefs.BehaviourDefinition.Passes.MAIN_MENU)
             {
                 mParentGOH.pDoRender = false;
 
@@ -185,7 +186,7 @@ namespace BumpSetSpike.Behaviour
                 // Left of the net is a loss. Right of the net is win and requires the next play start.
                 if (mParentGOH.pPosX < 0.0f)
                 {
-                    GameflowManager.pInstance.pState = GameflowManager.State.Lose;
+                    GameObjectManager.pInstance.pCurUpdatePass = BehaviourDefinition.Passes.GAME_OVER;
                 }
                 else
                 {
