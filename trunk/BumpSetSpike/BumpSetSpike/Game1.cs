@@ -40,20 +40,29 @@ namespace BumpSetSpike
         private Boolean mSkipKeyDecDown = false;
         private Boolean mFreezeKeyDown = false;
 #endif
-        
+
+        public Game1()
+        {
+            Reset(null);
+        }
+
         /// <summary>
         /// Constuctor
         /// </summary>
         /// <param name="args">Command-line arguments passed to the executable.</param>
-        public Game1()
+        public Game1(string[] args)
         {
-            //CommandLineManager.pInstance.pArgs = args;
+            Reset(args);
+        }
+
+        public void Reset(string[] args)
+        {
+            CommandLineManager.pInstance.pArgs = args;
 
             mGraphics = new GraphicsDeviceManager(this);
-            
+
             // WINDOWS_PHONE = 800x480
 
-            
 #if WINDOWS
 #if SMALL_WINDOW
             mGraphics.PreferredBackBufferWidth = 640;
@@ -78,9 +87,9 @@ namespace BumpSetSpike
 
             //mGraphics.GraphicsDevice.PresentationParameters.MultiSampleType = MultiSampleType.TwoSamples;
             //mGraphics.GraphicsDevice.RenderState.MultiSampleAntiAlias = true;
-            
-			// THIS BREAKS ON WP8!
-			//mGraphics.PreferMultiSampling = true;
+
+            // THIS BREAKS ON WP8!
+            //mGraphics.PreferMultiSampling = true;
         }
 
         /// <summary>
@@ -123,8 +132,11 @@ namespace BumpSetSpike
             mDebugDrawEnabled = true;
 #else
             // In release it is not.
-            mDebugDrawEnabled = true;
+            mDebugDrawEnabled = false;
 #endif
+
+            IsMouseVisible = mDebugDrawEnabled;
+
             base.Initialize();
         }
 
@@ -292,6 +304,16 @@ namespace BumpSetSpike
 
                 this.Exit();
             }
+
+            // Toggle the debug drawing with a click of the left stick.
+            if (InputManager.pInstance.CheckAction(InputManager.InputActions.L3, true))
+            {
+                mDebugDrawEnabled ^= true;
+
+                // When debug draw is enabled, turn on the hardware mouse so that things like the
+                // GameObjectPicker work better.
+                IsMouseVisible = mDebugDrawEnabled;
+            }
 #if DEBUG
             KeyboardState keyboardState = Keyboard.GetState();
 
@@ -387,7 +409,7 @@ namespace BumpSetSpike
                 DebugShapeDisplay.pInstance.Render();
 
                 // We need to go back to standard alpha blend before drawing the debug layer.
-                mSpriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
+                mSpriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);
                 DebugMessageDisplay.pInstance.Render(mSpriteBatch);
                 mSpriteBatch.End();
             }

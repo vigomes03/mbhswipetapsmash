@@ -204,7 +204,7 @@ namespace MBHEngine.Input
         /// <returns>True if that action happened this frame.</returns>
         public bool CheckAction(InputActions action, bool buffer)
         {
-#if !XBOX
+#if WINDOWS
             // First let's check the keyboard.
             KeyboardState keyboardState = Keyboard.GetState();
             if (keyboardState.IsKeyDown(mKeyboardActionMap[(int)action]))
@@ -224,7 +224,7 @@ namespace MBHEngine.Input
                 // If we make it to here, the button press is valid.
                 return true;
             }
-#endif // !XBOX
+#endif // !WINDOWS
 
             // Now let's do the gamepad
             if (mIsControllerLocked == false)

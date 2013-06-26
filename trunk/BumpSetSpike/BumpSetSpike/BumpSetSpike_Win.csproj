@@ -50,7 +50,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <DefineConstants>TRACE;DEBUG;WINDOWS; SMALL_WINDOW; ALLOW_DEBUG_SHAPES</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;WINDOWS; SMALL_WINDOW; ALLOW_DEBUG_SHAPES; ALLOW_GARBAGE</DefineConstants>
     <PlatformTarget>x86</PlatformTarget>
     <XnaCompressContent>false</XnaCompressContent>
   </PropertyGroup>

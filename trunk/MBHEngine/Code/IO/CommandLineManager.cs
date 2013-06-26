@@ -48,6 +48,11 @@ namespace MBHEngine.IO
         {
             set 
             {
+                if (value == null)
+                {
+                    return;
+                }
+
                 // The regular expression used to tokenize our arguments.  Keep in mind it has already
                 // been broken up based on spaces.
                 Regex spliter = new Regex(@"=", RegexOptions.IgnoreCase | RegexOptions.Compiled);
