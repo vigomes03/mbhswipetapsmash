@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using BumpSetSpike.Gameflow;
 using MBHEngine.Input;
 using MBHEngineContentDefs;
+using Microsoft.Xna.Framework.Audio;
 
 namespace BumpSetSpike.Behaviour
 {
@@ -20,6 +21,21 @@ namespace BumpSetSpike.Behaviour
     /// </summary>
     class NewHighScore : MBHEngine.Behaviour.Behaviour
     {
+        /// <summary>
+        /// Has the high score sound been played already.
+        /// </summary>
+        private Boolean mHighScoreSoundPlayed;
+
+        /// <summary>
+        /// Sound which plays when a high score is achieved.
+        /// </summary>
+        private SoundEffect mFxHighScore;
+
+        /// <summary>
+        /// The sound that plays if the user did not get a high score.
+        /// </summary>
+        private SoundEffect mFxNoHighScore;
+
         /// <summary>
         /// Preallocated messages to avoid GC.
         /// </summary>
@@ -44,6 +60,11 @@ namespace BumpSetSpike.Behaviour
         {
             base.LoadContent(fileName);
 
+            mFxHighScore = GameObjectManager.pInstance.pContentManager.Load<SoundEffect>("Audio\\FX\\HighScore");
+            mFxNoHighScore = GameObjectManager.pInstance.pContentManager.Load<SoundEffect>("Audio\\FX\\GameOver");
+
+            mHighScoreSoundPlayed = false;
+
             mGetCurrentHitCountMsg = new HitCountDisplay.GetCurrentHitCountMessage();
         }
 
@@ -62,7 +83,35 @@ namespace BumpSetSpike.Behaviour
 
             if (mGetCurrentHitCountMsg.mCount_Out > LeaderBoardManager.pInstance.pTopHits)
             {
+                if (!mHighScoreSoundPlayed)
+                {
+                    mHighScoreSoundPlayed = true;
+
+                    mFxHighScore.Play();
+                }
+
                 mParentGOH.pDoRender = true;
+            }
+            else
+            {
+                if (!mHighScoreSoundPlayed)
+                {
+                    mHighScoreSoundPlayed = true;
+
+                    mFxNoHighScore.Play();
+                }
+            }
+        }
+
+        /// <summary>
+        /// See parent.
+        /// </summary>
+        /// <param name="msg"></param>
+        public override void OnMessage(ref BehaviourMessage msg)
+        {
+            if (msg is Player.OnGameRestartMessage || msg is Player.OnMatchRestartMessage)
+            {
+                mHighScoreSoundPlayed = false;
             }
         }
     }

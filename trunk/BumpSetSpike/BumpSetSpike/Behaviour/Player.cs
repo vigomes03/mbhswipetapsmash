@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using BumpSetSpike.Gameflow;
 using MBHEngine.Input;
 using MBHEngineContentDefs;
+using Microsoft.Xna.Framework.Audio;
 
 namespace BumpSetSpike.Behaviour
 {
@@ -111,6 +112,13 @@ namespace BumpSetSpike.Behaviour
         private Int32 mFramesInAir;
 
         /// <summary>
+        /// Various sound effects.
+        /// </summary>
+        private SoundEffect mFxJump;
+        private SoundEffect mFxSpikeHit;
+        private SoundEffect mFxBump;
+
+        /// <summary>
         /// Preallocated messages.
         /// </summary>
         private SpriteRender.SetActiveAnimationMessage mSetActiveAnimationMsg;
@@ -155,6 +163,10 @@ namespace BumpSetSpike.Behaviour
             mBottomRight = new Vector2(90.0f, 0.0f);
 
             mFramesInAir = 0;
+
+            mFxJump = GameObjectManager.pInstance.pContentManager.Load<SoundEffect>("Audio\\FX\\Jump");
+            mFxSpikeHit = GameObjectManager.pInstance.pContentManager.Load<SoundEffect>("Audio\\FX\\SpikeHit");
+            mFxBump = GameObjectManager.pInstance.pContentManager.Load<SoundEffect>("Audio\\FX\\Bump");
 
             mSetActiveAnimationMsg = new SpriteRender.SetActiveAnimationMessage();
             mGetAttachmentPointMsg = new SpriteRender.GetAttachmentPointMessage();
@@ -201,7 +213,7 @@ namespace BumpSetSpike.Behaviour
                 if (mCurrentState == State.Idle && GameObjectManager.pInstance.pCurUpdatePass == BehaviourDefinition.Passes.GAME_PLAY)
                 {
 #if WINDOWS_PHONE
-                    mParentGOH.pDirection.mForward = gesture.Delta * (Single)gameTime.ElapsedGameTime.TotalSeconds * 0.05f;
+                    mParentGOH.pDirection.mForward = gesture.Delta * (Single)gameTime.ElapsedGameTime.TotalSeconds * 0.025f;
 #else
                     // Find the ball so that we can force the player to jump towards it.
                     List<GameObject> mBalls = GameObjectManager.pInstance.GetGameObjectsOfClassification(MBHEngineContentDefs.GameObjectDefinition.Classifications.VOLLEY_BALL);
@@ -221,6 +233,8 @@ namespace BumpSetSpike.Behaviour
                     mCurrentState = State.Jump;
 
                     ScoreManager.pInstance.AddScore(ScoreManager.ScoreType.Jump, mParentGOH.pPosition);
+
+                    mFxJump.Play();
 
                     mSetActiveAnimationMsg.mAnimationSetName_In = "JumpUp";
                     mParentGOH.OnMessage(mSetActiveAnimationMsg);
@@ -296,6 +310,8 @@ namespace BumpSetSpike.Behaviour
                 if (mCollisionResults.Count > 0)
                 {
                     System.Diagnostics.Debug.Assert(mCollisionResults.Count == 1);
+
+                    mFxSpikeHit.Play();
 
                     // Now find any nets. We need the net to figure out where to hit the ball.
                     List<GameObject> nets = GameObjectManager.pInstance.GetGameObjectsOfClassification(MBHEngineContentDefs.GameObjectDefinition.Classifications.WALL);
@@ -409,6 +425,8 @@ namespace BumpSetSpike.Behaviour
                         Vector2 vel = MBHEngine.Math.Util.GetArcVelocity(source, dest, speed, 0.2f);
 
                         balls[0].pDirection.mForward = vel;
+
+                        mFxBump.Play();
 
                         mCurrentState = State.Idle;
                     }

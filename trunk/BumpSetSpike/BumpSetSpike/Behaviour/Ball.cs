@@ -11,6 +11,7 @@ using MBHEngine.Debug;
 using System.Collections.Generic;
 using BumpSetSpike.Gameflow;
 using MBHEngineContentDefs;
+using Microsoft.Xna.Framework.Audio;
 
 namespace BumpSetSpike.Behaviour
 {
@@ -67,6 +68,16 @@ namespace BumpSetSpike.Behaviour
         private StopWatch mTimeOnGroundToEndPlay;
 
         /// <summary>
+        /// The sound that plays when the ball hits the sand.
+        /// </summary>
+        private SoundEffect m_FxSand;
+
+        /// <summary>
+        /// Tracks if the ball was on the ground last frame to prevent dupe sounds playing.
+        /// </summary>
+        private Boolean m_OnGround;
+
+        /// <summary>
         /// Preallocated messages to avoid GC.
         /// </summary>
         private SpriteRender.SetActiveAnimationMessage mSetActiveAnimationMsg;
@@ -101,6 +112,10 @@ namespace BumpSetSpike.Behaviour
             mTimeOnGroundToEndPlay = StopWatchManager.pInstance.GetNewStopWatch();
             mTimeOnGroundToEndPlay.pLifeTime = 10.0f;
             mTimeOnGroundToEndPlay.pIsPaused = true;
+
+            m_FxSand = GameObjectManager.pInstance.pContentManager.Load<SoundEffect>("Audio\\FX\\HitSand");
+
+            m_OnGround = false;
 
             mSetActiveAnimationMsg = new SpriteRender.SetActiveAnimationMessage();
             mGetAttachmentPointMsg = new SpriteRender.GetAttachmentPointMessage();
@@ -144,14 +159,6 @@ namespace BumpSetSpike.Behaviour
                 mParentGOH.pDirection.mForward.Y *= -0.6f;
                 mParentGOH.pDirection.mForward.X *= 0.9f;
 
-                mGetAttachmentPointMsg.mName_In = "Dust";
-                mParentGOH.OnMessage(mGetAttachmentPointMsg);
-
-                // Create a dust effect at the point of contact with the ground.
-                GameObject dust = GameObjectFactory.pInstance.GetTemplate("GameObjects\\Items\\Dust\\Dust");
-                dust.pPosition = mGetAttachmentPointMsg.mPoisitionInWorld_Out;
-                GameObjectManager.pInstance.Add(dust);
-
                 if (mTimeOnGroundToEndPlay.pIsPaused)
                 {
                     mTimeOnGroundToEndPlay.Restart();
@@ -159,6 +166,25 @@ namespace BumpSetSpike.Behaviour
 
                     GameObjectManager.pInstance.BroadcastMessage(mOnPlayOverMsg, mParentGOH);
                 }
+
+                if (!m_OnGround)
+                {
+                    m_OnGround = true;
+
+                    mGetAttachmentPointMsg.mName_In = "Dust";
+                    mParentGOH.OnMessage(mGetAttachmentPointMsg);
+
+                    // Create a dust effect at the point of contact with the ground.
+                    GameObject dust = GameObjectFactory.pInstance.GetTemplate("GameObjects\\Items\\Dust\\Dust");
+                    dust.pPosition = mGetAttachmentPointMsg.mPoisitionInWorld_Out;
+                    GameObjectManager.pInstance.Add(dust);
+
+                    m_FxSand.Play();
+                }
+            }
+            else
+            {
+                m_OnGround = false;
             }
 
             // Based on the velocity of the ball, play a different animation.
