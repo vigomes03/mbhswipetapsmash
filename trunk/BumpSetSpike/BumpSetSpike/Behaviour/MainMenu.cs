@@ -53,6 +53,11 @@ namespace BumpSetSpike.Behaviour
         private SoundEffect mFxMenuSelect;
 
         /// <summary>
+        /// Displays the "Tap to Start" text.
+        /// </summary>
+        private GameObject mTapStart;
+
+        /// <summary>
         /// Preallocated to avoid GC.
         /// </summary>
         private Player.OnGameRestartMessage mGameRestartMsg;
@@ -89,6 +94,14 @@ namespace BumpSetSpike.Behaviour
 
             mFxMenuSelect = GameObjectManager.pInstance.pContentManager.Load<SoundEffect>("Audio\\FX\\MenuSelect");
 
+            Single x = ((GameObjectManager.pInstance.pGraphicsDevice.Viewport.Width * 0.5f) / CameraManager.pInstance.pZoomScale);
+            Single y = ((GameObjectManager.pInstance.pGraphicsDevice.Viewport.Height * 0.5f) / CameraManager.pInstance.pZoomScale);
+
+            mTapStart = GameObjectFactory.pInstance.GetTemplate("GameObjects\\UI\\TapStart\\TapStart");
+            mTapStart.pPosX = x;
+            mTapStart.pPosY = y + 12;
+            GameObjectManager.pInstance.Add(mTapStart);
+
             mGameRestartMsg = new Player.OnGameRestartMessage();
         }
 
@@ -111,6 +124,8 @@ namespace BumpSetSpike.Behaviour
                         mCurrentState = State.MoveToCourt;
 
                         mFxMenuSelect.Play();
+
+                        GameObjectManager.pInstance.Remove(mTapStart);
 
                         mWatch.pIsPaused = false;
                     }
