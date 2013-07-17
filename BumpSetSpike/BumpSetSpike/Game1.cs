@@ -161,6 +161,7 @@ namespace BumpSetSpike
             GameObjectFactory.pInstance.AddTemplate("GameObjects\\UI\\NumFont\\NumFont", 128);
             GameObjectFactory.pInstance.AddTemplate("GameObjects\\UI\\NumFontUI\\NumFontUI", 128);
             GameObjectFactory.pInstance.AddTemplate("GameObjects\\UI\\PointDisplay\\PointDisplay", 32);
+            GameObjectFactory.pInstance.AddTemplate("GameObjects\\UI\\TapStart\\TapStart", 1);
             
             // The tiled background image that travels will the player creating the illusion of
             // an infinite background image.
@@ -276,8 +277,10 @@ namespace BumpSetSpike
 
             mMusic = Content.Load<Song>("Audio\\Music\\RoccoW_-_Pumped");
 
+            Boolean musicDisabled = CommandLineManager.pInstance["DisableMusic"] != null;
+
             // Only play music if the user isn't already listening to something.
-            if (MediaPlayer.State == MediaState.Stopped)
+            if (MediaPlayer.State == MediaState.Stopped && !musicDisabled)
             {
                 MediaPlayer.IsRepeating = true;
                 MediaPlayer.Play(mMusic);
@@ -375,6 +378,20 @@ namespace BumpSetSpike
             }
 #endif
 
+/*
+            GestureSample samp = new GestureSample();
+
+
+            if (InputManager.pInstance.CheckGesture(GestureType.Tap, ref samp))
+            {
+                Vector2 proj = CameraManager.pInstance.ProjectMouseToWorldSpace(new Vector2(samp.Position.X, samp.Position.Y));
+                DebugMessageDisplay.pInstance.AddConstantMessage("Touch: " + samp.Position + "/" + proj);
+
+                GameObject t = GameObjectFactory.pInstance.GetTemplate("GameObjects\\Items\\Blood\\Blood");
+                t.pPosition = proj;
+                GameObjectManager.pInstance.Add(t);
+            }
+*/
             // If we are skipping frames, check if enough have passed before doing updates.
             if (mFameSkipCount >= mFrameSkip && !mFreeze)
             {
