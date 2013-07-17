@@ -11,6 +11,7 @@ using MBHEngine.Debug;
 using System.Collections.Generic;
 using BumpSetSpike.Gameflow;
 using MBHEngineContentDefs;
+using Microsoft.Xna.Framework.Audio;
 
 namespace BumpSetSpike.Behaviour
 {
@@ -61,6 +62,16 @@ namespace BumpSetSpike.Behaviour
         private Vector2 mStartPos;
 
         /// <summary>
+        /// The sound that plays when the opponent gets smashed with the ball.
+        /// </summary>
+        private SoundEffect mFxHit;
+
+        /// <summary>
+        /// The sound that plays when they hit the ground.
+        /// </summary>
+        private SoundEffect mFxHitGround;
+
+        /// <summary>
         /// Preallocated messages to avoid GC.
         /// </summary>
         private SpriteRender.SetActiveAnimationMessage mSetActiveAnimationMsg;
@@ -97,6 +108,9 @@ namespace BumpSetSpike.Behaviour
             mStateTimer = StopWatchManager.pInstance.GetNewStopWatch();
 
             mKabooomAvail = true;
+
+            mFxHit = GameObjectManager.pInstance.pContentManager.Load<SoundEffect>("Audio\\FX\\HitOpponent");
+            mFxHitGround = GameObjectManager.pInstance.pContentManager.Load<SoundEffect>("Audio\\FX\\HitOpponentLand");
             
             mSetActiveAnimationMsg = new SpriteRender.SetActiveAnimationMessage();
             mSetSpriteEffectsMsg = new SpriteRender.SetSpriteEffectsMessage();
@@ -141,6 +155,8 @@ namespace BumpSetSpike.Behaviour
                 // until they hit the ground.
                 if (mCurrentState == State.Knocked)
                 {
+                    mFxHitGround.Play();
+
                     mCurrentState = State.Dead;
                 }
             }
@@ -237,6 +253,9 @@ namespace BumpSetSpike.Behaviour
                     GameObjectManager.pInstance.Add(blood);
 
                     ScoreManager.pInstance.AddScore(ScoreManager.ScoreType.Kabooom, mParentGOH.pPosition);
+
+                    mFxHit.Play();
+                    mFxHitGround.Play();
 
                     mCurrentState = State.Knocked;
                 }

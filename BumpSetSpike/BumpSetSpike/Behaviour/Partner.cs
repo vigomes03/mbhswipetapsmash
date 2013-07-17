@@ -11,19 +11,40 @@ using MBHEngine.Debug;
 using System.Collections.Generic;
 using BumpSetSpike.Gameflow;
 using MBHEngineContentDefs;
+using Microsoft.Xna.Framework.Audio;
 
 namespace BumpSetSpike.Behaviour
 {
     class Partner : MBHEngine.Behaviour.Behaviour
     {
+        /// <summary>
+        /// Tracks how long we have been in a state.
+        /// </summary>
         private StopWatch mStateTimer;
 
+        /// <summary>
+        /// Preallocated to avoid GC.
+        /// </summary>
         private List<MBHEngineContentDefs.GameObjectDefinition.Classifications> mBallClassifications;
 
+        /// <summary>
+        /// Preallocated to avoid GC.
+        /// </summary>
         private List<GameObject> mCollisionResults;
 
+        /// <summary>
+        /// How many times has this player hit the ball this round.
+        /// </summary>
         private Int32 mHitCount;
 
+        /// <summary>
+        /// The sound that plays when the ball is bumped.
+        /// </summary>
+        private SoundEffect mFxBump;
+
+        /// <summary>
+        /// Preallocated messages to avoid GC.
+        /// </summary>
         private SpriteRender.SetActiveAnimationMessage mSetActiveAnimationMsg;
         private SpriteRender.SetSpriteEffectsMessage mSetSpriteEffectsMsg;
         private Player.GetCurrentStateMessage mGetCurrentStateMsg;
@@ -59,6 +80,8 @@ namespace BumpSetSpike.Behaviour
             mStateTimer = StopWatchManager.pInstance.GetNewStopWatch();
 
             mHitCount = 0;
+
+            mFxBump = GameObjectManager.pInstance.pContentManager.Load<SoundEffect>("Audio\\FX\\Bump");
 
             mSetActiveAnimationMsg = new SpriteRender.SetActiveAnimationMessage();
             mSetSpriteEffectsMsg = new SpriteRender.SetSpriteEffectsMessage();
@@ -149,6 +172,8 @@ namespace BumpSetSpike.Behaviour
 
                     mCollisionResults[0].pDirection.mForward.X = 0.0f;
                     mCollisionResults[0].pDirection.mForward.Y = -5.0f;
+
+                    mFxBump.Play();
                 }
             }
 

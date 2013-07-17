@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using BumpSetSpike.Gameflow;
 using MBHEngine.Input;
 using MBHEngineContentDefs;
+using Microsoft.Xna.Framework.Audio;
 
 namespace BumpSetSpike.Behaviour
 {
@@ -45,6 +46,11 @@ namespace BumpSetSpike.Behaviour
         /// Used for grabbing the current gesture info.
         /// </summary>
         private GestureSample mGesture;
+
+        /// <summary>
+        /// The sound that plays when you user selects and item on the menu.
+        /// </summary>
+        private SoundEffect mFxMenuSelect;
 
         /// <summary>
         /// Preallocated to avoid GC.
@@ -81,6 +87,8 @@ namespace BumpSetSpike.Behaviour
 
             mGesture = new GestureSample();
 
+            mFxMenuSelect = GameObjectManager.pInstance.pContentManager.Load<SoundEffect>("Audio\\FX\\MenuSelect");
+
             mGameRestartMsg = new Player.OnGameRestartMessage();
         }
 
@@ -101,6 +109,8 @@ namespace BumpSetSpike.Behaviour
                         // Move down to the gameplay camera position.
                         CameraManager.pInstance.pTargetPosition = new Vector2(0, -30.0f);
                         mCurrentState = State.MoveToCourt;
+
+                        mFxMenuSelect.Play();
 
                         mWatch.pIsPaused = false;
                     }

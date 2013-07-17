@@ -13,6 +13,7 @@ using MBHEngine.Behaviour;
 using Microsoft.Xna.Framework.Input.Touch;
 using BumpSetSpike.Behaviour;
 using BumpSetSpike.Gameflow;
+using Microsoft.Xna.Framework.Media;
 
 namespace BumpSetSpike
 {
@@ -23,6 +24,11 @@ namespace BumpSetSpike
     {
         private GraphicsDeviceManager mGraphics;
         private SpriteBatch mSpriteBatch;
+
+        /// <summary>
+        /// Background music for the game.
+        /// </summary>
+        private Song mMusic;
 
         /// <summary>
         /// Whether or not to draw debug information.
@@ -267,6 +273,15 @@ namespace BumpSetSpike
             // Add the HUD elements.
             //
             //GameObjectManager.pInstance.Add(new GameObject("GameObjects\\Interface\\HUD\\PlayerHealthBar\\PlayerHealthBar"));
+
+            mMusic = Content.Load<Song>("Audio\\Music\\RoccoW_-_Pumped");
+
+            // Only play music if the user isn't already listening to something.
+            if (MediaPlayer.State == MediaState.Stopped)
+            {
+                MediaPlayer.IsRepeating = true;
+                MediaPlayer.Play(mMusic);
+            }
 
             LeaderBoardManager.pInstance.Initialize();
 
