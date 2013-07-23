@@ -505,7 +505,13 @@ namespace BumpSetSpike.Behaviour
 
                 mParentGOH.pPosX = temp.mDestination_Out.X - 4.0f;
 
+                // The player may have been in mid air when the round ended.
+                mParentGOH.pPosY = 0.0f;
+
                 mCurrentState = State.Receiving;
+
+                // Stop the player from continuing a jump that may have starting last round.
+                mParentGOH.pDirection.mForward = Vector2.Zero;
             }
             else if (msg is GetCurrentStateMessage)
             {
