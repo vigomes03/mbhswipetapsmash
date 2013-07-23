@@ -7,7 +7,7 @@
     <mPosition>-90 0</mPosition>
     <mRotation>0</mRotation>
     <mScale>1 1</mScale>
-    <mCollisionBoxDimensions>10.0 19.0</mCollisionBoxDimensions>
+    <mCollisionBoxDimensions>20.0 19.0</mCollisionBoxDimensions>
     <mCollisionRoot>6 -21</mCollisionRoot>
     <mMotionRoot>32 64</mMotionRoot>
     <mBehaviourFileNames>
