@@ -26,6 +26,11 @@ namespace BumpSetSpike.Gameflow
             /// Top scores in the game.
             /// </summary>
             public LeaderBoardManager.Records mRecords;
+
+            /// <summary>
+            /// Has the tutorial been played yet?
+            /// </summary>
+            public Boolean mTutorialComplete;
         }
 
         /// <summary>
@@ -87,6 +92,7 @@ namespace BumpSetSpike.Gameflow
                         XmlSerializer serializer = new XmlSerializer(typeof(SaveGameData));
                         mSaveData = (SaveGameData)serializer.Deserialize(stream);
                         LeaderBoardManager.pInstance.SetRecords(mSaveData.mRecords);
+                        TutorialManager.pInstance.pTutorialCompleted = mSaveData.mTutorialComplete;
                     }
                 }
             }
@@ -116,6 +122,7 @@ namespace BumpSetSpike.Gameflow
                     using (XmlWriter xmlWriter = XmlWriter.Create(stream, xmlWriterSettings))
                     {
                         mSaveData.mRecords = LeaderBoardManager.pInstance.GetRecords();
+                        mSaveData.mTutorialComplete = TutorialManager.pInstance.pTutorialCompleted;
                         serializer.Serialize(xmlWriter, mSaveData);
                     }
                 }

@@ -142,7 +142,11 @@ namespace BumpSetSpike.Behaviour
                 mSetActiveAnimationMsg.mAnimationSetName_In = "Bump";
                 mSetActiveAnimationMsg.mDoNotRestartIfCompleted_In = true;
                 mParentGOH.OnMessage(mSetActiveAnimationMsg);
-               
+
+                if (TutorialManager.pInstance.pCurState == TutorialManager.State.SET)
+                {
+                    TutorialManager.pInstance.pCurState = TutorialManager.State.SET_TXT;
+                }
             }
             else
             {

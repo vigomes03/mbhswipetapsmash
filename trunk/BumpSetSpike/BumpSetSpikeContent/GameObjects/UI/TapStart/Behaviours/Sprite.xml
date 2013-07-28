@@ -4,6 +4,7 @@
     <mRenderPassExclusions>
       <Item>GAME_OVER</Item>
       <Item>GAME_PLAY</Item>
+      <Item>TUTORIAL_PAUSE</Item>
     </mRenderPassExclusions>
     <mSpriteFileName>Sprites\TapStart</mSpriteFileName>
   </Asset>

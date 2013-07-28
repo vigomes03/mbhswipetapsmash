@@ -15,6 +15,7 @@ namespace MBHEngineContentDefs
         public enum Passes
         {
             MAIN_MENU = 0,
+            TUTORIAL_PAUSE,
             GAME_PLAY,
             GAME_OVER,
         }
