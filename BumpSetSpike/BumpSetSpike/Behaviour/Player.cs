@@ -182,8 +182,28 @@ namespace BumpSetSpike.Behaviour
         {
             GestureSample gesture = new GestureSample();
 
+            if (TutorialManager.pInstance.pCurState == TutorialManager.State.TAP_START)
+            {
+                // Find if we are hitting any balls.
+                mCollisionResults.Clear();
+                GameObjectManager.pInstance.GetGameObjectsInRange(mParentGOH, ref mCollisionResults, mBallClassifications);
+
+                if (mCollisionResults.Count > 0)
+                {
+                    System.Diagnostics.Debug.Assert(mCollisionResults.Count == 1);
+
+                    TutorialManager.pInstance.pCurState = TutorialManager.State.TAP_TXT;
+                }
+            }
+
+            Boolean validTutTapState = 
+                TutorialManager.pInstance.pCurState == TutorialManager.State.TAP_END ||
+                TutorialManager.pInstance.pCurState == TutorialManager.State.PLAYER_TRYING ||
+                TutorialManager.pInstance.pCurState == TutorialManager.State.TRYING_AGAIN;
+
             // Is the player tapping the screen?
-            if(InputManager.pInstance.CheckGesture(GestureType.Tap, ref gesture) || InputManager.pInstance.CheckAction(InputManager.InputActions.A, true))
+            if ((TutorialManager.pInstance.pTutorialCompleted || validTutTapState) && 
+                (InputManager.pInstance.CheckGesture(GestureType.Tap, ref gesture) || InputManager.pInstance.CheckAction(InputManager.InputActions.A, true)))
             {
                 // If we are jumping and the player taps the screen, we spike the ball.
                 if (mCurrentState == State.Jump && GameObjectManager.pInstance.pCurUpdatePass == BehaviourDefinition.Passes.GAME_PLAY)
@@ -195,25 +215,35 @@ namespace BumpSetSpike.Behaviour
                     mStateTimer.pLifeTime = 5.0f;
                     mStateTimer.Restart();
                 }
-                else if (GameObjectManager.pInstance.pCurUpdatePass == BehaviourDefinition.Passes.GAME_OVER)
-                {
-                    // If the game is over, tapping the screen restarts the match.
-                    GameObjectManager.pInstance.BroadcastMessage(mGameRestartMsg, mParentGOH);
-                    GameObjectManager.pInstance.pCurUpdatePass = BehaviourDefinition.Passes.GAME_PLAY;
-                }
             }
 
             // Start with a fresh gesture.
             gesture = new GestureSample();
 
+            validTutTapState = 
+                TutorialManager.pInstance.pCurState == TutorialManager.State.TAP_START ||
+                TutorialManager.pInstance.pCurState == TutorialManager.State.PLAYER_TRYING ||
+                TutorialManager.pInstance.pCurState == TutorialManager.State.TRYING_AGAIN;
+
             // Is the player flicking the screen, trying to throw the player into the air?
-            if (InputManager.pInstance.CheckGesture(GestureType.Flick, ref gesture) || InputManager.pInstance.CheckAction(InputManager.InputActions.A, true))
+            if ((TutorialManager.pInstance.pTutorialCompleted || validTutTapState) &&
+                (InputManager.pInstance.CheckGesture(GestureType.Flick, ref gesture) || InputManager.pInstance.CheckAction(InputManager.InputActions.A, true)))
             {
                 // Only allow jumping if you are currently in the Idle state.
                 if (mCurrentState == State.Idle && GameObjectManager.pInstance.pCurUpdatePass == BehaviourDefinition.Passes.GAME_PLAY)
                 {
 #if WINDOWS_PHONE
-                    mParentGOH.pDirection.mForward = gesture.Delta * (Single)gameTime.ElapsedGameTime.TotalSeconds * 0.025f;
+                    Vector2 norm = gesture.Delta;
+                    norm.Normalize();
+                    DebugMessageDisplay.pInstance.AddConstantMessage("Swipe: " + gesture.Delta + ", " + gesture.Delta.Length() + ", " + norm);
+
+                    Vector2 delta = gesture.Delta;
+
+                    if (!TutorialManager.pInstance.pTutorialCompleted)
+                    {
+                        delta = new Vector2(3083.0f, -5115.0f);
+                    }
+                    mParentGOH.pDirection.mForward = delta * (Single)gameTime.ElapsedGameTime.TotalSeconds * 0.025f;
 #else
                     // Find the ball so that we can force the player to jump towards it.
                     List<GameObject> mBalls = GameObjectManager.pInstance.GetGameObjectsOfClassification(MBHEngineContentDefs.GameObjectDefinition.Classifications.VOLLEY_BALL);
@@ -222,11 +252,20 @@ namespace BumpSetSpike.Behaviour
                     {
                         System.Diagnostics.Debug.Assert(mBalls.Count == 1);
 
-                        // Automatically throw the player at the ball. Doesn't work great, but good enough
-                        // for testing right now on PC.
-                        mParentGOH.pDirection.mForward = mBalls[0].pCollisionRect.pCenterPoint - mParentGOH.pCollisionRect.pCenterPoint;
-                        mParentGOH.pDirection.mForward.Normalize();
-                        mParentGOH.pDirection.mForward *= 6.0f;
+                        if (!TutorialManager.pInstance.pTutorialCompleted)
+                        {
+                            // This works for the tutorial hit too.
+                            Vector2 delta = new Vector2(3083.0f, -5115.0f);
+                            mParentGOH.pDirection.mForward = delta * (Single)gameTime.ElapsedGameTime.TotalSeconds * 0.025f;
+                        }
+                        else
+                        {
+                            // Automatically throw the player at the ball. Doesn't work great, but good enough
+                            // for testing right now on PC.
+                            mParentGOH.pDirection.mForward = mBalls[0].pCollisionRect.pCenterPoint - mParentGOH.pCollisionRect.pCenterPoint;
+                            mParentGOH.pDirection.mForward.Normalize();
+                            mParentGOH.pDirection.mForward *= 6.0f;
+                        }
                     }
 #endif
                     // We are now jumping.
@@ -439,6 +478,11 @@ namespace BumpSetSpike.Behaviour
                     mSetActiveAnimationMsg.mAnimationSetName_In = "Bump";
                     mSetActiveAnimationMsg.mDoNotRestartIfCompleted_In = true;
                     mParentGOH.OnMessage(mSetActiveAnimationMsg);
+
+                    if (TutorialManager.pInstance.pCurState == TutorialManager.State.RECEIVING_END)
+                    {
+                        TutorialManager.pInstance.pCurState = TutorialManager.State.BUMP_TXT;
+                    }
                 }
             }
 

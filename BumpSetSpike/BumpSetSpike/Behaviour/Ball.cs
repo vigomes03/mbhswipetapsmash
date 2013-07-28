@@ -204,6 +204,14 @@ namespace BumpSetSpike.Behaviour
                 mSetActiveAnimationMsg.mAnimationSetName_In = "SpinSlow";
             }
 
+            if (mParentGOH.pPosY < -70.0f)
+            {
+                if (TutorialManager.pInstance.pCurState == TutorialManager.State.SWIPE)
+                {
+                    TutorialManager.pInstance.pCurState = TutorialManager.State.SWIPE_TXT_BALL_HIGH;
+                }
+            }
+
             mParentGOH.OnMessage(mSetActiveAnimationMsg);
 
             // Has enough time passed since the play ended?
@@ -212,11 +220,47 @@ namespace BumpSetSpike.Behaviour
                 // Left of the net is a loss. Right of the net is win and requires the next play start.
                 if (mParentGOH.pPosX < 0.0f)
                 {
-                    GameObjectManager.pInstance.pCurUpdatePass = BehaviourDefinition.Passes.GAME_OVER;
+                    if (TutorialManager.pInstance.pCurState == TutorialManager.State.PLAYER_TRYING)
+                    {
+                        GameObjectManager.pInstance.BroadcastMessage(mOnMatchRestartMsg, mParentGOH);
+                        TutorialManager.pInstance.pCurState = TutorialManager.State.TRY_AGAIN;
+                    }
+                    else if (TutorialManager.pInstance.pCurState == TutorialManager.State.TRYING_AGAIN)
+                    {
+                        GameObjectManager.pInstance.BroadcastMessage(mOnMatchRestartMsg, mParentGOH);
+                        TutorialManager.pInstance.StartTutorial();
+                    }
+                    else if (TutorialManager.pInstance.pCurState == TutorialManager.State.TAP_END)
+                    {
+                        System.Diagnostics.Debug.Assert(false, "Tutorial failed to play winning move.");
+
+                        GameObjectManager.pInstance.BroadcastMessage(mOnMatchRestartMsg, mParentGOH);
+                        TutorialManager.pInstance.StartTutorial();
+                    }
+                    else
+                    {
+                        GameObjectManager.pInstance.pCurUpdatePass = BehaviourDefinition.Passes.GAME_OVER;
+                    }
                 }
                 else
                 {
-                    GameObjectManager.pInstance.BroadcastMessage(mIncrementHitCountMsg, mParentGOH);
+                    if (TutorialManager.pInstance.pCurState == TutorialManager.State.PLAYER_TRYING)
+                    {
+                        TutorialManager.pInstance.pCurState = TutorialManager.State.COMPLETE_WELL_DONE;
+                    }
+                    else if (TutorialManager.pInstance.pCurState == TutorialManager.State.TRYING_AGAIN)
+                    {
+                        TutorialManager.pInstance.pCurState = TutorialManager.State.COMPLETE_WELL_DONE;
+                    }
+                    else if (TutorialManager.pInstance.pCurState == TutorialManager.State.TAP_END)
+                    {
+                        TutorialManager.pInstance.pCurState = TutorialManager.State.PLAYER_TRY;
+                    }
+                    else
+                    {
+                        GameObjectManager.pInstance.BroadcastMessage(mIncrementHitCountMsg, mParentGOH);
+                    }
+
                     GameObjectManager.pInstance.BroadcastMessage(mOnMatchRestartMsg, mParentGOH);
                 }
 
@@ -285,6 +329,11 @@ namespace BumpSetSpike.Behaviour
                 Single speed = ((Single)RandomManager.pInstance.RandomPercent() * 2.0f) + 5.0f;
 
                 Vector2 dest = new Vector2((Single)RandomManager.pInstance.RandomPercent() * -60.0f - 30.0f, 16.0f);
+
+                if (!TutorialManager.pInstance.pTutorialCompleted)
+                {
+                    dest.X = -90;
+                }
 
                 mSetServeDestinationMsg.mDestination_Out = dest;
                 GameObjectManager.pInstance.BroadcastMessage(mSetServeDestinationMsg, mParentGOH);

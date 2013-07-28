@@ -4,6 +4,7 @@
     <mRenderPassExclusions>
       <Item>MAIN_MENU</Item>
       <Item>GAME_PLAY</Item>
+      <Item>TUTORIAL_PAUSE</Item>
     </mRenderPassExclusions>
     <mSpriteFileName>Sprites\NewHighScore</mSpriteFileName>
   </Asset>

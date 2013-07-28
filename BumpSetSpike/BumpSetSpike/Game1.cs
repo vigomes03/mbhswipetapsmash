@@ -116,6 +116,7 @@ namespace BumpSetSpike
             CameraManager.pInstance.pNumBlendFrames = 30;
             StopWatchManager.pInstance.Initialize();
             ScoreManager.pInstance.Initialize();
+            TutorialManager.pInstance.Initialize();
             DebugShapeDisplay.pInstance.Initialize();
             DebugMessageDisplay.pInstance.Initialize();
 
@@ -279,6 +280,10 @@ namespace BumpSetSpike
 
             Boolean musicDisabled = CommandLineManager.pInstance["DisableMusic"] != null;
 
+#if WINDOWS_PHONE && DEBUG
+            musicDisabled = true;
+#endif
+
             // Only play music if the user isn't already listening to something.
             if (MediaPlayer.State == MediaState.Stopped && !musicDisabled)
             {
@@ -419,6 +424,7 @@ namespace BumpSetSpike
                 GameObjectPicker.pInstance.Update(gameTime, (mFameSkipCount == 0));
             }
 
+            TutorialManager.pInstance.Update(gameTime);
             InputManager.pInstance.UpdateEnd();
             CameraManager.pInstance.Update(gameTime);
 

@@ -136,6 +136,9 @@ namespace BumpSetSpike.Behaviour
                 {
                     GameObjectManager.pInstance.BroadcastMessage(mGameRestartMsg, mParentGOH);
                     GameObjectManager.pInstance.pCurUpdatePass = BehaviourDefinition.Passes.GAME_PLAY;
+                    //GameObjectManager.pInstance.pCurUpdatePass = BehaviourDefinition.Passes.TUTORIAL;
+
+                    TutorialManager.pInstance.StartTutorial();
 
                     mWatch.Restart();
                     mWatch.pIsPaused = true;

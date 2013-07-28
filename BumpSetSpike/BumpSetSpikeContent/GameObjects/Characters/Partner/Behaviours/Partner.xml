@@ -1,6 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <XnaContent>
   <Asset Type="BumpSetSpikeContentDefs.PartnerDefinition">
+    <mUpdatePasses>
+      <Item>GAME_OVER</Item>
+      <Item>GAME_PLAY</Item>
+      <Item>MAIN_MENU</Item>
+    </mUpdatePasses>
   </Asset>
 </XnaContent>
 

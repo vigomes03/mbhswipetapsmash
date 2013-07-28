@@ -60,6 +60,8 @@ namespace BumpSetSpike.Behaviour
                 // Restart the game
                 GameObjectManager.pInstance.BroadcastMessage(mGameRestartMsg, mParentGOH);
                 GameObjectManager.pInstance.pCurUpdatePass = BehaviourDefinition.Passes.GAME_PLAY;
+
+                //TutorialManager.pInstance.StartTutorial();
             }
         }
     }
