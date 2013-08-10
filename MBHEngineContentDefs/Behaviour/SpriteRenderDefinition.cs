@@ -64,6 +64,15 @@ namespace MBHEngineContentDefs
             /// This is just to simplify things, so the client doesn't need to specify data for
             /// every frame since it will be the same 99% of the time.
             /// </summary>
+            /// 
+            ///    <mFrameOverrides>
+            ///      <Item>
+            ///        <Key>2</Key>
+            ///        <Value>
+            ///          <mTicksPerFrame>60</mTicksPerFrame>
+            ///        </Value>
+            ///      </Item>
+            ///    </mFrameOverrides>
             [ContentSerializer(Optional = true)]
             public Dictionary<Int32, FrameOverrides> mFrameOverrides;
         };
