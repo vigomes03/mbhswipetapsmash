@@ -23,6 +23,11 @@ namespace BumpSetSpike.Behaviour
         /// <summary>
         /// Preallocated to avoid GC.
         /// </summary>
+        private GestureSample mGesture;
+
+        /// <summary>
+        /// Preallocated to avoid GC.
+        /// </summary>
         private Player.OnGameRestartMessage mGameRestartMsg;
 
         /// <summary>
@@ -44,6 +49,8 @@ namespace BumpSetSpike.Behaviour
         {
             base.LoadContent(fileName);
 
+            mGesture = new GestureSample();
+
             mGameRestartMsg = new Player.OnGameRestartMessage();
         }
 
@@ -53,9 +60,7 @@ namespace BumpSetSpike.Behaviour
         /// <param name="gameTime"></param>
         public override void Update(GameTime gameTime)
         {
-            GestureSample gesture = new GestureSample();
-
-            if (InputManager.pInstance.CheckGesture(GestureType.Tap, ref gesture) || InputManager.pInstance.CheckAction(InputManager.InputActions.A, true))
+            if (InputManager.pInstance.CheckGesture(GestureType.Tap, ref mGesture) || InputManager.pInstance.CheckAction(InputManager.InputActions.A, true))
             {
                 // Restart the game
                 GameObjectManager.pInstance.BroadcastMessage(mGameRestartMsg, mParentGOH);

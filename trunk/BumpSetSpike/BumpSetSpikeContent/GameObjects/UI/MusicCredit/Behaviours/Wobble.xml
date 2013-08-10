@@ -2,12 +2,12 @@
 <XnaContent>
   <Asset Type="BumpSetSpikeContentDefs.WobbleDefinition">
     <mRotationTween>
-      <mLength>15.0</mLength>
-      <mStartValue>-2.0</mStartValue>
-      <mEndValue>2.0</mEndValue>
+      <mLength>0.0</mLength>
+      <mStartValue>0.0</mStartValue>
+      <mEndValue>0.0</mEndValue>
     </mRotationTween>
     <mScaleTween>
-      <mLength>5.0</mLength>
+      <mLength>7</mLength>
       <mStartValue>0.95</mStartValue>
       <mEndValue>1.05</mEndValue>
     </mScaleTween>

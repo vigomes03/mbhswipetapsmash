@@ -64,6 +64,10 @@ namespace BumpSetSpike.Behaviour
                     {
                         return new Wobble(go, fileName);
                     }
+                case "BumpSetSpike.Behaviour.Button":
+                    {
+                        return new Button(go, fileName);
+                    }
                 default:
                     {
                         return null;

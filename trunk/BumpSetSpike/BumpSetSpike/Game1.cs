@@ -123,7 +123,7 @@ namespace BumpSetSpike
             CameraManager.pInstance.pTargetPosition = new Vector2(0, -100.0f); // -30
 
             // enable the gestures we care about. you must set EnabledGestures before
-            // you can use any of the other gesture APIs.
+            // you can use any of the other mGesture APIs.
             // we use both Tap and DoubleTap to workaround a bug in the XNA GS 4.0 Beta
             // where some Taps are missed if only Tap is specified.
             TouchPanel.EnabledGestures =
@@ -230,6 +230,7 @@ namespace BumpSetSpike
             GameObjectManager.pInstance.Add(new GameObject("GameObjects\\Items\\Court\\Court"));
 
             GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\TitleScreen\\TitleScreen"));
+            GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\MusicCredit\\MusicCredit"));
 
             Single x = (mGraphics.GraphicsDevice.Viewport.Width / CameraManager.pInstance.pZoomScale) - 20.0f;
             Single y = (mGraphics.GraphicsDevice.Viewport.Height / CameraManager.pInstance.pZoomScale) - 4.0f;

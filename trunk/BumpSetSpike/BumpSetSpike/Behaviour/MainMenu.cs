@@ -13,6 +13,7 @@ using BumpSetSpike.Gameflow;
 using MBHEngine.Input;
 using MBHEngineContentDefs;
 using Microsoft.Xna.Framework.Audio;
+using Microsoft.Phone.Tasks;
 
 namespace BumpSetSpike.Behaviour
 {
@@ -108,8 +109,7 @@ namespace BumpSetSpike.Behaviour
         /// <summary>
         /// See parent.
         /// </summary>
-        /// <param name="gameTime"></param>
-        public override void Update(GameTime gameTime)
+        public override Boolean HandleUIInput()
         {
             // If we are in the main menu, start looking for button presses.
             // TODO: Move this to update passes.
@@ -128,6 +128,8 @@ namespace BumpSetSpike.Behaviour
                         GameObjectManager.pInstance.Remove(mTapStart);
 
                         mWatch.pIsPaused = false;
+
+                        return true;
                     }
                 }
 
@@ -144,6 +146,8 @@ namespace BumpSetSpike.Behaviour
                     mWatch.pIsPaused = true;
                 }
             }
+
+            return false;
         }
     }
 }

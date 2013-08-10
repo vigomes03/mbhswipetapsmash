@@ -352,6 +352,24 @@ namespace MBHEngine.GameObject
                 count++;
             }
 
+            // Allow UI objects to handle input in an ordered way. In this case we go from front to
+            // back, since that is what the user will expect when clicking things.
+            //
+            for (int i = mGameObjects.Count - 1; i >= 0; --i)
+            {
+                // Input handling follow the same rules as updates since traditionally
+                // input is handled in Update().
+                if (mGameObjects[i].pDoUpdate)
+                {
+                    if (mGameObjects[i].HandleUIInput())
+                    {
+                        break;
+                    }
+                }
+
+                count++;
+            }
+
             // A final chance to update behaviours after all the updates have been completed.
             //
             for (int i = 0; i < mGameObjects.Count; i++)
@@ -565,7 +583,10 @@ namespace MBHEngine.GameObject
 
                 if (obj.pDoRender == true)
                 {
-                    if (obj.pCollisionRect.pDimensions == Vector2.Zero || CameraManager.pInstance.IsOnCamera(obj.pRenderRect))
+                    if (obj.pCollisionRect.pDimensions == Vector2.Zero || 
+                        blend == GameObjectDefinition.BlendMode.STANDARD_UI || 
+                        blend == GameObjectDefinition.BlendMode.MULTIPLY_UI ||
+                        CameraManager.pInstance.IsOnCamera(obj.pRenderRect))
                     {
                         // Has the blend mode changed from the previous game object to this one?
                         if (currentBlend != blend)

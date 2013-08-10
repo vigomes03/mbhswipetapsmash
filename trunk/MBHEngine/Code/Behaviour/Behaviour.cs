@@ -154,6 +154,16 @@ namespace MBHEngine.Behaviour
         }
 
         /// <summary>
+        /// Allows UI to handle input in an ordered form. This way we can make sure multiple
+        /// buttons don't all try to handle the same press event.
+        /// </summary>
+        /// <returns>True if this behaviour handled input in some way.</returns>
+        public virtual Boolean HandleUIInput()
+        {
+            return false;
+        }
+
+        /// <summary>
         /// Called once render cycle by the game object manager.
         /// </summary>
         /// <param name="batch">The sprite batch to render to.</param>

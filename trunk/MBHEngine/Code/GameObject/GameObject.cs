@@ -297,6 +297,31 @@ namespace MBHEngine.GameObject
         }
 
         /// <summary>
+        /// Allows UI GameObjects to handle input in an ordered manner.
+        /// </summary>
+        /// <returns>True if this Object handled input in some way.</returns>
+        public virtual Boolean HandleUIInput()
+        {
+            BehaviourDefinition.Passes curPass = GameObjectManager.pInstance.pCurUpdatePass;
+
+            for (int i = 0; i < mBehaviours.Count; i++)
+            {
+                // Treat is similar to Update, since input is usually handled in the update functions.
+                if (mBehaviours[i].pIsEnabled &&
+                    (0 == mBehaviours[i].pUpdatePasses.Count ||
+                    mBehaviours[i].pUpdatePasses.Contains((Int32)curPass)))
+                {
+                    if (mBehaviours[i].HandleUIInput())
+                    {
+                        return true;
+                    }
+                }
+            }
+
+            return false;
+        }
+
+        /// <summary>
         /// Called once per frame after the Update function. Is called after all objects have
         /// caled Update.
         /// </summary>
