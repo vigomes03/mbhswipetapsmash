@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 using MBHEngine.Behaviour;
 using MBHEngine.GameObject;
 using MBHEngine.Math;
+using BumpSetSpikeContentDefs;
 
 namespace BumpSetSpike.Behaviour
 {
@@ -45,15 +46,21 @@ namespace BumpSetSpike.Behaviour
         {
             base.LoadContent(fileName);
 
-            //DamageWobbleDefinition def = GameObjectManager.pInstance.pContentManager.Load<DamageWobbleDefinition>(fileName);
+            WobbleDefinition def = GameObjectManager.pInstance.pContentManager.Load<WobbleDefinition>(fileName);
 
-            StopWatch watch = StopWatchManager.pInstance.GetNewStopWatch();
-            watch.pLifeTime = 5.0f;
-            mScaleTween = new Tween(watch, 0.95f, 1.05f);
+            if (def.mScaleTween.mLength > 0.0f)
+            {
+                StopWatch watch = StopWatchManager.pInstance.GetNewStopWatch();
+                watch.pLifeTime = def.mScaleTween.mLength;
+                mScaleTween = new Tween(watch, def.mScaleTween.mStartValue, def.mScaleTween.mEndValue);
+            }
 
-            watch = StopWatchManager.pInstance.GetNewStopWatch();
-            watch.pLifeTime = 15.0f;
-            mRotationTween = new Tween(watch, -2, 2);
+            if (def.mRotationTween.mLength > 0.0f)
+            {
+                StopWatch watch = StopWatchManager.pInstance.GetNewStopWatch();
+                watch.pLifeTime = def.mRotationTween.mLength;
+                mRotationTween = new Tween(watch, def.mRotationTween.mStartValue, def.mRotationTween.mEndValue);
+            }
         }
 
         /// <summary>
@@ -61,8 +68,15 @@ namespace BumpSetSpike.Behaviour
         /// </summary>
         ~Wobble()
         {
-            StopWatchManager.pInstance.RecycleStopWatch(mScaleTween.mWatch);
-            StopWatchManager.pInstance.RecycleStopWatch(mRotationTween.mWatch);
+            if (mScaleTween.mWatch != null)
+            {
+                StopWatchManager.pInstance.RecycleStopWatch(mScaleTween.mWatch);
+            }
+
+            if (mRotationTween.mWatch != null)
+            {
+                StopWatchManager.pInstance.RecycleStopWatch(mRotationTween.mWatch);
+            }
         }
 
         /// <summary>
@@ -71,11 +85,17 @@ namespace BumpSetSpike.Behaviour
         /// <param name="gameTime">The amount of time that has passed this frame.</param>
         public override void Update(GameTime gameTime)
         {
-            mScaleTween.Update();
-            mRotationTween.Update();
+            if (mScaleTween.mWatch != null)
+            {
+                mScaleTween.Update();
+                mParentGOH.pScaleXY = mScaleTween.mCurrentValue;
+            }
 
-            mParentGOH.pRotation = MathHelper.ToRadians(mRotationTween.mCurrentValue);
-            mParentGOH.pScaleXY = mScaleTween.mCurrentValue;
+            if (mRotationTween.mWatch != null)
+            {
+                mRotationTween.Update();
+                mParentGOH.pRotation = MathHelper.ToRadians(mRotationTween.mCurrentValue);
+            }
         }
     }
 }

@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<XnaContent>
+  <Asset Type="BumpSetSpikeContentDefs.ButtonDefinition">
+    <mTaskOnRelease>
+      <mType>OpenURL</mType>
+      <mData>http://soundcloud.com/roccow/pumped</mData>
+    </mTaskOnRelease>
+  </Asset>
+</XnaContent>
+

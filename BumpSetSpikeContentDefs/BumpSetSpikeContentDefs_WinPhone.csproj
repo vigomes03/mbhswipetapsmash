@@ -94,6 +94,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Behaviour\BallDefinition.cs" />
+    <Compile Include="Behaviour\ButtonDefinition.cs" />
     <Compile Include="Behaviour\WobbleDefinition.cs" />
     <Compile Include="Behaviour\NewHighScoreDefinition.cs" />
     <Compile Include="Behaviour\GameOverDefinition.cs" />
