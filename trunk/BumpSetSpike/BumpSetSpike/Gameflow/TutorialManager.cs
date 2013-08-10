@@ -63,6 +63,7 @@ namespace BumpSetSpike.Gameflow
         private GameObject mTxtRecap;
         private GameObject mTxtRules;
         private GameObject mImgSwipe;
+        private GameObject mTxtTitle;
 
         private State mCurState;
 
@@ -150,6 +151,10 @@ namespace BumpSetSpike.Gameflow
             mTxtRules = new GameObject("GameObjects\\UI\\Tutorial\\InRow\\InRow");
             mTxtRules.pPosX = x;
             mTxtRules.pPosY = y;
+
+            mTxtTitle = new GameObject("GameObjects\\UI\\Tutorial\\Title\\Title");
+            mTxtTitle.pPosX = x;
+            mTxtTitle.pPosY = 5.0f;
 
             mImgSwipe = new GameObject("GameObjects\\Items\\Tutorial\\Swipe\\Swipe");
         }
@@ -472,6 +477,8 @@ namespace BumpSetSpike.Gameflow
 
                     GameObjectManager.pInstance.pCurUpdatePass = MBHEngineContentDefs.BehaviourDefinition.Passes.GAME_PLAY;
 
+                    GameObjectManager.pInstance.Remove(mTxtTitle);
+
                     break;
                 }
             }
@@ -488,6 +495,8 @@ namespace BumpSetSpike.Gameflow
                         mReceiveWatch = StopWatchManager.pInstance.GetNewStopWatch();
                         mReceiveWatch.pLifeTime = 15;
                     }
+
+                    GameObjectManager.pInstance.Add(mTxtTitle);
 
                     break;
                 }
