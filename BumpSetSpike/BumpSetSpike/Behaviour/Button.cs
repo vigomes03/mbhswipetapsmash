@@ -6,9 +6,12 @@ using Microsoft.Xna.Framework.Input.Touch;
 using MBHEngine.Input;
 using MBHEngine.GameObject;
 using Microsoft.Xna.Framework;
+#if WINDOWS_PHONE
 using Microsoft.Phone.Tasks;
+#endif
 using MBHEngine.Render;
 using BumpSetSpikeContentDefs;
+using MBHEngineContentDefs;
 
 namespace BumpSetSpike.Behaviour
 {
@@ -71,10 +74,26 @@ namespace BumpSetSpike.Behaviour
                     {
                         case ButtonDefinition.TaskType.OpenURL:
                         {
+#if WINDOWS_PHONE
                             WebBrowserTask browser = new WebBrowserTask();
                             browser.Uri = new Uri(task.mData, UriKind.Absolute);
                             browser.Show();
 
+                            return true;
+#else
+                            return false;
+#endif
+                        }
+
+                        case ButtonDefinition.TaskType.PauseGame:
+                        {
+                            GameObjectManager.pInstance.pCurUpdatePass = BehaviourDefinition.Passes.GAME_PLAY_PAUSED;
+                            return true;
+                        }
+
+                        case ButtonDefinition.TaskType.ResumeGame:
+                        {
+                            GameObjectManager.pInstance.pCurUpdatePass = BehaviourDefinition.Passes.GAME_PLAY;
                             return true;
                         }
                     }

@@ -18,6 +18,7 @@ namespace MBHEngineContentDefs
             TUTORIAL_PAUSE,
             GAME_PLAY,
             GAME_OVER,
+            GAME_PLAY_PAUSED,
         }
 
         /// <summary>

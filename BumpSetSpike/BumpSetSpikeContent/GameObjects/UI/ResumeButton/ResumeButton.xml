@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<XnaContent>
+  <Asset Type="MBHEngineContentDefs.GameObjectDefinition">
+    <mRenderPriority>101</mRenderPriority>
+    <mDoUpdate>true</mDoUpdate>
+    <mDoRender>true</mDoRender>
+    <mPosition>12 12</mPosition>
+    <mRotation>0</mRotation>
+    <mScale>1 1</mScale>
+    <mCollisionBoxDimensions>24.0 24.0</mCollisionBoxDimensions>
+    <mCollisionRoot>0 0</mCollisionRoot>
+    <mMotionRoot>8 8</mMotionRoot>
+    <mBlendMode>STANDARD_UI</mBlendMode>
+    <mBehaviourFileNames>
+      <Item>Sprite</Item>
+      <Item>Wobble</Item>
+      <Item>Button</Item>
+    </mBehaviourFileNames>
+    <mBehaviourClassNames>
+      <Item>MBHEngine.Behaviour.SpriteRender</Item>
+      <Item>BumpSetSpike.Behaviour.Wobble</Item>
+      <Item>BumpSetSpike.Behaviour.Button</Item>
+    </mBehaviourClassNames>
+  </Asset>
+</XnaContent>
+

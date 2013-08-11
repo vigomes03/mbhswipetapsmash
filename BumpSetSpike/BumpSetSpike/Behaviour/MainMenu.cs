@@ -13,7 +13,6 @@ using BumpSetSpike.Gameflow;
 using MBHEngine.Input;
 using MBHEngineContentDefs;
 using Microsoft.Xna.Framework.Audio;
-using Microsoft.Phone.Tasks;
 
 namespace BumpSetSpike.Behaviour
 {
