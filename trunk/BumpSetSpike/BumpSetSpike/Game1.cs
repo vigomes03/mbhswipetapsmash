@@ -231,6 +231,8 @@ namespace BumpSetSpike
 
             GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\TitleScreen\\TitleScreen"));
             GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\MusicCredit\\MusicCredit"));
+            GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\PauseButton\\PauseButton"));
+            GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\ResumeButton\\ResumeButton"));
 
             Single x = (mGraphics.GraphicsDevice.Viewport.Width / CameraManager.pInstance.pZoomScale) - 20.0f;
             Single y = (mGraphics.GraphicsDevice.Viewport.Height / CameraManager.pInstance.pZoomScale) - 4.0f;
@@ -260,6 +262,11 @@ namespace BumpSetSpike
             gameOver.pPosX = x;
             gameOver.pPosY = y;
             GameObjectManager.pInstance.Add(gameOver);
+
+            GameObject pausedOverlay = new GameObject("GameObjects\\UI\\PausedOverlay\\PausedOverlay");
+            pausedOverlay.pPosX = x;
+            pausedOverlay.pPosY = y;
+            GameObjectManager.pInstance.Add(pausedOverlay);
 
             GameObject newHighScore = new GameObject("GameObjects\\UI\\NewHighScore\\NewHighScore");
             newHighScore.pPosX = x;

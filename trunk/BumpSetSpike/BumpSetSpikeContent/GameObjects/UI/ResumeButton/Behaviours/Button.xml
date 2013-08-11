@@ -2,11 +2,10 @@
 <XnaContent>
   <Asset Type="BumpSetSpikeContentDefs.ButtonDefinition">
     <mUpdatePasses>
-      <Item>MAIN_MENU</Item>
+      <Item>GAME_PLAY_PAUSED</Item>
     </mUpdatePasses>
     <mTaskOnRelease>
-      <mType>OpenURL</mType>
-      <mData>http://soundcloud.com/roccow/pumped</mData>
+      <mType>ResumeGame</mType>
     </mTaskOnRelease>
   </Asset>
 </XnaContent>

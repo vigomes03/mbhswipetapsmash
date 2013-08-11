@@ -3,11 +3,11 @@
   <Asset Type="MBHEngineContentDefs.SpriteRenderDefinition">
     <mRenderPassExclusions>
       <Item>GAME_OVER</Item>
-      <Item>GAME_PLAY</Item>
-      <Item>GAME_PLAY_PAUSED</Item>
+      <Item>MAIN_MENU</Item>
       <Item>TUTORIAL_PAUSE</Item>
+      <Item>GAME_PLAY_PAUSED</Item>
     </mRenderPassExclusions>
-    <mSpriteFileName>Sprites\MusicNote</mSpriteFileName>
+    <mSpriteFileName>Sprites\Pause</mSpriteFileName>
   </Asset>
 </XnaContent>
 
