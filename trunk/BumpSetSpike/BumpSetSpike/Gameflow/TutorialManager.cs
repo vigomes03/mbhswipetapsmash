@@ -8,6 +8,8 @@ using MBHEngine.Math;
 using MBHEngine.Input;
 using Microsoft.Xna.Framework.Input.Touch;
 using Microsoft.Xna.Framework;
+using MBHEngine.Debug;
+using MBHEngine.Behaviour;
 
 namespace BumpSetSpike.Gameflow
 {
@@ -46,10 +48,29 @@ namespace BumpSetSpike.Gameflow
         }
 
         /// <summary>
+        /// Base message used for highlighting objects during Tutorial.
+        /// </summary>
+        public class HighlightObjectMessage : BehaviourMessage
+        {
+            public Boolean mEnable;
+
+            public override void Reset()
+            {
+                mEnable = false;
+            }
+        }
+        public class HighlightPlayerMessage : HighlightObjectMessage { }
+        public class HighlightPartnerMessage : HighlightObjectMessage { }
+        public class HighlightBallMessage : HighlightObjectMessage { }
+
+        /// <summary>
         /// Static instance of the class.
         /// </summary>
         static private TutorialManager mInstance;
 
+        /// <summary>
+        /// Objects used throughout the tutorial.
+        /// </summary>
         private GameObject mTxtWaitForServe;
         private GameObject mTxtBumpAuto;
         private GameObject mTxtSetAuto;
@@ -62,15 +83,36 @@ namespace BumpSetSpike.Gameflow
         private GameObject mTxtThatsAll;
         private GameObject mTxtRecap;
         private GameObject mTxtRules;
-        private GameObject mImgSwipe;
         private GameObject mTxtTitle;
+        private GameObject mTxtTapContinue;
+        private GameObject mImgSwipe;
+        private GameObject mImgBackdrop;
 
+        /// <summary>
+        /// The current state of the tutorial.
+        /// </summary>
         private State mCurState;
 
+        /// <summary>
+        /// Used to delay the first message during tutorial.
+        /// </summary>
         private StopWatch mReceiveWatch;
 
+        /// <summary>
+        /// Preallocate to avoid GC.
+        /// </summary>
         private GestureSample mGesture;
 
+        /// <summary>
+        /// Preallocated messages.
+        /// </summary>
+        private HighlightPlayerMessage mHighlightPlayerMsg;
+        private HighlightBallMessage mHighlightBallMsg;
+        private HighlightPartnerMessage mHighlightPartnerMsg;
+
+        /// <summary>
+        /// Accessor to the current state.
+        /// </summary>
         public State pCurState 
         {
             get
@@ -103,6 +145,8 @@ namespace BumpSetSpike.Gameflow
 
             Single x = ((GameObjectManager.pInstance.pGraphicsDevice.Viewport.Width * 0.5f) / CameraManager.pInstance.pZoomScale);
             Single y = ((GameObjectManager.pInstance.pGraphicsDevice.Viewport.Height * 0.5f) / CameraManager.pInstance.pZoomScale);
+
+            Single bottom = ((GameObjectManager.pInstance.pGraphicsDevice.Viewport.Height) / CameraManager.pInstance.pZoomScale);
 
             mTxtWaitForServe = new GameObject("GameObjects\\UI\\Tutorial\\WaitForServe\\WaitForServe");
             mTxtWaitForServe.pPosX = x;
@@ -156,7 +200,19 @@ namespace BumpSetSpike.Gameflow
             mTxtTitle.pPosX = x;
             mTxtTitle.pPosY = 5.0f;
 
+            mTxtTapContinue = new GameObject("GameObjects\\UI\\Tutorial\\TapToContinue\\TapToContinue");
+            mTxtTapContinue.pPosX = x;
+            mTxtTapContinue.pPosY = bottom - 16.0f;
+
             mImgSwipe = new GameObject("GameObjects\\Items\\Tutorial\\Swipe\\Swipe");
+
+            mImgBackdrop = new GameObject("GameObjects\\UI\\Tutorial\\Backdrop\\Backdrop");
+            mImgBackdrop.pPosX = x;
+            mImgBackdrop.pPosY = y;
+
+            mHighlightPlayerMsg = new HighlightPlayerMessage();
+            mHighlightBallMsg = new HighlightBallMessage();
+            mHighlightPartnerMsg = new HighlightPartnerMessage();
         }
 
         public void StartTutorial()
@@ -167,6 +223,10 @@ namespace BumpSetSpike.Gameflow
             }
         }
 
+        /// <summary>
+        /// See parent.
+        /// </summary>
+        /// <param name="dt"></param>
         public void Update(GameTime dt)
         {
             switch (pCurState)
@@ -230,10 +290,13 @@ namespace BumpSetSpike.Gameflow
                     if (InputManager.pInstance.CheckAction(InputManager.InputActions.A, true) ||
                         InputManager.pInstance.CheckGesture(GestureType.Flick, ref mGesture))
                     {
-                        SetState(State.TAP_START);
+                        if (IsValidTutorialSwipe(mGesture.Delta, mGesture.Position))
+                        {
+                            SetState(State.TAP_START);
 
-                        // Force an update so that the flick gets processed.
-                        GameObjectManager.pInstance.pPlayer.Update(dt);
+                            // Force an update so that the flick gets processed.
+                            GameObjectManager.pInstance.pPlayer.Update(dt);
+                        }
                     }
 
                     break;
@@ -332,6 +395,10 @@ namespace BumpSetSpike.Gameflow
             }
         }
 
+        /// <summary>
+        /// Start a new state.
+        /// </summary>
+        /// <param name="newState">The state to start.</param>
         private void SetState(State newState)
         {
             if(newState == pCurState || pTutorialCompleted)
@@ -347,6 +414,10 @@ namespace BumpSetSpike.Gameflow
             EnterState(pCurState);
         }
 
+        /// <summary>
+        /// Automatically called when changing states.
+        /// </summary>
+        /// <param name="oldState"></param>
         private void ExitState(State oldState)
         {
             switch (oldState)
@@ -366,7 +437,13 @@ namespace BumpSetSpike.Gameflow
                 {
                     GameObjectManager.pInstance.Remove(mTxtWaitForServe);
 
+                    GameObjectManager.pInstance.Remove(mImgBackdrop);
+                    GameObjectManager.pInstance.Remove(mTxtTapContinue);
+
                     GameObjectManager.pInstance.pCurUpdatePass = MBHEngineContentDefs.BehaviourDefinition.Passes.GAME_PLAY;
+
+                    mHighlightBallMsg.mEnable = false;
+                    GameObjectManager.pInstance.BroadcastMessage(mHighlightBallMsg);
 
                     break;
                 }
@@ -375,7 +452,16 @@ namespace BumpSetSpike.Gameflow
                 {
                     GameObjectManager.pInstance.Remove(mTxtBumpAuto);
 
+                    GameObjectManager.pInstance.Remove(mImgBackdrop);
+                    GameObjectManager.pInstance.Remove(mTxtTapContinue);
+
                     GameObjectManager.pInstance.pCurUpdatePass = MBHEngineContentDefs.BehaviourDefinition.Passes.GAME_PLAY;
+
+                    mHighlightBallMsg.mEnable = false;
+                    GameObjectManager.pInstance.BroadcastMessage(mHighlightBallMsg);
+
+                    mHighlightPlayerMsg.mEnable = false;
+                    GameObjectManager.pInstance.BroadcastMessage(mHighlightPlayerMsg);
 
                     break;
                 }
@@ -384,7 +470,16 @@ namespace BumpSetSpike.Gameflow
                 {
                     GameObjectManager.pInstance.Remove(mTxtSetAuto);
 
+                    GameObjectManager.pInstance.Remove(mImgBackdrop);
+                    GameObjectManager.pInstance.Remove(mTxtTapContinue);
+
                     GameObjectManager.pInstance.pCurUpdatePass = MBHEngineContentDefs.BehaviourDefinition.Passes.GAME_PLAY;
+
+                    mHighlightBallMsg.mEnable = false;
+                    GameObjectManager.pInstance.BroadcastMessage(mHighlightBallMsg);
+
+                    mHighlightPartnerMsg.mEnable = false;
+                    GameObjectManager.pInstance.BroadcastMessage(mHighlightPartnerMsg);
 
                     break;
                 }
@@ -392,6 +487,12 @@ namespace BumpSetSpike.Gameflow
                 case State.SWIPE_TXT_BALL_HIGH:
                 {
                     GameObjectManager.pInstance.Remove(mTxtWhenBallHigh);
+
+                    GameObjectManager.pInstance.Remove(mImgBackdrop);
+                    GameObjectManager.pInstance.Remove(mTxtTapContinue);
+
+                    mHighlightBallMsg.mEnable = false;
+                    GameObjectManager.pInstance.BroadcastMessage(mHighlightBallMsg);
 
                     //GameObjectManager.pInstance.pCurUpdatePass = MBHEngineContentDefs.BehaviourDefinition.Passes.GAME_PLAY;
 
@@ -403,6 +504,15 @@ namespace BumpSetSpike.Gameflow
                     GameObjectManager.pInstance.Remove(mTxtSwipeJump);
                     GameObjectManager.pInstance.Remove(mImgSwipe);
 
+                    GameObjectManager.pInstance.Remove(mImgBackdrop);
+                    //GameObjectManager.pInstance.Remove(mTxtTapContinue);
+
+                    mHighlightBallMsg.mEnable = false;
+                    GameObjectManager.pInstance.BroadcastMessage(mHighlightBallMsg);
+
+                    mHighlightPlayerMsg.mEnable = false;
+                    GameObjectManager.pInstance.BroadcastMessage(mHighlightPlayerMsg);
+
                     GameObjectManager.pInstance.pCurUpdatePass = MBHEngineContentDefs.BehaviourDefinition.Passes.GAME_PLAY;
 
                     break;
@@ -411,6 +521,15 @@ namespace BumpSetSpike.Gameflow
                 case State.TAP_TXT:
                 {
                     GameObjectManager.pInstance.Remove(mTxtTap);
+
+                    GameObjectManager.pInstance.Remove(mImgBackdrop);
+                    //GameObjectManager.pInstance.Remove(mTxtTapContinue);
+
+                    mHighlightBallMsg.mEnable = false;
+                    GameObjectManager.pInstance.BroadcastMessage(mHighlightBallMsg);
+
+                    mHighlightPlayerMsg.mEnable = false;
+                    GameObjectManager.pInstance.BroadcastMessage(mHighlightPlayerMsg);
 
                     GameObjectManager.pInstance.pCurUpdatePass = MBHEngineContentDefs.BehaviourDefinition.Passes.GAME_PLAY;
 
@@ -421,6 +540,9 @@ namespace BumpSetSpike.Gameflow
                 {
                     GameObjectManager.pInstance.Remove(mTxtPlayerTry);
 
+                    GameObjectManager.pInstance.Remove(mImgBackdrop);
+                    GameObjectManager.pInstance.Remove(mTxtTapContinue);
+
                     GameObjectManager.pInstance.pCurUpdatePass = MBHEngineContentDefs.BehaviourDefinition.Passes.GAME_PLAY;
 
                     break;
@@ -429,6 +551,9 @@ namespace BumpSetSpike.Gameflow
                 case State.TRY_AGAIN:
                 {
                     GameObjectManager.pInstance.Remove(mTxtTryAgain);
+
+                    GameObjectManager.pInstance.Remove(mImgBackdrop);
+                    GameObjectManager.pInstance.Remove(mTxtTapContinue);
 
                     GameObjectManager.pInstance.pCurUpdatePass = MBHEngineContentDefs.BehaviourDefinition.Passes.GAME_PLAY;
 
@@ -439,6 +564,9 @@ namespace BumpSetSpike.Gameflow
                 {
                     GameObjectManager.pInstance.Remove(mTxtWellDone);
 
+                    GameObjectManager.pInstance.Remove(mImgBackdrop);
+                    GameObjectManager.pInstance.Remove(mTxtTapContinue);
+
                     GameObjectManager.pInstance.pCurUpdatePass = MBHEngineContentDefs.BehaviourDefinition.Passes.GAME_PLAY;
 
                     break;
@@ -447,6 +575,9 @@ namespace BumpSetSpike.Gameflow
                 case State.COMPLETE_THATS_ALL:
                 {
                     GameObjectManager.pInstance.Remove(mTxtThatsAll);
+
+                    GameObjectManager.pInstance.Remove(mImgBackdrop);
+                    GameObjectManager.pInstance.Remove(mTxtTapContinue);
 
                     GameObjectManager.pInstance.pCurUpdatePass = MBHEngineContentDefs.BehaviourDefinition.Passes.GAME_PLAY;
 
@@ -457,6 +588,9 @@ namespace BumpSetSpike.Gameflow
                 {
                     GameObjectManager.pInstance.Remove(mTxtRecap);
 
+                    GameObjectManager.pInstance.Remove(mImgBackdrop);
+                    GameObjectManager.pInstance.Remove(mTxtTapContinue);
+
                     GameObjectManager.pInstance.pCurUpdatePass = MBHEngineContentDefs.BehaviourDefinition.Passes.GAME_PLAY;
 
                     break;
@@ -465,6 +599,9 @@ namespace BumpSetSpike.Gameflow
                 case State.COMPLETE_RULES:
                 {
                     GameObjectManager.pInstance.Remove(mTxtRules);
+
+                    GameObjectManager.pInstance.Remove(mImgBackdrop);
+                    GameObjectManager.pInstance.Remove(mTxtTapContinue);
 
                     GameObjectManager.pInstance.pCurUpdatePass = MBHEngineContentDefs.BehaviourDefinition.Passes.GAME_PLAY;
 
@@ -475,6 +612,9 @@ namespace BumpSetSpike.Gameflow
                 {
                     GameObjectManager.pInstance.Remove(mTxtPlayerTry);
 
+                    GameObjectManager.pInstance.Remove(mImgBackdrop);
+                    GameObjectManager.pInstance.Remove(mTxtTapContinue);
+
                     GameObjectManager.pInstance.pCurUpdatePass = MBHEngineContentDefs.BehaviourDefinition.Passes.GAME_PLAY;
 
                     GameObjectManager.pInstance.Remove(mTxtTitle);
@@ -484,6 +624,10 @@ namespace BumpSetSpike.Gameflow
             }
         }
 
+        /// <summary>
+        /// Automatically called when a new state is started.
+        /// </summary>
+        /// <param name="newState"></param>
         private void EnterState(State newState)
         {
             switch (newState)
@@ -505,6 +649,12 @@ namespace BumpSetSpike.Gameflow
                 {
                     GameObjectManager.pInstance.Add(mTxtWaitForServe);
 
+                    GameObjectManager.pInstance.Add(mImgBackdrop);
+                    GameObjectManager.pInstance.Add(mTxtTapContinue);
+
+                    mHighlightBallMsg.mEnable = true;
+                    GameObjectManager.pInstance.BroadcastMessage(mHighlightBallMsg);
+
                     GameObjectManager.pInstance.pCurUpdatePass = MBHEngineContentDefs.BehaviourDefinition.Passes.TUTORIAL_PAUSE;
 
                     break;
@@ -513,6 +663,15 @@ namespace BumpSetSpike.Gameflow
                 case State.BUMP_TXT:
                 {
                     GameObjectManager.pInstance.Add(mTxtBumpAuto);
+
+                    GameObjectManager.pInstance.Add(mImgBackdrop);
+                    GameObjectManager.pInstance.Add(mTxtTapContinue);
+
+                    mHighlightBallMsg.mEnable = true;
+                    GameObjectManager.pInstance.BroadcastMessage(mHighlightBallMsg);
+
+                    mHighlightPlayerMsg.mEnable = true;
+                    GameObjectManager.pInstance.BroadcastMessage(mHighlightPlayerMsg);
 
                     GameObjectManager.pInstance.pCurUpdatePass = MBHEngineContentDefs.BehaviourDefinition.Passes.TUTORIAL_PAUSE;
 
@@ -523,6 +682,15 @@ namespace BumpSetSpike.Gameflow
                 {
                     GameObjectManager.pInstance.Add(mTxtSetAuto);
 
+                    GameObjectManager.pInstance.Add(mImgBackdrop);
+                    GameObjectManager.pInstance.Add(mTxtTapContinue);
+
+                    mHighlightBallMsg.mEnable = true;
+                    GameObjectManager.pInstance.BroadcastMessage(mHighlightBallMsg);
+
+                    mHighlightPartnerMsg.mEnable = true;
+                    GameObjectManager.pInstance.BroadcastMessage(mHighlightPartnerMsg);
+
                     GameObjectManager.pInstance.pCurUpdatePass = MBHEngineContentDefs.BehaviourDefinition.Passes.TUTORIAL_PAUSE;
 
                     break;
@@ -531,6 +699,12 @@ namespace BumpSetSpike.Gameflow
                 case State.SWIPE_TXT_BALL_HIGH:
                 {
                     GameObjectManager.pInstance.Add(mTxtWhenBallHigh);
+
+                    GameObjectManager.pInstance.Add(mImgBackdrop);
+                    GameObjectManager.pInstance.Add(mTxtTapContinue);
+
+                    mHighlightBallMsg.mEnable = true;
+                    GameObjectManager.pInstance.BroadcastMessage(mHighlightBallMsg);
 
                     GameObjectManager.pInstance.pCurUpdatePass = MBHEngineContentDefs.BehaviourDefinition.Passes.TUTORIAL_PAUSE;
 
@@ -542,6 +716,15 @@ namespace BumpSetSpike.Gameflow
                     GameObjectManager.pInstance.Add(mTxtSwipeJump);
                     GameObjectManager.pInstance.Add(mImgSwipe);
 
+                    GameObjectManager.pInstance.Add(mImgBackdrop);
+                    //GameObjectManager.pInstance.Add(mTxtTapContinue);
+
+                    mHighlightBallMsg.mEnable = true;
+                    GameObjectManager.pInstance.BroadcastMessage(mHighlightBallMsg);
+
+                    mHighlightPlayerMsg.mEnable = true;
+                    GameObjectManager.pInstance.BroadcastMessage(mHighlightPlayerMsg);
+
                     //GameObjectManager.pInstance.pCurUpdatePass = MBHEngineContentDefs.BehaviourDefinition.Passes.TUTORIAL_PAUSE;
 
                     break;
@@ -550,6 +733,15 @@ namespace BumpSetSpike.Gameflow
                 case State.TAP_TXT:
                 {
                     GameObjectManager.pInstance.Add(mTxtTap);
+
+                    GameObjectManager.pInstance.Add(mImgBackdrop);
+                    //GameObjectManager.pInstance.Add(mTxtTapContinue);
+
+                    mHighlightBallMsg.mEnable = true;
+                    GameObjectManager.pInstance.BroadcastMessage(mHighlightBallMsg);
+
+                    mHighlightPlayerMsg.mEnable = true;
+                    GameObjectManager.pInstance.BroadcastMessage(mHighlightPlayerMsg);
 
                     GameObjectManager.pInstance.pCurUpdatePass = MBHEngineContentDefs.BehaviourDefinition.Passes.TUTORIAL_PAUSE;
 
@@ -560,6 +752,9 @@ namespace BumpSetSpike.Gameflow
                 {
                     GameObjectManager.pInstance.Add(mTxtPlayerTry);
 
+                    GameObjectManager.pInstance.Add(mImgBackdrop);
+                    GameObjectManager.pInstance.Add(mTxtTapContinue);
+
                     GameObjectManager.pInstance.pCurUpdatePass = MBHEngineContentDefs.BehaviourDefinition.Passes.TUTORIAL_PAUSE;
 
                     break;
@@ -568,6 +763,9 @@ namespace BumpSetSpike.Gameflow
                 case State.TRY_AGAIN:
                 {
                     GameObjectManager.pInstance.Add(mTxtTryAgain);
+
+                    GameObjectManager.pInstance.Add(mImgBackdrop);
+                    GameObjectManager.pInstance.Add(mTxtTapContinue);
 
                     GameObjectManager.pInstance.pCurUpdatePass = MBHEngineContentDefs.BehaviourDefinition.Passes.TUTORIAL_PAUSE;
 
@@ -578,6 +776,9 @@ namespace BumpSetSpike.Gameflow
                 {
                     GameObjectManager.pInstance.Add(mTxtWellDone);
 
+                    GameObjectManager.pInstance.Add(mImgBackdrop);
+                    GameObjectManager.pInstance.Add(mTxtTapContinue);
+
                     GameObjectManager.pInstance.pCurUpdatePass = MBHEngineContentDefs.BehaviourDefinition.Passes.TUTORIAL_PAUSE;
 
                     break;
@@ -586,6 +787,9 @@ namespace BumpSetSpike.Gameflow
                 case State.COMPLETE_THATS_ALL:
                 {
                     GameObjectManager.pInstance.Add(mTxtThatsAll);
+
+                    GameObjectManager.pInstance.Add(mImgBackdrop);
+                    GameObjectManager.pInstance.Add(mTxtTapContinue);
 
                     GameObjectManager.pInstance.pCurUpdatePass = MBHEngineContentDefs.BehaviourDefinition.Passes.TUTORIAL_PAUSE;
 
@@ -596,6 +800,9 @@ namespace BumpSetSpike.Gameflow
                 {
                     GameObjectManager.pInstance.Add(mTxtRecap);
 
+                    GameObjectManager.pInstance.Add(mImgBackdrop);
+                    GameObjectManager.pInstance.Add(mTxtTapContinue);
+
                     GameObjectManager.pInstance.pCurUpdatePass = MBHEngineContentDefs.BehaviourDefinition.Passes.TUTORIAL_PAUSE;
 
                     break;
@@ -605,6 +812,9 @@ namespace BumpSetSpike.Gameflow
                 {
                     GameObjectManager.pInstance.Add(mTxtRules);
 
+                    GameObjectManager.pInstance.Add(mImgBackdrop);
+                    GameObjectManager.pInstance.Add(mTxtTapContinue);
+
                     GameObjectManager.pInstance.pCurUpdatePass = MBHEngineContentDefs.BehaviourDefinition.Passes.TUTORIAL_PAUSE;
 
                     break;
@@ -613,6 +823,9 @@ namespace BumpSetSpike.Gameflow
                 case State.COMPLETE_GET_READY:
                 {
                     GameObjectManager.pInstance.Add(mTxtPlayerTry);
+
+                    GameObjectManager.pInstance.Add(mImgBackdrop);
+                    GameObjectManager.pInstance.Add(mTxtTapContinue);
 
                     GameObjectManager.pInstance.pCurUpdatePass = MBHEngineContentDefs.BehaviourDefinition.Passes.TUTORIAL_PAUSE;
 
@@ -625,6 +838,42 @@ namespace BumpSetSpike.Gameflow
 
                     break;
                 }
+            }
+        }
+
+        /// <summary>
+        /// Central place for checking a user's swipe is valid for the swipe tutorial.
+        /// </summary>
+        /// <param name="swipe_delta">The swipe.</param>
+        /// <returns>True if the swipe is valid.</returns>
+        public Boolean IsValidTutorialSwipe(Vector2 swipe_delta, Vector2 pos)
+        {
+            const Single length = 5972.28f;
+            const Single length_delta = 2000.0f;
+            const Single min_length = length - length_delta;
+            const Single max_length = length + (length_delta * 0.5f);
+
+            DebugMessageDisplay.pInstance.AddConstantMessage("Swipe Length: " + swipe_delta.Length());
+
+            if (swipe_delta.Length() < min_length)
+            {
+                GameObject txt = GameObjectFactory.pInstance.GetTemplate("GameObjects\\Items\\Tutorial\\Faster\\Faster");
+                txt.pPosition = mImgSwipe.pPosition;
+                GameObjectManager.pInstance.Add(txt);
+
+                return false;
+            }
+            else if (swipe_delta.Length() > max_length)
+            {
+                GameObject txt = GameObjectFactory.pInstance.GetTemplate("GameObjects\\Items\\Tutorial\\Slower\\Slower");
+                txt.pPosition = mImgSwipe.pPosition;
+                GameObjectManager.pInstance.Add(txt);
+
+                return false;
+            }
+            else
+            {
+                return true;
             }
         }
 

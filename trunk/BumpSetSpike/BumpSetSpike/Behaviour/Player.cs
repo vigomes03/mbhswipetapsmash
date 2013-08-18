@@ -119,6 +119,11 @@ namespace BumpSetSpike.Behaviour
         private SoundEffect mFxBump;
 
         /// <summary>
+        /// Keeps track of the rendering priority so that it can be restored.
+        /// </summary>
+        private Int32 mStartingRenderPriority;
+
+        /// <summary>
         /// Preallocated messages.
         /// </summary>
         private SpriteRender.SetActiveAnimationMessage mSetActiveAnimationMsg;
@@ -167,6 +172,8 @@ namespace BumpSetSpike.Behaviour
             mFxJump = GameObjectManager.pInstance.pContentManager.Load<SoundEffect>("Audio\\FX\\Jump");
             mFxSpikeHit = GameObjectManager.pInstance.pContentManager.Load<SoundEffect>("Audio\\FX\\SpikeHit");
             mFxBump = GameObjectManager.pInstance.pContentManager.Load<SoundEffect>("Audio\\FX\\Bump");
+
+            mStartingRenderPriority = mParentGOH.pRenderPriority;
 
             mSetActiveAnimationMsg = new SpriteRender.SetActiveAnimationMessage();
             mGetAttachmentPointMsg = new SpriteRender.GetAttachmentPointMessage();
@@ -239,8 +246,13 @@ namespace BumpSetSpike.Behaviour
 
                     Vector2 delta = gesture.Delta;
 
-                    if (!TutorialManager.pInstance.pTutorialCompleted)
+                    if (!TutorialManager.pInstance.pTutorialCompleted && TutorialManager.pInstance.pCurState == TutorialManager.State.TAP_START)
                     {
+                        if (!TutorialManager.pInstance.IsValidTutorialSwipe(delta, gesture.Position))
+                        {
+                            return;
+                        }
+
                         delta = new Vector2(3083.0f, -5115.0f);
                     }
                     mParentGOH.pDirection.mForward = delta * (Single)gameTime.ElapsedGameTime.TotalSeconds * 0.025f;
@@ -252,7 +264,7 @@ namespace BumpSetSpike.Behaviour
                     {
                         System.Diagnostics.Debug.Assert(mBalls.Count == 1);
 
-                        if (!TutorialManager.pInstance.pTutorialCompleted)
+                        if (!TutorialManager.pInstance.pTutorialCompleted && TutorialManager.pInstance.pCurState == TutorialManager.State.TAP_START)
                         {
                             // This works for the tutorial hit too.
                             Vector2 delta = new Vector2(3083.0f, -5115.0f);
@@ -561,6 +573,19 @@ namespace BumpSetSpike.Behaviour
             {
                 GetCurrentStateMessage temp = (GetCurrentStateMessage)msg;
                 temp.mState_Out = mCurrentState;
+            }
+            else if (msg is TutorialManager.HighlightPlayerMessage)
+            {
+                TutorialManager.HighlightPlayerMessage temp = (TutorialManager.HighlightPlayerMessage)msg;
+
+                if (temp.mEnable)
+                {
+                    mParentGOH.pRenderPriority = 100;
+                }
+                else
+                {
+                    mParentGOH.pRenderPriority = mStartingRenderPriority;
+                }
             }
         }
     }

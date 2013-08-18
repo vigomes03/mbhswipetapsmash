@@ -70,12 +70,17 @@ namespace BumpSetSpike.Behaviour
         /// <summary>
         /// The sound that plays when the ball hits the sand.
         /// </summary>
-        private SoundEffect m_FxSand;
+        private SoundEffect mFxSand;
 
         /// <summary>
         /// Tracks if the ball was on the ground last frame to prevent dupe sounds playing.
         /// </summary>
-        private Boolean m_OnGround;
+        private Boolean mOnGround;
+
+        /// <summary>
+        /// Keeps track of the rendering priority so that it can be restored.
+        /// </summary>
+        private Int32 mStartingRenderPriority;
 
         /// <summary>
         /// Preallocated messages to avoid GC.
@@ -113,9 +118,11 @@ namespace BumpSetSpike.Behaviour
             mTimeOnGroundToEndPlay.pLifeTime = 10.0f;
             mTimeOnGroundToEndPlay.pIsPaused = true;
 
-            m_FxSand = GameObjectManager.pInstance.pContentManager.Load<SoundEffect>("Audio\\FX\\HitSand");
+            mFxSand = GameObjectManager.pInstance.pContentManager.Load<SoundEffect>("Audio\\FX\\HitSand");
 
-            m_OnGround = false;
+            mOnGround = false;
+
+            mStartingRenderPriority = mParentGOH.pRenderPriority;
 
             mSetActiveAnimationMsg = new SpriteRender.SetActiveAnimationMessage();
             mGetAttachmentPointMsg = new SpriteRender.GetAttachmentPointMessage();
@@ -167,9 +174,9 @@ namespace BumpSetSpike.Behaviour
                     GameObjectManager.pInstance.BroadcastMessage(mOnPlayOverMsg, mParentGOH);
                 }
 
-                if (!m_OnGround)
+                if (!mOnGround)
                 {
-                    m_OnGround = true;
+                    mOnGround = true;
 
                     mGetAttachmentPointMsg.mName_In = "Dust";
                     mParentGOH.OnMessage(mGetAttachmentPointMsg);
@@ -179,12 +186,12 @@ namespace BumpSetSpike.Behaviour
                     dust.pPosition = mGetAttachmentPointMsg.mPoisitionInWorld_Out;
                     GameObjectManager.pInstance.Add(dust);
 
-                    m_FxSand.Play();
+                    mFxSand.Play();
                 }
             }
             else
             {
-                m_OnGround = false;
+                mOnGround = false;
             }
 
             // Based on the velocity of the ball, play a different animation.
@@ -344,6 +351,19 @@ namespace BumpSetSpike.Behaviour
 
                 mTimeOnGroundToEndPlay.Restart();
                 mTimeOnGroundToEndPlay.pIsPaused = true;
+            }
+            else if (msg is TutorialManager.HighlightBallMessage)
+            {
+                TutorialManager.HighlightBallMessage temp = (TutorialManager.HighlightBallMessage)msg;
+
+                if (temp.mEnable)
+                {
+                    mParentGOH.pRenderPriority = 100;
+                }
+                else
+                {
+                    mParentGOH.pRenderPriority = mStartingRenderPriority;
+                }
             }
         }
     }
