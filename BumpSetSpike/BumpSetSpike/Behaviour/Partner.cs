@@ -43,6 +43,11 @@ namespace BumpSetSpike.Behaviour
         private SoundEffect mFxBump;
 
         /// <summary>
+        /// Keeps track of the rendering priority so that it can be restored.
+        /// </summary>
+        private Int32 mStartingRenderPriority;
+
+        /// <summary>
         /// Preallocated messages to avoid GC.
         /// </summary>
         private SpriteRender.SetActiveAnimationMessage mSetActiveAnimationMsg;
@@ -83,11 +88,16 @@ namespace BumpSetSpike.Behaviour
 
             mFxBump = GameObjectManager.pInstance.pContentManager.Load<SoundEffect>("Audio\\FX\\Bump");
 
+            mStartingRenderPriority = mParentGOH.pRenderPriority;
+
             mSetActiveAnimationMsg = new SpriteRender.SetActiveAnimationMessage();
             mSetSpriteEffectsMsg = new SpriteRender.SetSpriteEffectsMessage();
             mGetCurrentStateMsg = new Player.GetCurrentStateMessage();
         }
 
+        /// <summary>
+        /// See parent.
+        /// </summary>
         public override void OnAdd()
         {
             mSetSpriteEffectsMsg.mSpriteEffects_In = Microsoft.Xna.Framework.Graphics.SpriteEffects.FlipHorizontally;
@@ -196,6 +206,19 @@ namespace BumpSetSpike.Behaviour
             if (msg is Player.OnMatchRestartMessage || msg is Player.OnGameRestartMessage)
             {
                 mHitCount = 0;
+            }
+            else if (msg is TutorialManager.HighlightPartnerMessage)
+            {
+                TutorialManager.HighlightPartnerMessage temp = (TutorialManager.HighlightPartnerMessage)msg;
+
+                if (temp.mEnable)
+                {
+                    mParentGOH.pRenderPriority = 100;
+                }
+                else
+                {
+                    mParentGOH.pRenderPriority = mStartingRenderPriority;
+                }
             }
         }
     }

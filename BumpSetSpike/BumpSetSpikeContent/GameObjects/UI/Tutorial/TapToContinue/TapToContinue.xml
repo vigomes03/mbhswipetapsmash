@@ -4,10 +4,11 @@
     <mRenderPriority>100</mRenderPriority>
     <mDoUpdate>true</mDoUpdate>
     <mDoRender>true</mDoRender>
-    <mPosition>-55 -45</mPosition>
+    <mPosition>0 0</mPosition>
     <mRotation>0</mRotation>
     <mScale>1 1</mScale>
-    <mMotionRoot>32 16</mMotionRoot>
+    <mMotionRoot>64 4</mMotionRoot>
+    <mBlendMode>STANDARD_UI</mBlendMode>
     <mBehaviourFileNames>
       <Item>Sprite</Item>
     </mBehaviourFileNames>

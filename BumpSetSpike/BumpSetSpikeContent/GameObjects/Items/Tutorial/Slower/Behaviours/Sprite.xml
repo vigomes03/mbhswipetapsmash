@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<XnaContent>
+  <Asset Type="MBHEngineContentDefs.SpriteRenderDefinition">
+    <mSpriteFileName>Sprites\TutSlower</mSpriteFileName>
+    <mFrameHeight>8</mFrameHeight>
+    <mHasShadow>false</mHasShadow>
+    <mAnimationSets>
+      <Item>
+        <mTicksPerFrame>30</mTicksPerFrame>
+        <mName>Show</mName>
+        <mStartingFrame>0</mStartingFrame>
+        <mNumFrames>1</mNumFrames>
+        <mLooping>false</mLooping>
+        <mRemoveGameObjectOnComplete>true</mRemoveGameObjectOnComplete>
+      </Item>
+    </mAnimationSets>
+  </Asset>
+</XnaContent>
+

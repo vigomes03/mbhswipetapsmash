@@ -163,6 +163,8 @@ namespace BumpSetSpike
             GameObjectFactory.pInstance.AddTemplate("GameObjects\\UI\\NumFontUI\\NumFontUI", 128);
             GameObjectFactory.pInstance.AddTemplate("GameObjects\\UI\\PointDisplay\\PointDisplay", 32);
             GameObjectFactory.pInstance.AddTemplate("GameObjects\\UI\\TapStart\\TapStart", 1);
+            GameObjectFactory.pInstance.AddTemplate("GameObjects\\Items\\Tutorial\\Faster\\Faster", 4);
+            GameObjectFactory.pInstance.AddTemplate("GameObjects\\Items\\Tutorial\\Slower\\Slower", 4);
             
             // The tiled background image that travels will the player creating the illusion of
             // an infinite background image.
@@ -267,6 +269,11 @@ namespace BumpSetSpike
             pausedOverlay.pPosX = x;
             pausedOverlay.pPosY = y;
             GameObjectManager.pInstance.Add(pausedOverlay);
+
+            GameObject pausedBackdrop = new GameObject("GameObjects\\UI\\PausedBackdrop\\PausedBackdrop");
+            pausedBackdrop.pPosX = x;
+            pausedBackdrop.pPosY = y;
+            GameObjectManager.pInstance.Add(pausedBackdrop);
 
             GameObject newHighScore = new GameObject("GameObjects\\UI\\NewHighScore\\NewHighScore");
             newHighScore.pPosX = x;
