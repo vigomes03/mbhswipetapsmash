@@ -85,6 +85,7 @@ namespace BumpSetSpike.Gameflow
         private GameObject mTxtRules;
         private GameObject mTxtTitle;
         private GameObject mTxtTapContinue;
+        private GameObject mTxtRealThing;
         private GameObject mImgSwipe;
         private GameObject mImgBackdrop;
 
@@ -199,6 +200,10 @@ namespace BumpSetSpike.Gameflow
             mTxtTitle = new GameObject("GameObjects\\UI\\Tutorial\\Title\\Title");
             mTxtTitle.pPosX = x;
             mTxtTitle.pPosY = 5.0f;
+
+            mTxtRealThing = new GameObject("GameObjects\\UI\\Tutorial\\RealThing\\RealThing");
+            mTxtRealThing.pPosX = x;
+            mTxtRealThing.pPosY = y;
 
             mTxtTapContinue = new GameObject("GameObjects\\UI\\Tutorial\\TapToContinue\\TapToContinue");
             mTxtTapContinue.pPosX = x;
@@ -610,7 +615,7 @@ namespace BumpSetSpike.Gameflow
 
                 case State.COMPLETE_GET_READY:
                 {
-                    GameObjectManager.pInstance.Remove(mTxtPlayerTry);
+                    GameObjectManager.pInstance.Remove(mTxtRealThing);
 
                     GameObjectManager.pInstance.Remove(mImgBackdrop);
                     GameObjectManager.pInstance.Remove(mTxtTapContinue);
@@ -822,7 +827,7 @@ namespace BumpSetSpike.Gameflow
 
                 case State.COMPLETE_GET_READY:
                 {
-                    GameObjectManager.pInstance.Add(mTxtPlayerTry);
+                    GameObjectManager.pInstance.Add(mTxtRealThing);
 
                     GameObjectManager.pInstance.Add(mImgBackdrop);
                     GameObjectManager.pInstance.Add(mTxtTapContinue);
