@@ -8,7 +8,7 @@
     </mRotationTween>
     <mScaleTween>
       <mLength>5.0</mLength>
-      <mStartValue>0.95</mStartValue>
+      <mStartValue>1</mStartValue>
       <mEndValue>1.05</mEndValue>
     </mScaleTween>
   </Asset>
