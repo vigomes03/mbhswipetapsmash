@@ -14,6 +14,10 @@ using Microsoft.Xna.Framework.Input.Touch;
 using BumpSetSpike.Behaviour;
 using BumpSetSpike.Gameflow;
 using Microsoft.Xna.Framework.Media;
+#if WINDOWS_PHONE
+using Microsoft.Phone.Shell;
+#endif
+using MBHEngineContentDefs;
 
 namespace BumpSetSpike
 {
@@ -81,6 +85,11 @@ namespace BumpSetSpike
 
             //mGraphics.IsFullScreen = true;
             Content.RootDirectory = "Content";
+
+#if WINDOWS_PHONE
+            PhoneApplicationService.Current.Activated += GameActivated;
+            PhoneApplicationService.Current.Deactivated += GameDeactivated;
+#endif
 
             // Avoid the "jitter".
             // http://forums.create.msdn.com/forums/p/9934/53561.aspx#53561
@@ -338,8 +347,6 @@ namespace BumpSetSpike
             // Allows the game to exit
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
             {
-                SaveGameManager.pInstance.WriteSaveGameXML();
-
                 this.Exit();
             }
 
@@ -469,5 +476,46 @@ namespace BumpSetSpike
 
             base.Draw(gameTime);
         }
+
+        /// <summary>
+        /// Called when the application is shutting down. It is not called when it is temporarily 
+        /// deactivating.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="args"></param>
+        protected override void OnExiting(object sender, EventArgs args)
+        {
+            GameObjectManager.pInstance.BroadcastMessage(new SaveGameManager.ForceUpdateSaveDataMessage());
+
+            // Save the current state of the game on exit.
+            SaveGameManager.pInstance.WriteSaveGameXML();
+
+            base.OnExiting(sender, args);
+        }
+
+#if WINDOWS_PHONE
+        /// <summary>
+        /// Called when the application is suspened (eg. user pressed Home button).
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void GameDeactivated(object sender, DeactivatedEventArgs e)
+        {
+            if (GameObjectManager.pInstance.pCurUpdatePass == BehaviourDefinition.Passes.GAME_PLAY)
+            {
+                GameObjectManager.pInstance.pCurUpdatePass = BehaviourDefinition.Passes.GAME_PLAY_PAUSED;
+            }
+        }
+
+        /// <summary>
+        /// Called when the application is resumed after being suspended (eg. user pressed BACK after entering
+        /// the deactivated state).
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void GameActivated(object sender, ActivatedEventArgs e)
+        {
+        }
+#endif // WINDOWS_PHONE
     }
 }

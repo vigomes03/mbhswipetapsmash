@@ -142,6 +142,10 @@ namespace BumpSetSpike.Behaviour
                 GetCurrentHitCountMessage temp = (GetCurrentHitCountMessage)msg;
                 temp.mCount_Out = mHitCount;
             }
+            else if (msg is SaveGameManager.ForceUpdateSaveDataMessage)
+            {
+                LeaderBoardManager.pInstance.pTopHits = mHitCount;
+            }
         }
 
         /// <summary>
