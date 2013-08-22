@@ -34,6 +34,20 @@ namespace BumpSetSpike.Gameflow
         }
 
         /// <summary>
+        /// A message that can be broadcast to all objects to let them know a forced save
+        /// is about to happen and they should update any relavent data as needed.
+        /// </summary>
+        public class ForceUpdateSaveDataMessage : BehaviourMessage
+        {
+            /// <summary>
+            /// See parent.
+            /// </summary>
+            public override void Reset()
+            {
+            }
+        }
+
+        /// <summary>
         /// Singleton.
         /// </summary>
         private static SaveGameManager mInstance;
