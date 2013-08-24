@@ -78,6 +78,7 @@ namespace BumpSetSpike.Behaviour
         private SpriteRender.SetSpriteEffectsMessage mSetSpriteEffectsMsg;
         private SpriteRender.GetAttachmentPointMessage mGetAttachmentPointMsg;
         private Player.GetCurrentStateMessage mGetCurrentStateMsg;
+        private HitCountDisplay.GetCurrentHitCountMessage mGetCurrentHitCountMsg;
 
         /// <summary>
         /// Constructor which also handles the process of loading in the Behaviour
@@ -116,6 +117,7 @@ namespace BumpSetSpike.Behaviour
             mSetSpriteEffectsMsg = new SpriteRender.SetSpriteEffectsMessage();
             mGetAttachmentPointMsg = new SpriteRender.GetAttachmentPointMessage();
             mGetCurrentStateMsg = new Player.GetCurrentStateMessage();
+            mGetCurrentHitCountMsg = new HitCountDisplay.GetCurrentHitCountMessage();
         }
 
         /// <summary>
@@ -211,7 +213,18 @@ namespace BumpSetSpike.Behaviour
                 if (GameObjectManager.pInstance.pCurUpdatePass == BehaviourDefinition.Passes.GAME_OVER)
                 {
                     mSetActiveAnimationMsg.Reset();
-                    mSetActiveAnimationMsg.mAnimationSetName_In = "Happy";
+
+                    // Depending on if the player got a new high score or not, we want to play a different
+                    // animation.
+                    GameObjectManager.pInstance.BroadcastMessage(mGetCurrentHitCountMsg, mParentGOH);
+                    if (mGetCurrentHitCountMsg.mCount_Out > LeaderBoardManager.pInstance.pTopHits)
+                    {
+                        mSetActiveAnimationMsg.mAnimationSetName_In = "Sad";
+                    }
+                    else
+                    {
+                        mSetActiveAnimationMsg.mAnimationSetName_In = "Happy";
+                    }
                     mParentGOH.OnMessage(mSetActiveAnimationMsg);
                 }
                 else
