@@ -11,6 +11,7 @@ using Microsoft.Xna.Framework;
 using MBHEngine.Debug;
 using MBHEngine.Behaviour;
 using MBHEngineContentDefs;
+using MBHEngine.IO;
 
 namespace BumpSetSpike.Gameflow
 {
@@ -301,6 +302,11 @@ namespace BumpSetSpike.Gameflow
         {
             pTutorialCompleted = false;
             pCurState = State.NONE;
+
+            if (CommandLineManager.pInstance["SkipTutorial"] != null)
+            {
+                pTutorialCompleted = true;
+            }
 
             Single x = ((GameObjectManager.pInstance.pGraphicsDevice.Viewport.Width * 0.5f) / CameraManager.pInstance.pZoomScale);
             Single y = ((GameObjectManager.pInstance.pGraphicsDevice.Viewport.Height * 0.5f) / CameraManager.pInstance.pZoomScale);
