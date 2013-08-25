@@ -642,7 +642,8 @@ namespace BumpSetSpike.Behaviour
                     mParentGOH.pRenderPriority = mStartingRenderPriority;
                 }
             }
-            else if (msg is Player.OnGameRestartMessage)
+            else if (msg is Player.OnGameRestartMessage || 
+                (!TutorialManager.pInstance.pTutorialCompleted && msg is Player.OnMatchRestartMessage)) // During tutorials if the player misses the ball we only do a match restart.
             {
                 // If the player is on the other side of the net, teleport them to the proper side.
                 if (mParentGOH.pPosX > 0.0f)
