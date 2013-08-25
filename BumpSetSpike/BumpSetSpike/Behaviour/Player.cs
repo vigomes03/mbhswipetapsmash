@@ -124,6 +124,11 @@ namespace BumpSetSpike.Behaviour
         private Int32 mStartingRenderPriority;
 
         /// <summary>
+        /// Stores the location the player is trying to walk to.
+        /// </summary>
+        private Vector2 mWalkToDestination;
+
+        /// <summary>
         /// Preallocated messages.
         /// </summary>
         private SpriteRender.SetActiveAnimationMessage mSetActiveAnimationMsg;
@@ -305,7 +310,17 @@ namespace BumpSetSpike.Behaviour
             {
                 // Reset the position and stop moving.
                 mParentGOH.pPosY = mBottomRight.Y;
-                mParentGOH.pDirection.mForward = Vector2.Zero;
+
+                // If we are recieving, we might be walking towards the ball, so don't zero out
+                // the X velocity.
+                if (mCurrentState != State.Receiving)
+                {
+                    mParentGOH.pDirection.mForward = Vector2.Zero;
+                }
+                else
+                {
+                    mParentGOH.pDirection.mForward.Y = 0.0f;
+                }
 
                 if (mFramesInAir != 0)
                 {
@@ -335,8 +350,11 @@ namespace BumpSetSpike.Behaviour
                 }
                 else
                 {
-                    mSetActiveAnimationMsg.mAnimationSetName_In = "Idle";
-                    mParentGOH.OnMessage(mSetActiveAnimationMsg);
+                    if (mCurrentState != State.Receiving)
+                    {
+                        mSetActiveAnimationMsg.mAnimationSetName_In = "Idle";
+                        mParentGOH.OnMessage(mSetActiveAnimationMsg);
+                    }
                 }
 
                 // Receiving overrides Idle.
@@ -466,7 +484,7 @@ namespace BumpSetSpike.Behaviour
 
             // Are we waiting for the serve to reach us.
             if (mCurrentState == State.Receiving)
-            {                
+            {
                 List<GameObject> balls = GameObjectManager.pInstance.GetGameObjectsOfClassification(MBHEngineContentDefs.GameObjectDefinition.Classifications.VOLLEY_BALL);
 
                 // Basically we assume the ball was thrown at us, so all we care about is whether or not
@@ -500,6 +518,10 @@ namespace BumpSetSpike.Behaviour
                 // When the ball is in a certain range, start playing the bump animation.
                 if (Vector2.Distance(balls[0].pPosition, mParentGOH.pPosition) <= 45.0f)
                 {
+                    // The player might have be walking to the ball on the frame it came into range,
+                    // so we need to make sure we stop walking at this point.
+                    mParentGOH.pDirection.mForward.X = 0.0f;
+
                     mSetActiveAnimationMsg.Reset();
                     mSetActiveAnimationMsg.mAnimationSetName_In = "Bump";
                     mSetActiveAnimationMsg.mDoNotRestartIfCompleted_In = true;
@@ -509,6 +531,15 @@ namespace BumpSetSpike.Behaviour
                     {
                         TutorialManager.pInstance.pCurState = TutorialManager.State.BUMP_TXT;
                     }
+                }
+                else if (Vector2.DistanceSquared(mParentGOH.pPosition, mWalkToDestination) < Math.Pow(8.0, 2.0))
+                {
+                    // The player has reached the destination, so stop moving and change to idle animation.
+                    mParentGOH.pDirection.mForward.X = 0.0f;
+
+                    mSetActiveAnimationMsg.Reset();
+                    mSetActiveAnimationMsg.mAnimationSetName_In = "Idle";
+                    mParentGOH.OnMessage(mSetActiveAnimationMsg);
                 }
             }
 
@@ -573,15 +604,25 @@ namespace BumpSetSpike.Behaviour
             {
                 Ball.GetServeDestinationMessage temp = (Ball.GetServeDestinationMessage)msg;
 
-                mParentGOH.pPosX = temp.mDestination_Out.X - 4.0f;
-
+                mWalkToDestination.X = temp.mDestination_Out.X - 4.0f;
                 // The player may have been in mid air when the round ended.
-                mParentGOH.pPosY = 0.0f;
+                mWalkToDestination.Y = 0.0f;
+
+                // Start the player walking towards the ball serve destination.
+                if (mWalkToDestination.X < mParentGOH.pPosX)
+                {
+                    mParentGOH.pDirection.mForward.X = -2.0f;
+                }
+                else if (mWalkToDestination.X > mParentGOH.pPosX)
+                {
+                    mParentGOH.pDirection.mForward.X = 2.0f;
+                }
+
+                mSetActiveAnimationMsg.Reset();
+                mSetActiveAnimationMsg.mAnimationSetName_In = "Walk";
+                mParentGOH.OnMessage(mSetActiveAnimationMsg);
 
                 mCurrentState = State.Receiving;
-
-                // Stop the player from continuing a jump that may have starting last round.
-                mParentGOH.pDirection.mForward = Vector2.Zero;
             }
             else if (msg is GetCurrentStateMessage)
             {
@@ -601,6 +642,27 @@ namespace BumpSetSpike.Behaviour
                     mParentGOH.pRenderPriority = mStartingRenderPriority;
                 }
             }
+            else if (msg is Player.OnGameRestartMessage)
+            {
+                // If the player is on the other side of the net, teleport them to the proper side.
+                if (mParentGOH.pPosX > 0.0f)
+                {
+                    mParentGOH.pPosX = mTopLeft.X;
+                    mParentGOH.pPosY = mBottomRight.Y;
+                }
+            }
+        }
+
+        /// <summary>
+        /// See parent.
+        /// </summary>
+        /// <returns></returns>
+        public override string[] GetDebugInfo()
+        {
+            String [] temp = new String[1];
+
+            temp[0] = "State: " + mCurrentState.ToString();
+            return temp;
         }
     }
 }
