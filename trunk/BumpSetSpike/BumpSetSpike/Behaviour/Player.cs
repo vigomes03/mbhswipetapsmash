@@ -129,6 +129,11 @@ namespace BumpSetSpike.Behaviour
         private Vector2 mWalkToDestination;
 
         /// <summary>
+        /// The speed at which this character walks to the recieving position.
+        /// </summary>
+        private Single mWalkSpeed;
+
+        /// <summary>
         /// Preallocated messages.
         /// </summary>
         private SpriteRender.SetActiveAnimationMessage mSetActiveAnimationMsg;
@@ -180,6 +185,8 @@ namespace BumpSetSpike.Behaviour
             mFxBump = GameObjectManager.pInstance.pContentManager.Load<SoundEffect>("Audio\\FX\\Bump");
 
             mStartingRenderPriority = mParentGOH.pRenderPriority;
+
+            mWalkSpeed = 3.0f;
 
             mSetActiveAnimationMsg = new SpriteRender.SetActiveAnimationMessage();
             mGetAttachmentPointMsg = new SpriteRender.GetAttachmentPointMessage();
@@ -532,10 +539,12 @@ namespace BumpSetSpike.Behaviour
                         TutorialManager.pInstance.pCurState = TutorialManager.State.BUMP_TXT;
                     }
                 }
-                else if (Vector2.DistanceSquared(mParentGOH.pPosition, mWalkToDestination) < Math.Pow(8.0, 2.0))
+                else if (Vector2.DistanceSquared(mParentGOH.pPosition, mWalkToDestination) < Math.Pow(mWalkSpeed, 2.0))
                 {
                     // The player has reached the destination, so stop moving and change to idle animation.
                     mParentGOH.pDirection.mForward.X = 0.0f;
+
+                    mParentGOH.pPosition = mWalkToDestination;
 
                     mSetActiveAnimationMsg.Reset();
                     mSetActiveAnimationMsg.mAnimationSetName_In = "Idle";
@@ -608,14 +617,18 @@ namespace BumpSetSpike.Behaviour
                 // The player may have been in mid air when the round ended.
                 mWalkToDestination.Y = 0.0f;
 
+                // Ensure that we aren't asked to walk to a position which we can't reach. In those cases,
+                // just get as close as possible.
+                mWalkToDestination = Vector2.Clamp(mWalkToDestination, mTopLeft, mBottomRight);
+
                 // Start the player walking towards the ball serve destination.
                 if (mWalkToDestination.X < mParentGOH.pPosX)
                 {
-                    mParentGOH.pDirection.mForward.X = -2.0f;
+                    mParentGOH.pDirection.mForward.X = -mWalkSpeed;
                 }
                 else if (mWalkToDestination.X > mParentGOH.pPosX)
                 {
-                    mParentGOH.pDirection.mForward.X = 2.0f;
+                    mParentGOH.pDirection.mForward.X = mWalkSpeed;
                 }
 
                 mSetActiveAnimationMsg.Reset();
@@ -650,6 +663,10 @@ namespace BumpSetSpike.Behaviour
                 {
                     mParentGOH.pPosX = mTopLeft.X;
                     mParentGOH.pPosY = mBottomRight.Y;
+
+                    // There were issues where after jumping over the net in the turorial, the player was
+                    // still walking on the next match.
+                    mParentGOH.pDirection.mForward = Vector2.Zero;
                 }
             }
         }
