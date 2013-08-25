@@ -652,7 +652,8 @@ namespace BumpSetSpike.Behaviour
                 }
             }
         }
-
+        
+#if ALLOW_GARBAGE
         /// <summary>
         /// See parent.
         /// </summary>
@@ -664,5 +665,6 @@ namespace BumpSetSpike.Behaviour
             temp[0] = "State: " + mCurrentState.ToString();
             return temp;
         }
+#endif //ALLOW_GARBAGE
     }
 }
