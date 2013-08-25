@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Graphics;
 using MBHEngineContentDefs;
 using MBHEngine.Behaviour;
 using System.Diagnostics;
+using MBHEngine.Render;
 
 namespace MBHEngine.GameObject
 {
@@ -188,6 +189,15 @@ namespace MBHEngine.GameObject
                 mDoUpdate = def.mDoUpdate;
                 mDoRender = def.mDoRender;
                 mPosition = def.mPosition;
+
+                if (def.mScreenRelativeAnchorPoint != null)
+                {
+                    System.Diagnostics.Debug.Assert(def.mBlendMode == GameObjectDefinition.BlendMode.MULTIPLY_UI || def.mBlendMode == GameObjectDefinition.BlendMode.STANDARD_UI, "Attempting to set screen relative position on non-UI GameObject.");
+
+                    // Convert the position to a position relative to the anchor point.
+                    mPosition = GetScreenRelativePosition(mPosition, def.mScreenRelativeAnchorPoint);
+                }
+
                 mRotation = def.mRotation;
                 mScale = def.mScale;
                 mIsStatic = def.mIsStatic;
@@ -594,6 +604,71 @@ namespace MBHEngine.GameObject
         {
             mCollisionRectangle.pCenterPoint = pPosition + mCollisionRoot;
             mRenderRectangle.pCenterPoint = pPosition + mCollisionRoot;
+        }
+
+        /// <summary>
+        /// Takes a position (in screen space) and moves it to be relative to an on screen Anchor Point.
+        /// </summary>
+        /// <param name="position">The position in screen space. This will become an offset from the anchorPoint.</param>
+        /// <param name="anchorPoint">Where on the screen to anchor this object to.</param>
+        /// <returns>A position relative to anchorPoint, in screen space, offset by position.</returns>
+        private Vector2 GetScreenRelativePosition(Vector2 position, GameObjectDefinition.ScreenAnchorPoint anchorPoint)
+        {
+            // Get a rectangle defining the screen.
+            MBHEngine.Math.Rectangle screenRect = CameraManager.pInstance.pScreenViewRect;
+
+            Vector2 final = new Vector2();
+
+            switch (anchorPoint.X)
+            {
+                case GameObjectDefinition.ScreenAnchor.LEFT:
+                {
+                    final.X = screenRect.pLeft;
+                    break;
+                }
+                case GameObjectDefinition.ScreenAnchor.CENTER:
+                {
+                    final.X = screenRect.pCenterPoint.X;
+                    break;
+                }
+                case GameObjectDefinition.ScreenAnchor.RIGHT:
+                {
+                    final.X = screenRect.pRight;
+                    break;
+                }
+                default:
+                {
+                    System.Diagnostics.Debug.Assert(false, "Invalid ScreenAnchor (" + anchorPoint.X + ") for X position.");
+                    break;
+                }
+            }
+
+            switch (anchorPoint.Y)
+            {
+                case GameObjectDefinition.ScreenAnchor.TOP:
+                {
+                    final.Y = screenRect.pTop;
+                    break;
+                }
+                case GameObjectDefinition.ScreenAnchor.CENTER:
+                {
+                    final.Y = screenRect.pCenterPoint.Y;
+                    break;
+                }
+                case GameObjectDefinition.ScreenAnchor.BOTTOM:
+                {
+                    final.Y = screenRect.pBottom;
+                    break;
+                }
+                default:
+                {
+                    System.Diagnostics.Debug.Assert(false, "Invalid ScreenAnchor (" + anchorPoint.Y + ") for Y position.");
+                    break;
+                }
+            }
+
+            // Now that we have the anchor point, offset it by the original position.
+            return final + position;
         }
 
         /// <summary>

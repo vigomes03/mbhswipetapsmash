@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<XnaContent>
+  <Asset Type="MBHEngineContentDefs.SpriteRenderDefinition">
+    <mRenderPassExclusions>
+      <Item>GAME_OVER</Item>
+      <Item>GAME_PLAY</Item>
+      <Item>TUTORIAL_PAUSE</Item>
+    </mRenderPassExclusions>
+    <mSpriteFileName>Sprites\FacebookLogo</mSpriteFileName>
+  </Asset>
+</XnaContent>
+

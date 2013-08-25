@@ -70,6 +70,11 @@ namespace MBHEngine.Render
         private MBHEngine.Math.Rectangle mViewRectangle;
 
         /// <summary>
+        /// Keeps track of the viewport, including scale (which isn't included in the device viewport).
+        /// </summary>
+        private MBHEngine.Math.Rectangle mScreenRectangle;
+
+        /// <summary>
         /// Initialize the singleton.  Call before first use.
         /// </summary>
         /// <param name="device">The initialized graphics device.  Used to calculate screen position.</param>
@@ -99,6 +104,18 @@ namespace MBHEngine.Render
             mTransformUI = Matrix.CreateScale(new Vector3(mZoomAmount));
 
             mViewRectangle = new Math.Rectangle();
+
+            // Find the center of the screen.
+            Single x = ((GameObjectManager.pInstance.pGraphicsDevice.Viewport.Width * 0.5f) / pZoomScale);
+            Single y = ((GameObjectManager.pInstance.pGraphicsDevice.Viewport.Height * 0.5f) / pZoomScale);
+
+            // Since the screen always has 0,0 at the top left of the screen, we can get the width and height simply
+            // by doubling the center point.
+            Single width = x * 2;
+            Single height = y * 2;
+
+            // This rectangle should never change (unless we change resolutions).
+            mScreenRectangle = new Math.Rectangle(new Vector2(width, height), new Vector2(x, y));
         }
 
         /// <summary>
@@ -269,6 +286,20 @@ namespace MBHEngine.Render
             }
         }
 
+        /// <summary>
+        /// A rectangle defining the viewport, including scale (which isn't included in the device viewport).
+        /// </summary>
+        public MBHEngine.Math.Rectangle pScreenViewRect
+        {
+            get
+            {
+                return mScreenRectangle;
+            }
+        }
+
+        /// <summary>
+        /// How many frame should it take to blend to mTargetPosition. 
+        /// </summary>
         public Single pNumBlendFrames
         {
             get
