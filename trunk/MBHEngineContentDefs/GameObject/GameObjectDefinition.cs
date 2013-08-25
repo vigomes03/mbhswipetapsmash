@@ -38,6 +38,29 @@ namespace MBHEngineContentDefs
         };
 
         /// <summary>
+        /// The different areas of the screen that an object can be anchored to. Useful for UI elements.
+        /// </summary>
+        public enum ScreenAnchor
+        {
+            LEFT = 0,
+            TOP,
+            RIGHT,
+            BOTTOM,
+            CENTER,
+
+            COUNT,
+        }
+
+        /// <summary>
+        /// An anchor point is both the X and Y ScreenAnchor components.
+        /// </summary>
+        public class ScreenAnchorPoint
+        {
+            public ScreenAnchor X; // LEFT, CENTER, RIGHT.
+            public ScreenAnchor Y; // TOP, CENTER, BOTTOM.
+        }
+
+        /// <summary>
         /// Determines the order at which IGameObjects should be rendered.
         /// The higher the number the later it will be rendered.
         /// </summary>
@@ -57,6 +80,13 @@ namespace MBHEngineContentDefs
         /// The position of the object in space.
         /// </summary>
         public Vector2 mPosition;
+
+        /// <summary>
+        /// An anchor point on the screen that this object should be positioned relative to. If this is set,
+        /// mPosition become and offset from this AnchorPoint.
+        /// </summary>
+        [ContentSerializer(Optional = true)]
+        public ScreenAnchorPoint mScreenRelativeAnchorPoint;
 
         /// <summary>
         /// The rotation of the object around the Z axis.
