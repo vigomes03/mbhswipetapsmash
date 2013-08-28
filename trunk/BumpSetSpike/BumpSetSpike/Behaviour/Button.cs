@@ -96,6 +96,12 @@ namespace BumpSetSpike.Behaviour
                             GameObjectManager.pInstance.pCurUpdatePass = BehaviourDefinition.Passes.GAME_PLAY;
                             return true;
                         }
+
+                        case ButtonDefinition.TaskType.ShowCredits:
+                        {
+                            GameObjectManager.pInstance.pCurUpdatePass = BehaviourDefinition.Passes.CREDITS;
+                            return true;
+                        }
                     }
                 }
             }
