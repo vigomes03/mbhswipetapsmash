@@ -369,8 +369,8 @@ namespace MBHEngine.GameObject
             for (int i = 0; i < mBehaviours.Count; i++)
             {
                 if (mBehaviours[i].pIsEnabled &&
-                    (null == mBehaviours[i].pRenderPassExclusions ||
-                    !(mBehaviours[i].pRenderPassExclusions.Contains((Int32)curPass))))
+                    (null == mBehaviours[i].pRenderPasses ||
+                    (mBehaviours[i].pRenderPasses.Contains((Int32)curPass))))
                 {
                     mBehaviours[i].Render(batch, effect);
                 }

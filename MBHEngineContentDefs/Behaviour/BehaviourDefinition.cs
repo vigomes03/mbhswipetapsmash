@@ -15,6 +15,7 @@ namespace MBHEngineContentDefs
         public enum Passes
         {
             MAIN_MENU = 0,
+            CREDITS,
             TUTORIAL_PAUSE,
             GAME_PLAY,
             GAME_OVER,
@@ -31,7 +32,7 @@ namespace MBHEngineContentDefs
         /// Do not render when the current GameObject pass is in this list.
         /// </summary>
         [ContentSerializer(Optional = true)]
-        public List<Passes> mRenderPassExclusions;
+        public List<Passes> mRenderPasses;
 
         /// <summary>
         /// When true the behaviour is updated and rendered every frame.

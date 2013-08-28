@@ -1,12 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <XnaContent>
   <Asset Type="MBHEngineContentDefs.SpriteRenderDefinition">
-    <mRenderPassExclusions>
-      <Item>MAIN_MENU</Item>
-      <Item>GAME_PLAY</Item>
-      <Item>GAME_OVER</Item>
-      <Item>TUTORIAL_PAUSE</Item>
-    </mRenderPassExclusions>
+    <mRenderPasses>
+      <Item>GAME_PLAY_PAUSED</Item>
+    </mRenderPasses>
     <mSpriteFileName>Sprites\BlackBox</mSpriteFileName>
   </Asset>
 </XnaContent>

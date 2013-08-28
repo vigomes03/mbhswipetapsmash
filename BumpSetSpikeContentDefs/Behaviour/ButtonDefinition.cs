@@ -18,6 +18,7 @@ namespace BumpSetSpikeContentDefs
             OpenURL,
             PauseGame,
             ResumeGame,
+            ShowCredits,
         }
 
         /// <summary>

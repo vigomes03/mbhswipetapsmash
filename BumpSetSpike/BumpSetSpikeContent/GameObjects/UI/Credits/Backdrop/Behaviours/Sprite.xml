@@ -2,9 +2,9 @@
 <XnaContent>
   <Asset Type="MBHEngineContentDefs.SpriteRenderDefinition">
     <mRenderPasses>
-      <Item>GAME_PLAY_PAUSED</Item>
+      <Item>CREDITS</Item>
     </mRenderPasses>
-    <mSpriteFileName>Sprites\Resume</mSpriteFileName>
+    <mSpriteFileName>Sprites\BlackBox</mSpriteFileName>
   </Asset>
 </XnaContent>
 

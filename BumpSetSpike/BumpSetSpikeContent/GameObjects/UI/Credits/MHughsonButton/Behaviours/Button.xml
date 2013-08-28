@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<XnaContent>
+  <Asset Type="BumpSetSpikeContentDefs.ButtonDefinition">
+    <mUpdatePasses>
+      <Item>CREDITS</Item>
+    </mUpdatePasses>
+    <mTaskOnRelease>
+      <mType>OpenURL</mType>
+      <mData>http://www.matthughson.com/</mData>
+    </mTaskOnRelease>
+  </Asset>
+</XnaContent>
+

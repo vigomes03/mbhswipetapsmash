@@ -30,7 +30,7 @@ namespace MBHEngine.Behaviour
         /// Do not render when the current GameObject pass is in this list.
         /// BehaviourDefinition.Passes but using Int32 to avoid boxing.
         /// </summary>
-        protected List<Int32> mRenderPassExclusions;
+        protected List<Int32> mRenderPasses;
 
         /// <summary>
         /// If false, this behaviour will enter a state where it no longer receives 
@@ -77,12 +77,12 @@ namespace MBHEngine.Behaviour
                     }
                 }
 
-                if (def.mRenderPassExclusions != null)
+                if (def.mRenderPasses != null)
                 {
-                    mRenderPassExclusions = new List<Int32>(def.mRenderPassExclusions.Count);
-                    for (Int32 i = 0; i < def.mRenderPassExclusions.Count; i++)
+                    mRenderPasses = new List<Int32>(def.mRenderPasses.Count);
+                    for (Int32 i = 0; i < def.mRenderPasses.Count; i++)
                     {
-                        mRenderPassExclusions.Add((Int32)def.mRenderPassExclusions[i]);
+                        mRenderPasses.Add((Int32)def.mRenderPasses[i]);
                     }
                 }
 
@@ -217,11 +217,11 @@ namespace MBHEngine.Behaviour
         /// A list of all the passes that if currently active should signal this Behaviour to NOT be rendered.
         /// The Behaviour does not want to be rendered during these Passes. If null just always render.
         /// </summary>
-        public virtual List<Int32> pRenderPassExclusions
+        public virtual List<Int32> pRenderPasses
         {
             get
             {
-                return mRenderPassExclusions;
+                return mRenderPasses;
             }
         }
 
