@@ -83,6 +83,17 @@ namespace BumpSetSpike.Behaviour
         private Int32 mStartingRenderPriority;
 
         /// <summary>
+        /// When the ball hits the ground, ending a match, we save where it landed. We need this data because
+        /// the ball can continue to move, and we don't go to the game over screen right away.
+        /// </summary>
+        private Vector2 mLandPosition;
+
+        /// <summary>
+        /// Tracks if the ball has hit the ground yet.
+        /// </summary>
+        private Boolean mPlayOver;
+
+        /// <summary>
         /// Preallocated messages to avoid GC.
         /// </summary>
         private SpriteRender.SetActiveAnimationMessage mSetActiveAnimationMsg;
@@ -91,6 +102,7 @@ namespace BumpSetSpike.Behaviour
         private Player.OnMatchRestartMessage mOnMatchRestartMsg;
         private HitCountDisplay.IncrementHitCountMessage mIncrementHitCountMsg;
         private GetServeDestinationMessage mSetServeDestinationMsg;
+        private Player.GetCurrentStateMessage mGetCurrentStateMsg;
 
         /// <summary>
         /// Constructor which also handles the process of loading in the Behaviour
@@ -121,6 +133,7 @@ namespace BumpSetSpike.Behaviour
             mFxSand = GameObjectManager.pInstance.pContentManager.Load<SoundEffect>("Audio\\FX\\HitSand");
 
             mOnGround = false;
+            mPlayOver = false;
 
             mStartingRenderPriority = mParentGOH.pRenderPriority;
 
@@ -130,6 +143,7 @@ namespace BumpSetSpike.Behaviour
             mOnMatchRestartMsg = new Player.OnMatchRestartMessage();
             mIncrementHitCountMsg = new HitCountDisplay.IncrementHitCountMessage();
             mSetServeDestinationMsg = new GetServeDestinationMessage();
+            mGetCurrentStateMsg = new Player.GetCurrentStateMessage();
         }
 
         /// <summary>
@@ -160,6 +174,14 @@ namespace BumpSetSpike.Behaviour
             // Has it hit the ground?
             if (mParentGOH.pPosY > bottomRight.Y)
             {
+                // If the play is not already over, save the position that the ball hit the ground so 
+                // that we can use that data later when figuring out who got the point.
+                if (!mPlayOver)
+                {
+                    mPlayOver = true;
+                    mLandPosition = mParentGOH.pPosition;
+                }
+
                 // Correct the position and dampen the movement so that it slows down a little
                 // each time it hits the ground.
                 mParentGOH.pPosY = bottomRight.Y;
@@ -222,10 +244,10 @@ namespace BumpSetSpike.Behaviour
             mParentGOH.OnMessage(mSetActiveAnimationMsg);
 
             // Has enough time passed since the play ended?
-            if (mTimeOnGroundToEndPlay.IsExpired())
+            if (mTimeOnGroundToEndPlay.IsExpired() && GameObjectManager.pInstance.pCurUpdatePass == BehaviourDefinition.Passes.GAME_PLAY)
             {
                 // Left of the net is a loss. Right of the net is win and requires the next play start.
-                if (mParentGOH.pPosX < 0.0f)
+                if (mLandPosition.X < 0.0f)
                 {
                     if (TutorialManager.pInstance.pCurState == TutorialManager.State.PLAYER_TRYING)
                     {
@@ -310,6 +332,8 @@ namespace BumpSetSpike.Behaviour
                         {
                             mParentGOH.pDirection.mForward.X *= -0.1f;
 
+                            mParentGOH.pPosX = intersect.X - mParentGOH.pCollisionRect.pDimensionsHalved.X;
+
                             ScoreManager.pInstance.AddScore(ScoreManager.ScoreType.Net, mParentGOH.pPosition);
                         }
                     }
@@ -328,6 +352,8 @@ namespace BumpSetSpike.Behaviour
         {
             if (msg is Player.OnMatchRestartMessage || msg is Player.OnGameRestartMessage)
             {
+                mPlayOver = false;
+
                 mParentGOH.pPosX = 110.0f;
                 mParentGOH.pPosY = -16.0f;
 

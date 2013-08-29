@@ -29,6 +29,7 @@ namespace BumpSetSpike.Behaviour
         /// Preallocated to avoid GC.
         /// </summary>
         private Player.OnGameRestartMessage mGameRestartMsg;
+        private Player.GetCurrentStateMessage mGetCurrentStateMsg;
 
         /// <summary>
         /// Constructor which also handles the process of loading in the Behaviour
@@ -52,6 +53,7 @@ namespace BumpSetSpike.Behaviour
             mGesture = new GestureSample();
 
             mGameRestartMsg = new Player.OnGameRestartMessage();
+            mGetCurrentStateMsg = new Player.GetCurrentStateMessage();
         }
 
         /// <summary>
@@ -62,9 +64,17 @@ namespace BumpSetSpike.Behaviour
         {
             if (InputManager.pInstance.CheckGesture(GestureType.Tap, ref mGesture) || InputManager.pInstance.CheckAction(InputManager.InputActions.A, true))
             {
-                // Restart the game
-                GameObjectManager.pInstance.BroadcastMessage(mGameRestartMsg, mParentGOH);
-                GameObjectManager.pInstance.pCurUpdatePass = BehaviourDefinition.Passes.GAME_PLAY;
+
+                mGetCurrentStateMsg.Reset();
+                GameObjectManager.pInstance.pPlayer.OnMessage(mGetCurrentStateMsg, mParentGOH);
+
+				// Don't leave game over until the player is on the ground.
+                if (mGetCurrentStateMsg.mState_Out == Player.State.Idle)
+                {
+                    // Restart the game
+                    GameObjectManager.pInstance.BroadcastMessage(mGameRestartMsg, mParentGOH);
+                    GameObjectManager.pInstance.pCurUpdatePass = BehaviourDefinition.Passes.GAME_PLAY;
+                }
 
                 //TutorialManager.pInstance.StartTutorial();
             }
