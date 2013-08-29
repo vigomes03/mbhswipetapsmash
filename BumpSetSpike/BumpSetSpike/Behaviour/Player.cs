@@ -28,6 +28,7 @@ namespace BumpSetSpike.Behaviour
         public enum State
         {
             Idle = 0,       // Standing around.
+            WaitForMenu,
             Receiving,      // Waiting for the initial serve.
             Jump,           // Jump initiated.
             SpikeAttempt,   // Spike button pressed.
@@ -163,7 +164,7 @@ namespace BumpSetSpike.Behaviour
 
             PlayerDefinition def = GameObjectManager.pInstance.pContentManager.Load<PlayerDefinition>(fileName);
 
-            mCurrentState = State.Receiving;
+            mCurrentState = State.WaitForMenu;
 
             mCollisionWall = new LineSegment();
             mMovementLine = new LineSegment();
@@ -550,6 +551,26 @@ namespace BumpSetSpike.Behaviour
                     mSetActiveAnimationMsg.mAnimationSetName_In = "Idle";
                     mParentGOH.OnMessage(mSetActiveAnimationMsg);
                 }
+                else
+                {
+                    // If we are on the Ground we can walk.
+                    if (mParentGOH.pPosY >= mBottomRight.Y)
+                    {
+                        // Start the player walking towards the ball serve destination.
+                        if (mWalkToDestination.X < mParentGOH.pPosX)
+                        {
+                            mParentGOH.pDirection.mForward.X = -mWalkSpeed;
+                        }
+                        else if (mWalkToDestination.X > mParentGOH.pPosX)
+                        {
+                            mParentGOH.pDirection.mForward.X = mWalkSpeed;
+                        }
+
+                        mSetActiveAnimationMsg.Reset();
+                        mSetActiveAnimationMsg.mAnimationSetName_In = "Walk";
+                        mParentGOH.OnMessage(mSetActiveAnimationMsg);
+                    }
+                }
             }
 
             //DebugMessageDisplay.pInstance.AddDynamicMessage("Player: " + mParentGOH.pPosition);
@@ -620,20 +641,6 @@ namespace BumpSetSpike.Behaviour
                 // Ensure that we aren't asked to walk to a position which we can't reach. In those cases,
                 // just get as close as possible.
                 mWalkToDestination = Vector2.Clamp(mWalkToDestination, mTopLeft, mBottomRight);
-
-                // Start the player walking towards the ball serve destination.
-                if (mWalkToDestination.X < mParentGOH.pPosX)
-                {
-                    mParentGOH.pDirection.mForward.X = -mWalkSpeed;
-                }
-                else if (mWalkToDestination.X > mParentGOH.pPosX)
-                {
-                    mParentGOH.pDirection.mForward.X = mWalkSpeed;
-                }
-
-                mSetActiveAnimationMsg.Reset();
-                mSetActiveAnimationMsg.mAnimationSetName_In = "Walk";
-                mParentGOH.OnMessage(mSetActiveAnimationMsg);
 
                 mCurrentState = State.Receiving;
             }
