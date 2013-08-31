@@ -6,7 +6,7 @@
     </mUpdatePasses>
     <mTaskOnRelease>
       <mType>OpenURL</mType>
-      <mData>http://ruuvari.aspekt.fi/</mData>
+      <mData>http://ChrisKukla.com</mData>
     </mTaskOnRelease>
   </Asset>
 </XnaContent>
