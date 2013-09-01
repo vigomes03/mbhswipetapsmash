@@ -30,11 +30,6 @@ namespace BumpSetSpike
         private SpriteBatch mSpriteBatch;
 
         /// <summary>
-        /// Background music for the game.
-        /// </summary>
-        private Song mMusic;
-
-        /// <summary>
         /// Whether or not to draw debug information.
         /// </summary>
         private Boolean mDebugDrawEnabled;
@@ -308,20 +303,7 @@ namespace BumpSetSpike
             //
             //GameObjectManager.pInstance.Add(new GameObject("GameObjects\\Interface\\HUD\\PlayerHealthBar\\PlayerHealthBar"));
 
-            mMusic = Content.Load<Song>("Audio\\Music\\RoccoW_-_Pumped");
-
-            Boolean musicDisabled = CommandLineManager.pInstance["DisableMusic"] != null;
-
-#if WINDOWS_PHONE && DEBUG
-            musicDisabled = true;
-#endif
-
-            // Only play music if the user isn't already listening to something.
-            if (MediaPlayer.State == MediaState.Stopped && !musicDisabled)
-            {
-                MediaPlayer.IsRepeating = true;
-                MediaPlayer.Play(mMusic);
-            }
+            MusicManager.pInstance.Initialize();
 
             LeaderBoardManager.pInstance.Initialize();
 
@@ -465,6 +447,7 @@ namespace BumpSetSpike
                 GameObjectPicker.pInstance.Update(gameTime, (mFameSkipCount == 0));
             }
 
+            MusicManager.pInstance.Update();
             TutorialManager.pInstance.Update(gameTime);
             InputManager.pInstance.UpdateEnd();
             CameraManager.pInstance.Update(gameTime);

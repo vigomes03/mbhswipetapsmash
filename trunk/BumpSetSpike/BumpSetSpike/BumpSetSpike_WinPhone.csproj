@@ -117,6 +117,7 @@
     <Compile Include="Behaviour\Player.cs" />
     <Compile Include="Behaviour\Wobble.cs" />
     <Compile Include="Gameflow\LeaderBoardManager.cs" />
+    <Compile Include="Gameflow\MusicManager.cs" />
     <Compile Include="Gameflow\SaveGameManager.cs" />
     <Compile Include="Gameflow\ScoreManager.cs" />
     <Compile Include="Gameflow\TutorialManager.cs" />
