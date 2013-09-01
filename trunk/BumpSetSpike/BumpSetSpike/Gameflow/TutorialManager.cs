@@ -234,6 +234,7 @@ namespace BumpSetSpike.Gameflow
         private GameObject mTxtTitle;
         private GameObject mTxtTapContinue;
         private GameObject mTxtRealThing;
+        private GameObject mImgFingerSwipe;
         private GameObject mImgSwipe;
         private GameObject mImgBackdrop;
 
@@ -374,6 +375,7 @@ namespace BumpSetSpike.Gameflow
             mTxtTapContinue.pPosY = bottom - 16.0f;
 
             mImgSwipe = new GameObject("GameObjects\\Items\\Tutorial\\Swipe\\Swipe");
+            mImgFingerSwipe = new GameObject("GameObjects\\Items\\Tutorial\\FingerSwipe\\FingerSwipe");
 
             mImgBackdrop = new GameObject("GameObjects\\UI\\Tutorial\\Backdrop\\Backdrop");
             mImgBackdrop.pPosX = x;
@@ -430,7 +432,7 @@ namespace BumpSetSpike.Gameflow
 
             // RECIEVING_END
             state = new TutorialState(
-                new List<GameObject> { mTxtSwipeJump, mImgBackdrop, mImgSwipe },
+                new List<GameObject> { mTxtSwipeJump, mImgBackdrop, mImgSwipe, mImgFingerSwipe },
                 new List<HighlightObjectMessage> { mHighlightBallMsg, mHighlightPlayerMsg },
                 mInputDelay,
                 false,
