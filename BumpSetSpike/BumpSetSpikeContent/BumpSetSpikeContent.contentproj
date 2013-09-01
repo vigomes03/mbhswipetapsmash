@@ -530,13 +530,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Audio\Music\RoccoW_-_Pumped.mp3">
-      <Name>RoccoW_-_Pumped</Name>
-      <Importer>Mp3Importer</Importer>
-      <Processor>SongProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Audio\FX\HitOpponent.wav">
       <Name>HitOpponent</Name>
       <Importer>WavImporter</Importer>
@@ -1414,6 +1407,18 @@
       <Name>FingerSwipe</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Audio\Music\MikeImmonen_Gameplay.mp3">
+      <Name>MikeImmonen_Gameplay</Name>
+      <Importer>Mp3Importer</Importer>
+      <Processor>SongProcessor</Processor>
+    </Compile>
+    <Compile Include="Audio\Music\MikeImmonen_Menu.mp3">
+      <Name>MikeImmonen_Menu</Name>
+      <Importer>Mp3Importer</Importer>
+      <Processor>SongProcessor</Processor>
     </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />
