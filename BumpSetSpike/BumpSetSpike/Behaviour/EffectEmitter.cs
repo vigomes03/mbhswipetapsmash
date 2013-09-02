@@ -96,9 +96,9 @@ namespace BumpSetSpike.Behaviour
                 GameObject fx = GameObjectFactory.pInstance.GetTemplate(mEffectToEmit);
                 Single randAngleRad = MathHelper.ToRadians((Single)RandomManager.pInstance.RandomPercent() * 360.0f);
                 fx.pDirection.mForward = new Vector2((Single)Math.Cos(randAngleRad), (Single)Math.Sin(randAngleRad));
-                fx.pDirection.mSpeed = 1.0f;
+                fx.pDirection.mSpeed = 2.5f + (Single)RandomManager.pInstance.RandomPercent();
                 fx.pPosition = mParentGOH.pPosition;
-                fx.pRotation = MathHelper.ToRadians((Single)RandomManager.pInstance.RandomPercent() * 360.0f);
+                fx.pRotation = randAngleRad; // +MathHelper.PiOver2;
                 GameObjectManager.pInstance.Add(fx);
             }
 
