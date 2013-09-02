@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<XnaContent>
+  <Asset Type="BumpSetSpikeContentDefs.WobbleDefinition">
+    <mRotationTween>
+      <mLength>0</mLength>
+      <mStartValue>0</mStartValue>
+      <mEndValue>0</mEndValue>
+    </mRotationTween>
+    <mScaleTween>
+      <mLength>5.0</mLength>
+      <mStartValue>1</mStartValue>
+      <mEndValue>1.05</mEndValue>
+    </mScaleTween>
+  </Asset>
+</XnaContent>
+
