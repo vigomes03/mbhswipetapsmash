@@ -792,7 +792,7 @@ namespace MBHEngine.GameObject
         }
 
         /// <summary>
-        /// The rotation of the object around the Z axis.
+        /// The rotation of the object around the Z axis in Radians.
         /// </summary>
         public Single pRotation
         {

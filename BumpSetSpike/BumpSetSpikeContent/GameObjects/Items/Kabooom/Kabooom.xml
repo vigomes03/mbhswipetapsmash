@@ -10,9 +10,11 @@
     <mMotionRoot>64 16</mMotionRoot>
     <mBehaviourFileNames>
       <Item>Sprite</Item>
+      <Item>Wobble</Item>
     </mBehaviourFileNames>
     <mBehaviourClassNames>
       <Item>MBHEngine.Behaviour.SpriteRender</Item>
+      <Item>BumpSetSpike.Behaviour.Wobble</Item>
     </mBehaviourClassNames>
   </Asset>
 </XnaContent>

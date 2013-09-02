@@ -253,9 +253,12 @@ namespace BumpSetSpike.Behaviour
 
                     GameObject kabooom = GameObjectFactory.pInstance.GetTemplate("GameObjects\\Items\\Kabooom\\Kabooom");
                     kabooom.pPosition = mParentGOH.pPosition;
-                    kabooom.pPosY -= 32.0f;
-                    kabooom.pRotation = -25.0f;
+                    // Put it above them, but also offset a bit based on the velocity they are being knocked in. This gives
+                    // enough variety that we shouldn't have z-sort issues.
+                    kabooom.pPosY -= 32.0f - (mParentGOH.pDirection.mForward.Y * 2.0f);
                     GameObjectManager.pInstance.Add(kabooom);
+
+                    DebugMessageDisplay.pInstance.AddConstantMessage("Kabooom Angle: " + MathHelper.ToDegrees(kabooom.pRotation));
 
                     mGetAttachmentPointMsg.Reset();
                     mGetAttachmentPointMsg.mName_In = "Blood";
