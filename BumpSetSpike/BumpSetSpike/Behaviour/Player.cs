@@ -117,6 +117,7 @@ namespace BumpSetSpike.Behaviour
         /// </summary>
         private SoundEffect mFxJump;
         private SoundEffect mFxSpikeHit;
+        private SoundEffect mFxSpikeMiss;
         private SoundEffect mFxBump;
 
         /// <summary>
@@ -183,6 +184,7 @@ namespace BumpSetSpike.Behaviour
 
             mFxJump = GameObjectManager.pInstance.pContentManager.Load<SoundEffect>("Audio\\FX\\Jump");
             mFxSpikeHit = GameObjectManager.pInstance.pContentManager.Load<SoundEffect>("Audio\\FX\\SpikeHit");
+            mFxSpikeMiss = GameObjectManager.pInstance.pContentManager.Load<SoundEffect>("Audio\\FX\\SpikeMiss");
             mFxBump = GameObjectManager.pInstance.pContentManager.Load<SoundEffect>("Audio\\FX\\Bump");
 
             mStartingRenderPriority = mParentGOH.pRenderPriority;
@@ -231,6 +233,13 @@ namespace BumpSetSpike.Behaviour
                 if (mCurrentState == State.Jump && GameObjectManager.pInstance.pCurUpdatePass == BehaviourDefinition.Passes.GAME_PLAY)
                 {
                     mCurrentState = State.SpikeAttempt;
+
+                    // Play the miss effect even before we know if it hits or nowt.
+					// This is because we have a buffer built into the miss, which means
+					// there would be a delay in playing the sound. But this sound 
+					// blends nice with the SpikeHit sound, so we just play them
+					// both in that case.
+                    mFxSpikeMiss.Play();
 
                     // The player has some number of frames to move into hit range before a spike attempt
                     // is failed. This is to make the game a little more forgiving.
