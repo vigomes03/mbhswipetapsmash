@@ -12,14 +12,6 @@
         <mNumFrames>6</mNumFrames>
         <mLooping>false</mLooping>
         <mRemoveGameObjectOnComplete>true</mRemoveGameObjectOnComplete>
-        <mFrameOverrides>
-          <Item>
-            <Key>0</Key>
-            <Value>
-              <mTicksPerFrame>5</mTicksPerFrame>
-            </Value>
-          </Item>
-        </mFrameOverrides>
       </Item>
     </mAnimationSets>
   </Asset>
