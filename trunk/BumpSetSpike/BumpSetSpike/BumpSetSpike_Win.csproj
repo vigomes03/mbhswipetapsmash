@@ -110,6 +110,7 @@
     <Compile Include="Behaviour\Button.cs" />
     <Compile Include="Behaviour\ClientBehaviourCreator.cs" />
     <Compile Include="Behaviour\Ball.cs" />
+    <Compile Include="Behaviour\EffectEmitter.cs" />
     <Compile Include="Behaviour\GameOver.cs" />
     <Compile Include="Behaviour\HitCountDisplay.cs" />
     <Compile Include="Behaviour\NewHighScore.cs" />
