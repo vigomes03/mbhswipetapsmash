@@ -704,9 +704,19 @@ namespace BumpSetSpike.Gameflow
             const Single min_length = length - length_delta;
             const Single max_length = length + (length_delta * 0.5f);
 
+            Single angle = MathHelper.ToDegrees((Single)Math.Atan2(swipe_delta.Y, swipe_delta.X));
+
+            DebugMessageDisplay.pInstance.AddConstantMessage("Angle: " + angle);
+
             DebugMessageDisplay.pInstance.AddConstantMessage("Swipe Length: " + swipe_delta.Length());
 
-            if (swipe_delta.Length() < min_length)
+            if (angle < -80.0f || angle > -10.0f)
+            {
+                // Bad angle. Make sure they at least get something close to the right directions (which is
+                // about 45 degrees).
+                return false;
+            }
+            else if (swipe_delta.Length() < min_length)
             {
                 GameObject txt = GameObjectFactory.pInstance.GetTemplate("GameObjects\\Items\\Tutorial\\Faster\\Faster");
                 txt.pPosition = mImgSwipe.pPosition;
