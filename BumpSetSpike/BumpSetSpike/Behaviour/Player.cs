@@ -476,6 +476,10 @@ namespace BumpSetSpike.Behaviour
 
                         mCurrentState = State.Fall;
 
+                        GameObject sparks = GameObjectFactory.pInstance.GetTemplate("GameObjects\\Items\\SparkEmitter\\SparkEmitter");
+                        sparks.pPosition = mCollisionResults[0].pPosition;
+                        GameObjectManager.pInstance.Add(sparks);
+
                         // Stop the player's movement in Y but knock him back a little in X.
                         mParentGOH.pDirection.mForward.X = -1.0f;
                         mParentGOH.pDirection.mForward.Y = 0.0f;

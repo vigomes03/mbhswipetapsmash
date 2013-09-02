@@ -161,8 +161,10 @@ namespace BumpSetSpike
             // be retrived later without any heap allocations.
             //
             GameObjectFactory.pInstance.AddTemplate("GameObjects\\Items\\Dust\\Dust", 64);
+            GameObjectFactory.pInstance.AddTemplate("GameObjects\\Items\\Sparks\\Sparks", 64);
             GameObjectFactory.pInstance.AddTemplate("GameObjects\\Items\\Kabooom\\Kabooom", 4);
             GameObjectFactory.pInstance.AddTemplate("GameObjects\\Items\\Blood\\Blood", 4);
+            GameObjectFactory.pInstance.AddTemplate("GameObjects\\Items\\SparkEmitter\\SparkEmitter", 4);
             GameObjectFactory.pInstance.AddTemplate("GameObjects\\UI\\NumFont\\NumFont", 128);
             GameObjectFactory.pInstance.AddTemplate("GameObjects\\UI\\NumFontUI\\NumFontUI", 128);
             GameObjectFactory.pInstance.AddTemplate("GameObjects\\UI\\PointDisplay\\PointDisplay", 32);

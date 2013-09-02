@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<XnaContent>
+  <Asset Type="MBHEngineContentDefs.SpriteRenderDefinition">
+    <mSpriteFileName>Sprites\Sparks</mSpriteFileName>
+    <mFrameHeight>8</mFrameHeight>
+    <mHasShadow>false</mHasShadow>
+    <mAnimationSets>
+      <Item>
+        <mTicksPerFrame>1</mTicksPerFrame>
+        <mName>Emit</mName>
+        <mStartingFrame>0</mStartingFrame>
+        <mNumFrames>6</mNumFrames>
+        <mLooping>false</mLooping>
+        <mRemoveGameObjectOnComplete>true</mRemoveGameObjectOnComplete>
+        <mFrameOverrides>
+          <Item>
+            <Key>0</Key>
+            <Value>
+              <mTicksPerFrame>5</mTicksPerFrame>
+            </Value>
+          </Item>
+        </mFrameOverrides>
+      </Item>
+    </mAnimationSets>
+  </Asset>
+</XnaContent>
+
