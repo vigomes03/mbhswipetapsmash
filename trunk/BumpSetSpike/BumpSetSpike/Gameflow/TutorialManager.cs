@@ -12,6 +12,7 @@ using MBHEngine.Debug;
 using MBHEngine.Behaviour;
 using MBHEngineContentDefs;
 using MBHEngine.IO;
+using Microsoft.Xna.Framework.Audio;
 
 namespace BumpSetSpike.Gameflow
 {
@@ -111,6 +112,11 @@ namespace BumpSetSpike.Gameflow
             private GestureSample mGesture;
 
             /// <summary>
+            /// The sound that plays when you user advances through the tutorial.
+            /// </summary>
+            private SoundEffect mFxMenuSelect;
+
+            /// <summary>
             /// 
             /// </summary>
             /// <param name="objectsToShow"></param>
@@ -133,6 +139,7 @@ namespace BumpSetSpike.Gameflow
                 mResumeOnExit = resumeOnExit;
                 mNextStateOnTap = nextStateOnTap;
                 mGesture = new GestureSample();
+                mFxMenuSelect = GameObjectManager.pInstance.pContentManager.Load<SoundEffect>("Audio\\FX\\MenuSelect");
             }
 
             /// <summary>
@@ -179,6 +186,8 @@ namespace BumpSetSpike.Gameflow
                         if (InputManager.pInstance.CheckAction(InputManager.InputActions.A, true) ||
                             InputManager.pInstance.CheckGesture(GestureType.Tap, ref mGesture))
                         {
+                            mFxMenuSelect.Play();
+
                             return mNextStateOnTap;
                         }
                     }
