@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using BumpSetSpike.Gameflow;
 using MBHEngine.Input;
 using MBHEngineContentDefs;
+using Microsoft.Xna.Framework.Audio;
 
 namespace BumpSetSpike.Behaviour
 {
@@ -24,6 +25,11 @@ namespace BumpSetSpike.Behaviour
         /// Preallocated to avoid GC.
         /// </summary>
         private GestureSample mGesture;
+
+        /// <summary>
+        /// The sound that plays when you user selects and item on the menu.
+        /// </summary>
+        private SoundEffect mFxMenuSelect;
 
         /// <summary>
         /// Preallocated to avoid GC.
@@ -52,6 +58,8 @@ namespace BumpSetSpike.Behaviour
 
             mGesture = new GestureSample();
 
+            mFxMenuSelect = GameObjectManager.pInstance.pContentManager.Load<SoundEffect>("Audio\\FX\\MenuSelect");
+
             mGameRestartMsg = new Player.OnGameRestartMessage();
             mGetCurrentStateMsg = new Player.GetCurrentStateMessage();
         }
@@ -71,6 +79,8 @@ namespace BumpSetSpike.Behaviour
 				// Don't leave game over until the player is on the ground.
                 if (mGetCurrentStateMsg.mState_Out == Player.State.Idle)
                 {
+                    mFxMenuSelect.Play();
+
                     // Restart the game
                     GameObjectManager.pInstance.BroadcastMessage(mGameRestartMsg, mParentGOH);
                     GameObjectManager.pInstance.pCurUpdatePass = BehaviourDefinition.Passes.GAME_PLAY;
