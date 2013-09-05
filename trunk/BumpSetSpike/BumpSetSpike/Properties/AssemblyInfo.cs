@@ -10,7 +10,7 @@ using System.Resources;
 [assembly: AssemblyProduct("Swipe Tap Smash")]
 [assembly: AssemblyDescription("Super Spike V'Ball meets Paper Toss!")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyCopyright("Copyright ©  2013")]
+[assembly: AssemblyCopyright("Copyright ©  Matt Hughson 2013")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -32,5 +32,5 @@ using System.Resources;
 //      Build Number
 //      Revision
 //
-[assembly: AssemblyVersion("1.0.0.0")]
+[assembly: AssemblyVersion("1.1.0.0")]
 [assembly: NeutralResourcesLanguageAttribute("en")]
