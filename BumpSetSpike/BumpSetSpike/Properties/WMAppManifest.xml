@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Deployment xmlns="http://schemas.microsoft.com/windowsphone/2009/deployment" AppPlatformVersion="7.0">
-  <App xmlns="" ProductID="{b9b4841a-9f69-4240-8804-bccd333e82c0}" Title="BumpSetSpike" RuntimeType="XNA" Version="1.0.0.0" Genre="Apps.Normal" Author="" Description="" Publisher="">
+  <App xmlns="" ProductID="{b9b4841a-9f69-4240-8804-bccd333e82c0}" Title="BumpSetSpike" RuntimeType="XNA" Version="1.1.0.0" Genre="Apps.Normal" Author="" Description="" Publisher="">
     <IconPath IsRelative="true" IsResource="false">
     </IconPath>
     <Capabilities>
