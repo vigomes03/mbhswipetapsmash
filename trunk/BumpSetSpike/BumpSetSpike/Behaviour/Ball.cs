@@ -243,8 +243,13 @@ namespace BumpSetSpike.Behaviour
 
             mParentGOH.OnMessage(mSetActiveAnimationMsg);
 
+            GameObjectManager.pInstance.pPlayer.OnMessage(mGetCurrentStateMsg, mParentGOH);
+
             // Has enough time passed since the play ended?
-            if (mTimeOnGroundToEndPlay.IsExpired() && GameObjectManager.pInstance.pCurUpdatePass == BehaviourDefinition.Passes.GAME_PLAY)
+			// And is the player on the ground and standing in idle?
+            if (mTimeOnGroundToEndPlay.IsExpired() && 
+                GameObjectManager.pInstance.pCurUpdatePass == BehaviourDefinition.Passes.GAME_PLAY &&
+                mGetCurrentStateMsg.mState_Out == Player.State.Idle)
             {
                 // Left of the net is a loss. Right of the net is win and requires the next play start.
                 if (mLandPosition.X < 0.0f)
