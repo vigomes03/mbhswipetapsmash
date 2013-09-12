@@ -12,6 +12,7 @@ using Microsoft.Phone.Tasks;
 using MBHEngine.Render;
 using BumpSetSpikeContentDefs;
 using MBHEngineContentDefs;
+using BumpSetSpike.Gameflow;
 
 namespace BumpSetSpike.Behaviour
 {
@@ -52,6 +53,20 @@ namespace BumpSetSpike.Behaviour
             mDef = GameObjectManager.pInstance.pContentManager.Load<ButtonDefinition>(fileName);
 
             mGesture = new GestureSample();
+
+            // Special handling for this type of button.
+            if (mDef.mTaskOnRelease.mType == ButtonDefinition.TaskType.OptionToggleTutorial)
+            {
+                // Turn the button visual on or off depending on the state of the button.
+                if (TutorialManager.pInstance.pTutorialCompleted)
+                {
+                    mParentGOH.pDoRender = false;
+                }
+                else
+                {
+                    mParentGOH.pDoRender = true;
+                }
+            }
         }
 
         /// <summary>
@@ -100,6 +115,23 @@ namespace BumpSetSpike.Behaviour
                         case ButtonDefinition.TaskType.ShowCredits:
                         {
                             GameObjectManager.pInstance.pCurUpdatePass = BehaviourDefinition.Passes.CREDITS;
+                            return true;
+                        }
+
+                        case ButtonDefinition.TaskType.OptionToggleTutorial:
+                        {
+                            // Toggle the state of the tutorial.
+                            TutorialManager.pInstance.pTutorialCompleted ^= true;
+
+                            if (TutorialManager.pInstance.pTutorialCompleted)
+                            {
+                                mParentGOH.pDoRender = false;
+                            }
+                            else
+                            {
+                                mParentGOH.pDoRender = true;
+                            }
+
                             return true;
                         }
                     }

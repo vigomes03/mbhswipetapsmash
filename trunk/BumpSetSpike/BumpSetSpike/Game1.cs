@@ -123,6 +123,12 @@ namespace BumpSetSpike
             TutorialManager.pInstance.Initialize();
             DebugShapeDisplay.pInstance.Initialize();
             DebugMessageDisplay.pInstance.Initialize();
+            MusicManager.pInstance.Initialize();
+            LeaderBoardManager.pInstance.Initialize();
+            SaveGameManager.pInstance.Inititalize();
+            SaveGameManager.pInstance.ReadSaveGameXML();
+            //SaveGameManager.pInstance.WriteSaveGameXML();
+            //SaveGameManager.pInstance.ReadSaveGameXML();
 
             CameraManager.pInstance.pTargetPosition = new Vector2(0, -100.0f); // -30
 
@@ -169,6 +175,8 @@ namespace BumpSetSpike
             GameObjectFactory.pInstance.AddTemplate("GameObjects\\UI\\NumFontUI\\NumFontUI", 128);
             GameObjectFactory.pInstance.AddTemplate("GameObjects\\UI\\PointDisplay\\PointDisplay", 32);
             GameObjectFactory.pInstance.AddTemplate("GameObjects\\UI\\TapStart\\TapStart", 1);
+            GameObjectFactory.pInstance.AddTemplate("GameObjects\\UI\\ScoreLabel\\ScoreLabel", 1);
+            GameObjectFactory.pInstance.AddTemplate("GameObjects\\UI\\HitCountDisplay\\HitCountDisplay", 1);
             GameObjectFactory.pInstance.AddTemplate("GameObjects\\Items\\Tutorial\\Faster\\Faster", 4);
             GameObjectFactory.pInstance.AddTemplate("GameObjects\\Items\\Tutorial\\Slower\\Slower", 4);
             
@@ -240,6 +248,9 @@ namespace BumpSetSpike
             GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\TitleScreen\\TitleScreen"));
             GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\CreditsButton\\CreditsButton"));
             GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\FacebookButton\\FacebookButton"));
+            GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\Options\\Tutorial\\Label\\Label"));
+            GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\Options\\Tutorial\\Checkbox\\Checkbox"));
+            GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\Options\\Tutorial\\Checkmark\\Checkmark"));
             GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\PauseButton\\PauseButton"));
             GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\ResumeButton\\ResumeButton"));
             GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\Credits\\BG\\BG"));
@@ -252,14 +263,6 @@ namespace BumpSetSpike
 
             Single x = (mGraphics.GraphicsDevice.Viewport.Width / CameraManager.pInstance.pZoomScale) - 20.0f;
             Single y = (mGraphics.GraphicsDevice.Viewport.Height / CameraManager.pInstance.pZoomScale) - 4.0f;
-
-            GameObject label = new GameObject("GameObjects\\UI\\ScoreLabel\\ScoreLabel");
-            label.pPosY = y;
-            GameObjectManager.pInstance.Add(label);
-
-            GameObject count = new GameObject("GameObjects\\UI\\HitCountDisplay\\HitCountDisplay");
-            count.pPosY = y;
-            GameObjectManager.pInstance.Add(count);
 
             GameObject recordLabel = new GameObject("GameObjects\\UI\\HiScoreLabel\\HiScoreLabel");
             recordLabel.pPosX = x;
@@ -304,17 +307,7 @@ namespace BumpSetSpike
             // Add the HUD elements.
             //
             //GameObjectManager.pInstance.Add(new GameObject("GameObjects\\Interface\\HUD\\PlayerHealthBar\\PlayerHealthBar"));
-
-            MusicManager.pInstance.Initialize();
-
-            LeaderBoardManager.pInstance.Initialize();
-
-            SaveGameManager.pInstance.Inititalize();
-
-            SaveGameManager.pInstance.ReadSaveGameXML();
-            //SaveGameManager.pInstance.WriteSaveGameXML();
-            //SaveGameManager.pInstance.ReadSaveGameXML();
-
+            
             DebugMessageDisplay.pInstance.AddConstantMessage("Game Load Complete.");
         }
 

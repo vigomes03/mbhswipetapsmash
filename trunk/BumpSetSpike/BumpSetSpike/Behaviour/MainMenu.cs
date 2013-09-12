@@ -139,6 +139,9 @@ namespace BumpSetSpike.Behaviour
                     GameObjectManager.pInstance.pCurUpdatePass = BehaviourDefinition.Passes.GAME_PLAY;
                     //GameObjectManager.pInstance.pCurUpdatePass = BehaviourDefinition.Passes.TUTORIAL;
 
+                    GameObjectManager.pInstance.Add(GameObjectFactory.pInstance.GetTemplate("GameObjects\\UI\\ScoreLabel\\ScoreLabel"));
+                    GameObjectManager.pInstance.Add(GameObjectFactory.pInstance.GetTemplate("GameObjects\\UI\\HitCountDisplay\\HitCountDisplay"));
+
                     TutorialManager.pInstance.StartTutorial();
 
                     mWatch.Restart();
