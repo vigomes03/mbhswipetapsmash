@@ -65,6 +65,32 @@ namespace MBHEngine.Render
         private Single mZoomAmount;
 
         /// <summary>
+        /// A zoom amount requested by a client that will be blended to over mZoomBlendFrames.
+        /// </summary>
+        private Single mTargetZoomAmount;
+
+        /// <summary>
+        /// The default zoom amount of the game. This can be used to restore mZoomAmount after changing.
+        /// </summary>
+        private Single mDefaultZoomAmount;
+
+        /// <summary>
+        /// Used to track the zoom amount at the moment mTargetZoomAmount was set, so that we can blend to
+        /// the new mZoomAmount over a number of frames.
+        /// </summary>
+        private Single mLastZoomAmount;
+
+        /// <summary>
+        /// How many frames it should take to move from mTargetZoomAmount to mZoomAmount.
+        /// </summary>
+        private Single mZoomBlendFrames;
+
+        /// <summary>
+        /// How many frames have passed since mTargetZoomAmount.
+        /// </summary>
+        private Single mCurZoomBlendFrames;
+
+        /// <summary>
         /// Keeps track of the viewable world space.
         /// </summary>
         private MBHEngine.Math.Rectangle mViewRectangle;
@@ -84,8 +110,11 @@ namespace MBHEngine.Render
             mTargetPosition = new Vector2(device.Viewport.Width * 0.5f, device.Viewport.Height * 0.5f);
             mLastPosition = new Vector2();
             mCurBlendFrames = 0;
+            mCurZoomBlendFrames = 0;
 
             mBlendFrames = 10;
+            mZoomBlendFrames = 0;
+
             mScreenCenter = Matrix.CreateTranslation(device.Viewport.Width * 0.5f, device.Viewport.Height * 0.5f, 0);
 #if WINDOWS_PHONE
             mZoomAmount = 4.0f;
@@ -95,13 +124,15 @@ namespace MBHEngine.Render
             mZoomAmount = 6.4f;
 #endif
 
+            mTargetZoomAmount = mDefaultZoomAmount = mZoomAmount;
+
             mTransform =
                 Matrix.CreateTranslation(-new Vector3(0f, 0f, 0.0f)) *
                 //Matrix.CreateRotationZ(Rotation) *
                 Matrix.CreateScale(new Vector3(mZoomAmount)) *
                 mScreenCenter;
 
-            mTransformUI = Matrix.CreateScale(new Vector3(mZoomAmount));
+            mTransformUI = Matrix.CreateScale(new Vector3(mDefaultZoomAmount));
 
             mViewRectangle = new Math.Rectangle();
 
@@ -125,6 +156,7 @@ namespace MBHEngine.Render
         public void Update(GameTime gameTime)
         {
             mCurBlendFrames += 1;
+            mCurZoomBlendFrames += 1;
 
             // Calculate the percent of the tween that has been completed.
             Single percent = (Single)mCurBlendFrames / (Single)mBlendFrames;
@@ -136,6 +168,10 @@ namespace MBHEngine.Render
 #else
             Vector2 curPos = mTargetPosition;
 #endif
+            // Calculate the percent of the tween that has been completed.
+            Single zoom_percent = (Single)mCurZoomBlendFrames / (Single)mZoomBlendFrames;
+
+            mZoomAmount = MathHelper.SmoothStep(mLastZoomAmount, mTargetZoomAmount, zoom_percent);
 
             mTransform =
                 Matrix.CreateTranslation(-new Vector3(curPos, 0.0f)) * // change this to curPos to bring back blend
@@ -146,7 +182,7 @@ namespace MBHEngine.Render
 
             // Ideally this would only happen when the zoom property changes, but I am worried I will forget and
             // set it directly from within this class.
-            mTransformUI = Matrix.CreateScale(new Vector3(mZoomAmount));
+            mTransformUI = Matrix.CreateScale(new Vector3(mDefaultZoomAmount));
 
             // Update the view area.
             mViewRectangle.pCenterPoint = pTargetPosition;
@@ -276,6 +312,35 @@ namespace MBHEngine.Render
         }
 
         /// <summary>
+        /// Set a zoom amount that will be blended to over pNumZoomBlendFrames.
+        /// </summary>
+        public Single pTargetZoomScale
+        {
+            set
+            {
+                // Store the zoom amount that we started at so that we can blend linearly over time.
+                mLastZoomAmount = mZoomAmount;
+
+                // A new scale has been set so reset the timer.
+                mCurZoomBlendFrames = 0;
+
+                // Store the target.
+                mTargetZoomAmount = value;
+            }
+        }
+
+        /// <summary>
+        /// Use the to reset the zoom amount.
+        /// </summary>
+        public Single pDefaultZoomScale
+        {
+            get
+            {
+                return mDefaultZoomAmount;
+            }
+        }
+
+        /// <summary>
         /// A rectangle defining the viewable area of the world.
         /// </summary>
         public MBHEngine.Math.Rectangle pViewRect
@@ -309,6 +374,18 @@ namespace MBHEngine.Render
             set
             {
                 mBlendFrames = value;
+            }
+        }
+
+        /// <summary>
+        /// How many frames it will take to blend from the current zoom amount 
+        /// to the target zoom amount.
+        /// </summary>
+        public Single pNumZoomBlendFrames
+        {
+            set
+            {
+                mZoomBlendFrames = value;
             }
         }
     }

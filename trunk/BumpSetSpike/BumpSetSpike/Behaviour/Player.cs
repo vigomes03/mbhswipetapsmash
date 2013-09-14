@@ -263,6 +263,8 @@ namespace BumpSetSpike.Behaviour
                 // Only allow jumping if you are currently in the Idle state.
                 if (mCurrentState == State.Idle && GameObjectManager.pInstance.pCurUpdatePass == BehaviourDefinition.Passes.GAME_PLAY)
                 {
+                    StartJumpZoom();
+
 #if WINDOWS_PHONE
                     Vector2 norm = gesture.Delta;
                     norm.Normalize();
@@ -325,6 +327,8 @@ namespace BumpSetSpike.Behaviour
             // Have we hit the floor?
             if (mParentGOH.pPosY > mBottomRight.Y)
             {
+                EndJumpZoom();
+
                 // Reset the position and stop moving.
                 mParentGOH.pPosY = mBottomRight.Y;
 
@@ -426,6 +430,8 @@ namespace BumpSetSpike.Behaviour
                         mGetAttachmentPointMsg.mName_In = "SpikePoint";
                         nets[0].OnMessage(mGetAttachmentPointMsg);
 
+                        EndJumpZoom();
+
                         Vector2 dir = mGetAttachmentPointMsg.mPoisitionInWorld_Out - mCollisionResults[0].pPosition;
                         dir.Normalize();
 
@@ -490,7 +496,7 @@ namespace BumpSetSpike.Behaviour
                         ScoreManager.pInstance.AddScore(ScoreManager.ScoreType.Spike, mCollisionResults[0].pPosition);
                     }
                 }
-                else if(mStateTimer.IsExpired())
+                else if (mStateTimer.IsExpired())
                 {
                     // The player has taken too long to hit the after starting a spike attempt.
                     mCurrentState = State.Fall;
@@ -587,6 +593,24 @@ namespace BumpSetSpike.Behaviour
             }
 
             //DebugMessageDisplay.pInstance.AddDynamicMessage("Player: " + mParentGOH.pPosition);
+        }
+
+        /// <summary>
+        /// Start the blend to a tighter zoom.
+        /// </summary>
+        private void StartJumpZoom()
+        {
+            CameraManager.pInstance.pTargetZoomScale = CameraManager.pInstance.pDefaultZoomScale * 1.1f;
+            CameraManager.pInstance.pNumZoomBlendFrames = 10;
+        }
+
+        /// <summary>
+        /// After the jump is completed start blending back to the default zoom amount.
+        /// </summary>
+        private void EndJumpZoom()
+        {
+            CameraManager.pInstance.pTargetZoomScale = CameraManager.pInstance.pDefaultZoomScale;
+            CameraManager.pInstance.pNumZoomBlendFrames = 5;
         }
 
         /// <summary>
@@ -687,6 +711,12 @@ namespace BumpSetSpike.Behaviour
                     // still walking on the next match.
                     mParentGOH.pDirection.mForward = Vector2.Zero;
                 }
+
+                EndJumpZoom();
+            }
+            else if (msg is Ball.OnPlayOverMessage)
+            {
+                EndJumpZoom();
             }
         }
         
