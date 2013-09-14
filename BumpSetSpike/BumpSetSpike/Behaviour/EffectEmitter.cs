@@ -13,15 +13,20 @@ namespace BumpSetSpike.Behaviour
 {
     class EffectEmitter : MBHEngine.Behaviour.Behaviour
     {
-        private String mEffectToEmit;
-
-        private Int32 mEffectsPerEmission;
-
-        private Int32 mDelayBetweenEmissions;
-
+        /// <summary>
+        /// Tracks how long it has been since the last emission.
+        /// </summary>
         private Int32 mCurDelay;
 
+        /// <summary>
+        /// Tracks the lifetime of the emitter.
+        /// </summary>
         private StopWatch mLifetime;
+
+        /// <summary>
+        /// The definition of this emitter.
+        /// </summary>
+        private EffectEmitterDefinition mDef;
 
         /// <summary>
         /// Constructor which also handles the process of loading in the Behaviour
@@ -42,23 +47,24 @@ namespace BumpSetSpike.Behaviour
         {
             base.LoadContent(fileName);
 
-            //WobbleDefinition def = GameObjectManager.pInstance.pContentManager.Load<WobbleDefinition>(fileName);
-
-            mEffectToEmit = "GameObjects\\Items\\Sparks\\Sparks";
-
-            mEffectsPerEmission = 10;
-            mDelayBetweenEmissions = 1000;
-            mCurDelay = mDelayBetweenEmissions;
+            mDef = GameObjectManager.pInstance.pContentManager.Load<EffectEmitterDefinition>(fileName);
+            mCurDelay = mDef.mDelayBetweenEmissions;
         }
 
+        /// <summary>
+        /// See parent.
+        /// </summary>
         public override void OnAdd()
         {
             base.OnAdd();
 
             mLifetime = StopWatchManager.pInstance.GetNewStopWatch();
-            mLifetime.pLifeTime = 2.0f;
+            mLifetime.pLifeTime = mDef.mLifeTime;
         }
 
+        /// <summary>
+        /// See parent.
+        /// </summary>
         public override void OnRemove()
         {
             base.OnRemove();
@@ -66,19 +72,27 @@ namespace BumpSetSpike.Behaviour
             StopWatchManager.pInstance.RecycleStopWatch(mLifetime);
         }
 
+        /// <summary>
+        /// See parent.
+        /// </summary>
         public override void Reset()
         {
             base.Reset();
 
-            mCurDelay = mDelayBetweenEmissions;
+            mCurDelay = mDef.mDelayBetweenEmissions;
         }
 
+        /// <summary>
+        /// See parent.
+        /// </summary>
+        /// <param name="gameTime"></param>
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
 
             mCurDelay++;
 
+            // If the lifetime has passed, remove the object.
             if (mLifetime != null && mLifetime.IsExpired())
             {
                 GameObjectManager.pInstance.Remove(mParentGOH);
@@ -86,19 +100,24 @@ namespace BumpSetSpike.Behaviour
                 return;
             }
 
-            if (mCurDelay < mDelayBetweenEmissions)
+            // If not enough time has passed since the last emission, don't do anything.
+            if (mCurDelay < mDef.mDelayBetweenEmissions)
             {
                 return;
             }
 
-            for (Int32 i = 0; i < mEffectsPerEmission; i++)
+            // Time to emit additional particles.
+            for (Int32 i = 0; i < mDef.mEffectsPerEmission; i++)
             {
-                GameObject fx = GameObjectFactory.pInstance.GetTemplate(mEffectToEmit);
-                Single randAngleRad = MathHelper.ToRadians((Single)RandomManager.pInstance.RandomPercent() * 360.0f);
+                GameObject fx = GameObjectFactory.pInstance.GetTemplate(mDef.mEffectToEmit);
+                Single angle = (Single)RandomManager.pInstance.RandomPercent() * mDef.mAngleDiviation;
+                angle -= mDef.mAngleDiviation * 0.5f;
+                angle -= mDef.mDirection;
+                Single randAngleRad = MathHelper.ToRadians(angle);
                 fx.pDirection.mForward = new Vector2((Single)Math.Cos(randAngleRad), (Single)Math.Sin(randAngleRad));
-                fx.pDirection.mSpeed = 2.5f + (Single)RandomManager.pInstance.RandomPercent();
+                fx.pDirection.mSpeed = mDef.mMaxSpeed + (Single)RandomManager.pInstance.RandomPercent();
                 fx.pPosition = mParentGOH.pPosition;
-                fx.pRotation = randAngleRad; // +MathHelper.PiOver2;
+                fx.pRotation = randAngleRad;
                 GameObjectManager.pInstance.Add(fx);
             }
 

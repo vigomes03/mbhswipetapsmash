@@ -1,6 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <XnaContent>
   <Asset Type="BumpSetSpikeContentDefs.EffectEmitterDefinition">
+    <mEffectToEmit>GameObjects\Items\Sparks\Sparks</mEffectToEmit>
+    <mEffectsPerEmission>10</mEffectsPerEmission>
+    <mDelayBetweenEmissions>1000</mDelayBetweenEmissions>
+    <mAngleDiviation>360.0</mAngleDiviation>
+    <mDirection>0.0</mDirection>
+    <mLifeTime>2.0</mLifeTime>
+    <mMaxSpeed>2.5</mMaxSpeed>
   </Asset>
 </XnaContent>
 

@@ -265,6 +265,10 @@ namespace BumpSetSpike.Behaviour
                 {
                     StartJumpZoom();
 
+                    GameObject go = GameObjectFactory.pInstance.GetTemplate("GameObjects\\Items\\Dust\\Dust");
+                    go.pPosition = mParentGOH.pPosition;
+                    GameObjectManager.pInstance.Add(go);
+
 #if WINDOWS_PHONE
                     Vector2 norm = gesture.Delta;
                     norm.Normalize();
