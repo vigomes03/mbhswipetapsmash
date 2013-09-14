@@ -71,6 +71,18 @@ namespace BumpSetSpike.Behaviour
             {
                 // Follow the target but only in the X.
                 mParentGOH.pPosX = mTarget.pPosition.X;
+
+                // Scale the shadow based on how far below the target we are.
+                Single yDiff = Math.Abs(mTarget.pPosY - mParentGOH.pPosY);
+
+                // Used for normalizing the height difference.
+                const Single maxHeightDiff = 64.0f;
+
+                // Limit the scale, so if the target gets really far away there is still some shadow.
+                // Also inverse the normalized value since we want the shadow to grow as it gets closer.
+                yDiff = 1.0f - MathHelper.Clamp(yDiff / maxHeightDiff, 0.0f, 0.6f);
+
+                mParentGOH.pScaleXY = yDiff;
             }
         }
 
