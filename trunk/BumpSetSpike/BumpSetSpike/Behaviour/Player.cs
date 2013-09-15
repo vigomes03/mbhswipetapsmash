@@ -227,7 +227,7 @@ namespace BumpSetSpike.Behaviour
 
             // Is the player tapping the screen?
             if ((TutorialManager.pInstance.pTutorialCompleted || validTutTapState) && 
-                (InputManager.pInstance.CheckGesture(GestureType.Tap, ref gesture) || InputManager.pInstance.CheckAction(InputManager.InputActions.A, true)))
+                (InputManager.pInstance.CheckGesture(GestureType.Tap, ref gesture)))
             {
                 // If we are jumping and the player taps the screen, we spike the ball.
                 if (mCurrentState == State.Jump && GameObjectManager.pInstance.pCurUpdatePass == BehaviourDefinition.Passes.GAME_PLAY)
@@ -258,7 +258,7 @@ namespace BumpSetSpike.Behaviour
 
             // Is the player flicking the screen, trying to throw the player into the air?
             if ((TutorialManager.pInstance.pTutorialCompleted || validTutTapState) &&
-                (InputManager.pInstance.CheckGesture(GestureType.Flick, ref gesture) || InputManager.pInstance.CheckAction(InputManager.InputActions.A, true)))
+                (InputManager.pInstance.CheckGesture(GestureType.Flick, ref gesture)))
             {
                 // Only allow jumping if you are currently in the Idle state.
                 if (mCurrentState == State.Idle && GameObjectManager.pInstance.pCurUpdatePass == BehaviourDefinition.Passes.GAME_PLAY)
@@ -269,7 +269,6 @@ namespace BumpSetSpike.Behaviour
                     go.pPosition = mParentGOH.pPosition;
                     GameObjectManager.pInstance.Add(go);
 
-#if WINDOWS_PHONE
                     Vector2 norm = gesture.Delta;
                     norm.Normalize();
                     DebugMessageDisplay.pInstance.AddConstantMessage("Swipe: " + gesture.Delta + ", " + gesture.Delta.Length() + ", " + norm);
@@ -285,31 +284,13 @@ namespace BumpSetSpike.Behaviour
 
                         delta = new Vector2(3083.0f, -5115.0f);
                     }
-                    mParentGOH.pDirection.mForward = delta * (Single)gameTime.ElapsedGameTime.TotalSeconds * 0.025f;
-#else
-                    // Find the ball so that we can force the player to jump towards it.
-                    List<GameObject> mBalls = GameObjectManager.pInstance.GetGameObjectsOfClassification(MBHEngineContentDefs.GameObjectDefinition.Classifications.VOLLEY_BALL);
+                    // The flick deltas are HUGE compared to the scale of our game, so scale it down so that largers
+                    // flicks have a more reasonable impact.
+                    Single deltaScale = 0.025f;
 
-                    if (mBalls.Count > 0)
-                    {
-                        System.Diagnostics.Debug.Assert(mBalls.Count == 1);
+                    // TODO: Why is time based? Impulses should be instantanious.
+                    mParentGOH.pDirection.mForward = delta * (Single)gameTime.ElapsedGameTime.TotalSeconds * deltaScale;
 
-                        if (!TutorialManager.pInstance.pTutorialCompleted && TutorialManager.pInstance.pCurState == TutorialManager.State.TAP_START)
-                        {
-                            // This works for the tutorial hit too.
-                            Vector2 delta = new Vector2(3083.0f, -5115.0f);
-                            mParentGOH.pDirection.mForward = delta * (Single)gameTime.ElapsedGameTime.TotalSeconds * 0.025f;
-                        }
-                        else
-                        {
-                            // Automatically throw the player at the ball. Doesn't work great, but good enough
-                            // for testing right now on PC.
-                            mParentGOH.pDirection.mForward = mBalls[0].pCollisionRect.pCenterPoint - mParentGOH.pCollisionRect.pCenterPoint;
-                            mParentGOH.pDirection.mForward.Normalize();
-                            mParentGOH.pDirection.mForward *= 6.0f;
-                        }
-                    }
-#endif
                     // We are now jumping.
                     mCurrentState = State.Jump;
 

@@ -74,7 +74,7 @@ namespace BumpSetSpike.Behaviour
         /// </summary>
         public override Boolean HandleUIInput()
         {
-            if (InputManager.pInstance.CheckGesture(GestureType.Tap, ref mGesture) || InputManager.pInstance.CheckAction(InputManager.InputActions.A, true))
+            if (InputManager.pInstance.CheckGesture(GestureType.Tap, ref mGesture))
             {
                 // The position is in screen space, but our screen is scaled up so we need to convert.
                 Vector2 scaledPos = mGesture.Position / CameraManager.pInstance.pZoomScale;
