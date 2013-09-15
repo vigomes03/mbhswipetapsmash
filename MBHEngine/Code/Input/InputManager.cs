@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework;
 using MBHEngine.IO;
 using MBHEngine.Debug;
 using Microsoft.Xna.Framework.Input.Touch;
+using MBHEngine.Render;
 
 namespace MBHEngine.Input
 {
@@ -62,6 +63,24 @@ namespace MBHEngine.Input
         /// </summary>
         private GamePadState mCurrentGamePadState;
 
+        /// <summary>
+        /// Store the state of the mouse for the current frame.
+        /// </summary>
+        private MouseState mCurrentMouseState;
+
+        /// <summary>
+        /// Store the state of the mouse as it was last frame.
+        /// </summary>
+        private MouseState mPreviousMouseState;
+
+        /// <summary>
+        /// Stores the start of the mouse when a hold was started.
+        /// </summary>
+        private MouseState mMouseStateStartHold;
+
+        /// <summary>
+        /// Stores all the Gestures that we pending at the start of a frame.
+        /// </summary>
         private List<GestureSample> mCurrentGestureSamples;
 
         /// <summary>
@@ -122,6 +141,8 @@ namespace MBHEngine.Input
 
             mCurrentGestureSamples = new List<GestureSample>(16);
 
+            mPreviousMouseState = mMouseStateStartHold = mCurrentMouseState = Mouse.GetState();
+
             // Until we get a proper boot flow, with PRESS START screen, force the user to user controller
             // at index 0.
             if (CommandLineManager.pInstance["CheatGamePadSelection"] != null)
@@ -141,12 +162,62 @@ namespace MBHEngine.Input
         {
             mCurrentGamePadState = GamePad.GetState(mActiveControllerIndex);
 
+#if WINDOWS_PHONE
             while (TouchPanel.IsGestureAvailable)
             {
                 GestureSample g = TouchPanel.ReadGesture();
+				
+                mCurrentGestureSamples.Add(g);
+            }
+#elif WINDOWS
+            mCurrentMouseState = Mouse.GetState();
+
+            // Mouse Pressed.
+            if (mCurrentMouseState.LeftButton == ButtonState.Pressed &&
+                mPreviousMouseState.LeftButton == ButtonState.Released)
+            {
+                // The mouse was just pressed, so store that information so that it can be used as the 
+                // starting point in a Flick gesture.
+                mMouseStateStartHold = mCurrentMouseState;
+            }
+
+            // Mouse Released.
+            if (mCurrentMouseState.LeftButton == ButtonState.Released && 
+                mPreviousMouseState.LeftButton == ButtonState.Pressed)
+            {
+                // Mouse stores its info as int. Needs to be converted to vector.
+                Vector2 newMouse = new Vector2(mCurrentMouseState.X, mCurrentMouseState.Y);
+
+                // Create a new Tap Gesture, since the mouse was pressed and released.
+                // Time Stamp is missing.
+                GestureSample g = new GestureSample(GestureType.Tap, TimeSpan.Zero, newMouse, Vector2.Zero, Vector2.Zero, Vector2.Zero);
+                DebugMessageDisplay.pInstance.AddConstantMessage("Mouse Clicked: " + CameraManager.pInstance.ProjectMouseToWorldSpace(newMouse) + ", " + mCurrentMouseState);
+
+                mCurrentGestureSamples.Add(g);
+
+                // Where was the mouse when the button was first clicked? This will become the start
+                // of the flick delta.
+                Vector2 startClick = new Vector2(mMouseStateStartHold.X, mMouseStateStartHold.Y);
+
+                // A magic number to put actual delta into WP scale.
+                const Single WPMagicNumber = 20.0f;
+
+                // Find the delta between where we started and where we released. This gets multiplied by
+                // a magic number because on Windows Phone, the delta is huge, and this simplifies code everywhere
+                // else in the game if we have a consistent scale.
+                // TODO: This should be based on a recent history not the starting point to avoid curve cases
+                //       giving odd results. It would almost mean velocity of the flick mattters which it does not
+                //       right now.
+                Vector2 flickDelta = (newMouse - startClick) * WPMagicNumber;
+
+                // Build the Flick Gesture. 
+                // Time Stamp is missing.
+                g = new GestureSample(GestureType.Flick, TimeSpan.Zero, Vector2.Zero, Vector2.Zero, flickDelta, Vector2.Zero);
+                DebugMessageDisplay.pInstance.AddConstantMessage("Mouse Flicked: " + flickDelta);
 
                 mCurrentGestureSamples.Add(g);
             }
+#endif
         }
 
         /// <summary>
@@ -156,10 +227,13 @@ namespace MBHEngine.Input
         public void UpdateEnd()
         {
             mPreviousKeyboardState = Keyboard.GetState();
+			
             if (mIsControllerLocked == true)
             {
                 mPreviousGamePadState = mCurrentGamePadState;
             }
+
+            mPreviousMouseState = mCurrentMouseState;
 
             mCurrentGestureSamples.Clear();
         }

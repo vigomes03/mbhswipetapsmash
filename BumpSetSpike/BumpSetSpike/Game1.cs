@@ -152,7 +152,8 @@ namespace BumpSetSpike
             mDebugDrawEnabled = false;
 #endif
 
-            IsMouseVisible = mDebugDrawEnabled;
+            //IsMouseVisible = mDebugDrawEnabled;
+            IsMouseVisible = true;
 
             base.Initialize();
         }
@@ -354,7 +355,7 @@ namespace BumpSetSpike
 
                 // When debug draw is enabled, turn on the hardware mouse so that things like the
                 // GameObjectPicker work better.
-                IsMouseVisible = mDebugDrawEnabled;
+                //IsMouseVisible = mDebugDrawEnabled;
             }
 #if DEBUG
             KeyboardState keyboardState = Keyboard.GetState();

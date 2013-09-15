@@ -183,8 +183,7 @@ namespace BumpSetSpike.Gameflow
                 {
                     if (mInputDelay.IsExpired())
                     {
-                        if (InputManager.pInstance.CheckAction(InputManager.InputActions.A, true) ||
-                            InputManager.pInstance.CheckGesture(GestureType.Tap, ref mGesture))
+                        if (InputManager.pInstance.CheckGesture(GestureType.Tap, ref mGesture))
                         {
                             mFxMenuSelect.Play();
 
@@ -574,8 +573,7 @@ namespace BumpSetSpike.Gameflow
                 {
                     if (mInputDelay.IsExpired())
                     {
-                        if (InputManager.pInstance.CheckAction(InputManager.InputActions.A, true) ||
-                            InputManager.pInstance.CheckGesture(GestureType.Flick, ref mGesture))
+                        if (InputManager.pInstance.CheckGesture(GestureType.Flick, ref mGesture))
                         {
                             if (IsValidTutorialSwipe(mGesture.Delta, mGesture.Position))
                             {
@@ -594,8 +592,7 @@ namespace BumpSetSpike.Gameflow
                 {
                     if (mInputDelay.IsExpired())
                     {
-                        if (InputManager.pInstance.CheckAction(InputManager.InputActions.A, true) ||
-                            InputManager.pInstance.CheckGesture(GestureType.Tap, ref mGesture))
+                        if (InputManager.pInstance.CheckGesture(GestureType.Tap, ref mGesture))
                         {
                             SetState(State.TAP_END);
 
@@ -707,7 +704,6 @@ namespace BumpSetSpike.Gameflow
         /// <returns>True if the swipe is valid.</returns>
         public Boolean IsValidTutorialSwipe(Vector2 swipe_delta, Vector2 pos)
         {
-#if WINDOWS_PHONE
             const Single length = 5972.28f;
             const Single length_delta = 2000.0f;
             const Single min_length = length - length_delta;
@@ -745,9 +741,6 @@ namespace BumpSetSpike.Gameflow
             {
                 return true;
             }
-#else
-            return true;
-#endif // WINDOWS_PHONE
         }
 
 

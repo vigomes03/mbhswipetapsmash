@@ -70,7 +70,7 @@ namespace BumpSetSpike.Behaviour
         /// <param name="gameTime"></param>
         public override void Update(GameTime gameTime)
         {
-            if (InputManager.pInstance.CheckGesture(GestureType.Tap, ref mGesture) || InputManager.pInstance.CheckAction(InputManager.InputActions.A, true))
+            if (InputManager.pInstance.CheckGesture(GestureType.Tap, ref mGesture))
             {
 
                 mGetCurrentStateMsg.Reset();
