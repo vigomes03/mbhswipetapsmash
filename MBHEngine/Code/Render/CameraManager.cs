@@ -318,14 +318,17 @@ namespace MBHEngine.Render
         {
             set
             {
-                // Store the zoom amount that we started at so that we can blend linearly over time.
-                mLastZoomAmount = mZoomAmount;
+                if (mTargetZoomAmount != value)
+                {
+                    // Store the zoom amount that we started at so that we can blend linearly over time.
+                    mLastZoomAmount = mZoomAmount;
 
-                // A new scale has been set so reset the timer.
-                mCurZoomBlendFrames = 0;
+                    // A new scale has been set so reset the timer.
+                    mCurZoomBlendFrames = 0;
 
-                // Store the target.
-                mTargetZoomAmount = value;
+                    // Store the target.
+                    mTargetZoomAmount = value;
+                }
             }
         }
 
