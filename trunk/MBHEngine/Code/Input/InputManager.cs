@@ -8,6 +8,7 @@ using MBHEngine.IO;
 using MBHEngine.Debug;
 using Microsoft.Xna.Framework.Input.Touch;
 using MBHEngine.Render;
+using System.Collections;
 
 namespace MBHEngine.Input
 {
@@ -74,9 +75,10 @@ namespace MBHEngine.Input
         private MouseState mPreviousMouseState;
 
         /// <summary>
-        /// Stores the start of the mouse when a hold was started.
+        /// Stores the recent history of mouse state while the left button is being held. Used to 
+        /// determine flick direction.
         /// </summary>
-        private MouseState mMouseStateStartHold;
+        private Queue<MouseState> mMouseHoldHistory;
 
         /// <summary>
         /// Stores all the Gestures that we pending at the start of a frame.
@@ -141,7 +143,9 @@ namespace MBHEngine.Input
 
             mCurrentGestureSamples = new List<GestureSample>(16);
 
-            mPreviousMouseState = mMouseStateStartHold = mCurrentMouseState = Mouse.GetState();
+            mPreviousMouseState = mCurrentMouseState = Mouse.GetState();
+
+            mMouseHoldHistory = new Queue<MouseState>();
 
             // Until we get a proper boot flow, with PRESS START screen, force the user to user controller
             // at index 0.
@@ -172,13 +176,20 @@ namespace MBHEngine.Input
 #elif WINDOWS
             mCurrentMouseState = Mouse.GetState();
 
-            // Mouse Pressed.
-            if (mCurrentMouseState.LeftButton == ButtonState.Pressed &&
-                mPreviousMouseState.LeftButton == ButtonState.Released)
+            // While the left mouse button is being held, store the recent history.
+            if (mCurrentMouseState.LeftButton == ButtonState.Pressed)
             {
-                // The mouse was just pressed, so store that information so that it can be used as the 
-                // starting point in a Flick gesture.
-                mMouseStateStartHold = mCurrentMouseState;
+                // Old store the most recent presses, so that if the user moves the mouse in a 
+                // non-straight line, we only react the last few moments, as you would expect with
+                // flicking something.
+                if (mMouseHoldHistory.Count >= 5)
+                {
+                    // Get rid of the oldest item which should be at the front of the queue.
+                    mMouseHoldHistory.Dequeue();
+                }
+
+                // Add the new mouse state to the back of the cue.
+                mMouseHoldHistory.Enqueue(mCurrentMouseState);
             }
 
             // Mouse Released.
@@ -195,9 +206,13 @@ namespace MBHEngine.Input
 
                 mCurrentGestureSamples.Add(g);
 
+                ///
+
+                MouseState start = mMouseHoldHistory.Dequeue();
+
                 // Where was the mouse when the button was first clicked? This will become the start
                 // of the flick delta.
-                Vector2 startClick = new Vector2(mMouseStateStartHold.X, mMouseStateStartHold.Y);
+                Vector2 startClick = new Vector2(start.X, start.Y);
 
                 // A magic number to put actual delta into WP scale.
                 const Single WPMagicNumber = 20.0f;
@@ -210,12 +225,20 @@ namespace MBHEngine.Input
                 //       right now.
                 Vector2 flickDelta = (newMouse - startClick) * WPMagicNumber;
 
-                // Build the Flick Gesture. 
-                // Time Stamp is missing.
-                g = new GestureSample(GestureType.Flick, TimeSpan.Zero, Vector2.Zero, Vector2.Zero, flickDelta, Vector2.Zero);
-                DebugMessageDisplay.pInstance.AddConstantMessage("Mouse Flicked: " + flickDelta);
+                // Limit really small flicks.
+                Single minFlickLength = (Single)System.Math.Pow(1000.0, 2.0);
+                if (flickDelta.LengthSquared() >= minFlickLength)
+                {
+                    // Build the Flick Gesture. 
+                    // Time Stamp is missing.
+                    g = new GestureSample(GestureType.Flick, TimeSpan.Zero, Vector2.Zero, Vector2.Zero, flickDelta, Vector2.Zero);
+                    DebugMessageDisplay.pInstance.AddConstantMessage("Mouse Flicked: " + flickDelta);
 
-                mCurrentGestureSamples.Add(g);
+                    mCurrentGestureSamples.Add(g);
+                }
+
+                // Clear the history regardless, since the mouse has been released.
+                mMouseHoldHistory.Clear();
             }
 #endif
         }
