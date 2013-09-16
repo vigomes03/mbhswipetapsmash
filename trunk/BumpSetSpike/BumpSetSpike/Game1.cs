@@ -259,7 +259,7 @@ namespace BumpSetSpike
             GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\Credits\\Backdrop\\Backdrop"));
             GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\Credits\\MHughsonButton\\MHughsonButton"));
             GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\Credits\\MImmonenButton\\MImmonenButton"));
-            GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\Credits\\CKuklaButton\\CKuklaButton"));
+            //GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\Credits\\CKuklaButton\\CKuklaButton"));
             GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\Credits\\SMcGeeButton\\SMcGeeButton"));
             GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\Credits\\SPaxtonButton\\SPaxtonButton"));
 
