@@ -13,6 +13,7 @@ using MBHEngine.Render;
 using BumpSetSpikeContentDefs;
 using MBHEngineContentDefs;
 using BumpSetSpike.Gameflow;
+using System.Diagnostics;
 
 namespace BumpSetSpike.Behaviour
 {
@@ -96,7 +97,8 @@ namespace BumpSetSpike.Behaviour
 
                             return true;
 #else
-                            return false;
+                            Process.Start(task.mData);
+                            return true;
 #endif
                         }
 
