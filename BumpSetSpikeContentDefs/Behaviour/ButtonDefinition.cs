@@ -20,6 +20,7 @@ namespace BumpSetSpikeContentDefs
             ResumeGame,
             ShowCredits,
             OptionToggleTutorial,
+            LeaveCredits,
         }
 
         /// <summary>

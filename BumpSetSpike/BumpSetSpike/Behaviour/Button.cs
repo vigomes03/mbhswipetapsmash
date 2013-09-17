@@ -120,6 +120,12 @@ namespace BumpSetSpike.Behaviour
                             return true;
                         }
 
+                        case ButtonDefinition.TaskType.LeaveCredits:
+                        {
+                            GameObjectManager.pInstance.pCurUpdatePass = BehaviourDefinition.Passes.MAIN_MENU;
+                            return true;
+                        }
+
                         case ButtonDefinition.TaskType.OptionToggleTutorial:
                         {
                             // Toggle the state of the tutorial.
