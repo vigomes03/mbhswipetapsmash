@@ -146,10 +146,15 @@ namespace MBHEngine.Input
             mPreviousMouseState = mCurrentMouseState = Mouse.GetState();
 
             mMouseHoldHistory = new Queue<MouseState>();
+            
+            bool cheat_selection = CommandLineManager.pInstance["CheatGamePadSelection"] != null;
 
-            // Until we get a proper boot flow, with PRESS START screen, force the user to user controller
-            // at index 0.
-            if (CommandLineManager.pInstance["CheatGamePadSelection"] != null)
+#if WINDOWS_PHONE 
+            // On WP just always use controller one, which should be the phone itself.
+            cheat_selection = true;
+#endif
+            
+            if (cheat_selection)
             {
                 mIsControllerLocked = true;
                 mActiveControllerIndex = PlayerIndex.One;
@@ -174,6 +179,7 @@ namespace MBHEngine.Input
                 mCurrentGestureSamples.Add(g);
             }
 #elif WINDOWS
+
             mCurrentMouseState = Mouse.GetState();
 
             // While the left mouse button is being held, store the recent history.

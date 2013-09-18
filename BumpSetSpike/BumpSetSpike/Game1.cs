@@ -330,10 +330,22 @@ namespace BumpSetSpike
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
+            if (!IsActive)
+            {
+                if (GameObjectManager.pInstance.pCurUpdatePass == BehaviourDefinition.Passes.GAME_PLAY)
+                {
+                    GameObjectManager.pInstance.pCurUpdatePass = BehaviourDefinition.Passes.GAME_PLAY_PAUSED;
+                }
+
+                MusicManager.pInstance.Update();
+                base.Update(gameTime);
+                return;
+            }
+
             InputManager.pInstance.UpdateBegin();
 
             // Bit of a hack to handle pressing back while popup is active.
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
+            if (InputManager.pInstance.CheckAction(InputManager.InputActions.BACK, true))
             {
                 if (GameObjectManager.pInstance.pCurUpdatePass == BehaviourDefinition.Passes.CREDITS)
                 {
@@ -403,21 +415,6 @@ namespace BumpSetSpike
                 mFreezeKeyDown = false;
             }
 #endif
-
-/*
-            GestureSample samp = new GestureSample();
-
-
-            if (InputManager.pInstance.CheckGesture(GestureType.Tap, ref samp))
-            {
-                Vector2 proj = CameraManager.pInstance.ProjectMouseToWorldSpace(new Vector2(samp.Position.X, samp.Position.Y));
-                DebugMessageDisplay.pInstance.AddConstantMessage("Touch: " + samp.Position + "/" + proj);
-
-                GameObject t = GameObjectFactory.pInstance.GetTemplate("GameObjects\\Items\\Blood\\Blood");
-                t.pPosition = proj;
-                GameObjectManager.pInstance.Add(t);
-            }
-*/
             // If we are skipping frames, check if enough have passed before doing updates.
             if (mFameSkipCount >= mFrameSkip && !mFreeze)
             {
