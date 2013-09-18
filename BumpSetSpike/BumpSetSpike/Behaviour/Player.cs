@@ -286,10 +286,10 @@ namespace BumpSetSpike.Behaviour
                     }
                     // The flick deltas are HUGE compared to the scale of our game, so scale it down so that largers
                     // flicks have a more reasonable impact.
-                    Single deltaScale = 0.025f;
+                    const Single deltaScale = 0.0008f;
 
                     // TODO: Why is time based? Impulses should be instantanious.
-                    mParentGOH.pDirection.mForward = delta * (Single)gameTime.ElapsedGameTime.TotalSeconds * deltaScale;
+                    mParentGOH.pDirection.mForward = delta * deltaScale;
 
                     // We are now jumping.
                     mCurrentState = State.Jump;
