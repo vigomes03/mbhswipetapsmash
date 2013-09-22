@@ -139,11 +139,6 @@
       <Project>{8CC40C62-20B4-414E-9766-4231BA9B032C}</Project>
       <Name>BumpSetSpikeContentDefs_Win</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\BumpSetSpikeWindowsContent\BumpSetSpikeContent_Win.contentproj">
-      <Project>{CCA77479-DECC-4499-A59C-502445CF0A63}</Project>
-      <Name>BumpSetSpikeContent_Win</Name>
-      <XnaReferenceType>Content</XnaReferenceType>
-    </ProjectReference>
     <ProjectReference Include="..\..\MBHEngineContentDefs\MBHEngineContentDefs_Win.csproj">
       <Project>{6e62b818-4d67-4d74-a3d7-90333dfdb8a7}</Project>
       <Name>MBHEngineContentDefs_Win</Name>
@@ -156,6 +151,11 @@
       <Name>BumpSetSpikeContent %28Content%29</Name>
       <XnaReferenceType>Content</XnaReferenceType>
       <Project>{6BE30F98-F158-49C7-B2A4-EEE53B49506C}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\BumpSetSpikeContent\BumpSetSpikeContent_Win.contentproj">
+      <Project>{CCA77479-DECC-4499-A59C-502445CF0A63}</Project>
+      <Name>BumpSetSpikeContent_Win %28Content%29</Name>
+      <XnaReferenceType>Content</XnaReferenceType>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
