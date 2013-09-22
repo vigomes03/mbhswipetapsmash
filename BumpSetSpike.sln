@@ -24,7 +24,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BumpSetSpikeContentDefs_Win
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BumpSetSpike_Win", "BumpSetSpike\BumpSetSpike\BumpSetSpike_Win.csproj", "{C287FB09-F7BB-4FB0-BE6F-E62C04D0C4AC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BumpSetSpikeContent_Win", "BumpSetSpikeWindowsContent\BumpSetSpikeContent_Win.contentproj", "{CCA77479-DECC-4499-A59C-502445CF0A63}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BumpSetSpikeContent_Win", "BumpSetSpike\BumpSetSpikeContent\BumpSetSpikeContent_Win.contentproj", "{CCA77479-DECC-4499-A59C-502445CF0A63}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
