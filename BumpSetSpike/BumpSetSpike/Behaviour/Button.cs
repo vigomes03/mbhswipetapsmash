@@ -30,7 +30,7 @@ namespace BumpSetSpike.Behaviour
         /// <summary>
         /// Hang onto the definition so that we don't need to copy over all the task information.
         /// </summary>
-        private ButtonDefinition mDef;
+        private BumpSetSpikeContentDefs.ButtonDefinition mDef;
 
         /// <summary>
         /// Constructor which also handles the process of loading in the Behaviour
@@ -51,12 +51,12 @@ namespace BumpSetSpike.Behaviour
         {
             base.LoadContent(fileName);
 
-            mDef = GameObjectManager.pInstance.pContentManager.Load<ButtonDefinition>(fileName);
+            mDef = GameObjectManager.pInstance.pContentManager.Load<BumpSetSpikeContentDefs.ButtonDefinition>(fileName);
 
             mGesture = new GestureSample();
 
             // Special handling for this type of button.
-            if (mDef.mTaskOnRelease.mType == ButtonDefinition.TaskType.OptionToggleTutorial)
+            if (mDef.mTaskOnRelease.mType == BumpSetSpikeContentDefs.ButtonDefinition.TaskType.OptionToggleTutorial)
             {
                 // Turn the button visual on or off depending on the state of the button.
                 if (TutorialManager.pInstance.pTutorialCompleted)
@@ -83,12 +83,12 @@ namespace BumpSetSpike.Behaviour
                 // Did they tap on this object?
                 if (mParentGOH.pCollisionRect.Intersects(scaledPos))
                 {
-                    ButtonDefinition.Task task = mDef.mTaskOnRelease;
+                    BumpSetSpikeContentDefs.ButtonDefinition.Task task = mDef.mTaskOnRelease;
 
                     // What task should we do now?
                     switch (task.mType)
                     {
-                        case ButtonDefinition.TaskType.OpenURL:
+                        case BumpSetSpikeContentDefs.ButtonDefinition.TaskType.OpenURL:
                         {
 #if WINDOWS_PHONE
                             WebBrowserTask browser = new WebBrowserTask();
@@ -102,31 +102,31 @@ namespace BumpSetSpike.Behaviour
 #endif
                         }
 
-                        case ButtonDefinition.TaskType.PauseGame:
+                        case BumpSetSpikeContentDefs.ButtonDefinition.TaskType.PauseGame:
                         {
                             GameObjectManager.pInstance.pCurUpdatePass = BehaviourDefinition.Passes.GAME_PLAY_PAUSED;
                             return true;
                         }
 
-                        case ButtonDefinition.TaskType.ResumeGame:
+                        case BumpSetSpikeContentDefs.ButtonDefinition.TaskType.ResumeGame:
                         {
                             GameObjectManager.pInstance.pCurUpdatePass = BehaviourDefinition.Passes.GAME_PLAY;
                             return true;
                         }
 
-                        case ButtonDefinition.TaskType.ShowCredits:
+                        case BumpSetSpikeContentDefs.ButtonDefinition.TaskType.ShowCredits:
                         {
                             GameObjectManager.pInstance.pCurUpdatePass = BehaviourDefinition.Passes.CREDITS;
                             return true;
                         }
 
-                        case ButtonDefinition.TaskType.LeaveCredits:
+                        case BumpSetSpikeContentDefs.ButtonDefinition.TaskType.LeaveCredits:
                         {
                             GameObjectManager.pInstance.pCurUpdatePass = BehaviourDefinition.Passes.MAIN_MENU;
                             return true;
                         }
 
-                        case ButtonDefinition.TaskType.OptionToggleTutorial:
+                        case BumpSetSpikeContentDefs.ButtonDefinition.TaskType.OptionToggleTutorial:
                         {
                             // Toggle the state of the tutorial.
                             TutorialManager.pInstance.pTutorialCompleted ^= true;
