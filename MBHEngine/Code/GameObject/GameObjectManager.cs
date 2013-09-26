@@ -202,7 +202,7 @@ namespace MBHEngine.GameObject
             mMultiply.ColorSourceBlend = Blend.Zero;
             mMultiply.ColorDestinationBlend = Blend.SourceColor;
 
-#if !WINDOWS_PHONE
+#if !WINDOWS_PHONE && !MONOGL
             // For now just hard code it. Eventually this should be driven by the Game side.
             mDefaultEffect = content.Load<Effect>("Shaders\\Default");
 #endif
@@ -608,7 +608,7 @@ namespace MBHEngine.GameObject
 
                             if (blend == GameObjectDefinition.BlendMode.STANDARD)
                             {
-#if WINDOWS_PHONE
+#if WINDOWS_PHONE || MONOGL
                                 
                                 batch.Begin(SpriteSortMode.Deferred, 
                                     BlendState.AlphaBlend,
@@ -651,7 +651,7 @@ namespace MBHEngine.GameObject
                             }
                             else if (blend == GameObjectDefinition.BlendMode.STANDARD_UI)
                             {
-#if WINDOWS_PHONE
+#if WINDOWS_PHONE || !MONOGL
                                 batch.Begin(SpriteSortMode.Deferred, 
                                     BlendState.AlphaBlend,
                                     mSpriteSamplerState,
