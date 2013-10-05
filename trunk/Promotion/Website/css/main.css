@@ -1,0 +1,135 @@
+body {
+	background-color: #2a2a1a;
+	background-image: url('../images/main-background.jpg');
+	background-repeat: no-repeat;
+	background-position: 50% 0%;
+	background-size: 1933px;
+	background-attachment: local;
+}
+
+h2 { color: #fff; margin-top: 4px; font-family: 'Geo', sans-serif; text-shadow: #666 0px 0px 8px; }
+h3 { font-family: 'Geo', sans-serif; }
+h3 a { color: #4bbafc; }
+
+.stripe-skew {
+    width: 100%;
+    background: rgba(18, 12, 23, 0.9);
+    text-align: center;
+    padding: 10px 0 10px 0;
+    position: relative;
+    z-index: 100;
+    -webkit-transform: skewY(-3deg) translateY(50px);
+    -moz-transform: skewY(-3deg) translateY(50px);
+    -ms-transform: skewY(-3deg) translateY(50px);
+    -o-transform: skewY(-3deg) translateY(50px);
+    transform: skewY(-3deg) translateY(50px);
+    
+	font-family: 'Geo', sans-serif; color: #fff; font-size: 1.4em;
+	margin: auto;
+	margin-bottom: 130px;
+	color: rgba(150, 150, 150, 1);    
+}
+
+.stripe-skew a img { 
+    border: solid 1px #111; 
+}
+.stripe-skew a:hover img { 
+    border: solid 1px #678bc6; 
+}
+
+.stripe-straight {
+    width: 100%;
+    background: rgba(18, 12, 23, 0.9);
+    text-align: center;
+    padding: 10px 0 10px 0;
+    position: relative;
+    z-index: 100;
+    
+	font-family: 'Geo', sans-serif; color: #fff; font-size: 1.4em;
+	margin: auto;
+	margin-bottom: 30px;
+	color: rgba(150, 150, 150, 1);    
+}
+
+.navbar-inverse { 
+    background-color: rgba(18, 12, 23, 0.9); 
+}
+
+.logo-buffer {
+	height: 540px;
+}
+
+.wp-download {
+	background-image: url('../images/wp_download_cyan.png');
+	background-repeat: no-repeat;
+	background-position: 50% 50%;
+	height: 120px;
+	background-size:100%;
+	position: relative;
+	top: 410px;
+	margin:auto;
+	max-width:600px;
+}
+
+.logo {
+	background-image: url('../images/logo1.png');
+	background-repeat: no-repeat;
+	background-position: 50% 50%;
+	height: 280px;
+	background-size:100%;
+	position: relative;
+	top: 410px;
+	margin:auto;
+	max-width:600px;
+}
+
+.box {
+	font-family: 'Geo', sans-serif; color: #fff; font-size: 1.4em;
+	max-width: 700px;
+	margin: auto;
+	margin-bottom: 30px;
+	text-align: center;
+	border-radius: 16px;
+	padding: 30px;
+	background-color: rgba(18, 12, 23, 0.9);
+	color: rgba(150, 150, 150, 1);
+}
+
+.box a img { 
+    border: solid 1px #111; 
+}
+.box a:hover img { 
+    border: solid 1px #678bc6; 
+}
+
+.info { padding: 10px; }
+
+.footer {
+	background-color: rgba(18, 12, 23, 0.6);
+	text-align: center;
+	padding: 20px;
+}
+
+a { color: #678bc6; }
+
+a:hover { color: #4bbafc; }
+
+.modal-content { 
+    position:relative;
+    background-color: rgba(18, 12, 23, 0.9);
+    border:1px solid #999;
+    border:1px solid rgba(0,0,0,0.2);
+    border-radius:6px;
+    outline:0;
+    -webkit-box-shadow:0 3px 9px rgba(0,0,0,0.5);
+    box-shadow:0 3px 9px rgba(0,0,0,0.5);
+    background-clip:padding-box
+}
+
+.modal-dialog { 
+    z-index:1050;
+    width: 80%;
+    padding:10px;
+    margin-right:auto;
+    margin-left:auto
+}
