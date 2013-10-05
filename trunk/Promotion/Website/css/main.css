@@ -56,7 +56,7 @@ h3 a { color: #4bbafc; }
 }
 
 .logo-buffer {
-	height: 540px;
+	height: 500px;
 }
 
 .wp-download {
@@ -96,7 +96,7 @@ h3 a { color: #4bbafc; }
 }
 
 .box a img { 
-    border: solid 1px #111; 
+    border: solid 1px #AAA; 
 }
 .box a:hover img { 
     border: solid 1px #678bc6; 

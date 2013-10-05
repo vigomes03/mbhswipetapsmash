@@ -1,45 +1,51 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<title>Swipe Tap Smash</title>
-		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <head>
+        <title>Swipe Tap Smash</title>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
         <link rel="icon" type="image/png" href="http://www.swipetapsmash.com/images/icon.png" />
-		<link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet">
-		<link href="css/main.css" rel="stylesheet">
-        <link href='http://fonts.googleapis.com/css?family=Geo|VT323|Montserrat+Alternates' rel='stylesheet' type='text/css'>
-		<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
-	</head>
-	<body>
-		<header class="navbar navbar-inverse navbar-fixed-top" style="padding-left:60px;">
-			<nav>
-				<div class="navbar-header" style="padding-top: 8px; padding-right: 20px;">
-					<a href="index.html"><img width="100px" src="images/logo-small-bg.png" /></a>
-				</div>
-				<ul class="nav navbar-nav">
-					<li><a href="http://www.windowsphone.com/s?appid=5ad36640-4db6-41b2-a840-df85e7309bf1">Download</a></li>
-					<li><a href="https://www.facebook.com/SwipeTapSmash">Facebook</a></li>
-					<li><a href="http://www.indiedb.com/games/swipe-tap-smash">Development Log</a></li>
-				</ul>
-			</nav>
-		</header>        
-		
+        <link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet">
+        <link href="css/main.css" rel="stylesheet">
+        <link href="http://fonts.googleapis.com/css?family=Geo|VT323|Montserrat+Alternates" rel="stylesheet" type="text/css">
+        <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+    </head>
+    <body>
+        <!--
+        <header class="navbar navbar-inverse navbar-fixed-top" style="padding-left:60px;">
+            <nav>
+                <div class="navbar-header" style="padding-top: 8px; padding-right: 20px;">
+                    <a href="index.html"><img width="100px" src="images/logo-small-bg.png" /></a>
+                </div>
+                <ul class="nav navbar-nav">
+                    <li><a href="http://www.windowsphone.com/s?appid=5ad36640-4db6-41b2-a840-df85e7309bf1">Download</a></li>
+                    <li><a href="https://www.facebook.com/SwipeTapSmash">Facebook</a></li>
+                    <li><a href="http://www.indiedb.com/games/swipe-tap-smash">Development Log</a></li>
+                </ul>
+            </nav>
+        </header>        
+        -->
+        
+        
+        
+        <center><div class="fb-like" data-href="http://www.facebook.com/swipetapsmash/" data-width="The pixel width of the plugin" data-height="The pixel height of the plugin" data-colorscheme="light" data-layout="standard" data-action="like" data-show-faces="true" data-send="false"></div>
+            </center>
+        
+        <!-- Put enough space so that the logo in the background is cleary visible. -->
         <div class="logo-buffer"></div>
         
         <div class="stripe-skew">
-			<h2>Volleyball with nothing but smashes!</h2>
-			<p>Flick your player into the air, and when the timing is right, tap the screen to send the ball flying!</p>
-			<p><a href="http://www.windowsphone.com/s?appid=5ad36640-4db6-41b2-a840-df85e7309bf1"><img src="images/wp_download_cyan.png" /></a></p>
-			<h3>Android and iOS coming soon!</h3>
+            <h2>Volleyball with nothing but smashes!</h2>
+            <p>Flick your player into the air, and when the timing is right, tap the screen to send the ball flying!</p>
+            <p><a href="http://www.windowsphone.com/s?appid=5ad36640-4db6-41b2-a840-df85e7309bf1"><img src="images/wp_download_cyan.png" /></a></p>
+            <h3><u>Android</u> and <u>iOS</u> coming soon!</h3>
         </div>
         
-		<div class="box">
-			<div>
-                <iframe width="640" height="360" src="http://www.youtube.com/embed/HfLySxoVkLk?vq=hd720" frameborder="0" allowfullscreen></iframe>
+        <div class="box">
+            <iframe width="640" height="360" src="http://www.youtube.com/embed/HfLySxoVkLk?vq=hd720;rel=0;3&amp;autohide=1&amp;showinfo=0" frameborder="0" allowfullscreen></iframe>
             <!--
             <iframe src="http://player.vimeo.com/video/75738381?byline=0&amp;portrait=0" width="640" height="361" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
-           	-->
-            </div>
-		</div>
+            -->
+        </div>
 
         <!-- Modal -->
         <div class="modal" id="screen1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -73,7 +79,6 @@
             </div><!-- /.modal-dialog -->
         </div><!-- /.modal -->
         
-        
         <div class="modal" id="screen4" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -105,20 +110,30 @@
             </div><!-- /.modal-dialog -->
         </div><!-- /.modal -->
         
-		<div class="box screenshots">
-			<div style="margin-bottom: 14px;">				
+        <div class="box screenshots">
+            <div style="margin-bottom: 14px;">              
                 <a data-toggle="modal" href="#screen1"><img width="200px" src="images/screen1.png" /></a>&nbsp;&nbsp;
                 <a data-toggle="modal" href="#screen2"><img width="200px" src="images/screen2.png" /></a>&nbsp;&nbsp;
                 <a data-toggle="modal" href="#screen3"><img width="200px" src="images/screen3.png" /></a>
-			</div>
-			<div>
+            </div>
+            <div>
                 <a data-toggle="modal" href="#screen4"><img width="200px" src="images/screen4.png" /></a>&nbsp;&nbsp;
                 <a data-toggle="modal" href="#screen5"><img width="200px" src="images/screen5.png" /></a>&nbsp;&nbsp;
                 <a data-toggle="modal" href="#screen6"><img width="200px" src="images/screen6.png" /></a>
-			</div>
-		</div>
-		<div class="footer">
-			&copy; <a href="http://www.matthughson.com/">Matt Hughson</a> 2013
-		</div>
-	</body>
+            </div>
+        </div>
+        <div class="footer">
+            <p>&copy; <a href="http://www.matthughson.com/">Matt Hughson</a> 2013<p>
+        </div>
+    </body>
+    
+    <div id="fb-root"></div>
+    <script>(function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=170286053174408";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
+
 </html>
