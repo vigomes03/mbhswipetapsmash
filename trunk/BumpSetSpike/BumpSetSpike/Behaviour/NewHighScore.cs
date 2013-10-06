@@ -81,24 +81,27 @@ namespace BumpSetSpike.Behaviour
             // score the the current high score.
             GameObjectManager.pInstance.BroadcastMessage(mGetCurrentHitCountMsg, mParentGOH);
 
-            if (mGetCurrentHitCountMsg.mCount_Out > LeaderBoardManager.pInstance.pTopHits)
+            if (GameObjectManager.pInstance.pCurUpdatePass != BehaviourDefinition.Passes.GAME_OVER_LOSS)
             {
-                if (!mHighScoreSoundPlayed)
+                if (mGetCurrentHitCountMsg.mCount_Out > LeaderBoardManager.pInstance.pTopHits)
                 {
-                    mHighScoreSoundPlayed = true;
+                    if (!mHighScoreSoundPlayed)
+                    {
+                        mHighScoreSoundPlayed = true;
 
-                    mFxHighScore.Play();
+                        mFxHighScore.Play();
+                    }
+
+                    mParentGOH.pDoRender = true;
                 }
-
-                mParentGOH.pDoRender = true;
-            }
-            else
-            {
-                if (!mHighScoreSoundPlayed)
+                else
                 {
-                    mHighScoreSoundPlayed = true;
+                    if (!mHighScoreSoundPlayed)
+                    {
+                        mHighScoreSoundPlayed = true;
 
-                    mFxNoHighScore.Play();
+                        mFxNoHighScore.Play();
+                    }
                 }
             }
         }

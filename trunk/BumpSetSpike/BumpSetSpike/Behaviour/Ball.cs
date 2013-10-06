@@ -251,25 +251,12 @@ namespace BumpSetSpike.Behaviour
                 GameObjectManager.pInstance.pCurUpdatePass == BehaviourDefinition.Passes.GAME_PLAY &&
                 mGetCurrentStateMsg.mState_Out == Player.State.Idle)
             {
-                // Left of the net is a loss. Right of the net is win and requires the next play start.
-                if (mLandPosition.X < 0.0f)
-                {
-                    if (TutorialManager.pInstance.pCurState == TutorialManager.State.PLAYER_TRYING)
-                    {
-                        GameObjectManager.pInstance.BroadcastMessage(mOnMatchRestartMsg, mParentGOH);
-                        TutorialManager.pInstance.pCurState = TutorialManager.State.TRY_AGAIN;
-                    }
-                    else if (TutorialManager.pInstance.pCurState == TutorialManager.State.TRYING_AGAIN)
-                    {
-                        GameObjectManager.pInstance.BroadcastMessage(mOnMatchRestartMsg, mParentGOH);
-                        TutorialManager.pInstance.StartTutorial();
-                    }
-                    else if (TutorialManager.pInstance.pCurState == TutorialManager.State.TAP_END)
-                    {
-                        System.Diagnostics.Debug.Assert(false, "Tutorial failed to play winning move.");
 
-                        GameObjectManager.pInstance.BroadcastMessage(mOnMatchRestartMsg, mParentGOH);
-                        TutorialManager.pInstance.StartTutorial();
+                if (GameModeManager.pInstance.pMode == GameModeManager.GameMode.TrickAttack)
+                {
+                    if (mLandPosition.X < 0.0f)
+                    {
+                        GameObjectManager.pInstance.pCurUpdatePass = BehaviourDefinition.Passes.GAME_OVER_LOSS;
                     }
                     else
                     {
@@ -278,24 +265,52 @@ namespace BumpSetSpike.Behaviour
                 }
                 else
                 {
-                    if (TutorialManager.pInstance.pCurState == TutorialManager.State.PLAYER_TRYING)
+                    // Left of the net is a loss. Right of the net is win and requires the next play start.
+                    if (mLandPosition.X < 0.0f)
                     {
-                        TutorialManager.pInstance.pCurState = TutorialManager.State.COMPLETE_WELL_DONE;
-                    }
-                    else if (TutorialManager.pInstance.pCurState == TutorialManager.State.TRYING_AGAIN)
-                    {
-                        TutorialManager.pInstance.pCurState = TutorialManager.State.COMPLETE_WELL_DONE;
-                    }
-                    else if (TutorialManager.pInstance.pCurState == TutorialManager.State.TAP_END)
-                    {
-                        TutorialManager.pInstance.pCurState = TutorialManager.State.PLAYER_TRY;
+                        if (TutorialManager.pInstance.pCurState == TutorialManager.State.PLAYER_TRYING)
+                        {
+                            GameObjectManager.pInstance.BroadcastMessage(mOnMatchRestartMsg, mParentGOH);
+                            TutorialManager.pInstance.pCurState = TutorialManager.State.TRY_AGAIN;
+                        }
+                        else if (TutorialManager.pInstance.pCurState == TutorialManager.State.TRYING_AGAIN)
+                        {
+                            GameObjectManager.pInstance.BroadcastMessage(mOnMatchRestartMsg, mParentGOH);
+                            TutorialManager.pInstance.StartTutorial();
+                        }
+                        else if (TutorialManager.pInstance.pCurState == TutorialManager.State.TAP_END)
+                        {
+                            System.Diagnostics.Debug.Assert(false, "Tutorial failed to play winning move.");
+
+                            GameObjectManager.pInstance.BroadcastMessage(mOnMatchRestartMsg, mParentGOH);
+                            TutorialManager.pInstance.StartTutorial();
+                        }
+                        else
+                        {
+                            GameObjectManager.pInstance.pCurUpdatePass = BehaviourDefinition.Passes.GAME_OVER;
+                        }
                     }
                     else
                     {
-                        GameObjectManager.pInstance.BroadcastMessage(mIncrementHitCountMsg, mParentGOH);
-                    }
+                        if (TutorialManager.pInstance.pCurState == TutorialManager.State.PLAYER_TRYING)
+                        {
+                            TutorialManager.pInstance.pCurState = TutorialManager.State.COMPLETE_WELL_DONE;
+                        }
+                        else if (TutorialManager.pInstance.pCurState == TutorialManager.State.TRYING_AGAIN)
+                        {
+                            TutorialManager.pInstance.pCurState = TutorialManager.State.COMPLETE_WELL_DONE;
+                        }
+                        else if (TutorialManager.pInstance.pCurState == TutorialManager.State.TAP_END)
+                        {
+                            TutorialManager.pInstance.pCurState = TutorialManager.State.PLAYER_TRY;
+                        }
+                        else
+                        {
+                            GameObjectManager.pInstance.BroadcastMessage(mIncrementHitCountMsg, mParentGOH);
+                        }
 
-                    GameObjectManager.pInstance.BroadcastMessage(mOnMatchRestartMsg, mParentGOH);
+                        GameObjectManager.pInstance.BroadcastMessage(mOnMatchRestartMsg, mParentGOH);
+                    }
                 }
 
                 mTimeOnGroundToEndPlay.pIsPaused = true;

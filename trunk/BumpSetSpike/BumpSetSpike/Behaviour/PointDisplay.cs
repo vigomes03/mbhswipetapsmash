@@ -259,11 +259,10 @@ namespace BumpSetSpike.Behaviour
                 }
             }
 
-            // TODO: Bring back
-            //GameObject go = GameObjectFactory.pInstance.GetTemplate("GameObjects\\UI\\NumFont\\NumFont");
-            //go.OnMessage(mSetActiveAnimationMsg, mParentGOH);
-            //mScoreNums.Add(go);
-            //GameObjectManager.pInstance.Add(go);
+            GameObject go = GameObjectFactory.pInstance.GetTemplate("GameObjects\\UI\\NumFont\\NumFont");
+            go.OnMessage(mSetActiveAnimationMsg, mParentGOH);
+            mScoreNums.Add(go);
+            GameObjectManager.pInstance.Add(go);
         }
     }
 }

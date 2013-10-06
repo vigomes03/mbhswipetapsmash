@@ -253,6 +253,10 @@ namespace BumpSetSpike
             GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\Options\\Tutorial\\Label\\Label"));
             GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\Options\\Tutorial\\Checkbox\\Checkbox"));
             GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\Options\\Tutorial\\Checkmark\\Checkmark"));
+            GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\EnduranceModeBG\\EnduranceModeBG"));
+            GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\EnduranceModeButton\\EnduranceModeButton"));
+            GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\AttackModeButton\\AttackModeButton"));
+            GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\TrickModeBG\\TrickModeBG"));
             GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\PauseButton\\PauseButton"));
             GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\ResumeButton\\ResumeButton"));
             GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\LeaveCreditsButton\\LeaveCreditsButton"));

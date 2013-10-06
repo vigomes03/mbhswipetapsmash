@@ -3,6 +3,7 @@
   <Asset Type="MBHEngineContentDefs.SpriteRenderDefinition">
     <mUpdatePasses>
       <Item>GAME_OVER</Item>
+      <Item>GAME_OVER_LOSS</Item>
       <Item>GAME_PLAY</Item>
       <Item>MAIN_MENU</Item>
     </mUpdatePasses>

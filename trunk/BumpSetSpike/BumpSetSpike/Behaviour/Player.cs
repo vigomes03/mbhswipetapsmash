@@ -337,13 +337,15 @@ namespace BumpSetSpike.Behaviour
                 mFramesInAir = 0;
 
                 // We may have lost the game so look sad.
-                if (GameObjectManager.pInstance.pCurUpdatePass == BehaviourDefinition.Passes.GAME_OVER)
+                if (GameObjectManager.pInstance.pCurUpdatePass == BehaviourDefinition.Passes.GAME_OVER ||
+                    GameObjectManager.pInstance.pCurUpdatePass == BehaviourDefinition.Passes.GAME_OVER_LOSS)
                 {
                     // Depending on if the player got a new high score or not, we want to play a different
                     // animation.
                     GameObjectManager.pInstance.BroadcastMessage(mGetCurrentHitCountMsg, mParentGOH);
 
-                    if (mGetCurrentHitCountMsg.mCount_Out > LeaderBoardManager.pInstance.pTopHits)
+                    if (mGetCurrentHitCountMsg.mCount_Out > LeaderBoardManager.pInstance.pTopHits &&
+                        GameObjectManager.pInstance.pCurUpdatePass != BehaviourDefinition.Passes.GAME_OVER_LOSS)
                     {
                         mSetActiveAnimationMsg.mAnimationSetName_In = "Happy";
                     }

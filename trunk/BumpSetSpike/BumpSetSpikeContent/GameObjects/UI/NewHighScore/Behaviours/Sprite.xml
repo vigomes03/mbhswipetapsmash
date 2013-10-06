@@ -3,6 +3,7 @@
   <Asset Type="MBHEngineContentDefs.SpriteRenderDefinition">
     <mRenderPasses>
       <Item>GAME_OVER</Item>
+      <Item>GAME_OVER_LOSS</Item>
     </mRenderPasses>
     <mSpriteFileName>Sprites\NewHighScore</mSpriteFileName>
   </Asset>

@@ -112,8 +112,11 @@ namespace BumpSetSpike.Gameflow
         /// <param name="positionInWorld">Where the points should appear in world space.</param>
         private void AddScore(Int32 score, Vector2 positionInWorld)
         {
-            // TODO: Bring this back once we have a proper score attack mode.
-            /*
+            if (GameModeManager.pInstance.pMode != GameModeManager.GameMode.TrickAttack)
+            {
+                return;
+            }
+
             GameObject points = GameObjectFactory.pInstance.GetTemplate("GameObjects\\UI\\PointDisplay\\PointDisplay");
             points.pPosition = positionInWorld;
 
@@ -122,9 +125,13 @@ namespace BumpSetSpike.Gameflow
             points.OnMessage(mSetScoreMsg);
              
             GameObjectManager.pInstance.Add(points);
-            */
 
-            mTotalScore = score;
+            mTotalScore += score;
+
+            HitCountDisplay.SetScoreMessage setHitCountMsg = new HitCountDisplay.SetScoreMessage();
+            setHitCountMsg.mCount_In = mTotalScore;
+
+            GameObjectManager.pInstance.BroadcastMessage(setHitCountMsg);
         }
 
         /// <summary>
