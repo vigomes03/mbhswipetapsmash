@@ -83,7 +83,7 @@ namespace BumpSetSpike.Behaviour
 
             if (GameObjectManager.pInstance.pCurUpdatePass != BehaviourDefinition.Passes.GAME_OVER_LOSS)
             {
-                if (mGetCurrentHitCountMsg.mCount_Out > LeaderBoardManager.pInstance.pTopHits)
+                if (mGetCurrentHitCountMsg.mCount_Out > LeaderBoardManager.pInstance.GetCurrentModeTopScore())
                 {
                     if (!mHighScoreSoundPlayed)
                     {

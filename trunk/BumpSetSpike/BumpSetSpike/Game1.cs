@@ -341,6 +341,8 @@ namespace BumpSetSpike
                     GameObjectManager.pInstance.pCurUpdatePass = BehaviourDefinition.Passes.GAME_PLAY_PAUSED;
                 }
 
+                DebugShapeDisplay.pInstance.Update();
+
                 MusicManager.pInstance.Update();
                 base.Update(gameTime);
                 return;

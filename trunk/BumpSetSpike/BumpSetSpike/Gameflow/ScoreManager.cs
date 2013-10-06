@@ -145,14 +145,6 @@ namespace BumpSetSpike.Gameflow
         }
 
         /// <summary>
-        /// Should be called when the total score changes so that the leaderboards are updated.
-        /// </summary>
-        public void OnPointEarned()
-        {
-            LeaderBoardManager.pInstance.pTopScore = mTotalScore;
-        }
-
-        /// <summary>
         /// Call this when the match is reset so that the total score can be reset too.
         /// </summary>
         public void OnMatchOver()
