@@ -2,10 +2,9 @@
 <XnaContent>
   <Asset Type="MBHEngineContentDefs.SpriteRenderDefinition">
     <mRenderPasses>
-      <Item>GAME_OVER</Item>
-      <Item>GAME_OVER_LOSS</Item>
+      <Item>MAIN_MENU_MODE_SELECT</Item>
     </mRenderPasses>
-    <mSpriteFileName>Sprites\GameOver</mSpriteFileName>
-  </Asset>
+    <mSpriteFileName>Sprites\ModeBackground</mSpriteFileName>
+</Asset>
 </XnaContent>
 

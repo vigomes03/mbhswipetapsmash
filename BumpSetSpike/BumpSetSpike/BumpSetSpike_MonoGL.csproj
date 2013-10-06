@@ -81,6 +81,7 @@
     <Compile Include="Behaviour\PointDisplay.cs" />
     <Compile Include="Behaviour\Wobble.cs" />
     <Compile Include="Game1.cs" />
+    <Compile Include="Gameflow\GameModeManager.cs" />
     <Compile Include="Gameflow\LeaderBoardManager.cs" />
     <Compile Include="Gameflow\MusicManager.cs" />
     <Compile Include="Gameflow\SaveGameManager.cs" />

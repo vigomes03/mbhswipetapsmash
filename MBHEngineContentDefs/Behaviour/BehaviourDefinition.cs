@@ -15,10 +15,12 @@ namespace MBHEngineContentDefs
         public enum Passes
         {
             MAIN_MENU = 0,
+            MAIN_MENU_MODE_SELECT,
             CREDITS,
             TUTORIAL_PAUSE,
             GAME_PLAY,
             GAME_OVER,
+            GAME_OVER_LOSS,
             GAME_PLAY_PAUSED,
         }
 

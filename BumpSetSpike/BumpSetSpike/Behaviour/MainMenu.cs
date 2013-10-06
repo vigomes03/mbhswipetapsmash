@@ -27,6 +27,7 @@ namespace BumpSetSpike.Behaviour
         private enum State
         {
             OnTitle = 0,
+            ModeSelect,
             MoveToCourt,
         }
 
@@ -112,11 +113,13 @@ namespace BumpSetSpike.Behaviour
         {
             // If we are in the main menu, start looking for button presses.
             // TODO: Move this to update passes.
-            if (GameObjectManager.pInstance.pCurUpdatePass == BehaviourDefinition.Passes.MAIN_MENU)
+            if (GameObjectManager.pInstance.pCurUpdatePass == BehaviourDefinition.Passes.MAIN_MENU ||
+                GameObjectManager.pInstance.pCurUpdatePass == BehaviourDefinition.Passes.MAIN_MENU_MODE_SELECT)
             {
-                if (InputManager.pInstance.CheckGesture(GestureType.Tap, ref mGesture) || InputManager.pInstance.CheckAction(InputManager.InputActions.START, true))
+                if (InputManager.pInstance.CheckGesture(GestureType.Tap, ref mGesture) || 
+                    InputManager.pInstance.CheckAction(InputManager.InputActions.START, true))
                 {
-                    if (mCurrentState == State.OnTitle)
+                    if (mCurrentState == State.ModeSelect)
                     {
                         // Move down to the gameplay camera position.
                         CameraManager.pInstance.pTargetPosition = new Vector2(0, -30.0f);
@@ -129,6 +132,11 @@ namespace BumpSetSpike.Behaviour
                         mWatch.pIsPaused = false;
 
                         return true;
+                    }
+                    else if (mCurrentState == State.OnTitle)
+                    {
+                        GameObjectManager.pInstance.pCurUpdatePass = BehaviourDefinition.Passes.MAIN_MENU_MODE_SELECT;
+                        mCurrentState = State.ModeSelect;
                     }
                 }
 

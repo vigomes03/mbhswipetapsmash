@@ -142,6 +142,22 @@ namespace BumpSetSpike.Behaviour
 
                             return true;
                         }
+
+                        case BumpSetSpikeContentDefs.ButtonDefinition.TaskType.SetGameModeEndurance:
+                        {
+                            GameModeManager.pInstance.pMode = GameModeManager.GameMode.Endurance;
+
+                            // Let main menu get this input too.
+                            return false;
+                        }
+
+                        case BumpSetSpikeContentDefs.ButtonDefinition.TaskType.SetGameModeTrickAttack:
+                        {
+                            GameModeManager.pInstance.pMode = GameModeManager.GameMode.TrickAttack;
+
+                            // Let main menu get this input too.
+                            return false;
+                        }
                     }
                 }
             }

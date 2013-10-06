@@ -21,6 +21,8 @@ namespace BumpSetSpikeContentDefs
             ShowCredits,
             OptionToggleTutorial,
             LeaveCredits,
+            SetGameModeEndurance,
+            SetGameModeTrickAttack,
         }
 
         /// <summary>

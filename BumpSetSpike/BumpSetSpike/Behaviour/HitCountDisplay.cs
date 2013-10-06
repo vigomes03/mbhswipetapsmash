@@ -23,10 +23,12 @@ namespace BumpSetSpike.Behaviour
         /// </summary>
         public class IncrementHitCountMessage : BehaviourMessage
         {
+            public Int32 mAmount_In;
+
             /// <summary>
             /// See parent.
             /// </summary>
-            public override void Reset() { }
+            public override void Reset() { mAmount_In = 1;  }
         }
 
         /// <summary>
@@ -56,6 +58,22 @@ namespace BumpSetSpike.Behaviour
             public override void Reset()
             {
                 mCount_Out = 0;
+            }
+        }
+
+        public class SetScoreMessage : BehaviourMessage
+        {
+            /// <summary>
+            /// How many points has the player scored this game.
+            /// </summary>
+            public Int32 mCount_In;
+
+            /// <summary>
+            /// See parent.
+            /// </summary>
+            public override void Reset()
+            {
+                mCount_In = 0;
             }
         }
 
@@ -132,7 +150,11 @@ namespace BumpSetSpike.Behaviour
             }
             else if (!mDisplayRecord && (msg is ClearHitCountMessage || msg is Player.OnGameRestartMessage))
             {
-                LeaderBoardManager.pInstance.pTopHits = mHitCount;
+                if (GameObjectManager.pInstance.pCurUpdatePass != MBHEngineContentDefs.BehaviourDefinition.Passes.GAME_OVER_LOSS)
+                {
+                    LeaderBoardManager.pInstance.pTopHits = mHitCount;
+                }
+
                 ScoreManager.pInstance.OnMatchOver();
 
                 SetScore(0);
@@ -145,6 +167,12 @@ namespace BumpSetSpike.Behaviour
             else if (msg is SaveGameManager.ForceUpdateSaveDataMessage)
             {
                 LeaderBoardManager.pInstance.pTopHits = mHitCount;
+            }
+            else if (!mDisplayRecord && msg is SetScoreMessage)
+            {
+                SetScoreMessage temp = (SetScoreMessage)msg;
+
+                SetScore(temp.mCount_In);
             }
         }
 
