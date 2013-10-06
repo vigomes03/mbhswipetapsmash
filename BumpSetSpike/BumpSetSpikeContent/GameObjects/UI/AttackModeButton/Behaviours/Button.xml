@@ -4,6 +4,9 @@
     <mUpdatePasses>
       <Item>MAIN_MENU_MODE_SELECT</Item>
     </mUpdatePasses>
+    <mRenderPasses>
+      <Item>MAIN_MENU_MODE_SELECT</Item>
+    </mRenderPasses>
     <mTaskOnRelease>
       <mType>SetGameModeTrickAttack</mType>
     </mTaskOnRelease>

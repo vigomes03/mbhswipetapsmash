@@ -189,6 +189,32 @@ namespace BumpSetSpike.Behaviour
             AddEachDigit(score, 0);
 
             UpdateNumberPositions();
+
+            HideLeadingZeros(score);
+        }
+
+        /// <summary>
+        /// Based on the score passed in, hides all zeros at the front of the number (visually). So
+        /// 090 becomes just 90.
+        /// </summary>
+        /// <param name="score">The score the based the visuals off of.</param>
+        private void HideLeadingZeros(Int32 score)
+        {
+            Int32 pow = 1;
+
+            for (Int32 i = mScoreNums.Count - 2; i >= 0; i--, pow++)
+            {
+                Int32 val = (Int32)Math.Pow(10.0, (Double)pow);
+
+                if (score < val)
+                {
+                    mScoreNums[i].pDoRender = false;
+                }
+                else
+                {
+                    mScoreNums[i].pDoRender = true;
+                }
+            }
         }
 
         /// <summary>
@@ -260,6 +286,7 @@ namespace BumpSetSpike.Behaviour
             }
 
             GameObject go = GameObjectFactory.pInstance.GetTemplate("GameObjects\\UI\\NumFont\\NumFont");
+            go.pRenderPriority = mParentGOH.pRenderPriority;
             go.OnMessage(mSetActiveAnimationMsg, mParentGOH);
             mScoreNums.Add(go);
             GameObjectManager.pInstance.Add(go);

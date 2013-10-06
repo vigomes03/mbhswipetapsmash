@@ -56,6 +56,51 @@ namespace BumpSetSpike.Gameflow
         }
 
         /// <summary>
+        /// Sets the top score for the currently active game mode. The caller doesn't need to know what mode
+        /// they are actually in.
+        /// Will only set the score if it is greater than the current high score.
+        /// </summary>
+        /// <param name="score">The new high score.</param>
+        public void SetCurrentModeTopScore(Int32 score)
+        {
+            if (GameModeManager.pInstance.pMode == GameModeManager.GameMode.Endurance)
+            {
+                pTopHits = score;
+            }
+            else if (GameModeManager.pInstance.pMode == GameModeManager.GameMode.TrickAttack)
+            {
+                pTopScore = score;
+            }
+            else
+            {
+                System.Diagnostics.Debug.Assert(false, "Unknown game mode.");
+            }
+        }
+
+        /// <summary>
+        /// Retrieves the current highscore for the current game mode. The called need not know which
+        /// game mode is currently active.
+        /// </summary>
+        /// <returns></returns>
+        public Int32 GetCurrentModeTopScore()
+        {
+            if (GameModeManager.pInstance.pMode == GameModeManager.GameMode.Endurance)
+            {
+                return pTopHits;
+            }
+            else if (GameModeManager.pInstance.pMode == GameModeManager.GameMode.TrickAttack)
+            {
+                return pTopScore;
+            }
+            else
+            {
+                System.Diagnostics.Debug.Assert(false, "Unknown game mode.");
+
+                return -1;
+            }
+        }
+
+        /// <summary>
         /// Access to the singleton.
         /// </summary>
         public static LeaderBoardManager pInstance

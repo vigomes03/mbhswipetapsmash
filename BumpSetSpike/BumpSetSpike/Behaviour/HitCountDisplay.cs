@@ -152,7 +152,7 @@ namespace BumpSetSpike.Behaviour
             {
                 if (GameObjectManager.pInstance.pCurUpdatePass != MBHEngineContentDefs.BehaviourDefinition.Passes.GAME_OVER_LOSS)
                 {
-                    LeaderBoardManager.pInstance.pTopHits = mHitCount;
+                    LeaderBoardManager.pInstance.SetCurrentModeTopScore(mHitCount);
                 }
 
                 ScoreManager.pInstance.OnMatchOver();
@@ -166,7 +166,11 @@ namespace BumpSetSpike.Behaviour
             }
             else if (msg is SaveGameManager.ForceUpdateSaveDataMessage)
             {
-                LeaderBoardManager.pInstance.pTopHits = mHitCount;
+                // We don't save trick attack because they might not have finished this move.
+                if (GameModeManager.pInstance.pMode == GameModeManager.GameMode.Endurance)
+                {
+                    LeaderBoardManager.pInstance.pTopHits = mHitCount;
+                }
             }
             else if (!mDisplayRecord && msg is SetScoreMessage)
             {
@@ -186,7 +190,7 @@ namespace BumpSetSpike.Behaviour
             // top score, and updates the display when needed.
             if (mDisplayRecord)
             {
-                Int32 curBest = LeaderBoardManager.pInstance.pTopHits;
+                Int32 curBest = LeaderBoardManager.pInstance.GetCurrentModeTopScore();
 
                 // Has the current game beaten the top score?
                 if (curBest > mHitCount)
@@ -217,7 +221,7 @@ namespace BumpSetSpike.Behaviour
             // set on the fly.
             if (mDisplayRecord)
             {
-                SetScore(LeaderBoardManager.pInstance.pTopHits);
+                SetScore(LeaderBoardManager.pInstance.GetCurrentModeTopScore());
             }
         }
 
@@ -259,6 +263,32 @@ namespace BumpSetSpike.Behaviour
             }
 
             AddEachDigit(score, 0);
+
+            HideLeadingZeros(mHitCount);
+        }
+
+        /// <summary>
+        /// Based on the score passed in, hides all zeros at the front of the number (visually). So
+        /// 090 becomes just 90.
+        /// </summary>
+        /// <param name="score">The score the based the visuals off of.</param>
+        private void HideLeadingZeros(Int32 score)
+        {
+            Int32 pow = 1;
+
+            for (Int32 i = mHitCounterNums.Count - 2; i >= 0; i--, pow++)
+            {
+                Int32 val = (Int32)Math.Pow(10.0, (Double)pow);
+
+                if (score < val)
+                {
+                    mHitCounterNums[i].pDoRender = false;
+                }
+                else
+                {
+                    mHitCounterNums[i].pDoRender = true;
+                }
+            }
         }
 
         /// <summary>

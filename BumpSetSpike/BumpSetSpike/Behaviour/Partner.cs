@@ -171,7 +171,7 @@ namespace BumpSetSpike.Behaviour
                     // Depending on if the player got a new high score or not, we want to play a different
                     // animation.
                     GameObjectManager.pInstance.BroadcastMessage(mGetCurrentHitCountMsg, mParentGOH);
-                    if (mGetCurrentHitCountMsg.mCount_Out > LeaderBoardManager.pInstance.pTopHits &&
+                    if (mGetCurrentHitCountMsg.mCount_Out > LeaderBoardManager.pInstance.GetCurrentModeTopScore() &&
                         GameObjectManager.pInstance.pCurUpdatePass != BehaviourDefinition.Passes.GAME_OVER_LOSS)
                     {
                         mSetActiveAnimationMsg.mAnimationSetName_In = "Happy";
