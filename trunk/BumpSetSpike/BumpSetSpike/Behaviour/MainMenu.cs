@@ -149,6 +149,8 @@ namespace BumpSetSpike.Behaviour
 
                     GameObjectManager.pInstance.Add(GameObjectFactory.pInstance.GetTemplate("GameObjects\\UI\\ScoreLabel\\ScoreLabel"));
                     GameObjectManager.pInstance.Add(GameObjectFactory.pInstance.GetTemplate("GameObjects\\UI\\HitCountDisplay\\HitCountDisplay"));
+                    GameObjectManager.pInstance.Add(GameObjectFactory.pInstance.GetTemplate("GameObjects\\UI\\HiScoreLabel\\HiScoreLabel"));
+                    GameObjectManager.pInstance.Add(GameObjectFactory.pInstance.GetTemplate("GameObjects\\UI\\HitCountDisplayRecord\\HitCountDisplayRecord"));
 
                     TutorialManager.pInstance.StartTutorial();
 
