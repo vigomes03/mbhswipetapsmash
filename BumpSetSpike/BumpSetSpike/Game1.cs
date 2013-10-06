@@ -178,9 +178,11 @@ namespace BumpSetSpike
             GameObjectFactory.pInstance.AddTemplate("GameObjects\\UI\\TapStart\\TapStart", 1);
             GameObjectFactory.pInstance.AddTemplate("GameObjects\\UI\\ScoreLabel\\ScoreLabel", 1);
             GameObjectFactory.pInstance.AddTemplate("GameObjects\\UI\\HitCountDisplay\\HitCountDisplay", 1);
+            GameObjectFactory.pInstance.AddTemplate("GameObjects\\UI\\HiScoreLabel\\HiScoreLabel", 1);
+            GameObjectFactory.pInstance.AddTemplate("GameObjects\\UI\\HitCountDisplayRecord\\HitCountDisplayRecord", 1);
             GameObjectFactory.pInstance.AddTemplate("GameObjects\\Items\\Tutorial\\Faster\\Faster", 4);
             GameObjectFactory.pInstance.AddTemplate("GameObjects\\Items\\Tutorial\\Slower\\Slower", 4);
-            
+                        
             // The tiled background image that travels will the player creating the illusion of
             // an infinite background image.
             GameObject bg = new GameObject();
@@ -189,7 +191,6 @@ namespace BumpSetSpike
             bg.pRenderPriority = 20;
             GameObjectManager.pInstance.Add(bg);
             
-
             // Create the level.
             WorldManager.pInstance.Initialize();
 
@@ -245,7 +246,6 @@ namespace BumpSetSpike
 
             GameObjectManager.pInstance.Add(new GameObject("GameObjects\\Items\\Net\\Net"));
             GameObjectManager.pInstance.Add(new GameObject("GameObjects\\Items\\Court\\Court"));
-
             GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\TitleScreen\\TitleScreen"));
             GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\CreditsButton\\CreditsButton"));
             GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\FacebookButton\\FacebookButton"));
@@ -260,6 +260,10 @@ namespace BumpSetSpike
             GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\PauseButton\\PauseButton"));
             GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\ResumeButton\\ResumeButton"));
             GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\LeaveCreditsButton\\LeaveCreditsButton"));
+            GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\GameOver\\GameOver"));
+            GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\PausedOverlay\\PausedOverlay"));
+            GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\PausedBackdrop\\PausedBackdrop"));
+            GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\NewHighScore\\NewHighScore"));
             GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\Credits\\BG\\BG"));
             GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\Credits\\Backdrop\\Backdrop"));
             GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\Credits\\MHughsonButton\\MHughsonButton"));
@@ -268,42 +272,6 @@ namespace BumpSetSpike
             GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\Credits\\SMcGeeButton\\SMcGeeButton"));
             GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\Credits\\SPaxtonButton\\SPaxtonButton"));
 
-            Single x = (mGraphics.GraphicsDevice.Viewport.Width / CameraManager.pInstance.pZoomScale) - 20.0f;
-            Single y = (mGraphics.GraphicsDevice.Viewport.Height / CameraManager.pInstance.pZoomScale) - 4.0f;
-
-            GameObject recordLabel = new GameObject("GameObjects\\UI\\HiScoreLabel\\HiScoreLabel");
-            recordLabel.pPosX = x;
-            recordLabel.pPosY = y;
-            GameObjectManager.pInstance.Add(recordLabel);
-
-            GameObject record = new GameObject("GameObjects\\UI\\HitCountDisplayRecord\\HitCountDisplayRecord");
-            record.pPosX = x;
-            record.pPosY = y;
-            GameObjectManager.pInstance.Add(record);
-
-            x = ((mGraphics.GraphicsDevice.Viewport.Width * 0.5f) / CameraManager.pInstance.pZoomScale);
-            y = ((mGraphics.GraphicsDevice.Viewport.Height * 0.5f) / CameraManager.pInstance.pZoomScale);
-
-            GameObject gameOver = new GameObject("GameObjects\\UI\\GameOver\\GameOver");
-            gameOver.pPosX = x;
-            gameOver.pPosY = y;
-            GameObjectManager.pInstance.Add(gameOver);
-
-            GameObject pausedOverlay = new GameObject("GameObjects\\UI\\PausedOverlay\\PausedOverlay");
-            pausedOverlay.pPosX = x;
-            pausedOverlay.pPosY = y;
-            GameObjectManager.pInstance.Add(pausedOverlay);
-
-            GameObject pausedBackdrop = new GameObject("GameObjects\\UI\\PausedBackdrop\\PausedBackdrop");
-            pausedBackdrop.pPosX = x;
-            pausedBackdrop.pPosY = y;
-            GameObjectManager.pInstance.Add(pausedBackdrop);
-
-            GameObject newHighScore = new GameObject("GameObjects\\UI\\NewHighScore\\NewHighScore");
-            newHighScore.pPosX = x;
-            newHighScore.pPosY = y + 32;
-            GameObjectManager.pInstance.Add(newHighScore);
-
             // The vingette effect used to dim out the edges of the screen.
             //GameObject ving = new GameObject("GameObjects\\Interface\\Vingette\\Vingette");
 #if SMALL_WINDOW
@@ -311,10 +279,6 @@ namespace BumpSetSpike
 #endif
             //GameObjectManager.pInstance.Add(ving);
 
-            // Add the HUD elements.
-            //
-            //GameObjectManager.pInstance.Add(new GameObject("GameObjects\\Interface\\HUD\\PlayerHealthBar\\PlayerHealthBar"));
-            
             DebugMessageDisplay.pInstance.AddConstantMessage("Game Load Complete.");
         }
 
