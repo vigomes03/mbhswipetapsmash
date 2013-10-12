@@ -81,11 +81,6 @@ namespace BumpSetSpike
             //mGraphics.IsFullScreen = true;
             Content.RootDirectory = "Content";
 
-#if WINDOWS_PHONE
-            PhoneApplicationService.Current.Activated += GameActivated;
-            PhoneApplicationService.Current.Deactivated += GameDeactivated;
-#endif
-
             // Avoid the "jitter".
             // http://forums.create.msdn.com/forums/p/9934/53561.aspx#53561
             // Set to TRUE so that we can target 30fps to match windows phone.
@@ -261,6 +256,7 @@ namespace BumpSetSpike
             GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\ResumeButton\\ResumeButton"));
             GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\LeaveCreditsButton\\LeaveCreditsButton"));
             GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\GameOver\\GameOver"));
+            //GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\ScoreSummaryTable\\ScoreSummaryTable"));
             GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\PausedOverlay\\PausedOverlay"));
             GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\PausedBackdrop\\PausedBackdrop"));
             GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\NewHighScore\\NewHighScore"));
@@ -300,14 +296,9 @@ namespace BumpSetSpike
         {
             if (!IsActive)
             {
-                if (GameObjectManager.pInstance.pCurUpdatePass == BehaviourDefinition.Passes.GAME_PLAY)
-                {
-                    GameObjectManager.pInstance.pCurUpdatePass = BehaviourDefinition.Passes.GAME_PLAY_PAUSED;
-                }
-
+                // Prevent the debug shape queue from getting too backed up.
                 DebugShapeDisplay.pInstance.Update();
 
-                MusicManager.pInstance.Update();
                 base.Update(gameTime);
                 return;
             }
@@ -412,7 +403,6 @@ namespace BumpSetSpike
                 GameObjectPicker.pInstance.Update(gameTime, (mFameSkipCount == 0));
             }
 
-            MusicManager.pInstance.Update();
             TutorialManager.pInstance.Update(gameTime);
             InputManager.pInstance.UpdateEnd();
             CameraManager.pInstance.Update(gameTime);
@@ -426,7 +416,7 @@ namespace BumpSetSpike
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            //GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // First draw all the objects managed by the game object manager.
             GameObjectManager.pInstance.Render(mSpriteBatch, (mFameSkipCount == 0));
@@ -460,29 +450,19 @@ namespace BumpSetSpike
             base.OnExiting(sender, args);
         }
 
-#if WINDOWS_PHONE
         /// <summary>
-        /// Called when the application is suspened (eg. user pressed Home button).
+        /// 
         /// </summary>
         /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void GameDeactivated(object sender, DeactivatedEventArgs e)
+        /// <param name="args"></param>
+        protected override void OnDeactivated(object sender, EventArgs args)
         {
+            base.OnDeactivated(sender, args);
+
             if (GameObjectManager.pInstance.pCurUpdatePass == BehaviourDefinition.Passes.GAME_PLAY)
             {
                 GameObjectManager.pInstance.pCurUpdatePass = BehaviourDefinition.Passes.GAME_PLAY_PAUSED;
             }
         }
-
-        /// <summary>
-        /// Called when the application is resumed after being suspended (eg. user pressed BACK after entering
-        /// the deactivated state).
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void GameActivated(object sender, ActivatedEventArgs e)
-        {
-        }
-#endif // WINDOWS_PHONE
     }
 }

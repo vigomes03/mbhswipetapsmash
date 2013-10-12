@@ -13,7 +13,7 @@ namespace BumpSetSpike.Gameflow
     /// Helper class for managing the playback of music as the user progresses through the 
     /// application.
     /// </summary>
-    public class MusicManager
+    public class MusicManager : GameObjectManager.IUpdatePassChangeReciever
     {
         /// <summary>
         /// Singleton.
@@ -29,6 +29,11 @@ namespace BumpSetSpike.Gameflow
         /// Music played during the main menu.
         /// </summary>
         private Song mMainMenuMusic;
+
+        /// <summary>
+        /// Cache the command line arg so we don't have to do string compare over and over.
+        /// </summary>
+        private Boolean mDebugMusicDisabled;
 
         /// <summary>
         /// Access to the singleton.
@@ -56,25 +61,37 @@ namespace BumpSetSpike.Gameflow
 
             // All music in the game repeats.
             MediaPlayer.IsRepeating = true;
+
+#if WINDOWS_PHONE && DEBUG
+            mDebugMusicDisabled = true; // We can't pass command line args to WP.
+#else
+            mDebugMusicDisabled = CommandLineManager.pInstance["DisableMusic"] != null;
+#endif
+
+            GameObjectManager.pInstance.RegisterUpdatePassChangeReceiver(this);
+
+            ChangeMusic();
         }
 
         /// <summary>
-        /// Call this every frame.
+        /// Implementation of Interface.
         /// </summary>
-        public void Update()
+        /// <param name="newState"></param>
+        /// <param name="oldState"></param>
+        public override void OnStateChange(BehaviourDefinition.Passes newState, BehaviourDefinition.Passes oldState)
         {
-            Boolean musicDisabled = CommandLineManager.pInstance["DisableMusic"] != null;
+            // The state has changed so we may need to change the music. We are so careful about this, because
+            // checking the state of the MediaPlayer seems to be very expensive.
+            ChangeMusic();
+        }
 
-#if WINDOWS_PHONE && DEBUG
-            musicDisabled = true;
-#endif
-            if (musicDisabled)
-            {
-                return;
-            }
-
-            // If the user is playing their own music, we don't want to override that.
-            if (!MediaPlayer.GameHasControl)
+        /// <summary>
+        /// Call this when you want to evaluate the current state of the game and potentially change
+        /// the music based on the current state.
+        /// </summary>
+        private void ChangeMusic()
+        {
+            if (mDebugMusicDisabled || !MediaPlayer.GameHasControl)
             {
                 return;
             }

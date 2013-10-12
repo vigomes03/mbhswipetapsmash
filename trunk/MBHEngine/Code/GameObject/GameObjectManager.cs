@@ -32,6 +32,15 @@ namespace MBHEngine.GameObject
         }
 
         /// <summary>
+        /// Classes can implement this interface and register with RegisterUpdatePassChangeReceiver to 
+        /// be notified with the Update Pass changes.
+        /// </summary>
+        public abstract class IUpdatePassChangeReciever
+        {
+            public abstract void OnStateChange(BehaviourDefinition.Passes newState, BehaviourDefinition.Passes oldState);
+        }
+
+        /// <summary>
         /// The static instance of this class, making this a singleton.
         /// </summary>
         static private GameObjectManager mInstance = null;
@@ -156,6 +165,11 @@ namespace MBHEngine.GameObject
         private Int32 mLastNumObjectsRendered;
 
         /// <summary>
+        /// List of objects that wish to be notified when the GameObjectManager Update Pass changes.
+        /// </summary>
+        private List<IUpdatePassChangeReciever> mUpdatePassChangeReceivers;
+
+        /// <summary>
         /// We make the constructor private so that no one accidentally creates
         /// an instance of the class.
         /// </summary>
@@ -212,6 +226,8 @@ namespace MBHEngine.GameObject
             mCellSize = 100;
 
             mCurrentUpdateState = UpdatePhase.None;
+
+            mUpdatePassChangeReceivers = new List<IUpdatePassChangeReciever>();
         }
 
         /// <summary>
@@ -1050,6 +1066,16 @@ namespace MBHEngine.GameObject
         }
 
         /// <summary>
+        /// Classes which implement the IUpdatePassChangeReciever may register here to be notified when
+        /// the GameObjectManager Update Pass changes.
+        /// </summary>
+        /// <param name="receiver"></param>
+        public void RegisterUpdatePassChangeReceiver(IUpdatePassChangeReciever receiver)
+        {
+            mUpdatePassChangeReceivers.Add(receiver);
+        }
+
+        /// <summary>
         /// Accessor to the pContent property.
         /// </summary>
         public ContentManager pContentManager
@@ -1111,7 +1137,19 @@ namespace MBHEngine.GameObject
             }
             set
             {
+                if (mCurrentUpdatePass == value)
+                {
+                    return;
+                }
+
+                BehaviourDefinition.Passes old = mCurrentUpdatePass;
+
                 mCurrentUpdatePass = value;
+
+                for (Int32 i = 0; i < mUpdatePassChangeReceivers.Count; i++)
+                {
+                    mUpdatePassChangeReceivers[i].OnStateChange(mCurrentUpdatePass, old);
+                }
             }
         }
 
