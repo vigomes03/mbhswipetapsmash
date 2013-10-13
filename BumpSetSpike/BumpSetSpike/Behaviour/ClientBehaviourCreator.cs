@@ -72,6 +72,10 @@ namespace BumpSetSpike.Behaviour
                     {
                         return new EffectEmitter(go, fileName);
                     }
+                case "BumpSetSpike.Behaviour.ScoreSummary":
+                    {
+                        return new ScoreSummary(go, fileName);
+                    }
                 default:
                     {
                         return null;

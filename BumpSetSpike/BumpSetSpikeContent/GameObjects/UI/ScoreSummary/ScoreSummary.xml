@@ -1,27 +1,23 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <XnaContent>
   <Asset Type="MBHEngineContentDefs.GameObjectDefinition">
-    <mRenderPriority>101</mRenderPriority>
+    <mRenderPriority>102</mRenderPriority>
     <mDoUpdate>true</mDoUpdate>
     <mDoRender>true</mDoRender>
-    <mPosition>0 32</mPosition>
+    <mPosition>0 0</mPosition>
     <mScreenRelativeAnchorPoint>
       <X>CENTER</X>
       <Y>CENTER</Y>
     </mScreenRelativeAnchorPoint>
     <mRotation>0</mRotation>
     <mScale>1 1</mScale>
-    <mMotionRoot>128 8</mMotionRoot>
+    <mMotionRoot>0 0</mMotionRoot>
     <mBlendMode>STANDARD_UI</mBlendMode>
     <mBehaviourFileNames>
-      <Item>Sprite</Item>
-      <Item>NewHighScore</Item>
-      <Item>Wobble</Item>
+      <Item>ScoreSummary</Item>
     </mBehaviourFileNames>
     <mBehaviourClassNames>
-      <Item>MBHEngine.Behaviour.SpriteRender</Item>
-      <Item>BumpSetSpike.Behaviour.NewHighScore</Item>
-      <Item>BumpSetSpike.Behaviour.Wobble</Item>
+      <Item>BumpSetSpike.Behaviour.ScoreSummary</Item>
     </mBehaviourClassNames>
   </Asset>
 </XnaContent>

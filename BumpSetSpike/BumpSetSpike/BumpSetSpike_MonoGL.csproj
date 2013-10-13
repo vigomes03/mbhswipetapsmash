@@ -57,7 +57,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Tune|x86'">
     <OutputPath>bin\MonoGL\Tune\</OutputPath>
-    <DefineConstants>TRACE;WINDOWS;MONOGL;ALLOW_DEBUG_SHAPES; ALLOW_GARBAGE</DefineConstants>
+    <DefineConstants>DEBUG;TRACE;WINDOWS;MONOGL;ALLOW_DEBUG_SHAPES; ALLOW_GARBAGE</DefineConstants>
     <Optimize>true</Optimize>
     <DebugType>pdbonly</DebugType>
     <PlatformTarget>x86</PlatformTarget>
@@ -79,6 +79,7 @@
     <Compile Include="Behaviour\Partner.cs" />
     <Compile Include="Behaviour\Player.cs" />
     <Compile Include="Behaviour\PointDisplay.cs" />
+    <Compile Include="Behaviour\ScoreSummary.cs" />
     <Compile Include="Behaviour\Wobble.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="Gameflow\GameModeManager.cs" />

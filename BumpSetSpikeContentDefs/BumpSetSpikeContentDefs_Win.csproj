@@ -59,7 +59,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Tune|x86'">
     <OutputPath>bin\x86\Tune\</OutputPath>
-    <DefineConstants>TRACE;WINDOWS</DefineConstants>
+    <DefineConstants>DEBUG;TRACE;WINDOWS</DefineConstants>
     <Optimize>true</Optimize>
     <NoStdLib>true</NoStdLib>
     <DebugType>pdbonly</DebugType>
@@ -79,6 +79,7 @@
   <ItemGroup>
     <Compile Include="Behaviour\BallDefinition.cs" />
     <Compile Include="Behaviour\ButtonDefinition.cs" />
+    <Compile Include="Behaviour\ScoreSummaryDefinition.cs" />
     <Compile Include="Behaviour\EffectEmitterDefinition.cs" />
     <Compile Include="Behaviour\GameOverDefinition.cs" />
     <Compile Include="Behaviour\HitCountDisplayDefinition.cs" />

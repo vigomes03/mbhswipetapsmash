@@ -215,6 +215,8 @@ namespace BumpSetSpike.Behaviour
                 GameObjectManager.pInstance.Add(g);
 
                 mHitCounterNums.Add(g);
+
+                HideLeadingZeros(mHitCount);
             }
 
             // In the case of the Record, we need to set the score now, since it won't be 
