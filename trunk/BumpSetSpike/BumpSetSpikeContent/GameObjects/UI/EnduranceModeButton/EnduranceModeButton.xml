@@ -9,7 +9,7 @@
       <X>CENTER</X>
       <Y>CENTER</Y>
     </mScreenRelativeAnchorPoint>
-    <mRotation>-0.08</mRotation>
+    <mRotation>-0.10</mRotation>
     <mScale>1 1</mScale>
     <mCollisionBoxDimensions>256.0 32.0</mCollisionBoxDimensions>
     <mCollisionRoot>0 0</mCollisionRoot>

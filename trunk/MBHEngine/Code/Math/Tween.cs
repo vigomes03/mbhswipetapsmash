@@ -41,7 +41,7 @@ namespace MBHEngine.Math
                 mDirection ^= true;
             }
 
-            Single lerpVal = mWatch.pPercentRemaining;
+            Single lerpVal = mWatch.pPercentElapsed;
 
             // Change direction.
             if (mDirection)

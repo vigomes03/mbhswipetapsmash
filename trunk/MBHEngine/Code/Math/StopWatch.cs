@@ -158,7 +158,7 @@ namespace MBHEngine.Math
         /// <summary>
         /// The percent of time remaining.
         /// </summary>
-        public Single pPercentRemaining
+        public Single pPercentElapsed
         {
             get
             {

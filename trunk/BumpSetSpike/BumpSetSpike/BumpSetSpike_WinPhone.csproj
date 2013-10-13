@@ -52,7 +52,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Tune|Windows Phone'">
     <OutputPath>bin\Windows Phone\Tune\</OutputPath>
-    <DefineConstants>TRACE;WINDOWS_PHONE; ALLOW_GARBAGE; ALLOW_DEBUG_SHAPES</DefineConstants>
+    <DefineConstants>DEBUG;TRACE;WINDOWS_PHONE; ALLOW_GARBAGE; ALLOW_DEBUG_SHAPES</DefineConstants>
     <Optimize>true</Optimize>
     <NoStdLib>true</NoStdLib>
     <DebugType>pdbonly</DebugType>
@@ -116,6 +116,7 @@
     <Compile Include="Behaviour\GroundShadow.cs" />
     <Compile Include="Behaviour\Partner.cs" />
     <Compile Include="Behaviour\Player.cs" />
+    <Compile Include="Behaviour\ScoreSummary.cs" />
     <Compile Include="Behaviour\Wobble.cs" />
     <Compile Include="Gameflow\GameModeManager.cs" />
     <Compile Include="Gameflow\LeaderBoardManager.cs" />

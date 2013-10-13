@@ -5,6 +5,10 @@
       <Item>GAME_OVER</Item>
       <Item>GAME_OVER_LOSS</Item>
     </mUpdatePasses>
+    <mRenderPasses>
+      <Item>GAME_OVER</Item>
+      <Item>GAME_OVER_LOSS</Item>
+    </mRenderPasses>
   </Asset>
 </XnaContent>
 

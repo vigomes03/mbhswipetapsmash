@@ -111,9 +111,11 @@ namespace MBHEngine.Math
 
         public void RecycleStopWatch(StopWatch watch)
         {
+            System.Diagnostics.Debug.Assert(watch != null, "Attempting to remove null watch!");
+
             // If the watch is being managed by the Active list, remove it from there and put it back into
             // the Expired stack so that someone else can use it.
-            //if (mActiveWatches.Contains(watch))
+            if (watch != null) //&& mActiveWatches.Contains(watch))
             {
                 mActiveWatches.Remove(watch);
                 mExpiredWatches.Push(watch);

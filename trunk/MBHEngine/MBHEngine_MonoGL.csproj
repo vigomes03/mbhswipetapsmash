@@ -47,7 +47,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Tune|x86'">
     <OutputPath>bin\MonoGL\Tune\</OutputPath>
     <IntermediateOutputPath>obj\MonoGL\Tune</IntermediateOutputPath>
-    <DefineConstants>TRACE;MONOGL;WINDOWS;ALLOW_DEBUG_SHAPES; ALLOW_GARBAGE</DefineConstants>
+    <DefineConstants>DEBUG;TRACE;MONOGL;WINDOWS;ALLOW_DEBUG_SHAPES; ALLOW_GARBAGE</DefineConstants>
     <Optimize>true</Optimize>
     <NoStdLib>true</NoStdLib>
     <DebugType>pdbonly</DebugType>

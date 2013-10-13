@@ -51,6 +51,7 @@ namespace BumpSetSpike.Behaviour
         /// Preallocated to avoid GC.
         /// </summary>
         private SpriteRender.SetActiveAnimationMessage mSetActiveAnimationMsg;
+        private SpriteRender.SetColorMessage mSetColorMsg;
 
         /// <summary>
         /// Constructor which also handles the process of loading in the Behaviour
@@ -76,6 +77,7 @@ namespace BumpSetSpike.Behaviour
             mScoreNums = new List<GameObject>(16);
 
             mSetActiveAnimationMsg = new SpriteRender.SetActiveAnimationMessage();
+            mSetColorMsg = new SpriteRender.SetColorMessage();
         }
 
         /// <summary>
@@ -155,15 +157,26 @@ namespace BumpSetSpike.Behaviour
         /// </summary>
         private void UpdateNumberPositions()
         {
+            if (mDisplayWatch == null)
+            {
+                return;
+            }
+
             Int32 count = mScoreNums.Count;
             Single offset = 8.0f;
 
             Single startX = mParentGOH.pPosX - (count * 0.5f * offset);
 
+            Single percent  = Math.Min((1.0f - mDisplayWatch.pPercentElapsed) * 4.0f, 1.0f);
+            mSetColorMsg.mColor_In = Color.White;
+            mSetColorMsg.mColor_In.A = (Byte)(255.0f * (percent));
+
             for (Int32 i = mScoreNums.Count - 1; i >= 0; i--)
             {
                 mScoreNums[i].pPosition = mParentGOH.pPosition;
                 mScoreNums[i].pPosX = startX + (i * offset);
+
+                mScoreNums[i].OnMessage(mSetColorMsg, mParentGOH);
             }
         }
 

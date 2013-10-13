@@ -19,8 +19,8 @@ namespace BumpSetSpike.Gameflow
         public enum ScoreType
         {
             // Basics
-            Spike = 0,
-            Jump,
+            Jump = 0,
+            Spike,
             Net,
             Kabooom,
 
@@ -28,10 +28,10 @@ namespace BumpSetSpike.Gameflow
             FingerTips,     // Hit the ball at the top of the collision box.
             HighPoint,      // Hit the ball near it's peak.
             LowPoint,       // Hit the ball near it's lowest point.
-            HangTime,       // Hit the ball after being in the air for a while.
             FadeAway,       // Hit the ball while moving backwards.
             Upwards,        // Hit the ball while it is still moving upwards.
             Speedy,         // Hit the ball while moving very fast.
+            HangTime,       // Hit the ball after being in the air for a while.
 
             Count,
         }
@@ -55,6 +55,11 @@ namespace BumpSetSpike.Gameflow
         /// Preallocated to avoid GC.
         /// </summary>
         private PointDisplay.SetScoreMessage mSetScoreMsg;
+
+        /// <summary>
+        /// Tracks all the moves used in the current combo, and how many times each was performed.
+        /// </summary>
+        private Int32[] mCurrentCombo;
 
         /// <summary>
         /// Constructor.
@@ -87,6 +92,7 @@ namespace BumpSetSpike.Gameflow
         /// </summary>
         public void Initialize()
         {
+            mCurrentCombo = new Int32[(Int32)ScoreType.Count];
         }
 
         /// <summary>
@@ -142,6 +148,8 @@ namespace BumpSetSpike.Gameflow
         public void AddScore(ScoreType type, Vector2 positionInWorld)
         {
             AddScore(mScoreMapping[(Int32)type], positionInWorld);
+
+            mCurrentCombo[(Int32)type]++;
         }
 
         /// <summary>
@@ -150,6 +158,42 @@ namespace BumpSetSpike.Gameflow
         public void OnMatchOver()
         {
             mTotalScore = 0;
+
+            for (Int32 i = 0; i < (Int32)ScoreType.Count; i++)
+            {
+                mCurrentCombo[(Int32)i] = 0;
+            }
+        }
+
+        /// <summary>
+        /// Calculates the current score.
+        /// </summary>
+        /// <returns>The current score.</returns>
+        public Int32 CalcScore()
+        {
+            return mTotalScore;
+        }
+
+        /// <summary>
+        /// Access to the array storing how much each move type was done.
+        /// </summary>
+        public Int32[] pCurrentCombo
+        {
+            get
+            {
+                return mCurrentCombo;
+            }
+        }
+
+        /// <summary>
+        /// Access to the mapping of moves to how many points they are worth.
+        /// </summary>
+        public Dictionary<Int32, Int32> pScoreMapping
+        {
+            get
+            {
+                return mScoreMapping;
+            }
         }
     }
 }

@@ -13,6 +13,7 @@ using BumpSetSpike.Gameflow;
 using MBHEngine.Input;
 using MBHEngineContentDefs;
 using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace BumpSetSpike.Behaviour
 {
@@ -30,6 +31,11 @@ namespace BumpSetSpike.Behaviour
         /// The sound that plays when you user selects and item on the menu.
         /// </summary>
         private SoundEffect mFxMenuSelect;
+
+        /// <summary>
+        /// In score attack mode we need to bring up the score summany screen.
+        /// </summary>
+        private GameObject mScoreSummary;
 
         /// <summary>
         /// Preallocated to avoid GC.
@@ -67,16 +73,34 @@ namespace BumpSetSpike.Behaviour
         /// <summary>
         /// See parent.
         /// </summary>
-        /// <param name="gameTime"></param>
-        public override void Update(GameTime gameTime)
+        /// <returns></returns>
+        public override bool HandleUIInput()
         {
+            Boolean handled = false;
+
             if (InputManager.pInstance.CheckGesture(GestureType.Tap, ref mGesture))
             {
+                /*
+                String combo = "";
+
+                Int32[] comboData = ScoreManager.pInstance.pCurrentCombo;
+                Dictionary<Int32, Int32> scoreMapping = ScoreManager.pInstance.pScoreMapping;
+
+                for (Int32 i = 0; i < (Int32)ScoreManager.ScoreType.Count; i++)
+                {
+                    if (comboData[i] > 0)
+                    {
+                        combo += ((ScoreManager.ScoreType)i).ToString() + "(" + scoreMapping[(Int32)i] + ") x " + comboData[i] + " ";
+                    }
+                }
+
+                DebugMessageDisplay.pInstance.AddConstantMessage(combo);
+                */
 
                 mGetCurrentStateMsg.Reset();
                 GameObjectManager.pInstance.pPlayer.OnMessage(mGetCurrentStateMsg, mParentGOH);
 
-				// Don't leave game over until the player is on the ground.
+                // Don't leave game over until the player is on the ground.
                 if (mGetCurrentStateMsg.mState_Out == Player.State.Idle)
                 {
                     mFxMenuSelect.Play();
@@ -84,9 +108,32 @@ namespace BumpSetSpike.Behaviour
                     // Restart the game
                     GameObjectManager.pInstance.BroadcastMessage(mGameRestartMsg, mParentGOH);
                     GameObjectManager.pInstance.pCurUpdatePass = BehaviourDefinition.Passes.GAME_PLAY;
+
+                    // The Score Summary Behaviour removes itself from the GameObjectManager.
+                    mScoreSummary = null;
                 }
 
                 //TutorialManager.pInstance.StartTutorial();
+
+                handled = true;
+            }
+
+            return handled;
+        }
+
+        /// <summary>
+        /// See parent.
+        /// </summary>
+        /// <param name="gameTime"></param>
+        public override void Update(GameTime gameTime)
+        {
+            if (mScoreSummary == null && 
+                GameModeManager.pInstance.pMode == GameModeManager.GameMode.TrickAttack &&
+                GameObjectManager.pInstance.pCurUpdatePass != BehaviourDefinition.Passes.GAME_OVER_LOSS)
+            {
+                mScoreSummary = GameObjectFactory.pInstance.GetTemplate("GameObjects\\UI\\ScoreSummary\\ScoreSummary");
+
+                GameObjectManager.pInstance.Add(mScoreSummary);
             }
         }
     }
