@@ -42,11 +42,6 @@ namespace BumpSetSpike.Gameflow
         private static ScoreManager mInstance;
 
         /// <summary>
-        /// The current total score.
-        /// </summary>
-        private Int32 mTotalScore;
-
-        /// <summary>
         /// Maps a type of move to a point value.
         /// </summary>
         private Dictionary<Int32, Int32> mScoreMapping;
@@ -116,7 +111,7 @@ namespace BumpSetSpike.Gameflow
         /// </summary>
         /// <param name="score">How manay points are being awarded.</param>
         /// <param name="positionInWorld">Where the points should appear in world space.</param>
-        private void AddScore(Int32 score, Vector2 positionInWorld)
+        private void UpdateScoreDisplay(Int32 score, Vector2 positionInWorld)
         {
             if (GameModeManager.pInstance.pMode != GameModeManager.GameMode.TrickAttack)
             {
@@ -132,10 +127,8 @@ namespace BumpSetSpike.Gameflow
              
             GameObjectManager.pInstance.Add(points);
 
-            mTotalScore += score;
-
             HitCountDisplay.SetScoreMessage setHitCountMsg = new HitCountDisplay.SetScoreMessage();
-            setHitCountMsg.mCount_In = mTotalScore;
+            setHitCountMsg.mCount_In = CalcScore();
 
             GameObjectManager.pInstance.BroadcastMessage(setHitCountMsg);
         }
@@ -147,9 +140,9 @@ namespace BumpSetSpike.Gameflow
         /// <param name="positionInWorld">Where the points should appear in world space.</param>
         public void AddScore(ScoreType type, Vector2 positionInWorld)
         {
-            AddScore(mScoreMapping[(Int32)type], positionInWorld);
-
             mCurrentCombo[(Int32)type]++;
+
+            UpdateScoreDisplay(mScoreMapping[(Int32)type], positionInWorld);
         }
 
         /// <summary>
@@ -157,8 +150,6 @@ namespace BumpSetSpike.Gameflow
         /// </summary>
         public void OnMatchOver()
         {
-            mTotalScore = 0;
-
             for (Int32 i = 0; i < (Int32)ScoreType.Count; i++)
             {
                 mCurrentCombo[(Int32)i] = 0;
@@ -171,7 +162,47 @@ namespace BumpSetSpike.Gameflow
         /// <returns>The current score.</returns>
         public Int32 CalcScore()
         {
-            return mTotalScore;
+            Int32 multiplier = 0;
+
+            Int32 score = 0;
+
+            for (Int32 i = 0; i < (Int32)ScoreType.Count; i++)
+            {
+                Int32 moveCount = mCurrentCombo[(Int32)i];
+
+                if (moveCount > 0)
+                {
+                    // +1 multiplier for each TYPE of move performed.
+                    multiplier++;
+
+                    score += mScoreMapping[(Int32)i] * moveCount;
+                }
+            }
+
+            return score * multiplier;
+        }
+
+        /// <summary>
+        /// Calculate how many different tricks the user has performed, which is used as the Score
+        /// Multiplier.
+        /// </summary>
+        /// <returns></returns>
+        public Int32 CalMultiplier()
+        {
+            Int32 multiplier = 0;
+
+            for (Int32 i = 0; i < (Int32)ScoreType.Count; i++)
+            {
+                Int32 moveCount = mCurrentCombo[(Int32)i];
+
+                if (moveCount > 0)
+                {
+                    // +1 multiplier for each TYPE of move performed.
+                    multiplier++;
+                }
+            }
+
+            return multiplier;
         }
 
         /// <summary>

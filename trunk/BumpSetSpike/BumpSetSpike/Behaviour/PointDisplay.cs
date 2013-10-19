@@ -157,17 +157,20 @@ namespace BumpSetSpike.Behaviour
         /// </summary>
         private void UpdateNumberPositions()
         {
-            if (mDisplayWatch == null)
-            {
-                return;
-            }
-
             Int32 count = mScoreNums.Count;
             Single offset = 8.0f;
 
             Single startX = mParentGOH.pPosX - (count * 0.5f * offset);
 
-            Single percent  = Math.Min((1.0f - mDisplayWatch.pPercentElapsed) * 4.0f, 1.0f);
+            Single timeElapsed = 0.0f;
+
+            // This will get called before the timer has been created.
+            if (mDisplayWatch != null)
+            {
+                timeElapsed = mDisplayWatch.pPercentElapsed;
+            }
+
+            Single percent  = Math.Min((1.0f - timeElapsed) * 4.0f, 1.0f);
             mSetColorMsg.mColor_In = Color.White;
             mSetColorMsg.mColor_In.A = (Byte)(255.0f * (percent));
 
