@@ -233,6 +233,33 @@ namespace BumpSetSpike.Behaviour
 
             if (mNumShown >= GetNumMoves())
             {
+                string str = "Multiplier";
+                Vector2 strSize = mFont.MeasureString(str);
+                Single vertSpace = 9.0f;
+                Single horzOffSet = 14.0f;
+                Single vertOffSet = 0.0f;
+
+                Vector2 pos = new Vector2(screenRect.pCenterPoint.X - horzOffSet - strSize.X, vertSpace * count + vertOffSet + yStart);
+                Vector2 posShadow = new Vector2(pos.X, pos.Y + 1);
+
+                batch.DrawString(mFont, str, posShadow, Color.Black);
+                batch.DrawString(mFont, str, pos, Color.White);
+
+                ///
+
+                str = ScoreManager.pInstance.CalMultiplier().ToString();
+
+                pos = new Vector2(screenRect.pCenterPoint.X + horzOffSet + 30, vertSpace * count + vertOffSet + yStart);
+                posShadow = new Vector2(pos.X, pos.Y + 1);
+
+                batch.DrawString(mFont, str, posShadow, Color.Black);
+                batch.DrawString(mFont, str, pos, Color.White);
+
+                count++;
+            }
+
+            if (mNumShown >= GetNumMoves() + 1)
+            {
                 string str = "Total";
                 Vector2 strSize = mFont.MeasureString(str);
                 Single vertSpace = 9.0f;
@@ -254,6 +281,8 @@ namespace BumpSetSpike.Behaviour
 
                 batch.DrawString(mFont, str, posShadow, Color.Purple);
                 batch.DrawString(mFont, str, pos, Color.White);
+
+                count++;
             }
         }
 

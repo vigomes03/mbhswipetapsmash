@@ -123,7 +123,7 @@ namespace BumpSetSpike.Behaviour
 
             base.LoadContent(fileName);
 
-            mNumCharDisplay = 3;
+            mNumCharDisplay = 4;
 
             mDisplayRecord = def.mDisplayRecord;
             mHitCounterNums = new List<GameObject>(mNumCharDisplay);
