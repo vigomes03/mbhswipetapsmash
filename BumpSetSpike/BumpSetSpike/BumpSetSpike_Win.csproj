@@ -111,6 +111,8 @@
     <Compile Include="Behaviour\ClientBehaviourCreator.cs" />
     <Compile Include="Behaviour\Ball.cs" />
     <Compile Include="Behaviour\EffectEmitter.cs" />
+    <Compile Include="Behaviour\FSM\FSMPauseScreen.cs" />
+    <Compile Include="Behaviour\FSM\StatePauseRoot.cs" />
     <Compile Include="Behaviour\GameOver.cs" />
     <Compile Include="Behaviour\HitCountDisplay.cs" />
     <Compile Include="Behaviour\NewHighScore.cs" />

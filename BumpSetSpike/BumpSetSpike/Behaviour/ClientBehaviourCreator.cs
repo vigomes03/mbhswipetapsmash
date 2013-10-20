@@ -76,6 +76,10 @@ namespace BumpSetSpike.Behaviour
                     {
                         return new ScoreSummary(go, fileName);
                     }
+                case "BumpSetSpike.Behaviour.FSM.FSMPauseScreen":
+                    {
+                        return new FSM.FSMPauseScreen(go, fileName);
+                    }
                 default:
                     {
                         return null;

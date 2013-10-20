@@ -17,12 +17,12 @@ namespace BumpSetSpikeContentDefs
         {
             OpenURL,
             PauseGame,
-            ResumeGame,
             ShowCredits,
             OptionToggleTutorial,
             LeaveCredits,
             SetGameModeEndurance,
             SetGameModeTrickAttack,
+            SendMessage,
         }
 
         /// <summary>
