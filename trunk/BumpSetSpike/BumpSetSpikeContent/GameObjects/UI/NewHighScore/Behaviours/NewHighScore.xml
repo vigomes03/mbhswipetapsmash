@@ -1,10 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <XnaContent>
   <Asset Type="BumpSetSpikeContentDefs.NewHighScoreDefinition">
-    <mUpdatePasses>
-      <Item>GAME_OVER</Item>
-      <Item>GAME_OVER_LOSS</Item>
-    </mUpdatePasses>
   </Asset>
 </XnaContent>
 

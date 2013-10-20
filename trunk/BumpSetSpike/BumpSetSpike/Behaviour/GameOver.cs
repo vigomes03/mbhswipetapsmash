@@ -38,6 +38,11 @@ namespace BumpSetSpike.Behaviour
         private GameObject mScoreSummary;
 
         /// <summary>
+        /// Object that displays the "New High Score" text.
+        /// </summary>
+        private GameObject mHighScore;
+
+        /// <summary>
         /// Preallocated to avoid GC.
         /// </summary>
         private Player.OnGameRestartMessage mGameRestartMsg;
@@ -80,6 +85,7 @@ namespace BumpSetSpike.Behaviour
 
             if (InputManager.pInstance.CheckGesture(GestureType.Tap, ref mGesture))
             {
+                #region DEBUG_COMBO_OUTPUT
                 /*
                 String combo = "";
 
@@ -96,6 +102,7 @@ namespace BumpSetSpike.Behaviour
 
                 DebugMessageDisplay.pInstance.AddConstantMessage(combo);
                 */
+                #endregion
 
                 mGetCurrentStateMsg.Reset();
                 GameObjectManager.pInstance.pPlayer.OnMessage(mGetCurrentStateMsg, mParentGOH);
@@ -111,9 +118,13 @@ namespace BumpSetSpike.Behaviour
 
                     // The Score Summary Behaviour removes itself from the GameObjectManager.
                     mScoreSummary = null;
-                }
 
-                //TutorialManager.pInstance.StartTutorial();
+                    if (mHighScore != null)
+                    {
+                        GameObjectManager.pInstance.Remove(mHighScore);
+                        mHighScore = null;
+                    }
+                }
 
                 handled = true;
             }
@@ -134,6 +145,13 @@ namespace BumpSetSpike.Behaviour
                 mScoreSummary = GameObjectFactory.pInstance.GetTemplate("GameObjects\\UI\\ScoreSummary\\ScoreSummary");
 
                 GameObjectManager.pInstance.Add(mScoreSummary);
+            }
+            else if (mHighScore == null &&
+                GameModeManager.pInstance.pMode == GameModeManager.GameMode.Endurance &&
+                GameObjectManager.pInstance.pCurUpdatePass != BehaviourDefinition.Passes.GAME_OVER_LOSS)
+            {
+                mHighScore = GameObjectFactory.pInstance.GetTemplate("GameObjects\\UI\\NewHighScore\\NewHighScore");
+                GameObjectManager.pInstance.Add(mHighScore);
             }
         }
     }

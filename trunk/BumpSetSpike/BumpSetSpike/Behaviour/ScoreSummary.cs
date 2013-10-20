@@ -32,13 +32,33 @@ namespace BumpSetSpike.Behaviour
         /// </summary>
         private GestureSample mGesture;
 
+        /// <summary>
+        /// Black background to make the text easier to read.
+        /// </summary>
         private GameObject mBG;
 
-        private Int32 mNumShown;
+        /// <summary>
+        /// We reveal each row of the summary in sequence over time. This tracks how many rows have
+        /// been shown at any given moment.
+        /// </summary>
+        private Int32 mNumRowsShown;
 
+        /// <summary>
+        /// For things like the number of times a move was performed, we show the final value by 
+        /// incrementing up from 0. This counter keeps track of what the last number shown was for
+        /// the current row.
+        /// </summary>
         private Int32 mCountShown;
 
+        /// <summary>
+        /// Tracks the time between revealing rows.
+        /// </summary>
         private MBHEngine.Math.StopWatch mRevealTimer;
+
+        /// <summary>
+        /// If we got a high score we show "New High Score" text, and this object does that.
+        /// </summary>
+        private GameObject mHighScore;
 
         /// <summary>
         /// Preallocated to avoid GC.
@@ -82,7 +102,7 @@ namespace BumpSetSpike.Behaviour
             mBG = GameObjectFactory.pInstance.GetTemplate("GameObjects\\UI\\ScoreSummaryBG\\ScoreSummaryBG");
             GameObjectManager.pInstance.Add(mBG);
 
-            mNumShown = 0;
+            mNumRowsShown = 0;
             mCountShown = 1;
 
             mRevealTimer = StopWatchManager.pInstance.GetNewStopWatch();
@@ -99,6 +119,9 @@ namespace BumpSetSpike.Behaviour
             GameObjectManager.pInstance.Remove(mBG);
             mBG = null;
 
+            GameObjectManager.pInstance.Remove(mHighScore);
+            mHighScore = null;
+
             StopWatchManager.pInstance.RecycleStopWatch(mRevealTimer);
             mRevealTimer = null;
         }
@@ -111,7 +134,7 @@ namespace BumpSetSpike.Behaviour
         {
             if (mRevealTimer.IsExpired())
             {
-                mNumShown++;
+                mNumRowsShown++;
 
                 mCountShown = 1;
 
@@ -119,6 +142,10 @@ namespace BumpSetSpike.Behaviour
             }
         }
 
+        /// <summary>
+        /// See parent.
+        /// </summary>
+        /// <returns></returns>
         public override bool HandleUIInput()
         {
             Boolean handled = false;
@@ -127,9 +154,10 @@ namespace BumpSetSpike.Behaviour
             {
                 Int32 numMoves = GetNumMoves();
 
-                if (mNumShown < numMoves)
+                // First skip to the end of the sequence, and if that has been done already close the scren.
+                if (mNumRowsShown < numMoves)
                 {
-                    mNumShown = numMoves;
+                    mNumRowsShown = numMoves;
 
                     handled = true;
                 }
@@ -173,7 +201,7 @@ namespace BumpSetSpike.Behaviour
 
             for (Int32 i = 0; i < (Int32)ScoreManager.ScoreType.Count; i++)
             {
-                if (comboData[i] > 0 && count <= mNumShown)
+                if (comboData[i] > 0 && count <= mNumRowsShown)
                 {
                     string str = ((ScoreManager.ScoreType)i).ToString();
                     Vector2 strSize = mFont.MeasureString(str);
@@ -201,9 +229,12 @@ namespace BumpSetSpike.Behaviour
 
                     Int32 hitCount = comboData[i];
 
-                    if (count == mNumShown)
+                    if (count == mNumRowsShown)
                     {
                         hitCount = Math.Min(mCountShown, hitCount);
+
+                        // Each frame that we are on this row, increment the counter. If we are not on this
+                        // row it will just use hitCount set to the actual value.
                         mCountShown++;
                     }
 
@@ -231,7 +262,7 @@ namespace BumpSetSpike.Behaviour
                 }
             }
 
-            if (mNumShown >= GetNumMoves())
+            if (mNumRowsShown >= GetNumMoves())
             {
                 string str = "Multiplier";
                 Vector2 strSize = mFont.MeasureString(str);
@@ -258,7 +289,7 @@ namespace BumpSetSpike.Behaviour
                 count++;
             }
 
-            if (mNumShown >= GetNumMoves() + 1)
+            if (mNumRowsShown >= GetNumMoves() + 1)
             {
                 string str = "Total";
                 Vector2 strSize = mFont.MeasureString(str);
@@ -284,8 +315,18 @@ namespace BumpSetSpike.Behaviour
 
                 count++;
             }
+
+            if (mNumRowsShown >= GetNumMoves() + 2 && mHighScore == null)
+            {
+                mHighScore = GameObjectFactory.pInstance.GetTemplate("GameObjects\\UI\\NewHighScore\\NewHighScore");
+                GameObjectManager.pInstance.Add(mHighScore);
+            }
         }
 
+        /// <summary>
+        /// Get the number of moves that have been performed once of more this round.
+        /// </summary>
+        /// <returns>The number of unique moves performed.</returns>
         private Int32 GetNumMoves()
         {
             Int32 count = 0;

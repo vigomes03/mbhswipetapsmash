@@ -63,9 +63,19 @@ namespace BumpSetSpike.Behaviour
             mFxHighScore = GameObjectManager.pInstance.pContentManager.Load<SoundEffect>("Audio\\FX\\HighScore");
             mFxNoHighScore = GameObjectManager.pInstance.pContentManager.Load<SoundEffect>("Audio\\FX\\GameOver");
 
-            mHighScoreSoundPlayed = false;
+            Reset();
 
             mGetCurrentHitCountMsg = new HitCountDisplay.GetCurrentHitCountMessage();
+        }
+
+        /// <summary>
+        /// See parent.
+        /// </summary>
+        public override void Reset()
+        {
+            base.Reset();
+            mHighScoreSoundPlayed = false;
+            mParentGOH.pDoRender = false;
         }
 
         /// <summary>

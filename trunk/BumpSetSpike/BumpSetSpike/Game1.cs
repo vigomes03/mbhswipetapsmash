@@ -177,6 +177,7 @@ namespace BumpSetSpike
             GameObjectFactory.pInstance.AddTemplate("GameObjects\\UI\\HitCountDisplayRecord\\HitCountDisplayRecord", 1);
             GameObjectFactory.pInstance.AddTemplate("GameObjects\\UI\\ScoreSummaryBG\\ScoreSummaryBG", 1);
             GameObjectFactory.pInstance.AddTemplate("GameObjects\\UI\\ScoreSummary\\ScoreSummary", 1);
+            GameObjectFactory.pInstance.AddTemplate("GameObjects\\UI\\NewHighScore\\NewHighScore", 1);
             GameObjectFactory.pInstance.AddTemplate("GameObjects\\Items\\Tutorial\\Faster\\Faster", 4);
             GameObjectFactory.pInstance.AddTemplate("GameObjects\\Items\\Tutorial\\Slower\\Slower", 4);
                         
@@ -260,7 +261,6 @@ namespace BumpSetSpike
             GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\GameOver\\GameOver"));
             GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\PausedOverlay\\PausedOverlay"));
             GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\PausedBackdrop\\PausedBackdrop"));
-            GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\NewHighScore\\NewHighScore"));
             GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\Credits\\BG\\BG"));
             GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\Credits\\Backdrop\\Backdrop"));
             GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\Credits\\MHughsonButton\\MHughsonButton"));
