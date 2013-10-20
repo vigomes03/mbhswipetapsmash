@@ -14,6 +14,7 @@ using BumpSetSpikeContentDefs;
 using MBHEngineContentDefs;
 using BumpSetSpike.Gameflow;
 using System.Diagnostics;
+using MBHEngine.Behaviour;
 
 namespace BumpSetSpike.Behaviour
 {
@@ -23,6 +24,26 @@ namespace BumpSetSpike.Behaviour
     class Button : MBHEngine.Behaviour.Behaviour
     {
         /// <summary>
+        /// When a button is pressed, it can optionally send out one of these messages, allowing clients
+        /// to react to it.
+        /// </summary>
+        public class OnButtonPressedMessage : BehaviourMessage
+        {
+            /// <summary>
+            /// Did anyone react to and handle the event.
+            /// </summary>
+            public Boolean mHandled_Out;
+
+            /// <summary>
+            /// See parent.
+            /// </summary>
+            public override void Reset()
+            {
+                mHandled_Out = false;
+            }
+        }
+
+        /// <summary>
         /// Preallocated to avoid GC.
         /// </summary>
         private GestureSample mGesture;
@@ -31,6 +52,11 @@ namespace BumpSetSpike.Behaviour
         /// Hang onto the definition so that we don't need to copy over all the task information.
         /// </summary>
         private BumpSetSpikeContentDefs.ButtonDefinition mDef;
+
+        /// <summary>
+        /// Preallocated to avoid GC.
+        /// </summary>
+        private OnButtonPressedMessage mOnButtonPressedMsg;
 
         /// <summary>
         /// Constructor which also handles the process of loading in the Behaviour
@@ -54,6 +80,7 @@ namespace BumpSetSpike.Behaviour
             mDef = GameObjectManager.pInstance.pContentManager.Load<BumpSetSpikeContentDefs.ButtonDefinition>(fileName);
 
             mGesture = new GestureSample();
+            mOnButtonPressedMsg = new OnButtonPressedMessage();
 
             // Special handling for this type of button.
             if (mDef.mTaskOnRelease.mType == BumpSetSpikeContentDefs.ButtonDefinition.TaskType.OptionToggleTutorial)
@@ -105,12 +132,7 @@ namespace BumpSetSpike.Behaviour
                         case BumpSetSpikeContentDefs.ButtonDefinition.TaskType.PauseGame:
                         {
                             GameObjectManager.pInstance.pCurUpdatePass = BehaviourDefinition.Passes.GAME_PLAY_PAUSED;
-                            return true;
-                        }
-
-                        case BumpSetSpikeContentDefs.ButtonDefinition.TaskType.ResumeGame:
-                        {
-                            GameObjectManager.pInstance.pCurUpdatePass = BehaviourDefinition.Passes.GAME_PLAY;
+                            GameObjectManager.pInstance.Add(GameObjectFactory.pInstance.GetTemplate("GameObjects\\UI\\FSMPauseScreen\\FSMPauseScreen"));
                             return true;
                         }
 
@@ -157,6 +179,15 @@ namespace BumpSetSpike.Behaviour
 
                             // Let main menu get this input too.
                             return false;
+                        }
+
+                        case BumpSetSpikeContentDefs.ButtonDefinition.TaskType.SendMessage:
+                        {
+                            mOnButtonPressedMsg.Reset();
+
+                            GameObjectManager.pInstance.BroadcastMessage(mOnButtonPressedMsg, mParentGOH);
+
+                            return mOnButtonPressedMsg.mHandled_Out;
                         }
                     }
                 }

@@ -22,6 +22,7 @@ namespace MBHEngineContentDefs
             GAME_OVER,
             GAME_OVER_LOSS,
             GAME_PLAY_PAUSED,
+            QUIT,
         }
 
         /// <summary>

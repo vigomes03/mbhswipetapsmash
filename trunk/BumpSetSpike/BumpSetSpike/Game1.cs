@@ -162,25 +162,56 @@ namespace BumpSetSpike
             // Add any objects desired to the Game Object Factory.  These will be allocated now and can
             // be retrived later without any heap allocations.
             //
-            GameObjectFactory.pInstance.AddTemplate("GameObjects\\Items\\Dust\\Dust", 64);
-            GameObjectFactory.pInstance.AddTemplate("GameObjects\\Items\\Sparks\\Sparks", 64);
-            GameObjectFactory.pInstance.AddTemplate("GameObjects\\Items\\Kabooom\\Kabooom", 4);
             GameObjectFactory.pInstance.AddTemplate("GameObjects\\Items\\Blood\\Blood", 4);
+            GameObjectFactory.pInstance.AddTemplate("GameObjects\\Items\\Dust\\Dust", 64);
+            GameObjectFactory.pInstance.AddTemplate("GameObjects\\Items\\Kabooom\\Kabooom", 4);
+            GameObjectFactory.pInstance.AddTemplate("GameObjects\\Items\\Sparks\\Sparks", 64);
             GameObjectFactory.pInstance.AddTemplate("GameObjects\\Items\\SparkEmitter\\SparkEmitter", 4);
-            GameObjectFactory.pInstance.AddTemplate("GameObjects\\UI\\NumFont\\NumFont", 128);
-            GameObjectFactory.pInstance.AddTemplate("GameObjects\\UI\\NumFontUI\\NumFontUI", 128);
-            GameObjectFactory.pInstance.AddTemplate("GameObjects\\UI\\PointDisplay\\PointDisplay", 32);
-            GameObjectFactory.pInstance.AddTemplate("GameObjects\\UI\\TapStart\\TapStart", 1);
-            GameObjectFactory.pInstance.AddTemplate("GameObjects\\UI\\ScoreLabel\\ScoreLabel", 1);
-            GameObjectFactory.pInstance.AddTemplate("GameObjects\\UI\\HitCountDisplay\\HitCountDisplay", 1);
-            GameObjectFactory.pInstance.AddTemplate("GameObjects\\UI\\HiScoreLabel\\HiScoreLabel", 1);
-            GameObjectFactory.pInstance.AddTemplate("GameObjects\\UI\\HitCountDisplayRecord\\HitCountDisplayRecord", 1);
-            GameObjectFactory.pInstance.AddTemplate("GameObjects\\UI\\ScoreSummaryBG\\ScoreSummaryBG", 1);
-            GameObjectFactory.pInstance.AddTemplate("GameObjects\\UI\\ScoreSummary\\ScoreSummary", 1);
-            GameObjectFactory.pInstance.AddTemplate("GameObjects\\UI\\NewHighScore\\NewHighScore", 1);
             GameObjectFactory.pInstance.AddTemplate("GameObjects\\Items\\Tutorial\\Faster\\Faster", 4);
             GameObjectFactory.pInstance.AddTemplate("GameObjects\\Items\\Tutorial\\Slower\\Slower", 4);
-                        
+            GameObjectFactory.pInstance.AddTemplate("GameObjects\\UI\\FSMPauseScreen\\FSMPauseScreen", 1);
+            GameObjectFactory.pInstance.AddTemplate("GameObjects\\UI\\HiScoreLabel\\HiScoreLabel", 1);
+            GameObjectFactory.pInstance.AddTemplate("GameObjects\\UI\\HitCountDisplay\\HitCountDisplay", 1);
+            GameObjectFactory.pInstance.AddTemplate("GameObjects\\UI\\HitCountDisplayRecord\\HitCountDisplayRecord", 1);
+            GameObjectFactory.pInstance.AddTemplate("GameObjects\\UI\\NewHighScore\\NewHighScore", 1);
+            GameObjectFactory.pInstance.AddTemplate("GameObjects\\UI\\NumFont\\NumFont", 128);
+            GameObjectFactory.pInstance.AddTemplate("GameObjects\\UI\\NumFontUI\\NumFontUI", 128);
+            GameObjectFactory.pInstance.AddTemplate("GameObjects\\UI\\PauseQuitButton\\PauseQuitButton", 1);
+            GameObjectFactory.pInstance.AddTemplate("GameObjects\\UI\\PauseResumeButton\\PauseResumeButton", 1);
+            GameObjectFactory.pInstance.AddTemplate("GameObjects\\UI\\PointDisplay\\PointDisplay", 32);
+            GameObjectFactory.pInstance.AddTemplate("GameObjects\\UI\\ScoreLabel\\ScoreLabel", 1);
+            GameObjectFactory.pInstance.AddTemplate("GameObjects\\UI\\ScoreSummary\\ScoreSummary", 1);
+            GameObjectFactory.pInstance.AddTemplate("GameObjects\\UI\\ScoreSummaryBG\\ScoreSummaryBG", 1);
+            GameObjectFactory.pInstance.AddTemplate("GameObjects\\UI\\TapStart\\TapStart", 1);
+
+            // Add objects that exist from the moment the game starts.
+            //
+            GameObjectManager.pInstance.Add(new GameObject("GameObjects\\Items\\Court\\Court"));
+            GameObjectManager.pInstance.Add(new GameObject("GameObjects\\Items\\Net\\Net"));
+            GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\AttackModeButton\\AttackModeButton"));
+            GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\Credits\\Backdrop\\Backdrop"));
+            GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\Credits\\BG\\BG"));
+            //GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\Credits\\CKuklaButton\\CKuklaButton"));
+            GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\Credits\\MHughsonButton\\MHughsonButton"));
+            GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\Credits\\MImmonenButton\\MImmonenButton"));
+            GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\Credits\\SMcGeeButton\\SMcGeeButton"));
+            GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\Credits\\SPaxtonButton\\SPaxtonButton"));
+            GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\CreditsButton\\CreditsButton"));
+            GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\EnduranceModeBG\\EnduranceModeBG"));
+            GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\EnduranceModeButton\\EnduranceModeButton"));
+            GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\FacebookButton\\FacebookButton"));
+            GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\GameOver\\GameOver"));
+            GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\IndieDBButton\\IndieDBButton"));
+            GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\LeaveCreditsButton\\LeaveCreditsButton"));
+            GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\Options\\Tutorial\\Checkbox\\Checkbox"));
+            GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\Options\\Tutorial\\Checkmark\\Checkmark"));
+            GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\Options\\Tutorial\\Label\\Label"));
+            GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\PauseButton\\PauseButton"));
+            GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\PausedBackdrop\\PausedBackdrop"));
+            GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\PausedOverlay\\PausedOverlay"));
+            GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\TitleScreen\\TitleScreen"));
+            GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\TrickModeBG\\TrickModeBG"));
+
             // The tiled background image that travels will the player creating the illusion of
             // an infinite background image.
             GameObject bg = new GameObject();
@@ -242,33 +273,6 @@ namespace BumpSetSpike
             setTarg.mTarget_In = opponent;
             shadow.OnMessage(setTarg);
 
-            GameObjectManager.pInstance.Add(new GameObject("GameObjects\\Items\\Net\\Net"));
-            GameObjectManager.pInstance.Add(new GameObject("GameObjects\\Items\\Court\\Court"));
-            GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\TitleScreen\\TitleScreen"));
-            GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\CreditsButton\\CreditsButton"));
-            GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\FacebookButton\\FacebookButton"));
-            GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\IndieDBButton\\IndieDBButton"));
-            GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\Options\\Tutorial\\Label\\Label"));
-            GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\Options\\Tutorial\\Checkbox\\Checkbox"));
-            GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\Options\\Tutorial\\Checkmark\\Checkmark"));
-            GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\EnduranceModeBG\\EnduranceModeBG"));
-            GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\EnduranceModeButton\\EnduranceModeButton"));
-            GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\AttackModeButton\\AttackModeButton"));
-            GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\TrickModeBG\\TrickModeBG"));
-            GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\PauseButton\\PauseButton"));
-            GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\ResumeButton\\ResumeButton"));
-            GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\LeaveCreditsButton\\LeaveCreditsButton"));
-            GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\GameOver\\GameOver"));
-            GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\PausedOverlay\\PausedOverlay"));
-            GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\PausedBackdrop\\PausedBackdrop"));
-            GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\Credits\\BG\\BG"));
-            GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\Credits\\Backdrop\\Backdrop"));
-            GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\Credits\\MHughsonButton\\MHughsonButton"));
-            GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\Credits\\MImmonenButton\\MImmonenButton"));
-            //GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\Credits\\CKuklaButton\\CKuklaButton"));
-            GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\Credits\\SMcGeeButton\\SMcGeeButton"));
-            GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\Credits\\SPaxtonButton\\SPaxtonButton"));
-
             // The vingette effect used to dim out the edges of the screen.
             //GameObject ving = new GameObject("GameObjects\\Interface\\Vingette\\Vingette");
 #if SMALL_WINDOW
@@ -295,6 +299,14 @@ namespace BumpSetSpike
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
+            // If someone told us to exit, do it right away.
+            if (GameObjectManager.pInstance.pCurUpdatePass == BehaviourDefinition.Passes.QUIT)
+            {
+                Exit();
+
+                return;
+            }
+
             if (!IsActive)
             {
                 // Prevent the debug shape queue from getting too backed up.
@@ -313,13 +325,10 @@ namespace BumpSetSpike
                 {
                     GameObjectManager.pInstance.pCurUpdatePass = BehaviourDefinition.Passes.MAIN_MENU;
                 }
-                else if (GameObjectManager.pInstance.pCurUpdatePass == BehaviourDefinition.Passes.GAME_PLAY_PAUSED)
+                else if (GameObjectManager.pInstance.pCurUpdatePass == BehaviourDefinition.Passes.GAME_PLAY)
                 {
-                    GameObjectManager.pInstance.pCurUpdatePass = BehaviourDefinition.Passes.GAME_PLAY;
-                }
-                else
-                {
-                    this.Exit();
+                    GameObjectManager.pInstance.pCurUpdatePass = BehaviourDefinition.Passes.GAME_PLAY_PAUSED;
+                    GameObjectManager.pInstance.Add(GameObjectFactory.pInstance.GetTemplate("GameObjects\\UI\\FSMPauseScreen\\FSMPauseScreen"));
                 }
             }
 
@@ -463,6 +472,7 @@ namespace BumpSetSpike
             if (GameObjectManager.pInstance.pCurUpdatePass == BehaviourDefinition.Passes.GAME_PLAY)
             {
                 GameObjectManager.pInstance.pCurUpdatePass = BehaviourDefinition.Passes.GAME_PLAY_PAUSED;
+                GameObjectManager.pInstance.Add(GameObjectFactory.pInstance.GetTemplate("GameObjects\\UI\\FSMPauseScreen\\FSMPauseScreen"));
             }
         }
     }

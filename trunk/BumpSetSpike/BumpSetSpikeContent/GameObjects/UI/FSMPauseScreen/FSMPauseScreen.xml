@@ -1,23 +1,25 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <XnaContent>
   <Asset Type="MBHEngineContentDefs.GameObjectDefinition">
-    <mRenderPriority>100</mRenderPriority>
+    <mRenderPriority>101</mRenderPriority>
     <mDoUpdate>true</mDoUpdate>
     <mDoRender>true</mDoRender>
-    <mPosition>0 16</mPosition>
+    <mPosition>0 29</mPosition>
     <mScreenRelativeAnchorPoint>
       <X>CENTER</X>
-      <Y>TOP</Y>
+      <Y>CENTER</Y>
     </mScreenRelativeAnchorPoint>
-    <mRotation>0</mRotation>
+    <mRotation>-0.10</mRotation>
     <mScale>1 1</mScale>
-    <mMotionRoot>64 16</mMotionRoot>
+    <mCollisionBoxDimensions>256.0 32.0</mCollisionBoxDimensions>
+    <mCollisionRoot>0 0</mCollisionRoot>
+    <mMotionRoot>128 8</mMotionRoot>
     <mBlendMode>STANDARD_UI</mBlendMode>
     <mBehaviourFileNames>
-      <Item>Sprite</Item>
+      <Item>FSMPauseScreen</Item>
     </mBehaviourFileNames>
     <mBehaviourClassNames>
-      <Item>MBHEngine.Behaviour.SpriteRender</Item>
+      <Item>BumpSetSpike.Behaviour.FSM.FSMPauseScreen</Item>
     </mBehaviourClassNames>
   </Asset>
 </XnaContent>
