@@ -119,7 +119,10 @@ namespace BumpSetSpike.Behaviour
                 if (InputManager.pInstance.CheckGesture(GestureType.Tap, ref mGesture) || 
                     InputManager.pInstance.CheckAction(InputManager.InputActions.START, true))
                 {
-                    if (mCurrentState == State.ModeSelect)
+                    // Did we click a mode selection button? If so GameModeManager.pInstance.pMode
+                    // should be set by this point.
+                    if (mCurrentState == State.ModeSelect && 
+                        GameModeManager.pInstance.pMode != GameModeManager.GameMode.None)
                     {
                         // Move down to the gameplay camera position.
                         CameraManager.pInstance.pTargetPosition = new Vector2(0, -30.0f);
@@ -156,6 +159,15 @@ namespace BumpSetSpike.Behaviour
 
                     mWatch.Restart();
                     mWatch.pIsPaused = true;
+                }
+            }
+
+            if (InputManager.pInstance.CheckAction(InputManager.InputActions.BACK, true))
+            {
+                if (mCurrentState == State.ModeSelect)
+                {
+                    GameObjectManager.pInstance.pCurUpdatePass = BehaviourDefinition.Passes.MAIN_MENU;
+                    mCurrentState = State.OnTitle;
                 }
             }
 

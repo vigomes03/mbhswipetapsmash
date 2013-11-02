@@ -20,7 +20,8 @@ namespace BumpSetSpike.Gameflow
         /// </summary>
         public enum GameMode
         {
-            Endurance = 0,
+            None = 0,
+            Endurance,
             TrickAttack,
         }
 
@@ -35,7 +36,7 @@ namespace BumpSetSpike.Gameflow
         public GameModeManager()
         {
             // Pick one by default.
-            mCurrentMode = GameMode.Endurance;
+            mCurrentMode = GameMode.None;
         }
 
         /// <summary>
