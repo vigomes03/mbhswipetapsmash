@@ -188,6 +188,8 @@ namespace BumpSetSpike.Behaviour
             Int32 count = 0;
             Single yStart = 10.0f;
 
+            Color purp = new Color(202, 75, 201);
+
             {
                 string str = "Summary";
 
@@ -195,7 +197,7 @@ namespace BumpSetSpike.Behaviour
                 Vector2 pos = new Vector2(screenRect.pCenterPoint.X - strSize.X * 0.5f, 0);
                 Vector2 posShadow = new Vector2(pos.X, pos.Y + 1);
 
-                batch.DrawString(mFont, str, posShadow, Color.Purple);
+                batch.DrawString(mFont, str, posShadow, purp);
                 batch.DrawString(mFont, str, pos, Color.White);
             }
 
@@ -300,7 +302,7 @@ namespace BumpSetSpike.Behaviour
                 Vector2 pos = new Vector2(screenRect.pCenterPoint.X - horzOffSet - strSize.X, vertSpace * count + vertOffSet + yStart);
                 Vector2 posShadow = new Vector2(pos.X, pos.Y + 1);
 
-                batch.DrawString(mFont, str, posShadow, Color.Purple);
+                batch.DrawString(mFont, str, posShadow, purp);
                 batch.DrawString(mFont, str, pos, Color.White);
 
                 ///
@@ -310,7 +312,7 @@ namespace BumpSetSpike.Behaviour
                 pos = new Vector2(screenRect.pCenterPoint.X + horzOffSet + 30, vertSpace * count + vertOffSet + yStart);
                 posShadow = new Vector2(pos.X, pos.Y + 1);
 
-                batch.DrawString(mFont, str, posShadow, Color.Purple);
+                batch.DrawString(mFont, str, posShadow, purp);
                 batch.DrawString(mFont, str, pos, Color.White);
 
                 count++;
