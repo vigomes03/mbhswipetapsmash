@@ -125,8 +125,6 @@ namespace BumpSetSpike
             //SaveGameManager.pInstance.WriteSaveGameXML();
             //SaveGameManager.pInstance.ReadSaveGameXML();
 
-            CameraManager.pInstance.pTargetPosition = new Vector2(0, -100.0f); // -30
-
             // enable the gestures we care about. you must set EnabledGestures before
             // you can use any of the other mGesture APIs.
             // we use both Tap and DoubleTap to workaround a bug in the XNA GS 4.0 Beta
@@ -178,11 +176,13 @@ namespace BumpSetSpike
             GameObjectFactory.pInstance.AddTemplate("GameObjects\\UI\\NumFontUI\\NumFontUI", 128);
             GameObjectFactory.pInstance.AddTemplate("GameObjects\\UI\\PauseQuitButton\\PauseQuitButton", 1);
             GameObjectFactory.pInstance.AddTemplate("GameObjects\\UI\\PauseResumeButton\\PauseResumeButton", 1);
+            GameObjectFactory.pInstance.AddTemplate("GameObjects\\UI\\PauseMainMenuButton\\PauseMainMenuButton", 1);
             GameObjectFactory.pInstance.AddTemplate("GameObjects\\UI\\PointDisplay\\PointDisplay", 32);
             GameObjectFactory.pInstance.AddTemplate("GameObjects\\UI\\ScoreLabel\\ScoreLabel", 1);
             GameObjectFactory.pInstance.AddTemplate("GameObjects\\UI\\ScoreSummary\\ScoreSummary", 1);
             GameObjectFactory.pInstance.AddTemplate("GameObjects\\UI\\ScoreSummaryBG\\ScoreSummaryBG", 1);
             GameObjectFactory.pInstance.AddTemplate("GameObjects\\UI\\TapStart\\TapStart", 1);
+            GameObjectFactory.pInstance.AddTemplate("GameObjects\\UI\\TitleScreen\\TitleScreen", 1);
 
             // Add objects that exist from the moment the game starts.
             //
@@ -209,8 +209,15 @@ namespace BumpSetSpike
             GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\PauseButton\\PauseButton"));
             GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\PausedBackdrop\\PausedBackdrop"));
             GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\PausedOverlay\\PausedOverlay"));
-            GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\TitleScreen\\TitleScreen"));
             GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\TrickModeBG\\TrickModeBG"));
+
+            GameObject titleScreen = GameObjectFactory.pInstance.GetTemplate("GameObjects\\UI\\TitleScreen\\TitleScreen");
+            GameObjectManager.pInstance.Add(titleScreen); 
+            
+            GameObjectManager.pInstance.Add(GameObjectFactory.pInstance.GetTemplate("GameObjects\\UI\\ScoreLabel\\ScoreLabel"));
+            GameObjectManager.pInstance.Add(GameObjectFactory.pInstance.GetTemplate("GameObjects\\UI\\HitCountDisplay\\HitCountDisplay"));
+            GameObjectManager.pInstance.Add(GameObjectFactory.pInstance.GetTemplate("GameObjects\\UI\\HiScoreLabel\\HiScoreLabel"));
+            GameObjectManager.pInstance.Add(GameObjectFactory.pInstance.GetTemplate("GameObjects\\UI\\HitCountDisplayRecord\\HitCountDisplayRecord"));
 
             // The tiled background image that travels will the player creating the illusion of
             // an infinite background image.

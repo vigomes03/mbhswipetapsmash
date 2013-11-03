@@ -276,6 +276,7 @@ namespace BumpSetSpike.Behaviour
                         else if (TutorialManager.pInstance.pCurState == TutorialManager.State.TRYING_AGAIN)
                         {
                             GameObjectManager.pInstance.BroadcastMessage(mOnMatchRestartMsg, mParentGOH);
+                            TutorialManager.pInstance.StopTutorial();
                             TutorialManager.pInstance.StartTutorial();
                         }
                         else if (TutorialManager.pInstance.pCurState == TutorialManager.State.TAP_END)
@@ -283,6 +284,7 @@ namespace BumpSetSpike.Behaviour
                             System.Diagnostics.Debug.Assert(false, "Tutorial failed to play winning move.");
 
                             GameObjectManager.pInstance.BroadcastMessage(mOnMatchRestartMsg, mParentGOH);
+                            TutorialManager.pInstance.StopTutorial();
                             TutorialManager.pInstance.StartTutorial();
                         }
                         else

@@ -5,6 +5,7 @@ using System.Text;
 using MBHEngine.Behaviour;
 using MBHEngine.GameObject;
 using MBHEngine.Input;
+using BumpSetSpike.Gameflow;
 
 namespace BumpSetSpike.Behaviour.FSM
 {
@@ -12,6 +13,7 @@ namespace BumpSetSpike.Behaviour.FSM
     {
         private GameObject mResumeButton;
         private GameObject mQuitButton;
+        private GameObject mMainMenuButton;
 
         /// <summary>
         /// Called once when the state starts.  This is a chance to do things that should only happen once
@@ -26,6 +28,9 @@ namespace BumpSetSpike.Behaviour.FSM
 
             mResumeButton = GameObjectFactory.pInstance.GetTemplate("GameObjects\\UI\\PauseResumeButton\\PauseResumeButton");
             GameObjectManager.pInstance.Add(mResumeButton);
+
+            mMainMenuButton = GameObjectFactory.pInstance.GetTemplate("GameObjects\\UI\\PauseMainMenuButton\\PauseMainMenuButton");
+            GameObjectManager.pInstance.Add(mMainMenuButton);
         }
 
         /// <summary>
@@ -61,6 +66,11 @@ namespace BumpSetSpike.Behaviour.FSM
                 GameObjectManager.pInstance.Remove(mResumeButton);
                 mResumeButton = null;
             }
+            if (mMainMenuButton != null)
+            {
+                GameObjectManager.pInstance.Remove(mMainMenuButton);
+                mMainMenuButton = null;
+            }
 
             base.OnEnd();
         }
@@ -87,6 +97,17 @@ namespace BumpSetSpike.Behaviour.FSM
                 else if (msg.pSender == mQuitButton)
                 {
                     GameObjectManager.pInstance.pCurUpdatePass = MBHEngineContentDefs.BehaviourDefinition.Passes.QUIT;
+
+                    GameObjectManager.pInstance.Remove(pParentGOH);
+                }
+                else if (msg.pSender == mMainMenuButton)
+                {
+                    GameObjectManager.pInstance.pCurUpdatePass = MBHEngineContentDefs.BehaviourDefinition.Passes.MAIN_MENU;
+
+                    TutorialManager.pInstance.StopTutorial();
+
+                    GameObject titleScreen = GameObjectFactory.pInstance.GetTemplate("GameObjects\\UI\\TitleScreen\\TitleScreen");
+                    GameObjectManager.pInstance.Add(titleScreen);
 
                     GameObjectManager.pInstance.Remove(pParentGOH);
                 }

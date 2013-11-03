@@ -185,7 +185,7 @@ namespace MBHEngine.Render
             mTransformUI = Matrix.CreateScale(new Vector3(mDefaultZoomAmount));
 
             // Update the view area.
-            mViewRectangle.pCenterPoint = pTargetPosition;
+            mViewRectangle.pCenterPoint = curPos;
             mViewRectangle.pDimensions = new Vector2(
                 (GameObjectManager.pInstance.pGraphicsDevice.Viewport.Width) / mZoomAmount,
                 (GameObjectManager.pInstance.pGraphicsDevice.Viewport.Height) / mZoomAmount);

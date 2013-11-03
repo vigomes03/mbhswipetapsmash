@@ -105,7 +105,8 @@ namespace BumpSetSpike.Behaviour
             if (InputManager.pInstance.CheckGesture(GestureType.Tap, ref mGesture))
             {
                 // The position is in screen space, but our screen is scaled up so we need to convert.
-                Vector2 scaledPos = mGesture.Position / CameraManager.pInstance.pZoomScale;
+                // Assuming that all buttons will be in UI scale.
+                Vector2 scaledPos = mGesture.Position / CameraManager.pInstance.pDefaultZoomScale;
 
                 // Did they tap on this object?
                 if (mParentGOH.pCollisionRect.Intersects(scaledPos))
