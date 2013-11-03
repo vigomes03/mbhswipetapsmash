@@ -1,6 +1,18 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <XnaContent>
   <Asset Type="BumpSetSpikeContentDefs.HitCountDisplayDefinition">
+    <mUpdatePasses>
+      <Item>GAME_OVER</Item>
+      <Item>GAME_OVER_LOSS</Item>
+      <Item>GAME_PLAY</Item>
+      <Item>GAME_PLAY_PAUSED</Item>
+    </mUpdatePasses>
+    <mRenderPasses>
+      <Item>GAME_OVER</Item>
+      <Item>GAME_OVER_LOSS</Item>
+      <Item>GAME_PLAY</Item>
+      <Item>GAME_PLAY_PAUSED</Item>
+    </mRenderPasses>
     <mDisplayRecord>false</mDisplayRecord>
   </Asset>
 </XnaContent>

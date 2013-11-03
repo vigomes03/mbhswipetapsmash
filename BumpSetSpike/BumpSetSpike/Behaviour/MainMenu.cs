@@ -62,6 +62,7 @@ namespace BumpSetSpike.Behaviour
         /// Preallocated to avoid GC.
         /// </summary>
         private Player.OnGameRestartMessage mGameRestartMsg;
+        private HitCountDisplay.ResetScoreMessage mResetScoreMsg; 
 
         /// <summary>
         /// Constructor which also handles the process of loading in the Behaviour
@@ -82,18 +83,22 @@ namespace BumpSetSpike.Behaviour
         {
             base.LoadContent(fileName);
 
-            mCurrentState = State.OnTitle;
-
-            mWatch = StopWatchManager.pInstance.GetNewStopWatch();
-
-            // Make the timer last the same amount of time it will take the camera to reach
-            // its destination.
-            mWatch.pLifeTime = CameraManager.pInstance.pNumBlendFrames;
-            mWatch.pIsPaused = true;
-
             mGesture = new GestureSample();
 
             mFxMenuSelect = GameObjectManager.pInstance.pContentManager.Load<SoundEffect>("Audio\\FX\\MenuSelect");
+
+            mGameRestartMsg = new Player.OnGameRestartMessage();
+            mResetScoreMsg = new HitCountDisplay.ResetScoreMessage();
+        }
+
+        /// <summary>
+        /// Set parent.
+        /// </summary>
+        public override void OnAdd()
+        {
+            CameraManager.pInstance.pTargetPosition = new Vector2(0, -100.0f); // -30
+
+            mCurrentState = State.OnTitle;
 
             Single x = ((GameObjectManager.pInstance.pGraphicsDevice.Viewport.Width * 0.5f) / CameraManager.pInstance.pZoomScale);
             Single y = ((GameObjectManager.pInstance.pGraphicsDevice.Viewport.Height * 0.5f) / CameraManager.pInstance.pZoomScale);
@@ -103,7 +108,20 @@ namespace BumpSetSpike.Behaviour
             mTapStart.pPosY = y + 12;
             GameObjectManager.pInstance.Add(mTapStart);
 
-            mGameRestartMsg = new Player.OnGameRestartMessage();
+            // Make the timer last the same amount of time it will take the camera to reach
+            // its destination.
+            mWatch = StopWatchManager.pInstance.GetNewStopWatch();
+            mWatch.pLifeTime = CameraManager.pInstance.pNumBlendFrames;
+            mWatch.pIsPaused = true;
+        }
+
+        /// <summary>
+        /// See parent.
+        /// </summary>
+        public override void OnRemove()
+        {
+            StopWatchManager.pInstance.RecycleStopWatch(mWatch);
+            mWatch = null;
         }
 
         /// <summary>
@@ -146,19 +164,15 @@ namespace BumpSetSpike.Behaviour
                 // Once the timer expires the camera should be in place and the game can start.
                 if (mCurrentState == State.MoveToCourt && mWatch.IsExpired())
                 {
+                    // Must happen before mGameRestartMsg to prevent what ever was left in the score
+                    // from being applied to potentially a different game mode.
+                    GameObjectManager.pInstance.BroadcastMessage(mResetScoreMsg, mParentGOH);
                     GameObjectManager.pInstance.BroadcastMessage(mGameRestartMsg, mParentGOH);
                     GameObjectManager.pInstance.pCurUpdatePass = BehaviourDefinition.Passes.GAME_PLAY;
-                    //GameObjectManager.pInstance.pCurUpdatePass = BehaviourDefinition.Passes.TUTORIAL;
-
-                    GameObjectManager.pInstance.Add(GameObjectFactory.pInstance.GetTemplate("GameObjects\\UI\\ScoreLabel\\ScoreLabel"));
-                    GameObjectManager.pInstance.Add(GameObjectFactory.pInstance.GetTemplate("GameObjects\\UI\\HitCountDisplay\\HitCountDisplay"));
-                    GameObjectManager.pInstance.Add(GameObjectFactory.pInstance.GetTemplate("GameObjects\\UI\\HiScoreLabel\\HiScoreLabel"));
-                    GameObjectManager.pInstance.Add(GameObjectFactory.pInstance.GetTemplate("GameObjects\\UI\\HitCountDisplayRecord\\HitCountDisplayRecord"));
 
                     TutorialManager.pInstance.StartTutorial();
 
-                    mWatch.Restart();
-                    mWatch.pIsPaused = true;
+                    GameObjectManager.pInstance.Remove(mParentGOH);
                 }
             }
 

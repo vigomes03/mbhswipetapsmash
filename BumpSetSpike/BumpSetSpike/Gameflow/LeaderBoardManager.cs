@@ -92,6 +92,10 @@ namespace BumpSetSpike.Gameflow
             {
                 return pTopScore;
             }
+            else if (GameModeManager.pInstance.pMode == GameModeManager.GameMode.None)
+            {
+                return -1;
+            }
             else
             {
                 System.Diagnostics.Debug.Assert(false, "Unknown game mode.");

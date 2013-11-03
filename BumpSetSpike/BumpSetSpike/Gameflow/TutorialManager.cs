@@ -538,6 +538,28 @@ namespace BumpSetSpike.Gameflow
         }
 
         /// <summary>
+        /// Cancel the tutorial early, and trigger it to clean itself up.
+        /// </summary>
+        public void StopTutorial()
+        {
+            // If we are in state NONE then the tutorial is not running right now.
+            if (mCurState != State.NONE)
+            {
+                // Give the current state a chance to clean up.
+                ExitState(mCurState);
+
+                // The ExitState of COMPLETE_GET_READY will remove the Tutorial Title Text,
+                // but otherwise we need to manually remove it.
+                if (mCurState != State.COMPLETE_GET_READY)
+                {
+                    GameObjectManager.pInstance.Remove(mTxtTitle);
+                }
+
+                mCurState = State.NONE;
+            }
+        }
+
+        /// <summary>
         /// See parent.
         /// </summary>
         /// <param name="dt"></param>
