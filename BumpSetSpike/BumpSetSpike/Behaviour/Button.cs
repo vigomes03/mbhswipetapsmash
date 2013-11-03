@@ -82,6 +82,14 @@ namespace BumpSetSpike.Behaviour
             mGesture = new GestureSample();
             mOnButtonPressedMsg = new OnButtonPressedMessage();
 
+            Reset();
+        }
+
+        /// <summary>
+        /// See parent.
+        /// </summary>
+        public override void Reset()
+        {
             // Special handling for this type of button.
             if (mDef.mTaskOnRelease.mType == BumpSetSpikeContentDefs.ButtonDefinition.TaskType.OptionToggleTutorial)
             {
@@ -195,6 +203,19 @@ namespace BumpSetSpike.Behaviour
             }
 
             return false;
+        }
+
+        /// <summary>
+        /// See parent.
+        /// </summary>
+        /// <param name="msg"></param>
+        public override void OnMessage(ref BehaviourMessage msg)
+        {
+            // Some things need to reset when the game is restarted.
+            if (msg is HitCountDisplay.ResetGameMessage)
+            {
+                Reset();
+            }
         }
     }
 }

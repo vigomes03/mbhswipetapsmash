@@ -297,7 +297,7 @@ namespace BumpSetSpike.Gameflow
         /// <summary>
         /// Has the tutorial been completed yet?
         /// </summary>
-        public Boolean pTutorialCompleted { get; set; }
+        private Boolean mTutorialCompleted;
 
         /// <summary>
         /// Private constructor to avoid accidental creation.
@@ -531,7 +531,7 @@ namespace BumpSetSpike.Gameflow
 
         public void StartTutorial()
         {
-            if(!pTutorialCompleted)
+            if (!pTutorialCompleted && GameModeManager.pInstance.pMode == GameModeManager.GameMode.Endurance)
             {
                 pCurState = State.FIRST;
             }
@@ -765,6 +765,20 @@ namespace BumpSetSpike.Gameflow
             }
         }
 
+        /// <summary>
+        /// Has the tutorial been completed yet?
+        /// </summary>
+        public Boolean pTutorialCompleted
+        {
+            get
+            {
+                return mTutorialCompleted || GameModeManager.pInstance.pMode == GameModeManager.GameMode.TrickAttack;
+            }
+            set
+            {
+                mTutorialCompleted = value;
+            }
+        }
 
         /// <summary>
         /// Access to the Singleton. Creates the static instance if first time this is called.
@@ -780,6 +794,6 @@ namespace BumpSetSpike.Gameflow
 
                 return mInstance;
             }
-        }        
+        }
     }
 }
