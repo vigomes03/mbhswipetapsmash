@@ -80,7 +80,7 @@ namespace BumpSetSpike.Behaviour
         /// <summary>
         /// Resets all score counts to default values (eg. 0 or current high score).
         /// </summary>
-        public class ResetScoreMessage : BehaviourMessage
+        public class ResetGameMessage : BehaviourMessage
         {
             /// <summary>
             /// See parent.
@@ -191,15 +191,18 @@ namespace BumpSetSpike.Behaviour
 
                 SetScore(temp.mCount_In);
             }
-            else if (msg is ResetScoreMessage)
+            else if (msg is ResetGameMessage)
             {
-                if (mDisplayRecord)
+                if (mHitCounterNums.Count > 0)
                 {
-                    SetScore(LeaderBoardManager.pInstance.GetCurrentModeTopScore());
-                }
-                else
-                {
-                    SetScore(0);
+                    if (mDisplayRecord)
+                    {
+                        SetScore(LeaderBoardManager.pInstance.GetCurrentModeTopScore());
+                    }
+                    else
+                    {
+                        SetScore(0);
+                    }
                 }
             }
         }

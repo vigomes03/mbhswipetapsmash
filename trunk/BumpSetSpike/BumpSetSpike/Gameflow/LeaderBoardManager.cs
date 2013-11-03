@@ -94,7 +94,7 @@ namespace BumpSetSpike.Gameflow
             }
             else if (GameModeManager.pInstance.pMode == GameModeManager.GameMode.None)
             {
-                return -1;
+                return 0;
             }
             else
             {

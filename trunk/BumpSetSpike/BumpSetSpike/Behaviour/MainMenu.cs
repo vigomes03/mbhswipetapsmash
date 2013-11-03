@@ -62,7 +62,7 @@ namespace BumpSetSpike.Behaviour
         /// Preallocated to avoid GC.
         /// </summary>
         private Player.OnGameRestartMessage mGameRestartMsg;
-        private HitCountDisplay.ResetScoreMessage mResetScoreMsg; 
+        private HitCountDisplay.ResetGameMessage mResetGameMsg; 
 
         /// <summary>
         /// Constructor which also handles the process of loading in the Behaviour
@@ -88,7 +88,7 @@ namespace BumpSetSpike.Behaviour
             mFxMenuSelect = GameObjectManager.pInstance.pContentManager.Load<SoundEffect>("Audio\\FX\\MenuSelect");
 
             mGameRestartMsg = new Player.OnGameRestartMessage();
-            mResetScoreMsg = new HitCountDisplay.ResetScoreMessage();
+            mResetGameMsg = new HitCountDisplay.ResetGameMessage();
         }
 
         /// <summary>
@@ -96,6 +96,9 @@ namespace BumpSetSpike.Behaviour
         /// </summary>
         public override void OnAdd()
         {
+            GameModeManager.pInstance.pMode = GameModeManager.GameMode.None;
+            GameObjectManager.pInstance.BroadcastMessage(mResetGameMsg, mParentGOH);
+            
             CameraManager.pInstance.pTargetPosition = new Vector2(0, -100.0f); // -30
 
             mCurrentState = State.OnTitle;
@@ -166,7 +169,6 @@ namespace BumpSetSpike.Behaviour
                 {
                     // Must happen before mGameRestartMsg to prevent what ever was left in the score
                     // from being applied to potentially a different game mode.
-                    GameObjectManager.pInstance.BroadcastMessage(mResetScoreMsg, mParentGOH);
                     GameObjectManager.pInstance.BroadcastMessage(mGameRestartMsg, mParentGOH);
                     GameObjectManager.pInstance.pCurUpdatePass = BehaviourDefinition.Passes.GAME_PLAY;
 
