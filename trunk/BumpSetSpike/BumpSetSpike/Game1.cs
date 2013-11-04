@@ -167,10 +167,21 @@ namespace BumpSetSpike
             GameObjectFactory.pInstance.AddTemplate("GameObjects\\Items\\SparkEmitter\\SparkEmitter", 4);
             GameObjectFactory.pInstance.AddTemplate("GameObjects\\Items\\Tutorial\\Faster\\Faster", 4);
             GameObjectFactory.pInstance.AddTemplate("GameObjects\\Items\\Tutorial\\Slower\\Slower", 4);
+            GameObjectFactory.pInstance.AddTemplate("GameObjects\\UI\\CreditsButton\\CreditsButton", 1);
+            GameObjectFactory.pInstance.AddTemplate("GameObjects\\UI\\FacebookButton\\FacebookButton", 1);
             GameObjectFactory.pInstance.AddTemplate("GameObjects\\UI\\FSMPauseScreen\\FSMPauseScreen", 1);
             GameObjectFactory.pInstance.AddTemplate("GameObjects\\UI\\HiScoreLabel\\HiScoreLabel", 1);
             GameObjectFactory.pInstance.AddTemplate("GameObjects\\UI\\HitCountDisplay\\HitCountDisplay", 1);
             GameObjectFactory.pInstance.AddTemplate("GameObjects\\UI\\HitCountDisplayRecord\\HitCountDisplayRecord", 1);
+            GameObjectFactory.pInstance.AddTemplate("GameObjects\\UI\\IndieDBButton\\IndieDBButton", 1);
+            GameObjectFactory.pInstance.AddTemplate("GameObjects\\UI\\LeaveCreditsButton\\LeaveCreditsButton", 1);
+            GameObjectFactory.pInstance.AddTemplate("GameObjects\\UI\\MainMenu\\FSMMainMenu\\FSMMainMenu", 1);
+            GameObjectFactory.pInstance.AddTemplate("GameObjects\\UI\\MainMenu\\ModeSelect\\EnduranceModeBG\\EnduranceModeBG", 1);
+            GameObjectFactory.pInstance.AddTemplate("GameObjects\\UI\\MainMenu\\ModeSelect\\EnduranceModeButton\\EnduranceModeButton", 1);
+            GameObjectFactory.pInstance.AddTemplate("GameObjects\\UI\\MainMenu\\ModeSelect\\ModeSelectBG\\ModeSelectBG", 1);
+            GameObjectFactory.pInstance.AddTemplate("GameObjects\\UI\\MainMenu\\ModeSelect\\ModeSelectTitle\\ModeSelectTitle", 1);
+            GameObjectFactory.pInstance.AddTemplate("GameObjects\\UI\\MainMenu\\ModeSelect\\ScoreAttackModeBG\\ScoreAttackModeBG", 1);
+            GameObjectFactory.pInstance.AddTemplate("GameObjects\\UI\\MainMenu\\ModeSelect\\ScoreAttackModeButton\\ScoreAttackModeButton", 1);
             GameObjectFactory.pInstance.AddTemplate("GameObjects\\UI\\NewHighScore\\NewHighScore", 1);
             GameObjectFactory.pInstance.AddTemplate("GameObjects\\UI\\NumFont\\NumFont", 128);
             GameObjectFactory.pInstance.AddTemplate("GameObjects\\UI\\NumFontUI\\NumFontUI", 128);
@@ -182,7 +193,6 @@ namespace BumpSetSpike
             GameObjectFactory.pInstance.AddTemplate("GameObjects\\UI\\ScoreSummary\\ScoreSummary", 1);
             GameObjectFactory.pInstance.AddTemplate("GameObjects\\UI\\ScoreSummaryBG\\ScoreSummaryBG", 1);
             GameObjectFactory.pInstance.AddTemplate("GameObjects\\UI\\TapStart\\TapStart", 1);
-            GameObjectFactory.pInstance.AddTemplate("GameObjects\\UI\\TitleScreen\\TitleScreen", 1);
 
             // Add objects that exist from the moment the game starts.
             //
@@ -195,16 +205,7 @@ namespace BumpSetSpike
             GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\Credits\\MImmonenButton\\MImmonenButton"));
             GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\Credits\\SMcGeeButton\\SMcGeeButton"));
             GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\Credits\\SPaxtonButton\\SPaxtonButton"));
-            GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\CreditsButton\\CreditsButton"));
-            GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\FacebookButton\\FacebookButton"));
             GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\GameOver\\GameOver"));
-            GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\IndieDBButton\\IndieDBButton"));
-            GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\LeaveCreditsButton\\LeaveCreditsButton"));
-            GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\ModeSelect\\EnduranceModeBG\\EnduranceModeBG"));
-            GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\ModeSelect\\EnduranceModeButton\\EnduranceModeButton"));
-            GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\ModeSelect\\ModeSelectBG\\ModeSelectBG"));
-            GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\ModeSelect\\ScoreAttackModeBG\\ScoreAttackModeBG"));
-            GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\ModeSelect\\ScoreAttackModeButton\\ScoreAttackModeButton"));
             GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\Options\\Tutorial\\Checkbox\\Checkbox"));
             GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\Options\\Tutorial\\Checkmark\\Checkmark"));
             GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\Options\\Tutorial\\Label\\Label"));
@@ -212,7 +213,7 @@ namespace BumpSetSpike
             GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\PausedBackdrop\\PausedBackdrop"));
             GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\PausedOverlay\\PausedOverlay"));
 
-            GameObject titleScreen = GameObjectFactory.pInstance.GetTemplate("GameObjects\\UI\\TitleScreen\\TitleScreen");
+            GameObject titleScreen = GameObjectFactory.pInstance.GetTemplate("GameObjects\\UI\\MainMenu\\FSMMainMenu\\FSMMainMenu");
             GameObjectManager.pInstance.Add(titleScreen); 
             
             GameObjectManager.pInstance.Add(GameObjectFactory.pInstance.GetTemplate("GameObjects\\UI\\ScoreLabel\\ScoreLabel"));
@@ -329,11 +330,8 @@ namespace BumpSetSpike
             // Bit of a hack to handle pressing back while popup is active.
             if (InputManager.pInstance.CheckAction(InputManager.InputActions.BACK, true))
             {
-                if (GameObjectManager.pInstance.pCurUpdatePass == BehaviourDefinition.Passes.CREDITS)
-                {
-                    GameObjectManager.pInstance.pCurUpdatePass = BehaviourDefinition.Passes.MAIN_MENU;
-                }
-                else if (GameObjectManager.pInstance.pCurUpdatePass == BehaviourDefinition.Passes.GAME_PLAY)
+
+                if (GameObjectManager.pInstance.pCurUpdatePass == BehaviourDefinition.Passes.GAME_PLAY)
                 {
                     GameObjectManager.pInstance.pCurUpdatePass = BehaviourDefinition.Passes.GAME_PLAY_PAUSED;
                     GameObjectManager.pInstance.Add(GameObjectFactory.pInstance.GetTemplate("GameObjects\\UI\\FSMPauseScreen\\FSMPauseScreen"));

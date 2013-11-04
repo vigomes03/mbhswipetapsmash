@@ -91,10 +91,11 @@
     <Compile Include="Behaviour\ButtonDefinition.cs" />
     <Compile Include="Behaviour\ButtonMultiStageDefinition.cs" />
     <Compile Include="Behaviour\EffectEmitterDefinition.cs" />
+    <Compile Include="Behaviour\FSMMainMenuDefinition.cs" />
+    <Compile Include="Behaviour\FSMPauseScreenDefinition.cs" />
     <Compile Include="Behaviour\GameOverDefinition.cs" />
     <Compile Include="Behaviour\GroundShadowDefinition.cs" />
     <Compile Include="Behaviour\HitCountDisplayDefinition.cs" />
-    <Compile Include="Behaviour\MainMenuDefinition.cs" />
     <Compile Include="Behaviour\NewHighScoreDefinition.cs" />
     <Compile Include="Behaviour\OpponentDefinition.cs" />
     <Compile Include="Behaviour\PartnerDefinition.cs" />

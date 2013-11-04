@@ -1,10 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <XnaContent>
   <Asset Type="MBHEngineContentDefs.SpriteRenderDefinition">
-    <mRenderPasses>
-      <Item>MAIN_MENU</Item>
-      <Item>GAME_PLAY_PAUSED</Item>
-    </mRenderPasses>
     <mSpriteFileName>Sprites\FacebookLogo</mSpriteFileName>
     <mFrameHeight>16</mFrameHeight>
     <mHasShadow>false</mHasShadow>

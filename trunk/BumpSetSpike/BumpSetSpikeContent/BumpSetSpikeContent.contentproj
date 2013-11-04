@@ -252,20 +252,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GameObjects\UI\TitleScreen\TitleScreen.xml">
-      <Name>TitleScreen</Name>
-      <Importer>XmlImporter</Importer>
-      <Processor>PassThroughProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="GameObjects\UI\TitleScreen\Behaviours\MainMenu.xml">
-      <Name>MainMenu</Name>
-      <Importer>XmlImporter</Importer>
-      <Processor>PassThroughProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Sprites\Numbers.png">
       <Name>Numbers</Name>
       <Importer>TextureImporter</Importer>
@@ -1594,78 +1580,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GameObjects\UI\ModeSelect\ScoreAttackModeBG\Behaviours\Sprite.xml">
-      <Name>Sprite</Name>
-      <Importer>XmlImporter</Importer>
-      <Processor>PassThroughProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="GameObjects\UI\ModeSelect\ScoreAttackModeBG\ScoreAttackModeBG.xml">
-      <Name>ScoreAttackModeBG</Name>
-      <Importer>XmlImporter</Importer>
-      <Processor>PassThroughProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="GameObjects\UI\ModeSelect\EnduranceModeBG\Behaviours\Sprite.xml">
-      <Name>Sprite</Name>
-      <Importer>XmlImporter</Importer>
-      <Processor>PassThroughProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="GameObjects\UI\ModeSelect\EnduranceModeBG\EnduranceModeBG.xml">
-      <Name>EnduranceModeBG</Name>
-      <Importer>XmlImporter</Importer>
-      <Processor>PassThroughProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="GameObjects\UI\ModeSelect\EnduranceModeButton\Behaviours\Button.xml">
-      <SubType>Designer</SubType>
-      <Name>Button</Name>
-      <Importer>XmlImporter</Importer>
-      <Processor>PassThroughProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="GameObjects\UI\ModeSelect\EnduranceModeButton\Behaviours\Sprite.xml">
-      <Name>Sprite</Name>
-      <Importer>XmlImporter</Importer>
-      <Processor>PassThroughProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="GameObjects\UI\ModeSelect\EnduranceModeButton\EnduranceModeButton.xml">
-      <Name>EnduranceModeButton</Name>
-      <Importer>XmlImporter</Importer>
-      <Processor>PassThroughProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="GameObjects\UI\ModeSelect\ScoreAttackModeButton\Behaviours\Button.xml">
-      <SubType>Designer</SubType>
-      <Name>Button</Name>
-      <Importer>XmlImporter</Importer>
-      <Processor>PassThroughProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="GameObjects\UI\ModeSelect\ScoreAttackModeButton\Behaviours\Sprite.xml">
-      <Name>Sprite</Name>
-      <Importer>XmlImporter</Importer>
-      <Processor>PassThroughProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="GameObjects\UI\ModeSelect\ScoreAttackModeButton\ScoreAttackModeButton.xml">
-      <Name>ScoreAttackModeButton</Name>
-      <Importer>XmlImporter</Importer>
-      <Processor>PassThroughProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="GameObjects\UI\ScoreSummaryBG\Behaviours\Sprite.xml">
       <Name>Sprite</Name>
       <Importer>XmlImporter</Importer>
@@ -1800,19 +1714,102 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GameObjects\UI\ModeSelect\ModeSelectBG\Behaviours\Sprite.xml">
-      <Name>Sprite</Name>
+    <Compile Include="GameObjects\UI\TapStart\Behaviours\Button.xml">
+      <Name>Button</Name>
       <Importer>XmlImporter</Importer>
       <Processor>PassThroughProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GameObjects\UI\ModeSelect\ModeSelectBG\ModeSelectBG.xml">
+    <Compile Include="Sprites\ModeSelectTitle.png">
+      <Name>ModeSelectTitle</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="GameObjects\UI\MainMenu\FSMMainMenu\Behaviours\FSMMainMenu.xml">
+      <Name>FSMMainMenu</Name>
+      <Importer>XmlImporter</Importer>
+      <Processor>PassThroughProcessor</Processor>
+    </Compile>
+    <Compile Include="GameObjects\UI\MainMenu\FSMMainMenu\FSMMainMenu.xml">
+      <Name>FSMMainMenu</Name>
+      <Importer>XmlImporter</Importer>
+      <Processor>PassThroughProcessor</Processor>
+    </Compile>
+    <Compile Include="GameObjects\UI\MainMenu\ModeSelect\EnduranceModeBG\Behaviours\Sprite.xml">
+      <Name>Sprite</Name>
+      <Importer>XmlImporter</Importer>
+      <Processor>PassThroughProcessor</Processor>
+    </Compile>
+    <Compile Include="GameObjects\UI\MainMenu\ModeSelect\EnduranceModeBG\EnduranceModeBG.xml">
+      <Name>EnduranceModeBG</Name>
+      <Importer>XmlImporter</Importer>
+      <Processor>PassThroughProcessor</Processor>
+    </Compile>
+    <Compile Include="GameObjects\UI\MainMenu\ModeSelect\EnduranceModeButton\Behaviours\Button.xml">
+      <Name>Button</Name>
+      <Importer>XmlImporter</Importer>
+      <Processor>PassThroughProcessor</Processor>
+    </Compile>
+    <Compile Include="GameObjects\UI\MainMenu\ModeSelect\EnduranceModeButton\Behaviours\Sprite.xml">
+      <Name>Sprite</Name>
+      <Importer>XmlImporter</Importer>
+      <Processor>PassThroughProcessor</Processor>
+    </Compile>
+    <Compile Include="GameObjects\UI\MainMenu\ModeSelect\EnduranceModeButton\EnduranceModeButton.xml">
+      <Name>EnduranceModeButton</Name>
+      <Importer>XmlImporter</Importer>
+      <Processor>PassThroughProcessor</Processor>
+    </Compile>
+    <Compile Include="GameObjects\UI\MainMenu\ModeSelect\ModeSelectBG\Behaviours\Sprite.xml">
+      <Name>Sprite</Name>
+      <Importer>XmlImporter</Importer>
+      <Processor>PassThroughProcessor</Processor>
+    </Compile>
+    <Compile Include="GameObjects\UI\MainMenu\ModeSelect\ModeSelectBG\ModeSelectBG.xml">
       <Name>ModeSelectBG</Name>
       <Importer>XmlImporter</Importer>
       <Processor>PassThroughProcessor</Processor>
     </Compile>
+    <Compile Include="GameObjects\UI\MainMenu\ModeSelect\ModeSelectTitle\Behaviours\Sprite.xml">
+      <Name>Sprite</Name>
+      <Importer>XmlImporter</Importer>
+      <Processor>PassThroughProcessor</Processor>
+    </Compile>
+    <Compile Include="GameObjects\UI\MainMenu\ModeSelect\ModeSelectTitle\ModeSelectTitle.xml">
+      <Name>ModeSelectTitle</Name>
+      <Importer>XmlImporter</Importer>
+      <Processor>PassThroughProcessor</Processor>
+    </Compile>
+    <Compile Include="GameObjects\UI\MainMenu\ModeSelect\ScoreAttackModeBG\Behaviours\Sprite.xml">
+      <Name>Sprite</Name>
+      <Importer>XmlImporter</Importer>
+      <Processor>PassThroughProcessor</Processor>
+    </Compile>
+    <Compile Include="GameObjects\UI\MainMenu\ModeSelect\ScoreAttackModeBG\ScoreAttackModeBG.xml">
+      <Name>ScoreAttackModeBG</Name>
+      <Importer>XmlImporter</Importer>
+      <Processor>PassThroughProcessor</Processor>
+    </Compile>
+    <Compile Include="GameObjects\UI\MainMenu\ModeSelect\ScoreAttackModeButton\Behaviours\Button.xml">
+      <Name>Button</Name>
+      <Importer>XmlImporter</Importer>
+      <Processor>PassThroughProcessor</Processor>
+    </Compile>
+    <Compile Include="GameObjects\UI\MainMenu\ModeSelect\ScoreAttackModeButton\Behaviours\Sprite.xml">
+      <Name>Sprite</Name>
+      <Importer>XmlImporter</Importer>
+      <Processor>PassThroughProcessor</Processor>
+    </Compile>
+    <Compile Include="GameObjects\UI\MainMenu\ModeSelect\ScoreAttackModeButton\ScoreAttackModeButton.xml">
+      <Name>ScoreAttackModeButton</Name>
+      <Importer>XmlImporter</Importer>
+      <Processor>PassThroughProcessor</Processor>
+    </Compile>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />
   <!--  To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
