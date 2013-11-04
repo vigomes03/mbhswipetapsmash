@@ -6,6 +6,24 @@
       <Item>GAME_PLAY_PAUSED</Item>
     </mRenderPasses>
     <mSpriteFileName>Sprites\FacebookLogo</mSpriteFileName>
+    <mFrameHeight>16</mFrameHeight>
+    <mHasShadow>false</mHasShadow>
+    <mAnimationSets>
+      <Item>
+        <mTicksPerFrame>1</mTicksPerFrame>
+        <mName>0</mName>
+        <mStartingFrame>0</mStartingFrame>
+        <mNumFrames>1</mNumFrames>
+        <mLooping>false</mLooping>
+      </Item>
+      <Item>
+        <mTicksPerFrame>1</mTicksPerFrame>
+        <mName>1</mName>
+        <mStartingFrame>1</mStartingFrame>
+        <mNumFrames>1</mNumFrames>
+        <mLooping>false</mLooping>
+      </Item>
+    </mAnimationSets>
 </Asset>
 </XnaContent>
 

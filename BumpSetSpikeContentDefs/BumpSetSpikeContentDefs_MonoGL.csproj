@@ -89,6 +89,7 @@
   <ItemGroup>
     <Compile Include="Behaviour\BallDefinition.cs" />
     <Compile Include="Behaviour\ButtonDefinition.cs" />
+    <Compile Include="Behaviour\ButtonMultiStageDefinition.cs" />
     <Compile Include="Behaviour\EffectEmitterDefinition.cs" />
     <Compile Include="Behaviour\GameOverDefinition.cs" />
     <Compile Include="Behaviour\GroundShadowDefinition.cs" />

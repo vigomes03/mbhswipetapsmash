@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<XnaContent>
+  <Asset Type="MBHEngineContentDefs.SpriteRenderDefinition">
+    <mUpdatePasses>
+      <Item>MAIN_MENU_MODE_SELECT</Item>
+    </mUpdatePasses>
+    <mRenderPasses>
+      <Item>MAIN_MENU_MODE_SELECT</Item>
+    </mRenderPasses>
+    <mSpriteFileName>Sprites\BlackBox</mSpriteFileName>
+  </Asset>
+</XnaContent>
+

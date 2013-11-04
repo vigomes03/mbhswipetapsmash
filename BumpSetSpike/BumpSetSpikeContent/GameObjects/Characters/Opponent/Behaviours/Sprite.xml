@@ -75,7 +75,7 @@
         <mLooping>false</mLooping>
       </Item>
       <Item>
-        <mTicksPerFrame>2</mTicksPerFrame>
+        <mTicksPerFrame>1</mTicksPerFrame>
         <mName>Dead</mName>
         <mStartingFrame>29</mStartingFrame>
         <mNumFrames>2</mNumFrames>

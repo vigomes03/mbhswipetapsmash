@@ -108,6 +108,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Behaviour\Button.cs" />
+    <Compile Include="Behaviour\ButtonMultiStage.cs" />
     <Compile Include="Behaviour\ClientBehaviourCreator.cs" />
     <Compile Include="Behaviour\Ball.cs" />
     <Compile Include="Behaviour\EffectEmitter.cs" />

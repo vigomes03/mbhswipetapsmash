@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <XnaContent>
-  <Asset Type="BumpSetSpikeContentDefs.ButtonDefinition">
+  <Asset Type="BumpSetSpikeContentDefs.ButtonMultiStageDefinition">
     <mUpdatePasses>
       <Item>MAIN_MENU</Item>
       <Item>GAME_PLAY_PAUSED</Item>
@@ -9,6 +9,7 @@
       <mType>OpenURL</mType>
       <mData>https://www.facebook.com/SwipeTapSmash</mData>
     </mTaskOnRelease>
+    <mNumStages>2</mNumStages>
   </Asset>
 </XnaContent>
 
