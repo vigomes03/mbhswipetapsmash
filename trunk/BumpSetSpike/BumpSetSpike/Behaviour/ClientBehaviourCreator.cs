@@ -68,6 +68,10 @@ namespace BumpSetSpike.Behaviour
                     {
                         return new Button(go, fileName);
                     }
+                case "BumpSetSpike.Behaviour.ButtonMultiStage":
+                    {
+                        return new ButtonMultiStage(go, fileName);
+                    }
                 case "BumpSetSpike.Behaviour.EffectEmitter":
                     {
                         return new EffectEmitter(go, fileName);

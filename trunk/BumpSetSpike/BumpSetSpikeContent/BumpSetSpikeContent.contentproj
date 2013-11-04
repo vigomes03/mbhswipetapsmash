@@ -1140,8 +1140,8 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GameObjects\UI\FacebookButton\Behaviours\Button.xml">
-      <Name>Button</Name>
+    <Compile Include="GameObjects\UI\FacebookButton\Behaviours\ButtonMultiStage.xml">
+      <Name>ButtonMultiStage</Name>
       <Importer>XmlImporter</Importer>
       <Processor>PassThroughProcessor</Processor>
       <SubType>Designer</SubType>
@@ -1795,6 +1795,20 @@
   <ItemGroup>
     <Compile Include="GameObjects\UI\PauseMainMenuButton\PauseMainMenuButton.xml">
       <Name>PauseMainMenuButton</Name>
+      <Importer>XmlImporter</Importer>
+      <Processor>PassThroughProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="GameObjects\UI\ModeSelectBG\Behaviours\Sprite.xml">
+      <Name>Sprite</Name>
+      <Importer>XmlImporter</Importer>
+      <Processor>PassThroughProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="GameObjects\UI\ModeSelectBG\ModeSelectBG.xml">
+      <Name>ModeSelectBG</Name>
       <Importer>XmlImporter</Importer>
       <Processor>PassThroughProcessor</Processor>
     </Compile>
