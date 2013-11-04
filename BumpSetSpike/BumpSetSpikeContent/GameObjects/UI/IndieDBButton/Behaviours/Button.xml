@@ -1,10 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <XnaContent>
   <Asset Type="BumpSetSpikeContentDefs.ButtonDefinition">
-    <mUpdatePasses>
-      <Item>MAIN_MENU</Item>
-      <Item>GAME_PLAY_PAUSED</Item>
-    </mUpdatePasses>
     <mTaskOnRelease>
       <mType>OpenURL</mType>
       <mData>http://www.indiedb.com/games/swipe-tap-smash</mData>

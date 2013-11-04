@@ -71,12 +71,20 @@
     <Compile Include="Behaviour\ButtonMultiStage.cs" />
     <Compile Include="Behaviour\ClientBehaviourCreator.cs" />
     <Compile Include="Behaviour\EffectEmitter.cs" />
-    <Compile Include="Behaviour\FSM\FSMPauseScreen.cs" />
-    <Compile Include="Behaviour\FSM\StatePauseRoot.cs" />
+    <Compile Include="Behaviour\FSM\FSMMainMenu.cs" />
+    <Compile Include="Behaviour\FSM\FSMPauseScreen.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Behaviour\FSM\StateMainMenuCameraPan.cs" />
+    <Compile Include="Behaviour\FSM\StateMainMenuCredits.cs" />
+    <Compile Include="Behaviour\FSM\StateMainMenuModeSelect.cs" />
+    <Compile Include="Behaviour\FSM\StateMainMenuRoot.cs" />
+    <Compile Include="Behaviour\FSM\StatePauseRoot.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Behaviour\GameOver.cs" />
     <Compile Include="Behaviour\GroundShadow.cs" />
     <Compile Include="Behaviour\HitCountDisplay.cs" />
-    <Compile Include="Behaviour\MainMenu.cs" />
     <Compile Include="Behaviour\NewHighScore.cs" />
     <Compile Include="Behaviour\Opponent.cs" />
     <Compile Include="Behaviour\Partner.cs" />

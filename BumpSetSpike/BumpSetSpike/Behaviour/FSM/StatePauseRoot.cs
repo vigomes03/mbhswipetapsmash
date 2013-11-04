@@ -11,6 +11,9 @@ namespace BumpSetSpike.Behaviour.FSM
 {
     class StatePauseRoot : MBHEngine.StateMachine.FSMState
     {
+        /// <summary>
+        /// Objects managed by this state.
+        /// </summary>
         private GameObject mResumeButton;
         private GameObject mQuitButton;
         private GameObject mMainMenuButton;
@@ -106,8 +109,8 @@ namespace BumpSetSpike.Behaviour.FSM
 
                     TutorialManager.pInstance.StopTutorial();
 
-                    GameObject titleScreen = GameObjectFactory.pInstance.GetTemplate("GameObjects\\UI\\TitleScreen\\TitleScreen");
-                    GameObjectManager.pInstance.Add(titleScreen);
+                    GameObject mainMenu = GameObjectFactory.pInstance.GetTemplate("GameObjects\\UI\\MainMenu\\FSMMainMenu\\FSMMainMenu");
+                    GameObjectManager.pInstance.Add(mainMenu);
 
                     GameObjectManager.pInstance.Remove(pParentGOH);
                 }

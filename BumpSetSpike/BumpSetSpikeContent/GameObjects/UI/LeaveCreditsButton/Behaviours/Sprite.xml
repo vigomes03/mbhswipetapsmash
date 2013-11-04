@@ -1,9 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <XnaContent>
   <Asset Type="MBHEngineContentDefs.SpriteRenderDefinition">
-    <mRenderPasses>
-      <Item>CREDITS</Item>
-    </mRenderPasses>
     <mSpriteFileName>Sprites\Return</mSpriteFileName>
   </Asset>
 </XnaContent>

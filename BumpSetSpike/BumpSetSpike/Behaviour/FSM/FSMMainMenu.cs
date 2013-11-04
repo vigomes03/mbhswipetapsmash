@@ -7,16 +7,16 @@ using MBHEngine.GameObject;
 namespace BumpSetSpike.Behaviour.FSM
 {
     /// <summary>
-    /// Pause menu.
+    /// State machine for the main menu and all the sub-screens.
     /// </summary>
-    class FSMPauseScreen : MBHEngine.Behaviour.FiniteStateMachine
+    class FSMMainMenu : MBHEngine.Behaviour.FiniteStateMachine
     {
         /// <summary>
         /// See parent.
         /// </summary>
         /// <param name="parentGOH"></param>
         /// <param name="fileName"></param>
-        public FSMPauseScreen(GameObject parentGOH, String fileName)
+        public FSMMainMenu(GameObject parentGOH, String fileName)
             : base(parentGOH, fileName)
         {
         }
@@ -29,7 +29,10 @@ namespace BumpSetSpike.Behaviour.FSM
         {
             base.LoadContent(fileName);
 
-            AddState(new StatePauseRoot(), "StatePauseRoot");
+            AddState(new StateMainMenuRoot(), "StateMainMenuRoot");
+            AddState(new StateMainMenuModeSelect(), "StateMainMenuModeSelect");
+            AddState(new StateMainMenuCameraPan(), "StateMainMenuCameraPan");
+            AddState(new StateMainMenuCredits(), "StateMainMenuCredits");
         }
     }
 }

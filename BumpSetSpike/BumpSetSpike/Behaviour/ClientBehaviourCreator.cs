@@ -40,10 +40,6 @@ namespace BumpSetSpike.Behaviour
                     {
                         return new GroundShadow(go, fileName);
                     }
-                case "BumpSetSpike.Behaviour.MainMenu":
-                    {
-                        return new MainMenu(go, fileName);
-                    }
                 case "BumpSetSpike.Behaviour.GameOver":
                     {
                         return new GameOver(go, fileName);
@@ -83,6 +79,10 @@ namespace BumpSetSpike.Behaviour
                 case "BumpSetSpike.Behaviour.FSM.FSMPauseScreen":
                     {
                         return new FSM.FSMPauseScreen(go, fileName);
+                    }
+                case "BumpSetSpike.Behaviour.FSM.FSMMainMenu":
+                    {
+                        return new FSM.FSMMainMenu(go, fileName);
                     }
                 default:
                     {
