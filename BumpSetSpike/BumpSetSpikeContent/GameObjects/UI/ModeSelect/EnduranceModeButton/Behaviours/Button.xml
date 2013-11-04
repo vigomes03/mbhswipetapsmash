@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<XnaContent>
+  <Asset Type="BumpSetSpikeContentDefs.ButtonDefinition">
+    <mUpdatePasses>
+      <Item>MAIN_MENU_MODE_SELECT</Item>
+    </mUpdatePasses>
+    <mRenderPasses>
+      <Item>MAIN_MENU_MODE_SELECT</Item>
+    </mRenderPasses>
+    <mTaskOnRelease>
+      <mType>SetGameModeEndurance</mType>
+    </mTaskOnRelease>
+  </Asset>
+</XnaContent>
+

@@ -188,7 +188,6 @@ namespace BumpSetSpike
             //
             GameObjectManager.pInstance.Add(new GameObject("GameObjects\\Items\\Court\\Court"));
             GameObjectManager.pInstance.Add(new GameObject("GameObjects\\Items\\Net\\Net"));
-            GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\AttackModeButton\\AttackModeButton"));
             GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\Credits\\Backdrop\\Backdrop"));
             GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\Credits\\BG\\BG"));
             //GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\Credits\\CKuklaButton\\CKuklaButton"));
@@ -197,20 +196,21 @@ namespace BumpSetSpike
             GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\Credits\\SMcGeeButton\\SMcGeeButton"));
             GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\Credits\\SPaxtonButton\\SPaxtonButton"));
             GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\CreditsButton\\CreditsButton"));
-            GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\EnduranceModeBG\\EnduranceModeBG"));
-            GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\EnduranceModeButton\\EnduranceModeButton"));
             GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\FacebookButton\\FacebookButton"));
             GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\GameOver\\GameOver"));
             GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\IndieDBButton\\IndieDBButton"));
             GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\LeaveCreditsButton\\LeaveCreditsButton"));
-            GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\ModeSelectBG\\ModeSelectBG"));
+            GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\ModeSelect\\EnduranceModeBG\\EnduranceModeBG"));
+            GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\ModeSelect\\EnduranceModeButton\\EnduranceModeButton"));
+            GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\ModeSelect\\ModeSelectBG\\ModeSelectBG"));
+            GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\ModeSelect\\ScoreAttackModeBG\\ScoreAttackModeBG"));
+            GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\ModeSelect\\ScoreAttackModeButton\\ScoreAttackModeButton"));
             GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\Options\\Tutorial\\Checkbox\\Checkbox"));
             GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\Options\\Tutorial\\Checkmark\\Checkmark"));
             GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\Options\\Tutorial\\Label\\Label"));
             GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\PauseButton\\PauseButton"));
             GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\PausedBackdrop\\PausedBackdrop"));
             GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\PausedOverlay\\PausedOverlay"));
-            GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\TrickModeBG\\TrickModeBG"));
 
             GameObject titleScreen = GameObjectFactory.pInstance.GetTemplate("GameObjects\\UI\\TitleScreen\\TitleScreen");
             GameObjectManager.pInstance.Add(titleScreen); 
