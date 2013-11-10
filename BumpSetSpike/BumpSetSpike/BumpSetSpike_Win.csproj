@@ -112,6 +112,7 @@
     <Compile Include="Behaviour\ClientBehaviourCreator.cs" />
     <Compile Include="Behaviour\Ball.cs" />
     <Compile Include="Behaviour\EffectEmitter.cs" />
+    <Compile Include="Behaviour\FSM\StateMainMenuModeSelectDesc.cs" />
     <Compile Include="Behaviour\FSM\StateMainMenuCredits.cs" />
     <Compile Include="Behaviour\FSM\StateMainMenuCameraPan.cs" />
     <Compile Include="Behaviour\FSM\StateMainMenuRoot.cs" />

@@ -177,11 +177,14 @@ namespace BumpSetSpike
             GameObjectFactory.pInstance.AddTemplate("GameObjects\\UI\\LeaveCreditsButton\\LeaveCreditsButton", 1);
             GameObjectFactory.pInstance.AddTemplate("GameObjects\\UI\\MainMenu\\FSMMainMenu\\FSMMainMenu", 1);
             GameObjectFactory.pInstance.AddTemplate("GameObjects\\UI\\MainMenu\\ModeSelect\\EnduranceModeBG\\EnduranceModeBG", 1);
+            GameObjectFactory.pInstance.AddTemplate("GameObjects\\UI\\MainMenu\\ModeSelect\\EnduranceModeDesc\\EnduranceModeDesc", 1);
             GameObjectFactory.pInstance.AddTemplate("GameObjects\\UI\\MainMenu\\ModeSelect\\EnduranceModeButton\\EnduranceModeButton", 1);
+            GameObjectFactory.pInstance.AddTemplate("GameObjects\\UI\\MainMenu\\ModeSelect\\GoButton\\GoButton", 1);
             GameObjectFactory.pInstance.AddTemplate("GameObjects\\UI\\MainMenu\\ModeSelect\\ModeSelectBG\\ModeSelectBG", 1);
             GameObjectFactory.pInstance.AddTemplate("GameObjects\\UI\\MainMenu\\ModeSelect\\ModeSelectTitle\\ModeSelectTitle", 1);
             GameObjectFactory.pInstance.AddTemplate("GameObjects\\UI\\MainMenu\\ModeSelect\\ScoreAttackModeBG\\ScoreAttackModeBG", 1);
             GameObjectFactory.pInstance.AddTemplate("GameObjects\\UI\\MainMenu\\ModeSelect\\ScoreAttackModeButton\\ScoreAttackModeButton", 1);
+            GameObjectFactory.pInstance.AddTemplate("GameObjects\\UI\\MainMenu\\ModeSelect\\ScoreAttackModeDesc\\ScoreAttackModeDesc", 1);
             GameObjectFactory.pInstance.AddTemplate("GameObjects\\UI\\NewHighScore\\NewHighScore", 1);
             GameObjectFactory.pInstance.AddTemplate("GameObjects\\UI\\NumFont\\NumFont", 128);
             GameObjectFactory.pInstance.AddTemplate("GameObjects\\UI\\NumFontUI\\NumFontUI", 128);
