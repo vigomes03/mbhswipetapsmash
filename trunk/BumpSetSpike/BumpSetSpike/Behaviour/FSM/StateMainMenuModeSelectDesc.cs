@@ -30,6 +30,10 @@ namespace BumpSetSpike.Behaviour.FSM
         private GameObject mModeSelectTitle;
         private GameObject mModeDesc;
         private GameObject mGoButton;
+        private GameObject mTutLabel;
+        private GameObject mTutBox;
+        private GameObject mTutCheckButton;
+
 
         /// <summary>
         /// Preallocated to avoid GC.
@@ -64,7 +68,7 @@ namespace BumpSetSpike.Behaviour.FSM
             mScoreAttackModeButton = GameObjectFactory.pInstance.GetTemplate("GameObjects\\UI\\MainMenu\\ModeSelect\\ScoreAttackModeButton\\ScoreAttackModeButton");
             mModeSelectTitle = GameObjectFactory.pInstance.GetTemplate("GameObjects\\UI\\MainMenu\\ModeSelect\\ModeSelectTitle\\ModeSelectTitle");
             mGoButton = GameObjectFactory.pInstance.GetTemplate("GameObjects\\UI\\MainMenu\\ModeSelect\\GoButton\\GoButton");
-
+            
             System.Diagnostics.Debug.Assert(GameModeManager.pInstance.pMode != GameModeManager.GameMode.None, "Game Mode is still None. It should have been set in previous state.");
 
             Single unselectedAlpha = 0.25f;
@@ -76,6 +80,14 @@ namespace BumpSetSpike.Behaviour.FSM
                 mSetColorMsg.mColor_In = new Microsoft.Xna.Framework.Color(unselectedAlpha, unselectedAlpha, unselectedAlpha, unselectedAlpha);
                 mScoreAttackModeButton.OnMessage(mSetColorMsg, pParentGOH);
                 mScoreAttackModeBG.OnMessage(mSetColorMsg, pParentGOH);
+
+                // Only show the Tutorial Option for Endurance.
+                mTutBox = GameObjectFactory.pInstance.GetTemplate("GameObjects\\UI\\Options\\Tutorial\\Checkbox\\Checkbox");
+                mTutCheckButton = GameObjectFactory.pInstance.GetTemplate("GameObjects\\UI\\Options\\Tutorial\\Checkmark\\Checkmark");
+                mTutLabel = GameObjectFactory.pInstance.GetTemplate("GameObjects\\UI\\Options\\Tutorial\\Label\\Label");
+                GameObjectManager.pInstance.Add(mTutCheckButton);
+                GameObjectManager.pInstance.Add(mTutBox);
+                GameObjectManager.pInstance.Add(mTutLabel);
             }
             else if (GameModeManager.pInstance.pMode == GameModeManager.GameMode.TrickAttack)
             {
@@ -129,6 +141,9 @@ namespace BumpSetSpike.Behaviour.FSM
             GameObjectManager.pInstance.Remove(mModeSelectTitle);
             GameObjectManager.pInstance.Remove(mGoButton);
             GameObjectManager.pInstance.Remove(mModeDesc);
+            if (mTutCheckButton != null) { GameObjectManager.pInstance.Remove(mTutCheckButton); mTutCheckButton = null; }
+            if (mTutBox != null) { GameObjectManager.pInstance.Remove(mTutBox); mTutBox = null; }
+            if (mTutLabel != null) { GameObjectManager.pInstance.Remove(mTutLabel); mTutLabel = null; }
 
             base.OnEnd();
         }
