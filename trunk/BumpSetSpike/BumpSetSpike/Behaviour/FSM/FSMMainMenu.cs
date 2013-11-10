@@ -31,6 +31,7 @@ namespace BumpSetSpike.Behaviour.FSM
 
             AddState(new StateMainMenuRoot(), "StateMainMenuRoot");
             AddState(new StateMainMenuModeSelect(), "StateMainMenuModeSelect");
+            AddState(new StateMainMenuModeSelectDesc(), "StateMainMenuModeSelectDesc");
             AddState(new StateMainMenuCameraPan(), "StateMainMenuCameraPan");
             AddState(new StateMainMenuCredits(), "StateMainMenuCredits");
         }

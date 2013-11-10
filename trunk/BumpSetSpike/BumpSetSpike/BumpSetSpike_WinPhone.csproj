@@ -113,6 +113,7 @@
     <Compile Include="Behaviour\FSM\StateMainMenuCameraPan.cs" />
     <Compile Include="Behaviour\FSM\StateMainMenuCredits.cs" />
     <Compile Include="Behaviour\FSM\StateMainMenuModeSelect.cs" />
+    <Compile Include="Behaviour\FSM\StateMainMenuModeSelectDesc.cs" />
     <Compile Include="Behaviour\FSM\StateMainMenuRoot.cs" />
     <Compile Include="Behaviour\FSM\StatePauseRoot.cs" />
     <Compile Include="Behaviour\NewHighScore.cs" />

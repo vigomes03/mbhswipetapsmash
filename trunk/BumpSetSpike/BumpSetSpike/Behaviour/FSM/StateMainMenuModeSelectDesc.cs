@@ -11,7 +11,7 @@ using Microsoft.Xna.Framework.Audio;
 
 namespace BumpSetSpike.Behaviour.FSM
 {
-    class StateMainMenuModeSelect : MBHEngine.StateMachine.FSMState
+    class StateMainMenuModeSelectDesc : MBHEngine.StateMachine.FSMState
     {
 
         /// <summary>
@@ -28,21 +28,25 @@ namespace BumpSetSpike.Behaviour.FSM
         private GameObject mScoreAttackModeBG;
         private GameObject mScoreAttackModeButton;
         private GameObject mModeSelectTitle;
+        private GameObject mModeDesc;
+        private GameObject mGoButton;
 
         /// <summary>
         /// Preallocated to avoid GC.
         /// </summary>
         private FiniteStateMachine.SetStateMessage mSetStateMsg;
+        private SpriteRender.SetColorMessage mSetColorMsg;
 
         /// <summary>
         /// Constructor.
         /// </summary>
-        public StateMainMenuModeSelect()
+        public StateMainMenuModeSelectDesc()
             : base()
         {
             mFxMenuSelect = GameObjectManager.pInstance.pContentManager.Load<SoundEffect>("Audio\\FX\\MenuSelect");
 
             mSetStateMsg = new FiniteStateMachine.SetStateMessage();
+            mSetColorMsg = new SpriteRender.SetColorMessage();
         }
 
         /// <summary>
@@ -53,23 +57,47 @@ namespace BumpSetSpike.Behaviour.FSM
         {
             base.OnBegin();
 
-            // We may have come here by backing out of the Desc state, in which case it seems like we should
-            // clear out the mode that was selected.
-            GameModeManager.pInstance.pMode = GameModeManager.GameMode.None;
-
             mEnduranceModeBG = GameObjectFactory.pInstance.GetTemplate("GameObjects\\UI\\MainMenu\\ModeSelect\\EnduranceModeBG\\EnduranceModeBG");
             mEnduranceModeButton = GameObjectFactory.pInstance.GetTemplate("GameObjects\\UI\\MainMenu\\ModeSelect\\EnduranceModeButton\\EnduranceModeButton");
             mModeSelectBG = GameObjectFactory.pInstance.GetTemplate("GameObjects\\UI\\MainMenu\\ModeSelect\\ModeSelectBG\\ModeSelectBG");
             mScoreAttackModeBG = GameObjectFactory.pInstance.GetTemplate("GameObjects\\UI\\MainMenu\\ModeSelect\\ScoreAttackModeBG\\ScoreAttackModeBG");
             mScoreAttackModeButton = GameObjectFactory.pInstance.GetTemplate("GameObjects\\UI\\MainMenu\\ModeSelect\\ScoreAttackModeButton\\ScoreAttackModeButton");
             mModeSelectTitle = GameObjectFactory.pInstance.GetTemplate("GameObjects\\UI\\MainMenu\\ModeSelect\\ModeSelectTitle\\ModeSelectTitle");
-            
+            mGoButton = GameObjectFactory.pInstance.GetTemplate("GameObjects\\UI\\MainMenu\\ModeSelect\\GoButton\\GoButton");
+
+            System.Diagnostics.Debug.Assert(GameModeManager.pInstance.pMode != GameModeManager.GameMode.None, "Game Mode is still None. It should have been set in previous state.");
+
+            Single unselectedAlpha = 0.25f;
+
+            if (GameModeManager.pInstance.pMode == GameModeManager.GameMode.Endurance)
+            {
+                mModeDesc = GameObjectFactory.pInstance.GetTemplate("GameObjects\\UI\\MainMenu\\ModeSelect\\EnduranceModeDesc\\EnduranceModeDesc");
+
+                mSetColorMsg.mColor_In = new Microsoft.Xna.Framework.Color(unselectedAlpha, unselectedAlpha, unselectedAlpha, unselectedAlpha);
+                mScoreAttackModeButton.OnMessage(mSetColorMsg, pParentGOH);
+                mScoreAttackModeBG.OnMessage(mSetColorMsg, pParentGOH);
+            }
+            else if (GameModeManager.pInstance.pMode == GameModeManager.GameMode.TrickAttack)
+            {
+                mModeDesc = GameObjectFactory.pInstance.GetTemplate("GameObjects\\UI\\MainMenu\\ModeSelect\\ScoreAttackModeDesc\\ScoreAttackModeDesc");
+
+                mSetColorMsg.mColor_In = new Microsoft.Xna.Framework.Color(unselectedAlpha, unselectedAlpha, unselectedAlpha, unselectedAlpha);
+                mEnduranceModeButton.OnMessage(mSetColorMsg, pParentGOH);
+                mEnduranceModeBG.OnMessage(mSetColorMsg, pParentGOH);
+            }
+            else
+            {
+                System.Diagnostics.Debug.Assert(false, "Unhandled mode type.");
+            }
+
             GameObjectManager.pInstance.Add(mEnduranceModeBG);
             GameObjectManager.pInstance.Add(mEnduranceModeButton);
             GameObjectManager.pInstance.Add(mModeSelectBG);
             GameObjectManager.pInstance.Add(mScoreAttackModeBG);
             GameObjectManager.pInstance.Add(mScoreAttackModeButton);
             GameObjectManager.pInstance.Add(mModeSelectTitle);
+            GameObjectManager.pInstance.Add(mGoButton);
+            GameObjectManager.pInstance.Add(mModeDesc);
         }
 
         /// <summary>
@@ -81,7 +109,7 @@ namespace BumpSetSpike.Behaviour.FSM
         {
             if (InputManager.pInstance.CheckAction(InputManager.InputActions.BACK, true))
             {
-                return "StateMainMenuRoot";
+                return "StateMainMenuModeSelect";
             }
 
             return base.OnUpdate();
@@ -99,6 +127,8 @@ namespace BumpSetSpike.Behaviour.FSM
             GameObjectManager.pInstance.Remove(mScoreAttackModeBG);
             GameObjectManager.pInstance.Remove(mScoreAttackModeButton);
             GameObjectManager.pInstance.Remove(mModeSelectTitle);
+            GameObjectManager.pInstance.Remove(mGoButton);
+            GameObjectManager.pInstance.Remove(mModeDesc);
 
             base.OnEnd();
         }
@@ -116,20 +146,36 @@ namespace BumpSetSpike.Behaviour.FSM
 
             if (msg is Button.OnButtonPressedMessage)
             {
-                mFxMenuSelect.Play();
-
-                if (msg.pSender == mEnduranceModeButton)
+                if (msg.pSender == mGoButton)
                 {
+                    mFxMenuSelect.Play();
+
+                    mSetStateMsg.Reset();
+                    mSetStateMsg.mNextState_In = "StateMainMenuCameraPan";
+                    pParentGOH.OnMessage(mSetStateMsg, pParentGOH);
+                }
+                else if (msg.pSender == mEnduranceModeButton && GameModeManager.pInstance.pMode != GameModeManager.GameMode.Endurance)
+                {
+                    mFxMenuSelect.Play();
+
                     GameModeManager.pInstance.pMode = GameModeManager.GameMode.Endurance;
-                }
-                else if (msg.pSender == mScoreAttackModeButton)
-                {
-                    GameModeManager.pInstance.pMode = GameModeManager.GameMode.TrickAttack;
-                }
 
-                mSetStateMsg.Reset();
-                mSetStateMsg.mNextState_In = "StateMainMenuModeSelectDesc";
-                pParentGOH.OnMessage(mSetStateMsg, pParentGOH);
+                    // If they click a different game mode, just restart this state.
+                    mSetStateMsg.Reset();
+                    mSetStateMsg.mNextState_In = "StateMainMenuModeSelectDesc";
+                    pParentGOH.OnMessage(mSetStateMsg, pParentGOH);
+                }
+                else if (msg.pSender == mScoreAttackModeButton && GameModeManager.pInstance.pMode != GameModeManager.GameMode.TrickAttack)
+                {
+                    mFxMenuSelect.Play();
+
+                    GameModeManager.pInstance.pMode = GameModeManager.GameMode.TrickAttack;
+
+                    // If they click a different game mode, just restart this state.
+                    mSetStateMsg.Reset();
+                    mSetStateMsg.mNextState_In = "StateMainMenuModeSelectDesc";
+                    pParentGOH.OnMessage(mSetStateMsg, pParentGOH);
+                }
             }
         }
     }
