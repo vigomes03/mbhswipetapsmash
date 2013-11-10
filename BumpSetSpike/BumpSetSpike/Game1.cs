@@ -188,6 +188,9 @@ namespace BumpSetSpike
             GameObjectFactory.pInstance.AddTemplate("GameObjects\\UI\\NewHighScore\\NewHighScore", 1);
             GameObjectFactory.pInstance.AddTemplate("GameObjects\\UI\\NumFont\\NumFont", 128);
             GameObjectFactory.pInstance.AddTemplate("GameObjects\\UI\\NumFontUI\\NumFontUI", 128);
+            GameObjectFactory.pInstance.AddTemplate("GameObjects\\UI\\Options\\Tutorial\\Checkbox\\Checkbox", 1);
+            GameObjectFactory.pInstance.AddTemplate("GameObjects\\UI\\Options\\Tutorial\\Checkmark\\Checkmark", 1);
+            GameObjectFactory.pInstance.AddTemplate("GameObjects\\UI\\Options\\Tutorial\\Label\\Label", 1);
             GameObjectFactory.pInstance.AddTemplate("GameObjects\\UI\\PauseQuitButton\\PauseQuitButton", 1);
             GameObjectFactory.pInstance.AddTemplate("GameObjects\\UI\\PauseResumeButton\\PauseResumeButton", 1);
             GameObjectFactory.pInstance.AddTemplate("GameObjects\\UI\\PauseMainMenuButton\\PauseMainMenuButton", 1);
@@ -209,9 +212,6 @@ namespace BumpSetSpike
             GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\Credits\\SMcGeeButton\\SMcGeeButton"));
             GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\Credits\\SPaxtonButton\\SPaxtonButton"));
             GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\GameOver\\GameOver"));
-            GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\Options\\Tutorial\\Checkbox\\Checkbox"));
-            GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\Options\\Tutorial\\Checkmark\\Checkmark"));
-            GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\Options\\Tutorial\\Label\\Label"));
             GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\PauseButton\\PauseButton"));
             GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\PausedBackdrop\\PausedBackdrop"));
             GameObjectManager.pInstance.Add(new GameObject("GameObjects\\UI\\PausedOverlay\\PausedOverlay"));
