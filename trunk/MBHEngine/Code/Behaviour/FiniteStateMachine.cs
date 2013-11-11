@@ -177,6 +177,12 @@ namespace MBHEngine.Behaviour
                 }
             }
 
+            // Keep going until we get to an update state. This is to avoid objects popping out and
+            // in between states.
+            if (mCurrentFlowState != FlowStates.UPDATE)
+            {
+                Update(gameTime);
+            }
         }
 
         /// <summary>
