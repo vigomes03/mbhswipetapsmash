@@ -344,6 +344,12 @@ namespace MBHEngine.Debug
             Single viewTop = CameraManager.pInstance.pTargetPosition.Y - (device.Viewport.Height * 0.5f);
             Single viewBottom = CameraManager.pInstance.pTargetPosition.Y + (device.Viewport.Height * 0.5f);
 
+            /*
+            Single viewLeft = CameraManager.pInstance.pScreenViewRect.pCenterPoint.X - (device.Viewport.Width * 0.5f);
+            Single viewRight = CameraManager.pInstance.pScreenViewRect.pCenterPoint.X + (device.Viewport.Width * 0.5f);
+            Single viewTop = CameraManager.pInstance.pScreenViewRect.pCenterPoint.Y - (device.Viewport.Height * 0.5f);
+            Single viewBottom = CameraManager.pInstance.pScreenViewRect.pCenterPoint.Y + (device.Viewport.Height * 0.5f);
+            */
             Matrix projectionMatrix = Matrix.CreateOrthographicOffCenter(
                 viewLeft,
                 viewRight,
