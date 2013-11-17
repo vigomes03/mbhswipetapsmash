@@ -98,6 +98,7 @@
     <Compile Include="Behaviour\BehaviourDefinition.cs" />
     <Compile Include="Behaviour\FaceForwardDefinition.cs" />
     <Compile Include="Behaviour\HealNearbyDefinition.cs" />
+    <Compile Include="Behaviour\MotionTrailDefinition.cs" />
     <Compile Include="Behaviour\PathFollowDefinition.cs" />
     <Compile Include="Behaviour\MagneticDefinition.cs" />
     <Compile Include="Behaviour\ShapeRenderDefinition.cs" />

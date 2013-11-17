@@ -334,6 +334,8 @@ namespace MBHEngine.Behaviour
         /// </summary>
         private Color mTint;
 
+        private MotionTrail.GetMotionTrailHistoryMessage mGetMotionTrailHistoryMsg;
+
         /// <summary>
         /// Constructor which also handles the process of loading in the Behaviour
         /// Definition information.
@@ -410,6 +412,7 @@ namespace MBHEngine.Behaviour
             Reset();
 
             mOnAnimationCompleteMsg = new OnAnimationCompleteMessage();
+            mGetMotionTrailHistoryMsg = new MotionTrail.GetMotionTrailHistoryMessage();
         }
 
         /// <summary>
@@ -488,6 +491,49 @@ namespace MBHEngine.Behaviour
                 Int32 baseIndex = (mAnimations[mActiveAnimation].mStartingFrame + mCurrentAnimationFrame) * mFrameHeight;
                 Rectangle rect = new Rectangle(0, baseIndex, mTexture.Width, mFrameHeight);
                 
+                mGetMotionTrailHistoryMsg.Reset();
+                mParentGOH.OnMessage(mGetMotionTrailHistoryMsg);
+
+                if (mGetMotionTrailHistoryMsg.mHistory_Out != null)
+                {
+                    Single alphaStep = 1.0f / (Single)mGetMotionTrailHistoryMsg.mHistory_Out.Count;
+
+                    for (Int32 i = 0; i < mGetMotionTrailHistoryMsg.mHistory_Out.Count; i++)
+                    {
+                        batch.Draw(mTexture,
+                                   mGetMotionTrailHistoryMsg.mHistory_Out[i],
+                                   rect,
+                                   mColor * (alphaStep * i),
+                                   mParentGOH.pRotation,
+                                   mParentGOH.pMotionRoot,
+                                   mParentGOH.pScale,
+                                   mSpriteEffects,
+                                   0);
+                    }
+
+                    // PC VERSION
+                    /*
+                    Single alphaStep = 1.0f / (Single)mGetMotionTrailHistoryMsg.mHistory_Out.Count;
+
+                    for (Int32 i = 0; i < mGetMotionTrailHistoryMsg.mHistory_Out.Count; i++)
+                    {
+                        Byte alpha = (Byte)(i * alphaStep);
+                        Color col = mColor;
+                        col.A = (Byte)(i * alphaStep * 255);
+
+                        batch.Draw(mTexture,
+                                   mGetMotionTrailHistoryMsg.mHistory_Out[i],
+                                   rect,
+                                   col,
+                                   mParentGOH.pRotation,
+                                   mParentGOH.pMotionRoot,
+                                   mParentGOH.pScale,
+                                   mSpriteEffects,
+                                   0);
+                    }
+                    */
+                }
+
                 batch.Draw(mTexture,
                            mParentGOH.pPosition,
                            rect,
@@ -529,6 +575,28 @@ namespace MBHEngine.Behaviour
             }
             else
             {
+
+                mGetMotionTrailHistoryMsg.Reset();
+                mParentGOH.OnMessage(mGetMotionTrailHistoryMsg);
+
+                if (mGetMotionTrailHistoryMsg.mHistory_Out != null)
+                {
+                    for (Int32 i = 0; i < mGetMotionTrailHistoryMsg.mHistory_Out.Count; i++)
+                    {
+                        Single alphaStep = 1.0f / (Single)mGetMotionTrailHistoryMsg.mHistory_Out.Count;
+
+                        batch.Draw(mTexture,
+                                   mGetMotionTrailHistoryMsg.mHistory_Out[i],
+                                   null,
+                                   mColor * (alphaStep * i),
+                                   mParentGOH.pRotation,
+                                   mParentGOH.pMotionRoot,
+                                   mParentGOH.pScale,
+                                   mSpriteEffects,
+                                   0);
+                    }
+                }
+
                 batch.Draw(mTexture,
                            mParentGOH.pPosition,
                            null,
