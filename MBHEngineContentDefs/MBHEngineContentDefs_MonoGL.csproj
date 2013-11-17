@@ -93,6 +93,7 @@
     <Compile Include="Behaviour\HealthDefinition.cs" />
     <Compile Include="Behaviour\LevelDefinition.cs" />
     <Compile Include="Behaviour\MagneticDefinition.cs" />
+    <Compile Include="Behaviour\MotionTrailDefinition.cs" />
     <Compile Include="Behaviour\OgmoRenderDefinition.cs" />
     <Compile Include="Behaviour\PathFindDefinition.cs" />
     <Compile Include="Behaviour\PathFollowDefinition.cs" />

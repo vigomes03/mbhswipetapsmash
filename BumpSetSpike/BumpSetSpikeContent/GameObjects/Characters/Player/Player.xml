@@ -13,10 +13,12 @@
     <mBehaviourFileNames>
       <Item>Sprite</Item>
       <Item>Player</Item>
+      <Item>MotionTrail</Item>
     </mBehaviourFileNames>
     <mBehaviourClassNames>
       <Item>MBHEngine.Behaviour.SpriteRender</Item>
       <Item>BumpSetSpike.Behaviour.Player</Item>
+      <Item>MBHEngine.Behaviour.MotionTrail</Item>
     </mBehaviourClassNames>
   </Asset>
 </XnaContent>
