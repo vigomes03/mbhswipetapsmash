@@ -579,6 +579,16 @@ namespace BumpSetSpike.Behaviour
                 }
             }
 
+            // Only enable the motion trail in high-action states.
+            if (mCurrentState == State.Jump || mCurrentState == State.Fall || mCurrentState == State.SpikeAttempt)
+            {
+                mParentGOH.SetBehaviourEnabled<MotionTrail>(true);
+            }
+            else
+            {
+                mParentGOH.SetBehaviourEnabled<MotionTrail>(false);
+            }
+
             //DebugMessageDisplay.pInstance.AddDynamicMessage("Player: " + mParentGOH.pPosition);
         }
 
