@@ -80,6 +80,7 @@
     <Compile Include="Behaviour\BallDefinition.cs" />
     <Compile Include="Behaviour\ButtonDefinition.cs" />
     <Compile Include="Behaviour\ButtonMultiStageDefinition.cs" />
+    <Compile Include="Behaviour\RecentTrickDisplayDefinition.cs" />
     <Compile Include="Behaviour\FSMMainMenuDefinition.cs" />
     <Compile Include="Behaviour\FSMPauseScreenDefinition.cs" />
     <Compile Include="Behaviour\ScoreSummaryDefinition.cs" />

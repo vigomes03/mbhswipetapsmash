@@ -91,6 +91,7 @@
     <Compile Include="Behaviour\Partner.cs" />
     <Compile Include="Behaviour\Player.cs" />
     <Compile Include="Behaviour\PointDisplay.cs" />
+    <Compile Include="Behaviour\RecentTrickDisplay.cs" />
     <Compile Include="Behaviour\ScoreSummary.cs" />
     <Compile Include="Behaviour\Wobble.cs" />
     <Compile Include="Game1.cs" />
