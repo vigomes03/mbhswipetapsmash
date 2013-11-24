@@ -101,6 +101,7 @@
     <Compile Include="Behaviour\PartnerDefinition.cs" />
     <Compile Include="Behaviour\PlayerDefinition.cs" />
     <Compile Include="Behaviour\PointDisplayDefinition.cs" />
+    <Compile Include="Behaviour\RecentTrickDisplayDefinition.cs" />
     <Compile Include="Behaviour\WobbleDefinition.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

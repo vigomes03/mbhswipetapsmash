@@ -124,6 +124,7 @@
     <Compile Include="Behaviour\GroundShadow.cs" />
     <Compile Include="Behaviour\Partner.cs" />
     <Compile Include="Behaviour\Player.cs" />
+    <Compile Include="Behaviour\RecentTrickDisplay.cs" />
     <Compile Include="Behaviour\ScoreSummary.cs" />
     <Compile Include="Behaviour\Wobble.cs" />
     <Compile Include="Gameflow\GameModeManager.cs" />
