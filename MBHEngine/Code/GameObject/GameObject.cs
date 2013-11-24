@@ -449,15 +449,18 @@ namespace MBHEngine.GameObject
             {
                 if (mBehaviours[i] is BehaviourType)
                 {
-                    mBehaviours[i].pIsEnabled = isEnabled;
+                    if (mBehaviours[i].pIsEnabled != isEnabled)
+                    {
+                        mBehaviours[i].pIsEnabled = isEnabled;
 
-                    if (isEnabled)
-                    {
-                        mBehaviours[i].OnEnable();
-                    }
-                    else
-                    {
-                        mBehaviours[i].OnDisable();
+                        if (isEnabled)
+                        {
+                            mBehaviours[i].OnEnable();
+                        }
+                        else
+                        {
+                            mBehaviours[i].OnDisable();
+                        }
                     }
                 }
             }

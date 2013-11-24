@@ -72,10 +72,23 @@ namespace MBHEngine.Behaviour
         /// <summary>
         /// See parent.
         /// </summary>
+        public override void OnEnable()
+        {
+            base.OnEnable();
+
+            // In some cased the motion trail will only be enabled for certain states,
+            // and in those cases we want to make sure we aren't showing motion trails
+            // that are from some time ago.
+            mHistory.Clear();
+        }
+
+        /// <summary>
+        /// See parent.
+        /// </summary>
         /// <param name="msg"></param>
         public override void OnMessage(ref BehaviourMessage msg)
         {
-            if (msg is GetMotionTrailHistoryMessage)
+            if (pIsEnabled && msg is GetMotionTrailHistoryMessage)
             {
                 GetMotionTrailHistoryMessage temp = (GetMotionTrailHistoryMessage)msg;
 
