@@ -17,11 +17,11 @@
     <mBlendMode>STANDARD_UI</mBlendMode>
     <mBehaviourFileNames>
       <Item>Sprite</Item>
-      <Item>ButtonMultiStage</Item>
+      <Item>Button</Item>
     </mBehaviourFileNames>
     <mBehaviourClassNames>
       <Item>MBHEngine.Behaviour.SpriteRender</Item>
-      <Item>BumpSetSpike.Behaviour.ButtonMultiStage</Item>
+      <Item>BumpSetSpike.Behaviour.Button</Item>
     </mBehaviourClassNames>
   </Asset>
 </XnaContent>

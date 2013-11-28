@@ -1126,8 +1126,8 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GameObjects\UI\FacebookButton\Behaviours\ButtonMultiStage.xml">
-      <Name>ButtonMultiStage</Name>
+    <Compile Include="GameObjects\UI\FacebookButton\Behaviours\Button.xml">
+      <Name>Button</Name>
       <Importer>XmlImporter</Importer>
       <Processor>PassThroughProcessor</Processor>
       <SubType>Designer</SubType>
