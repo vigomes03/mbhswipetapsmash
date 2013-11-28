@@ -18,6 +18,8 @@ namespace BumpSetSpike.Behaviour.FSM
         private GameObject mQuitButton;
         private GameObject mMainMenuButton;
 
+        private SaveGameManager.ForceUpdateSaveDataMessage mForceUpdateSaveGameDataMsg;
+
         /// <summary>
         /// Called once when the state starts.  This is a chance to do things that should only happen once
         /// during a particular state.
@@ -34,6 +36,8 @@ namespace BumpSetSpike.Behaviour.FSM
 
             mMainMenuButton = GameObjectFactory.pInstance.GetTemplate("GameObjects\\UI\\PauseMainMenuButton\\PauseMainMenuButton");
             GameObjectManager.pInstance.Add(mMainMenuButton);
+
+            mForceUpdateSaveGameDataMsg = new SaveGameManager.ForceUpdateSaveDataMessage();
         }
 
         /// <summary>
@@ -105,6 +109,10 @@ namespace BumpSetSpike.Behaviour.FSM
                 }
                 else if (msg.pSender == mMainMenuButton)
                 {
+                    // Save the score when going back to the main menu. This will be filtered out
+                    // of modes that could be exploited (eg. trick attack).
+                    GameObjectManager.pInstance.BroadcastMessage(mForceUpdateSaveGameDataMsg, pParentGOH);
+
                     GameObjectManager.pInstance.pCurUpdatePass = MBHEngineContentDefs.BehaviourDefinition.Passes.MAIN_MENU;
 
                     TutorialManager.pInstance.StopTutorial();
