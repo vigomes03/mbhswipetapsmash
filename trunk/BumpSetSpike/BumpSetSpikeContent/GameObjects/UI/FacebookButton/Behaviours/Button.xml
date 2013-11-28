@@ -1,11 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <XnaContent>
-  <Asset Type="BumpSetSpikeContentDefs.ButtonMultiStageDefinition">
+  <Asset Type="BumpSetSpikeContentDefs.ButtonDefinition">
     <mTaskOnRelease>
       <mType>OpenURL</mType>
       <mData>https://www.facebook.com/SwipeTapSmash</mData>
     </mTaskOnRelease>
-    <mNumStages>2</mNumStages>
   </Asset>
 </XnaContent>
 
