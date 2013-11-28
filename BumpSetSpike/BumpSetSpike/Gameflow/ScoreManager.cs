@@ -37,6 +37,36 @@ namespace BumpSetSpike.Gameflow
         }
 
         /// <summary>
+        /// Stores all the information about a single Score Type.
+        /// </summary>
+        public class ScoreData
+        {
+            /// <summary>
+            /// How many points is performing this trick once worth.
+            /// </summary>
+            public Int32 mValue;
+
+            /// <summary>
+            /// What is the name of the trick?
+            /// </summary>
+            public String mName;
+
+            /// <summary>
+            /// Same as mValue but expressed as a string to avoid GC at runtime.
+            /// </summary>
+            public String mValueAsString;
+
+            /// <summary>
+            /// Constructor.
+            /// </summary>
+            /// <param name="value">How many points is this trick worth?</param>
+            public ScoreData(Int32 value)
+            {
+                mValue = value;
+            }
+        }
+
+        /// <summary>
         /// Singleton.
         /// </summary>
         private static ScoreManager mInstance;
@@ -44,12 +74,13 @@ namespace BumpSetSpike.Gameflow
         /// <summary>
         /// Maps a type of move to a point value.
         /// </summary>
-        private Dictionary<Int32, Int32> mScoreMapping;
+        private Dictionary<Int32, ScoreData> mScoreMapping;
 
         /// <summary>
         /// Preallocated to avoid GC.
         /// </summary>
         private PointDisplay.SetScoreMessage mSetScoreMsg;
+        private HitCountDisplay.SetScoreMessage mSetHitCountMsg;
 
         /// <summary>
         /// Tracks all the moves used in the current combo, and how many times each was performed.
@@ -59,27 +90,31 @@ namespace BumpSetSpike.Gameflow
         /// <summary>
         /// Constructor.
         /// </summary>
-        public ScoreManager()
+        private ScoreManager()
         {
-            mSetScoreMsg = new PointDisplay.SetScoreMessage();
-
-            mScoreMapping = new Dictionary<Int32, Int32>
+            mScoreMapping = new Dictionary<Int32, ScoreData>
             {
-                { (Int32)ScoreType.Spike,      10 },
-                { (Int32)ScoreType.Jump,       5 },
-                { (Int32)ScoreType.Net,        20 },
-                { (Int32)ScoreType.Kabooom,    20 },
+                { (Int32)ScoreType.Spike,      new ScoreData(10)  },
+                { (Int32)ScoreType.Jump,       new ScoreData(5)   },
+                { (Int32)ScoreType.Net,        new ScoreData(20)  },
+                { (Int32)ScoreType.Kabooom,    new ScoreData(20)  },
 
-                { (Int32)ScoreType.FingerTips, 25 },
-                { (Int32)ScoreType.HighPoint,  25 },
-                { (Int32)ScoreType.LowPoint,   40 },
-                { (Int32)ScoreType.HangTime,   100 },
-                { (Int32)ScoreType.FadeAway,   50 },
-                { (Int32)ScoreType.Upwards,    75 },
-                { (Int32)ScoreType.Speedy,     75 },
+                { (Int32)ScoreType.FingerTips, new ScoreData(25)  },
+                { (Int32)ScoreType.HighPoint,  new ScoreData(25)  },
+                { (Int32)ScoreType.LowPoint,   new ScoreData(40)  },
+                { (Int32)ScoreType.HangTime,   new ScoreData(100) },
+                { (Int32)ScoreType.FadeAway,   new ScoreData(50)  },
+                { (Int32)ScoreType.Upwards,    new ScoreData(75)  },
+                { (Int32)ScoreType.Speedy,     new ScoreData(75)  },
             };
 
             System.Diagnostics.Debug.Assert(mScoreMapping.Count == (Int32)ScoreType.Count);
+
+            for (Int32 i = 0; i < (Int32)ScoreType.Count; i++)
+            {
+                mScoreMapping[i].mName = ((ScoreType)i).ToString();
+                mScoreMapping[i].mValueAsString = mScoreMapping[i].mValue.ToString();
+            }
         }
 
         /// <summary>
@@ -88,6 +123,9 @@ namespace BumpSetSpike.Gameflow
         public void Initialize()
         {
             mCurrentCombo = new Int32[(Int32)ScoreType.Count];
+
+            mSetHitCountMsg = new HitCountDisplay.SetScoreMessage();
+            mSetScoreMsg = new PointDisplay.SetScoreMessage();
         }
 
         /// <summary>
@@ -127,10 +165,9 @@ namespace BumpSetSpike.Gameflow
              
             GameObjectManager.pInstance.Add(points);
 
-            HitCountDisplay.SetScoreMessage setHitCountMsg = new HitCountDisplay.SetScoreMessage();
-            setHitCountMsg.mCount_In = CalcScore();
+            mSetHitCountMsg.mCount_In = CalcScore();
 
-            GameObjectManager.pInstance.BroadcastMessage(setHitCountMsg);
+            GameObjectManager.pInstance.BroadcastMessage(mSetHitCountMsg);
         }
 
         /// <summary>
@@ -142,7 +179,7 @@ namespace BumpSetSpike.Gameflow
         {
             mCurrentCombo[(Int32)type]++;
 
-            UpdateScoreDisplay(mScoreMapping[(Int32)type], positionInWorld);
+            UpdateScoreDisplay(mScoreMapping[(Int32)type].mValue, positionInWorld);
         }
 
         /// <summary>
@@ -175,7 +212,7 @@ namespace BumpSetSpike.Gameflow
                     // +1 multiplier for each TYPE of move performed.
                     multiplier++;
 
-                    score += mScoreMapping[(Int32)i] * moveCount;
+                    score += mScoreMapping[(Int32)i].mValue * moveCount;
                 }
             }
 
@@ -219,7 +256,7 @@ namespace BumpSetSpike.Gameflow
         /// <summary>
         /// Access to the mapping of moves to how many points they are worth.
         /// </summary>
-        public Dictionary<Int32, Int32> pScoreMapping
+        public Dictionary<Int32, ScoreData> pScoreMapping
         {
             get
             {

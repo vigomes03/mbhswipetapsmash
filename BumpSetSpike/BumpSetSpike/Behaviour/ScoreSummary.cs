@@ -182,7 +182,7 @@ namespace BumpSetSpike.Behaviour
             base.Render(batch, effect);
 
             Int32[] comboData = ScoreManager.pInstance.pCurrentCombo;
-            Dictionary<Int32, Int32> scoreMapping = ScoreManager.pInstance.pScoreMapping;
+            Dictionary<Int32, ScoreManager.ScoreData> scoreMapping = ScoreManager.pInstance.pScoreMapping;
             MBHEngine.Math.Rectangle screenRect = CameraManager.pInstance.pScreenViewRect;
 
             Int32 count = 0;
@@ -205,7 +205,7 @@ namespace BumpSetSpike.Behaviour
             {
                 if (comboData[i] > 0 && count <= mNumRowsShown)
                 {
-                    string str = ((ScoreManager.ScoreType)i).ToString();
+                    string str = scoreMapping[i].mName;
                     Vector2 strSize = mFont.MeasureString(str);
                     Single vertSpace = 9.0f;
                     Single horzOffSet = 14.0f;
@@ -218,9 +218,7 @@ namespace BumpSetSpike.Behaviour
 
                     ///
 
-                    Int32 scoreMap = scoreMapping[(Int32)i];
-
-                    str = scoreMap.ToString();
+                    str = scoreMapping[(Int32)i].mValueAsString;
                     strSize = mFont.MeasureString(str);
 
                     pos = new Vector2(screenRect.pCenterPoint.X - (strSize.X * 0.5f), vertSpace * count + yStart);
@@ -252,6 +250,7 @@ namespace BumpSetSpike.Behaviour
 
                     ///
 
+                    Int32 scoreMap = scoreMapping[(Int32)i].mValue;
                     str = (hitCount * scoreMap).ToString();
 
                     pos = new Vector2(screenRect.pCenterPoint.X + horzOffSet + 30, vertSpace * count + yStart);
