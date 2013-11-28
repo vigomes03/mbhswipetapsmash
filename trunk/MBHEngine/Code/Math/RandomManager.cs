@@ -35,6 +35,14 @@ namespace MBHEngine.Math
         }
 
         /// <summary>
+        /// Simple function for triggering the creation of the singleton so that it doesn't
+        /// happen at some random point during gameplay.
+        /// </summary>
+        public void Initialize()
+        {
+        }
+
+        /// <summary>
         /// Retrives a random number between 0 and MAX_INT.
         /// </summary>
         /// <remarks>If a floating point number is needed, see RandomPercent.</remarks>

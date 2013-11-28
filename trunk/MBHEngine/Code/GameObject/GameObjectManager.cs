@@ -185,19 +185,19 @@ namespace MBHEngine.GameObject
         /// <param name="graphics">Used for rendering.</param>
         public void Initialize(ContentManager content, GraphicsDeviceManager graphics)
         {
-            mGameObjects = new List<GameObject>();
-            mDynamicGameObjects = new List<GameObject>();
-            mGameObjectsByClassification = new Dictionary<Int32, List<GameObject>>();
+            mGameObjects = new List<GameObject>(128);
+            mDynamicGameObjects = new List<GameObject>(128);
+            mGameObjectsByClassification = new Dictionary<Int32, List<GameObject>>(128);
             Int32 numEnum = (Int32)GameObjectDefinition.Classifications.COUNT;
             for (Int32 i = 0; i < numEnum; i++)
             {
                 mGameObjectsByClassification[i] = new List<GameObject>();
             }
             // Note: mStaticGameObject is allocated in OnMapInfoChange.
-            mGameObjectsToAdd = new List<GameObject>();
-            mGameObjectsToRemove = new List<GameObject>();
-            mGameObjectsToAddNextFrame = new List<GameObject>();
-            mGameObjectsToRemoveNextFrame = new List<GameObject>();
+            mGameObjectsToAdd = new List<GameObject>(32);
+            mGameObjectsToRemove = new List<GameObject>(32);
+            mGameObjectsToAddNextFrame = new List<GameObject>(32);
+            mGameObjectsToRemoveNextFrame = new List<GameObject>(32);
 
             mContent = content;
             mGraphics = graphics;
