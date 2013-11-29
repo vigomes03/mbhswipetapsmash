@@ -78,7 +78,12 @@ namespace BumpSetSpike
 #endif
 #endif
 
-            //mGraphics.IsFullScreen = true;
+#if false
+            mGraphics.PreferredBackBufferWidth = 1366; // 1280;
+            mGraphics.PreferredBackBufferHeight = 768; // 720;
+            mGraphics.IsFullScreen = true;
+#endif
+
             Content.RootDirectory = "Content";
 
             // Avoid the "jitter".
@@ -148,6 +153,13 @@ namespace BumpSetSpike
 
             //IsMouseVisible = mDebugDrawEnabled;
             IsMouseVisible = true;
+
+#if WINDOWS
+#if !MONOGL
+            System.Windows.Forms.Form form = (System.Windows.Forms.Form)System.Windows.Forms.Control.FromHandle(this.Window.Handle);
+            form.Location = new System.Drawing.Point(70, 0);
+#endif
+#endif
 
             base.Initialize();
         }
