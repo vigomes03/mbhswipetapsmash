@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MBHEngine.Input;
 using MBHEngine.Debug;
+using MBHEngine.Render;
 
 namespace MBHEngine.Behaviour
 {
@@ -359,6 +360,27 @@ namespace MBHEngine.Behaviour
 
             mSpriteFileName = def.mSpriteFileName;
             mTexture = GameObjectManager.pInstance.pContentManager.Load<Texture2D>(mSpriteFileName);
+
+            if (def.mScreenStretchPercentage != null)
+            {
+                System.Diagnostics.Debug.Assert(def.mAnimationSets == null, "mScreenStretchPercentage is not yet supported for animated sprites.");
+
+                if (def.mScreenStretchPercentage.X >= 0)
+                {
+                    System.Diagnostics.Debug.Assert(def.mScreenStretchPercentage.X >= 0 && def.mScreenStretchPercentage.X <= 1.0f, "Percentage should be expressed as floating point value from 0 - 1");
+                    Single width = CameraManager.pInstance.pScreenViewRect.pDimensions.X;
+                    Single initialPercent = mTexture.Width / width;
+                    mParentGOH.pScaleX = def.mScreenStretchPercentage.X / initialPercent;
+                }
+                if (def.mScreenStretchPercentage.Y >= 0)
+                {
+                    System.Diagnostics.Debug.Assert(def.mScreenStretchPercentage.Y >= 0 && def.mScreenStretchPercentage.Y <= 1.0f, "Percentage should be expressed as floating point value from 0 - 1");
+                    Single height = CameraManager.pInstance.pScreenViewRect.pDimensions.Y;
+                    Single initialPercent = mTexture.Height / height;
+                    mParentGOH.pScaleY = def.mScreenStretchPercentage.Y / initialPercent;
+                }
+            }
+
             mAttachmentPoints = new Dictionary<string, SpriteRenderDefinition.AtachmentPoint>();
             if (def.mAttachmentPoints != null)
             {

@@ -5,6 +5,10 @@
       <Item>CREDITS</Item>
     </mRenderPasses>
     <mSpriteFileName>Sprites\BlackBox</mSpriteFileName>
+    <mScreenStretchPercentage>
+      <X>1.0</X>
+      <Y>1.0</Y>
+    </mScreenStretchPercentage>
   </Asset>
 </XnaContent>
 

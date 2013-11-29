@@ -101,9 +101,35 @@ namespace MBHEngineContentDefs
         };
 
         /// <summary>
+        /// Allows sprites to be dynamically stretch to cover the entire screen based on the
+        /// resolution at runtime. X and Y can be set independently of each other to allow thing
+        /// like banners that only stretch horizontally.
+        /// </summary>
+        public class ScreenStretchPercentage
+        {
+            /// <summary>
+            /// The percent of the screen that should be covered by this sprite.
+            /// </summary>
+            [ContentSerializer(Optional = true)]
+            public Single X = -1.0f;
+
+            /// <summary>
+            /// The percent of the screen that should be covered by this sprite.
+            /// </summary>
+            [ContentSerializer(Optional = true)]
+            public Single Y = -1.0f;
+        }
+
+        /// <summary>
         /// The name of the file which contains the sprite image.
         /// </summary>
         public String mSpriteFileName;
+
+        /// <summary>
+        /// How much of the screen should be covered by this sprite.
+        /// </summary>
+        [ContentSerializer(Optional = true)]
+        public ScreenStretchPercentage mScreenStretchPercentage;
 
         /// <summary>
         /// The height, in pixels, of a single frame of animation.

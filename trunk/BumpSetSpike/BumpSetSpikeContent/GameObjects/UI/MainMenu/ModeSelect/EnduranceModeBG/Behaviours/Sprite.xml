@@ -2,6 +2,9 @@
 <XnaContent>
   <Asset Type="MBHEngineContentDefs.SpriteRenderDefinition">
     <mSpriteFileName>Sprites\ModeSelectBG</mSpriteFileName>
+    <mScreenStretchPercentage>
+      <X>1.0</X>
+    </mScreenStretchPercentage>
 </Asset>
 </XnaContent>
 
