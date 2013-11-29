@@ -620,38 +620,11 @@ namespace BumpSetSpike.Behaviour
             // of the player to make sure he doesn't jump through the net.
             //
 
-            // Find teh net.
-            List<GameObject> nets = GameObjectManager.pInstance.GetGameObjectsOfClassification(MBHEngineContentDefs.GameObjectDefinition.Classifications.WALL);
+            const Single netOffset = -12.0f;
 
-            System.Diagnostics.Debug.Assert(nets.Count == 1);
-
-            GameObject net = nets[0];
-
-            // Create a line defining our movement.
-            mMovementLine.pPointA = (mParentGOH.pPrevPos + mParentGOH.pCollisionRoot);
-            mMovementLine.pPointB = net.pCollisionRect.pCenterPoint;
-
-            //DebugShapeDisplay.pInstance.AddSegment(mMovementLine, Color.Red);
-
-            // Are we colliding with the net?
-            if (net.pCollisionRect.Intersects(mParentGOH.pCollisionRect))
+            if (mParentGOH.pPosX > netOffset)
             {
-                // Are we moving forward?
-                if (mParentGOH.pDirection.mForward.X > 0.0f)
-                {
-                    // Find the left edge of the net so we can push off of it.
-                    net.pCollisionRect.GetLeftEdge(ref mCollisionWall);
-
-                    // Find out where and if our movement line crosses the left wall of the 
-                    // net. If these intersect it means we are running into this wall.
-                    Vector2 intersect = new Vector2();
-                    if (mCollisionWall.Intersects(mMovementLine, ref intersect))
-                    {
-                        // Stop moving forward, and move back to the edge.
-                        mParentGOH.pDirection.mForward.X = 0.0f;
-                        mParentGOH.pPosX = intersect.X - mParentGOH.pCollisionRect.pDimensionsHalved.X - mParentGOH.pCollisionRoot.X;
-                    }
-                }
+                mParentGOH.pPosX = netOffset;
             }
         }
 
