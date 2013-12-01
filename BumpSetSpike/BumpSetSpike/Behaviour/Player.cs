@@ -13,6 +13,7 @@ using BumpSetSpike.Gameflow;
 using MBHEngine.Input;
 using MBHEngineContentDefs;
 using Microsoft.Xna.Framework.Audio;
+using MBHEngine.Trial;
 
 namespace BumpSetSpike.Behaviour
 {
@@ -136,6 +137,12 @@ namespace BumpSetSpike.Behaviour
         private Single mWalkSpeed;
 
         /// <summary>
+        /// Objects used to display the "Trial Limit Reached" message.
+        /// </summary>
+        private GameObject mTrialLimitReached;
+        private GameObject mTrialLimitReachedBG;
+
+        /// <summary>
         /// Preallocated messages.
         /// </summary>
         private SpriteRender.SetActiveAnimationMessage mSetActiveAnimationMsg;
@@ -256,9 +263,54 @@ namespace BumpSetSpike.Behaviour
                 TutorialManager.pInstance.pCurState == TutorialManager.State.PLAYER_TRYING ||
                 TutorialManager.pInstance.pCurState == TutorialManager.State.TRYING_AGAIN;
 
+            GameObjectManager.pInstance.BroadcastMessage(mGetCurrentHitCountMsg);
+
+#if DEBUG
+            const Int32 maxEnduranceTrialScore = 2;
+#else
+            const Int32 maxEnduranceTrialScore = 10;
+#endif
+            const Int32 maxTrickAttackTrialScore = 500;
+
+            Int32 maxTrialScore = Int32.MaxValue;
+            switch (GameModeManager.pInstance.pMode)
+            {
+                case GameModeManager.GameMode.Endurance:
+                {
+                    maxTrialScore = maxEnduranceTrialScore;
+                    break;
+                }
+
+                case GameModeManager.GameMode.TrickAttack:
+                {
+                    maxTrialScore = maxTrickAttackTrialScore;
+                    break;
+                }
+            }
+
+            bool trialLimitReached = TrialModeManager.pInstance.pIsTrialMode && mGetCurrentHitCountMsg.mCount_Out >= maxTrialScore;
+
+            if (trialLimitReached && mTrialLimitReached == null)
+            {
+                mTrialLimitReached = GameObjectFactory.pInstance.GetTemplate("GameObjects\\UI\\TrialModeLimitReached\\TrialModeLimitReached");
+                GameObjectManager.pInstance.Add(mTrialLimitReached);
+
+                mTrialLimitReachedBG = GameObjectFactory.pInstance.GetTemplate("GameObjects\\UI\\TrialModeLimitReachedBG\\TrialModeLimitReachedBG");
+                GameObjectManager.pInstance.Add(mTrialLimitReachedBG);
+            }
+            else if (!trialLimitReached && mTrialLimitReached != null)
+            {
+                GameObjectManager.pInstance.Remove(mTrialLimitReached);
+                mTrialLimitReached = null;
+
+                GameObjectManager.pInstance.Remove(mTrialLimitReachedBG);
+                mTrialLimitReachedBG = null;
+            }
+
             // Is the player flicking the screen, trying to throw the player into the air?
             if ((TutorialManager.pInstance.pTutorialCompleted || validTutTapState) &&
-                (InputManager.pInstance.CheckGesture(GestureType.Flick, ref gesture)))
+                (InputManager.pInstance.CheckGesture(GestureType.Flick, ref gesture)) &&
+                !trialLimitReached)
             {
                 // Only allow jumping if you are currently in the Idle state.
                 if (mCurrentState == State.Idle && GameObjectManager.pInstance.pCurUpdatePass == BehaviourDefinition.Passes.GAME_PLAY)
@@ -340,10 +392,6 @@ namespace BumpSetSpike.Behaviour
                 if (GameObjectManager.pInstance.pCurUpdatePass == BehaviourDefinition.Passes.GAME_OVER ||
                     GameObjectManager.pInstance.pCurUpdatePass == BehaviourDefinition.Passes.GAME_OVER_LOSS)
                 {
-                    // Depending on if the player got a new high score or not, we want to play a different
-                    // animation.
-                    GameObjectManager.pInstance.BroadcastMessage(mGetCurrentHitCountMsg, mParentGOH);
-
                     if (mGetCurrentHitCountMsg.mCount_Out > LeaderBoardManager.pInstance.GetCurrentModeTopScore() &&
                         GameObjectManager.pInstance.pCurUpdatePass != BehaviourDefinition.Passes.GAME_OVER_LOSS)
                     {

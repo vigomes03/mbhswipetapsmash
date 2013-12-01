@@ -4,7 +4,7 @@
     <mRenderPriority>101</mRenderPriority>
     <mDoUpdate>true</mDoUpdate>
     <mDoRender>true</mDoRender>
-    <mPosition>12 12</mPosition>
+    <mPosition>12 18</mPosition>
     <mRotation>0</mRotation>
     <mScale>1 1</mScale>
     <mCollisionBoxDimensions>16.0 16.0</mCollisionBoxDimensions>

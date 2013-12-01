@@ -88,6 +88,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Behaviour\BehaviourDefinition.cs" />
+    <Compile Include="Behaviour\EnableForTrialDefinition.cs" />
     <Compile Include="Behaviour\FaceForwardDefinition.cs" />
     <Compile Include="Behaviour\HealNearbyDefinition.cs" />
     <Compile Include="Behaviour\HealthDefinition.cs" />

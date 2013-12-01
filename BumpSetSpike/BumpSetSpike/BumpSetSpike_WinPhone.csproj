@@ -32,7 +32,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Windows Phone\Debug</OutputPath>
-    <DefineConstants>TRACE;DEBUG;WINDOWS_PHONE; ALLOW_GARBAGE; ALLOW_DEBUG_SHAPES</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;WINDOWS_PHONE; ALLOW_GARBAGE; ALLOW_DEBUG_SHAPES;</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <NoStdLib>true</NoStdLib>
