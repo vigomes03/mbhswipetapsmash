@@ -998,6 +998,12 @@ namespace MBHEngine.GameObject
             {
                 mGameObjects[i].OnMessage(msg, sender);
             }
+
+            // These objects haven't been officially added, but they may want to react to events.
+            for (Int32 i = 0; i < mGameObjectsToAdd.Count; i++)
+            {
+                mGameObjectsToAdd[i].OnMessage(msg, sender);
+            }
         }
 
         /// <summary>

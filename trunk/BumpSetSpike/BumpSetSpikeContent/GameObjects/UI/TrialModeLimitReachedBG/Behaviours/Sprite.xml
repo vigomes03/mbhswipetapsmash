@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<XnaContent>
+  <Asset Type="MBHEngineContentDefs.SpriteRenderDefinition">
+    <mSpriteFileName>Sprites\BlackBox</mSpriteFileName>
+    <mScreenStretchPercentage>
+      <X>1.0</X>
+      <Y>0.18</Y>
+    </mScreenStretchPercentage>
+</Asset>
+</XnaContent>
+

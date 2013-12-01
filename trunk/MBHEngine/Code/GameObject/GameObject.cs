@@ -558,6 +558,10 @@ namespace MBHEngine.GameObject
                     {
                         return new MBHEngine.Behaviour.MotionTrail(this, fileName);
                     }
+                case "MBHEngine.Behaviour.EnableForTrial":
+                    {
+                        return new MBHEngine.Behaviour.EnableForTrial(this, fileName);
+                    }
                 default:
                     {
                         System.Diagnostics.Debug.Assert(false, "Attempting to create unknown behaviour type, " + behaviourType + " linked to file " + fileName + "!");

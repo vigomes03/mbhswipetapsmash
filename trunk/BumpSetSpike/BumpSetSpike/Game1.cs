@@ -7,6 +7,7 @@ using MBHEngine.Math;
 using MBHEngine.Input;
 using MBHEngine.Debug;
 using MBHEngine.Render;
+using MBHEngine.Trial;
 using MBHEngine.World;
 using Microsoft.Xna.Framework.Input;
 using MBHEngine.Behaviour;
@@ -18,6 +19,7 @@ using Microsoft.Xna.Framework.Media;
 using Microsoft.Phone.Shell;
 #endif
 using MBHEngineContentDefs;
+using Microsoft.Xna.Framework.GamerServices;
 
 namespace BumpSetSpike
 {
@@ -128,6 +130,7 @@ namespace BumpSetSpike
             SaveGameManager.pInstance.Inititalize();
             SaveGameManager.pInstance.ReadSaveGameXML();
             RandomManager.pInstance.Initialize();
+            TrialModeManager.pInstance.Initialize();
             //SaveGameManager.pInstance.WriteSaveGameXML();
             //SaveGameManager.pInstance.ReadSaveGameXML();
 
@@ -153,6 +156,10 @@ namespace BumpSetSpike
 
             //IsMouseVisible = mDebugDrawEnabled;
             IsMouseVisible = true;
+
+#if false
+            Guide.SimulateTrialMode = false;
+#endif
 
 #if WINDOWS
 #if !MONOGL
@@ -213,6 +220,9 @@ namespace BumpSetSpike
             GameObjectFactory.pInstance.AddTemplate("GameObjects\\UI\\ScoreSummary\\ScoreSummary", 1);
             GameObjectFactory.pInstance.AddTemplate("GameObjects\\UI\\ScoreSummaryBG\\ScoreSummaryBG", 1);
             GameObjectFactory.pInstance.AddTemplate("GameObjects\\UI\\TapStart\\TapStart", 1);
+            GameObjectFactory.pInstance.AddTemplate("GameObjects\\UI\\TrialModeWatermark\\TrialModeWatermark", 1);
+            GameObjectFactory.pInstance.AddTemplate("GameObjects\\UI\\TrialModeLimitReached\\TrialModeLimitReached", 1);
+            GameObjectFactory.pInstance.AddTemplate("GameObjects\\UI\\TrialModeLimitReachedBG\\TrialModeLimitReachedBG", 1);
 
             // Add objects that exist from the moment the game starts.
             //
@@ -232,6 +242,8 @@ namespace BumpSetSpike
 
             GameObject titleScreen = GameObjectFactory.pInstance.GetTemplate("GameObjects\\UI\\MainMenu\\FSMMainMenu\\FSMMainMenu");
             GameObjectManager.pInstance.Add(titleScreen);
+
+            GameObjectManager.pInstance.Add(GameObjectFactory.pInstance.GetTemplate("GameObjects\\UI\\TrialModeWatermark\\TrialModeWatermark"));
 
             // Disabled recent trick display. Doesn't look very good and seems not very useful.
             //GameObjectManager.pInstance.Add(GameObjectFactory.pInstance.GetTemplate("GameObjects\\UI\\RecentTrickDisplay\\RecentTrickDisplay"));
@@ -468,6 +480,15 @@ namespace BumpSetSpike
             }
 
             base.Draw(gameTime);
+        }
+
+        protected override void OnActivated(object sender, EventArgs args)
+        {
+            base.OnActivated(sender, args);
+
+            //Guide.SimulateTrialMode ^= true;
+
+            TrialModeManager.pInstance.pIsTrialMode = Guide.IsTrialMode;
         }
 
         /// <summary>
