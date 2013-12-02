@@ -93,6 +93,7 @@
     <Compile Include="Behaviour\EffectEmitterDefinition.cs" />
     <Compile Include="Behaviour\FSMMainMenuDefinition.cs" />
     <Compile Include="Behaviour\FSMPauseScreenDefinition.cs" />
+    <Compile Include="Behaviour\FSMTrialModeLimitDefinition.cs" />
     <Compile Include="Behaviour\GameOverDefinition.cs" />
     <Compile Include="Behaviour\GroundShadowDefinition.cs" />
     <Compile Include="Behaviour\HitCountDisplayDefinition.cs" />

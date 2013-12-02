@@ -23,6 +23,7 @@ namespace BumpSetSpikeContentDefs
             SetGameModeEndurance,
             SetGameModeTrickAttack,
             SendMessage,
+            OpenMarketplace,
         }
 
         /// <summary>

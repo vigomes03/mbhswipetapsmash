@@ -21,77 +21,81 @@ namespace BumpSetSpike.Behaviour
             switch (behaviourType)
             {
                 case "BumpSetSpike.Behaviour.Player":
-                    {
-                        return new Player(go, fileName);
-                    }
+                {
+                    return new Player(go, fileName);
+                }
                 case "BumpSetSpike.Behaviour.Partner":
-                    {
-                        return new Partner(go, fileName);
-                    }
+                {
+                    return new Partner(go, fileName);
+                }
                 case "BumpSetSpike.Behaviour.Opponent":
-                    {
-                        return new Opponent(go, fileName);
-                    }
+                {
+                    return new Opponent(go, fileName);
+                }
                 case "BumpSetSpike.Behaviour.Ball":
-                    {
-                        return new Ball(go, fileName);
-                    }
+                {
+                    return new Ball(go, fileName);
+                }
                 case "BumpSetSpike.Behaviour.GroundShadow":
-                    {
-                        return new GroundShadow(go, fileName);
-                    }
+                {
+                    return new GroundShadow(go, fileName);
+                }
                 case "BumpSetSpike.Behaviour.GameOver":
-                    {
-                        return new GameOver(go, fileName);
-                    }
+                {
+                    return new GameOver(go, fileName);
+                }
                 case "BumpSetSpike.Behaviour.NewHighScore":
-                    {
-                        return new NewHighScore(go, fileName);
-                    }
+                {
+                    return new NewHighScore(go, fileName);
+                }
                 case "BumpSetSpike.Behaviour.PointDisplay":
-                    {
-                        return new PointDisplay(go, fileName);
-                    }
+                {
+                    return new PointDisplay(go, fileName);
+                }
                 case "BumpSetSpike.Behaviour.HitCountDisplay":
-                    {
-                        return new HitCountDisplay(go, fileName);
-                    }
+                {
+                    return new HitCountDisplay(go, fileName);
+                }
                 case "BumpSetSpike.Behaviour.Wobble":
-                    {
-                        return new Wobble(go, fileName);
-                    }
+                {
+                    return new Wobble(go, fileName);
+                }
                 case "BumpSetSpike.Behaviour.Button":
-                    {
-                        return new Button(go, fileName);
-                    }
+                {
+                    return new Button(go, fileName);
+                }
                 case "BumpSetSpike.Behaviour.ButtonMultiStage":
-                    {
-                        return new ButtonMultiStage(go, fileName);
-                    }
+                {
+                    return new ButtonMultiStage(go, fileName);
+                }
                 case "BumpSetSpike.Behaviour.EffectEmitter":
-                    {
-                        return new EffectEmitter(go, fileName);
-                    }
+                {
+                    return new EffectEmitter(go, fileName);
+                }
                 case "BumpSetSpike.Behaviour.ScoreSummary":
-                    {
-                        return new ScoreSummary(go, fileName);
-                    }
+                {
+                    return new ScoreSummary(go, fileName);
+                }
                 case "BumpSetSpike.Behaviour.RecentTrickDisplay":
-                    {
-                        return new RecentTrickDisplay(go, fileName);
-                    }
+                {
+                    return new RecentTrickDisplay(go, fileName);
+                }
                 case "BumpSetSpike.Behaviour.FSM.FSMPauseScreen":
-                    {
-                        return new FSM.FSMPauseScreen(go, fileName);
-                    }
+                {
+                    return new FSM.FSMPauseScreen(go, fileName);
+                }
                 case "BumpSetSpike.Behaviour.FSM.FSMMainMenu":
-                    {
-                        return new FSM.FSMMainMenu(go, fileName);
-                    }
+                {
+                    return new FSM.FSMMainMenu(go, fileName);
+                }
+                case "BumpSetSpike.Behaviour.FSM.FSMTrialModeLimit":
+                {
+                    return new FSM.FSMTrialModeLimit(go, fileName);
+                }
                 default:
-                    {
-                        return null;
-                    }
+                {
+                    return null;
+                }
             }
         }
     }

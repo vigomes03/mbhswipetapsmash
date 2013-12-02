@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<XnaContent>
+  <Asset Type="MBHEngineContentDefs.SpriteRenderDefinition">
+    <mUpdatePasses>
+      <Item>GAME_OVER</Item>
+      <Item>GAME_OVER_LOSS</Item>
+      <Item>GAME_PLAY</Item>
+      <Item>TRIAL_LIMIT_REACHED</Item>
+    </mUpdatePasses>
+    <mRenderPasses>
+      <Item>GAME_OVER</Item>
+      <Item>GAME_OVER_LOSS</Item>
+      <Item>GAME_PLAY</Item>
+      <Item>TRIAL_LIMIT_REACHED</Item>
+    </mRenderPasses>
+    <mSpriteFileName>Sprites\TrialModeScoreLimitReached</mSpriteFileName>
+</Asset>
+</XnaContent>
+

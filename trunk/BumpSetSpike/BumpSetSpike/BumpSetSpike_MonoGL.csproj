@@ -75,6 +75,8 @@
     <Compile Include="Behaviour\FSM\FSMPauseScreen.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Behaviour\FSM\FSMTrialModeLimit.cs" />
+    <Compile Include="Behaviour\FSM\StateEmpty.cs" />
     <Compile Include="Behaviour\FSM\StateMainMenuCameraPan.cs" />
     <Compile Include="Behaviour\FSM\StateMainMenuCredits.cs" />
     <Compile Include="Behaviour\FSM\StateMainMenuModeSelect.cs" />
@@ -83,6 +85,8 @@
     <Compile Include="Behaviour\FSM\StatePauseRoot.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Behaviour\FSM\StateTrialModeLimitGameplay.cs" />
+    <Compile Include="Behaviour\FSM\StateTrialModeLimitRoot.cs" />
     <Compile Include="Behaviour\GameOver.cs" />
     <Compile Include="Behaviour\GroundShadow.cs" />
     <Compile Include="Behaviour\HitCountDisplay.cs" />

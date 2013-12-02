@@ -6,12 +6,14 @@
       <Item>GAME_OVER_LOSS</Item>
       <Item>GAME_PLAY</Item>
       <Item>GAME_PLAY_PAUSED</Item>
+      <Item>TRIAL_LIMIT_REACHED</Item>
     </mUpdatePasses>
     <mRenderPasses>
       <Item>GAME_OVER</Item>
       <Item>GAME_OVER_LOSS</Item>
       <Item>GAME_PLAY</Item>
       <Item>GAME_PLAY_PAUSED</Item>
+      <Item>TRIAL_LIMIT_REACHED</Item>
     </mRenderPasses>
     <mSpriteFileName>Sprites\Score</mSpriteFileName>
     <mFrameHeight>8</mFrameHeight>

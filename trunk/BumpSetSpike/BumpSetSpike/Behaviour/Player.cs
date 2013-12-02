@@ -137,10 +137,9 @@ namespace BumpSetSpike.Behaviour
         private Single mWalkSpeed;
 
         /// <summary>
-        /// Objects used to display the "Trial Limit Reached" message.
+        /// When the player reaches the Trial Limit, the player controls change.
         /// </summary>
-        private GameObject mTrialLimitReached;
-        private GameObject mTrialLimitReachedBG;
+        private Boolean mTrialLimitReached;
 
         /// <summary>
         /// Preallocated messages.
@@ -263,54 +262,10 @@ namespace BumpSetSpike.Behaviour
                 TutorialManager.pInstance.pCurState == TutorialManager.State.PLAYER_TRYING ||
                 TutorialManager.pInstance.pCurState == TutorialManager.State.TRYING_AGAIN;
 
-            GameObjectManager.pInstance.BroadcastMessage(mGetCurrentHitCountMsg);
-
-#if DEBUG
-            const Int32 maxEnduranceTrialScore = 2;
-#else
-            const Int32 maxEnduranceTrialScore = 10;
-#endif
-            const Int32 maxTrickAttackTrialScore = 500;
-
-            Int32 maxTrialScore = Int32.MaxValue;
-            switch (GameModeManager.pInstance.pMode)
-            {
-                case GameModeManager.GameMode.Endurance:
-                {
-                    maxTrialScore = maxEnduranceTrialScore;
-                    break;
-                }
-
-                case GameModeManager.GameMode.TrickAttack:
-                {
-                    maxTrialScore = maxTrickAttackTrialScore;
-                    break;
-                }
-            }
-
-            bool trialLimitReached = TrialModeManager.pInstance.pIsTrialMode && mGetCurrentHitCountMsg.mCount_Out >= maxTrialScore;
-
-            if (trialLimitReached && mTrialLimitReached == null)
-            {
-                mTrialLimitReached = GameObjectFactory.pInstance.GetTemplate("GameObjects\\UI\\TrialModeLimitReached\\TrialModeLimitReached");
-                GameObjectManager.pInstance.Add(mTrialLimitReached);
-
-                mTrialLimitReachedBG = GameObjectFactory.pInstance.GetTemplate("GameObjects\\UI\\TrialModeLimitReachedBG\\TrialModeLimitReachedBG");
-                GameObjectManager.pInstance.Add(mTrialLimitReachedBG);
-            }
-            else if (!trialLimitReached && mTrialLimitReached != null)
-            {
-                GameObjectManager.pInstance.Remove(mTrialLimitReached);
-                mTrialLimitReached = null;
-
-                GameObjectManager.pInstance.Remove(mTrialLimitReachedBG);
-                mTrialLimitReachedBG = null;
-            }
-
             // Is the player flicking the screen, trying to throw the player into the air?
             if ((TutorialManager.pInstance.pTutorialCompleted || validTutTapState) &&
                 (InputManager.pInstance.CheckGesture(GestureType.Flick, ref gesture)) &&
-                !trialLimitReached)
+                !mTrialLimitReached)
             {
                 // Only allow jumping if you are currently in the Idle state.
                 if (mCurrentState == State.Idle && GameObjectManager.pInstance.pCurUpdatePass == BehaviourDefinition.Passes.GAME_PLAY)
@@ -392,6 +347,8 @@ namespace BumpSetSpike.Behaviour
                 if (GameObjectManager.pInstance.pCurUpdatePass == BehaviourDefinition.Passes.GAME_OVER ||
                     GameObjectManager.pInstance.pCurUpdatePass == BehaviourDefinition.Passes.GAME_OVER_LOSS)
                 {
+                    GameObjectManager.pInstance.BroadcastMessage(mGetCurrentHitCountMsg);
+
                     if (mGetCurrentHitCountMsg.mCount_Out > LeaderBoardManager.pInstance.GetCurrentModeTopScore() &&
                         GameObjectManager.pInstance.pCurUpdatePass != BehaviourDefinition.Passes.GAME_OVER_LOSS)
                     {
@@ -719,6 +676,11 @@ namespace BumpSetSpike.Behaviour
             }
             else if (msg is Player.OnGameRestartMessage || msg is Player.OnMatchRestartMessage) // During tutorials if the player misses the ball we only do a match restart.
             {
+                if (msg is Player.OnGameRestartMessage)
+                {
+                    mTrialLimitReached = false;
+                }
+
                 // If the player is on the other side of the net, teleport them to the proper side.
                 if (mParentGOH.pPosX > 0.0f)
                 {
@@ -735,6 +697,10 @@ namespace BumpSetSpike.Behaviour
             else if (msg is Ball.OnPlayOverMessage)
             {
                 EndJumpZoom();
+            }
+            else if (msg is HitCountDisplay.TrialScoreLimitReachedMessage)
+            {
+                mTrialLimitReached = true;
             }
         }
         

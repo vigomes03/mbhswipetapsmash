@@ -15,6 +15,7 @@ using MBHEngineContentDefs;
 using BumpSetSpike.Gameflow;
 using System.Diagnostics;
 using MBHEngine.Behaviour;
+using Microsoft.Xna.Framework.GamerServices;
 
 namespace BumpSetSpike.Behaviour
 {
@@ -197,6 +198,14 @@ namespace BumpSetSpike.Behaviour
                             GameObjectManager.pInstance.BroadcastMessage(mOnButtonPressedMsg, mParentGOH);
 
                             return mOnButtonPressedMsg.mHandled_Out;
+                        }
+
+                        case BumpSetSpikeContentDefs.ButtonDefinition.TaskType.OpenMarketplace:
+                        {
+#if WINDOWS_PHONE
+                            Guide.ShowMarketplace(PlayerIndex.One);
+#endif
+                            return true;
                         }
                     }
                 }

@@ -10,6 +10,7 @@ using MBHEngine.Render;
 using MBHEngine.Debug;
 using System.Collections.Generic;
 using BumpSetSpike.Gameflow;
+using MBHEngine.Trial;
 
 namespace BumpSetSpike.Behaviour
 {
@@ -91,6 +92,20 @@ namespace BumpSetSpike.Behaviour
         }
 
         /// <summary>
+        /// Called every time the score is incremented, and the current score is over
+        /// the limit for the current game mode.
+        /// </summary>
+        public class TrialScoreLimitReachedMessage : BehaviourMessage
+        {
+            /// <summary>
+            /// See parent.
+            /// </summary>
+            public override void Reset()
+            {
+            }
+        }
+
+        /// <summary>
         /// A list of Objects, one for each number sprite in the hit count.
         /// </summary>
         private List<GameObject> mHitCounterNums;
@@ -114,6 +129,7 @@ namespace BumpSetSpike.Behaviour
         /// Preallocated to avoid GC.
         /// </summary>
         private SpriteRender.SetActiveAnimationMessage mSetActiveAnimationMsg;
+        private TrialScoreLimitReachedMessage mTrialScoreLimitReachedMsg;
 
         /// <summary>
         /// Constructor which also handles the process of loading in the Behaviour
@@ -146,6 +162,7 @@ namespace BumpSetSpike.Behaviour
             mMaxScore = (Int32)(System.Math.Pow(10.0, (Double)mNumCharDisplay)) - 1;
 
             mSetActiveAnimationMsg = new SpriteRender.SetActiveAnimationMessage();
+            mTrialScoreLimitReachedMsg = new TrialScoreLimitReachedMessage();
         }
 
         /// <summary>
@@ -281,6 +298,8 @@ namespace BumpSetSpike.Behaviour
 
             mHitCount = score;
 
+            HandleTrialLimit();
+
             // Start by setting every character to 0 so that if the score went down we won't
             // be left with numbers on the left side since it will only set numbers that are
             // significant.
@@ -294,6 +313,45 @@ namespace BumpSetSpike.Behaviour
             AddEachDigit(score, 0);
 
             HideLeadingZeros(mHitCount);
+        }
+
+        /// <summary>
+        /// Checks if the trial limit has been reached, and if so, sends out a message telling people.
+        /// </summary>
+        private void HandleTrialLimit()
+        {
+            // Changing the high score doesn't do anything Trial related.
+            if (mDisplayRecord || !TrialModeManager.pInstance.pIsTrialMode)
+            {
+                return;
+            }
+#if DEBUG
+            const Int32 maxEnduranceTrialScore = 2;
+#else
+            const Int32 maxEnduranceTrialScore = 10;
+#endif
+            const Int32 maxTrickAttackTrialScore = 500;
+
+            Int32 maxTrialScore = Int32.MaxValue;
+            switch (GameModeManager.pInstance.pMode)
+            {
+                case GameModeManager.GameMode.Endurance:
+                {
+                    maxTrialScore = maxEnduranceTrialScore;
+                    break;
+                }
+
+                case GameModeManager.GameMode.TrickAttack:
+                {
+                    maxTrialScore = maxTrickAttackTrialScore;
+                    break;
+                }
+            }
+
+            if (mHitCount >= maxTrialScore)
+            {
+                GameObjectManager.pInstance.BroadcastMessage(mTrialScoreLimitReachedMsg, mParentGOH);
+            }
         }
 
         /// <summary>
