@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<XnaContent>
+  <Asset Type="MBHEngineContentDefs.SpriteRenderDefinition">
+    <mSpriteFileName>Sprites\TrialModeTitle</mSpriteFileName>
+    <mFrameHeight>16</mFrameHeight>
+    <mHasShadow>false</mHasShadow>
+    <mAnimationSets>
+      <Item>
+        <mTicksPerFrame>15</mTicksPerFrame>
+        <mName>Blink</mName>
+        <mStartingFrame>0</mStartingFrame>
+        <mNumFrames>2</mNumFrames>
+        <mLooping>true</mLooping>
+      </Item>
+    </mAnimationSets>
+</Asset>
+</XnaContent>
+

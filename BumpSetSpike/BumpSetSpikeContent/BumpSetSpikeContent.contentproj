@@ -569,6 +569,7 @@
       <Name>TapStart</Name>
       <Importer>XmlImporter</Importer>
       <Processor>PassThroughProcessor</Processor>
+      <SubType>Designer</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -1271,6 +1272,7 @@
       <Name>CKuklaButton</Name>
       <Importer>XmlImporter</Importer>
       <Processor>PassThroughProcessor</Processor>
+      <SubType>Designer</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -1911,7 +1913,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GameObjects\UI\TrialModeWatermark\Behaviours\Button.xml">
+    <Compile Include="GameObjects\UI\TrialModeLimit\TrialModeWatermark\Behaviours\Button.xml">
       <SubType>Designer</SubType>
       <Name>Button</Name>
       <Importer>XmlImporter</Importer>
@@ -1919,17 +1921,18 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GameObjects\UI\TrialModeWatermark\Behaviours\Sprite.xml">
+    <Compile Include="GameObjects\UI\TrialModeLimit\TrialModeWatermark\Behaviours\Sprite.xml">
       <Name>Sprite</Name>
       <Importer>XmlImporter</Importer>
       <Processor>PassThroughProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GameObjects\UI\TrialModeWatermark\TrialModeWatermark.xml">
+    <Compile Include="GameObjects\UI\TrialModeLimit\TrialModeWatermark\TrialModeWatermark.xml">
       <Name>TrialModeWatermark</Name>
       <Importer>XmlImporter</Importer>
       <Processor>PassThroughProcessor</Processor>
+      <SubType>Designer</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -1940,7 +1943,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GameObjects\UI\TrialModeWatermark\Behaviours\EnableForTrial.xml">
+    <Compile Include="GameObjects\UI\TrialModeLimit\TrialModeWatermark\Behaviours\EnableForTrial.xml">
       <SubType>Designer</SubType>
       <Name>EnableForTrial</Name>
       <Importer>XmlImporter</Importer>
@@ -1955,21 +1958,21 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GameObjects\UI\TrialModeLimitReached\Behaviours\Sprite.xml">
+    <Compile Include="GameObjects\UI\TrialModeLimit\TrialModeLimitReached\Behaviours\Sprite.xml">
       <Name>Sprite</Name>
       <Importer>XmlImporter</Importer>
       <Processor>PassThroughProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GameObjects\UI\TrialModeLimitReached\TrialModeLimitReached.xml">
+    <Compile Include="GameObjects\UI\TrialModeLimit\TrialModeLimitReached\TrialModeLimitReached.xml">
       <Name>TrialModeLimitReached</Name>
       <Importer>XmlImporter</Importer>
       <Processor>PassThroughProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GameObjects\UI\TrialModeLimitReachedBG\Behaviours\Sprite.xml">
+    <Compile Include="GameObjects\UI\TrialModeLimit\TrialModeLimitReachedBG\Behaviours\Sprite.xml">
       <Name>Sprite</Name>
       <Importer>XmlImporter</Importer>
       <Processor>PassThroughProcessor</Processor>
@@ -1977,8 +1980,22 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GameObjects\UI\TrialModeLimitReachedBG\TrialModeLimitReachedBG.xml">
+    <Compile Include="GameObjects\UI\TrialModeLimit\TrialModeLimitReachedBG\TrialModeLimitReachedBG.xml">
       <Name>TrialModeLimitReachedBG</Name>
+      <Importer>XmlImporter</Importer>
+      <Processor>PassThroughProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="GameObjects\UI\TrialModeLimit\FSMTrialModeLimit\Behaviours\FSMTrialModeLimit.xml">
+      <Name>FSMTrialModeLimit</Name>
+      <Importer>XmlImporter</Importer>
+      <Processor>PassThroughProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="GameObjects\UI\TrialModeLimit\FSMTrialModeLimit\FSMTrialModeLimit.xml">
+      <Name>FSMTrialModeLimit</Name>
       <Importer>XmlImporter</Importer>
       <Processor>PassThroughProcessor</Processor>
     </Compile>

@@ -99,6 +99,7 @@
     <Compile Include="Behaviour\EffectEmitterDefinition.cs" />
     <Compile Include="Behaviour\FSMMainMenuDefinition.cs" />
     <Compile Include="Behaviour\FSMPauseScreenDefinition.cs" />
+    <Compile Include="Behaviour\FSMTrialModeLimitDefinition.cs" />
     <Compile Include="Behaviour\RecentTrickDisplayDefinition.cs" />
     <Compile Include="Behaviour\ScoreSummaryDefinition.cs" />
     <Compile Include="Behaviour\WobbleDefinition.cs" />

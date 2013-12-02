@@ -4,14 +4,14 @@
     <mRenderPriority>101</mRenderPriority>
     <mDoUpdate>true</mDoUpdate>
     <mDoRender>true</mDoRender>
-    <mPosition>-12 18</mPosition>
+    <mPosition>9 26</mPosition>
     <mScreenRelativeAnchorPoint>
-      <X>RIGHT</X>
+      <X>LEFT</X>
       <Y>TOP</Y>
     </mScreenRelativeAnchorPoint>
     <mRotation>0</mRotation>
     <mScale>1 1</mScale>
-    <mCollisionBoxDimensions>24.0 24.0</mCollisionBoxDimensions>
+    <mCollisionBoxDimensions>16.0 16.0</mCollisionBoxDimensions>
     <mCollisionRoot>0 0</mCollisionRoot>
     <mMotionRoot>8 8</mMotionRoot>
     <mBlendMode>STANDARD_UI</mBlendMode>

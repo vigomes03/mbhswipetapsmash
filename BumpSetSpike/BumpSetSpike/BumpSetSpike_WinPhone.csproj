@@ -110,12 +110,16 @@
     <Compile Include="Behaviour\EffectEmitter.cs" />
     <Compile Include="Behaviour\FSM\FSMMainMenu.cs" />
     <Compile Include="Behaviour\FSM\FSMPauseScreen.cs" />
+    <Compile Include="Behaviour\FSM\FSMTrialModeLimit.cs" />
+    <Compile Include="Behaviour\FSM\StateEmpty.cs" />
     <Compile Include="Behaviour\FSM\StateMainMenuCameraPan.cs" />
     <Compile Include="Behaviour\FSM\StateMainMenuCredits.cs" />
     <Compile Include="Behaviour\FSM\StateMainMenuModeSelect.cs" />
     <Compile Include="Behaviour\FSM\StateMainMenuModeSelectDesc.cs" />
     <Compile Include="Behaviour\FSM\StateMainMenuRoot.cs" />
     <Compile Include="Behaviour\FSM\StatePauseRoot.cs" />
+    <Compile Include="Behaviour\FSM\StateTrialModeLimitGameplay.cs" />
+    <Compile Include="Behaviour\FSM\StateTrialModeLimitRoot.cs" />
     <Compile Include="Behaviour\NewHighScore.cs" />
     <Compile Include="Behaviour\GameOver.cs" />
     <Compile Include="Behaviour\HitCountDisplay.cs" />

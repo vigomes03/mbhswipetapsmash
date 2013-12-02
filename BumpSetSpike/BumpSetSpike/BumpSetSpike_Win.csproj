@@ -111,6 +111,10 @@
     <Compile Include="Behaviour\ButtonMultiStage.cs" />
     <Compile Include="Behaviour\ClientBehaviourCreator.cs" />
     <Compile Include="Behaviour\Ball.cs" />
+    <Compile Include="Behaviour\FSM\StateTrialModeLimitGameplay.cs" />
+    <Compile Include="Behaviour\FSM\StateEmpty.cs" />
+    <Compile Include="Behaviour\FSM\StateTrialModeLimitRoot.cs" />
+    <Compile Include="Behaviour\FSM\FSMTrialModeLimit.cs" />
     <Compile Include="Behaviour\RecentTrickDisplay.cs" />
     <Compile Include="Behaviour\EffectEmitter.cs" />
     <Compile Include="Behaviour\FSM\StateMainMenuModeSelectDesc.cs" />
