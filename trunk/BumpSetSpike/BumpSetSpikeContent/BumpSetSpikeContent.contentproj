@@ -2000,6 +2000,94 @@
       <Processor>PassThroughProcessor</Processor>
     </Compile>
   </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Sprites\TrialModePurchaseButton.png">
+      <Name>TrialModePurchaseButton</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="GameObjects\UI\TrialModeLimit\TrialModePurchaseButton\Behaviours\Button.xml">
+      <SubType>Designer</SubType>
+      <Name>Button</Name>
+      <Importer>XmlImporter</Importer>
+      <Processor>PassThroughProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="GameObjects\UI\TrialModeLimit\TrialModePurchaseButton\Behaviours\Sprite.xml">
+      <Name>Sprite</Name>
+      <Importer>XmlImporter</Importer>
+      <Processor>PassThroughProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="GameObjects\UI\TrialModeLimit\TrialModePurchaseButton\TrialModePurchaseButton.xml">
+      <SubType>Designer</SubType>
+      <Name>TrialModePurchaseButton</Name>
+      <Importer>XmlImporter</Importer>
+      <Processor>PassThroughProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Sprites\TrialModeEndGameButton.png">
+      <Name>TrialModeEndGameButton</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="GameObjects\UI\TrialModeLimit\TrialModeEndGameButton\Behaviours\Button.xml">
+      <SubType>Designer</SubType>
+      <Name>Button</Name>
+      <Importer>XmlImporter</Importer>
+      <Processor>PassThroughProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="GameObjects\UI\TrialModeLimit\TrialModeEndGameButton\Behaviours\Sprite.xml">
+      <Name>Sprite</Name>
+      <Importer>XmlImporter</Importer>
+      <Processor>PassThroughProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="GameObjects\UI\TrialModeLimit\TrialModeEndGameButton\TrialModeEndGameButton.xml">
+      <SubType>Designer</SubType>
+      <Name>TrialModeEndGameButton</Name>
+      <Importer>XmlImporter</Importer>
+      <Processor>PassThroughProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="GameObjects\UI\TrialModeLimit\TrialModePurchaseButton\Behaviours\Wobble.xml">
+      <Name>Wobble</Name>
+      <Importer>XmlImporter</Importer>
+      <Processor>PassThroughProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="GameObjects\UI\TrialModeLimit\TrialModeInputDisabled\Behaviours\Sprite.xml">
+      <Name>Sprite</Name>
+      <Importer>XmlImporter</Importer>
+      <Processor>PassThroughProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="GameObjects\UI\TrialModeLimit\TrialModeInputDisabled\TrialModeInputDisabled.xml">
+      <Name>TrialModeInputDisabled</Name>
+      <Importer>XmlImporter</Importer>
+      <Processor>PassThroughProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Sprites\TrialModeScoreLimitReachedInput.png">
+      <Name>TrialModeScoreLimitReachedInput</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />
   <!--  To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -706,7 +706,12 @@ namespace MBHEngine.GameObject
                 }
             }
 
-            batch.End();
+            // Prevent crash when batch.Begin was not called. Technically that could still happen since 
+            // this value is not tied directly to begin calls.
+            if (mLastNumObjectsRendered > 0)
+            {
+                batch.End();
+            }
         }
 
         /// <summary>

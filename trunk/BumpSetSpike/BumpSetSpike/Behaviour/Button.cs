@@ -16,6 +16,7 @@ using BumpSetSpike.Gameflow;
 using System.Diagnostics;
 using MBHEngine.Behaviour;
 using Microsoft.Xna.Framework.GamerServices;
+using MBHEngine.Trial;
 
 namespace BumpSetSpike.Behaviour
 {
@@ -204,6 +205,8 @@ namespace BumpSetSpike.Behaviour
                         {
 #if WINDOWS_PHONE
                             Guide.ShowMarketplace(PlayerIndex.One);
+#else
+                            TrialModeManager.pInstance.pIsTrialMode = false;
 #endif
                             return true;
                         }

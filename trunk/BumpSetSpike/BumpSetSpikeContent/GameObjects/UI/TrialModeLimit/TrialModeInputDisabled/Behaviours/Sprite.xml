@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<XnaContent>
+  <Asset Type="MBHEngineContentDefs.SpriteRenderDefinition">
+    <mUpdatePasses>
+      <Item>GAME_OVER</Item>
+      <Item>GAME_OVER_LOSS</Item>
+      <Item>GAME_PLAY</Item>
+      <Item>TRIAL_LIMIT_REACHED</Item>
+    </mUpdatePasses>
+    <mRenderPasses>
+      <Item>GAME_OVER</Item>
+      <Item>GAME_OVER_LOSS</Item>
+      <Item>GAME_PLAY</Item>
+      <Item>TRIAL_LIMIT_REACHED</Item>
+    </mRenderPasses>
+    <mSpriteFileName>Sprites\TrialModeScoreLimitReachedInput</mSpriteFileName>
+    <mFrameHeight>32</mFrameHeight>
+    <mHasShadow>false</mHasShadow>
+    <mAnimationSets>
+      <Item>
+        <mTicksPerFrame>30</mTicksPerFrame>
+        <mName>Blink</mName>
+        <mStartingFrame>0</mStartingFrame>
+        <mNumFrames>2</mNumFrames>
+        <mLooping>true</mLooping>
+        <mFrameOverrides>
+          <Item>
+            <Key>1</Key>
+            <Value>
+              <mTicksPerFrame>10</mTicksPerFrame>
+            </Value>
+          </Item>
+        </mFrameOverrides>
+      </Item>
+    </mAnimationSets>
+</Asset>
+</XnaContent>
+
