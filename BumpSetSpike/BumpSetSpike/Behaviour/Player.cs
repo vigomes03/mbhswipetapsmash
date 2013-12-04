@@ -702,6 +702,10 @@ namespace BumpSetSpike.Behaviour
             {
                 mTrialLimitReached = true;
             }
+            else if (msg is TrialModeManager.OnTrialModeChangedMessage)
+            {
+                mTrialLimitReached = false;
+            }
         }
         
 #if ALLOW_GARBAGE

@@ -7,6 +7,7 @@ using MBHEngine.GameObject;
 using MBHEngine.Input;
 using BumpSetSpike.Gameflow;
 using Microsoft.Xna.Framework.Input.Touch;
+using MBHEngine.Trial;
 
 namespace BumpSetSpike.Behaviour.FSM
 {
@@ -17,19 +18,17 @@ namespace BumpSetSpike.Behaviour.FSM
         /// </summary>
         private GameObject mTrialLimitReached;
         private GameObject mTrialLimitReachedBG;
-        private GameObject mTxtTapContinue;
+        private GameObject mPurchaseButton;
+        private GameObject mContinueButton;
 
-        /// <summary>
-        /// Needed to check touch gestures.
-        /// </summary>
-        GestureSample mGesture;
+        private FiniteStateMachine.SetStateMessage mSetStateMsg;
 
         /// <summary>
         /// Constructor.
         /// </summary>
         public StateTrialModeLimitRoot()
         {
-            mGesture = new GestureSample();
+            mSetStateMsg = new FiniteStateMachine.SetStateMessage();
         }
 
         /// <summary>
@@ -46,27 +45,13 @@ namespace BumpSetSpike.Behaviour.FSM
             mTrialLimitReachedBG = GameObjectFactory.pInstance.GetTemplate("GameObjects\\UI\\TrialModeLimit\\TrialModeLimitReachedBG\\TrialModeLimitReachedBG");
             GameObjectManager.pInstance.Add(mTrialLimitReachedBG);
 
-            mTxtTapContinue = GameObjectFactory.pInstance.GetTemplate("GameObjects\\UI\\Tutorial\\TapToContinue\\TapToContinue");
-            GameObjectManager.pInstance.Add(mTxtTapContinue);
+            mPurchaseButton = GameObjectFactory.pInstance.GetTemplate("GameObjects\\UI\\TrialModeLimit\\TrialModePurchaseButton\\TrialModePurchaseButton");
+            GameObjectManager.pInstance.Add(mPurchaseButton);
+
+            mContinueButton = GameObjectFactory.pInstance.GetTemplate("GameObjects\\UI\\TrialModeLimit\\TrialModeEndGameButton\\TrialModeEndGameButton");
+            GameObjectManager.pInstance.Add(mContinueButton);
 
             GameObjectManager.pInstance.pCurUpdatePass = MBHEngineContentDefs.BehaviourDefinition.Passes.TRIAL_LIMIT_REACHED;
-        }
-
-        /// <summary>
-        /// Called repeatedly until it returns a valid new state to transition to.
-        /// </summary>
-        /// <returns>Identifier of a state to transition to.  This is the same name passed into AddState 
-        /// in the owning FiniteStateMachine.</returns>
-        public override string OnUpdate()
-        {
-            // Allow them to leave the pause screen with just the back button.
-            if (InputManager.pInstance.CheckAction(InputManager.InputActions.BACK, true) ||
-                InputManager.pInstance.CheckGesture(GestureType.Tap, ref mGesture))
-            {
-                return "StateTrialModeLimitGameplay";
-            }
-
-            return base.OnUpdate();
         }
 
         /// <summary>
@@ -89,13 +74,50 @@ namespace BumpSetSpike.Behaviour.FSM
                 mTrialLimitReachedBG = null;
             }
 
-            if (mTxtTapContinue != null)
+            if (mPurchaseButton != null)
             {
-                GameObjectManager.pInstance.Remove(mTxtTapContinue);
-                mTxtTapContinue = null;
+                GameObjectManager.pInstance.Remove(mPurchaseButton);
+                mPurchaseButton = null;
+            }
+
+            if (mContinueButton != null)
+            {
+                GameObjectManager.pInstance.Remove(mContinueButton);
+                mContinueButton = null;
             }
 
             base.OnEnd();
+        }
+
+        /// <summary>
+        /// See parent.
+        /// </summary>
+        /// <param name="msg"></param>
+        public override void OnMessage(ref BehaviourMessage msg)
+        {
+            base.OnMessage(ref msg);
+
+            if (msg is Button.OnButtonPressedMessage)
+            {
+                Button.OnButtonPressedMessage temp = (Button.OnButtonPressedMessage)msg;
+
+                if (temp.pSender == mContinueButton)
+                {
+                    temp.mHandled_Out = true;
+
+                    mSetStateMsg.Reset();
+                    mSetStateMsg.mNextState_In = "StateTrialModeLimitGameplay";
+                    pParentGOH.OnMessage(mSetStateMsg);
+                }
+            }
+            else if (msg is TrialModeManager.OnTrialModeChangedMessage)
+            {
+                System.Diagnostics.Debug.Assert(!TrialModeManager.pInstance.pIsTrialMode, "Not expecting to reach this point and still be in Trial Mode.");
+
+                mSetStateMsg.Reset();
+                mSetStateMsg.mNextState_In = "StateEmpty";
+                pParentGOH.OnMessage(mSetStateMsg);
+            }
         }
     }
 }

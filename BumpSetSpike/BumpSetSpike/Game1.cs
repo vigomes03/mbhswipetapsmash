@@ -222,8 +222,11 @@ namespace BumpSetSpike
             GameObjectFactory.pInstance.AddTemplate("GameObjects\\UI\\TapStart\\TapStart", 1);
             GameObjectFactory.pInstance.AddTemplate("GameObjects\\UI\\TrialModeLimit\\FSMTrialModeLimit\\FSMTrialModeLimit", 1);
             GameObjectFactory.pInstance.AddTemplate("GameObjects\\UI\\TrialModeLimit\\TrialModeWatermark\\TrialModeWatermark", 1);
+            GameObjectFactory.pInstance.AddTemplate("GameObjects\\UI\\TrialModeLimit\\TrialModeInputDisabled\\TrialModeInputDisabled", 1);
             GameObjectFactory.pInstance.AddTemplate("GameObjects\\UI\\TrialModeLimit\\TrialModeLimitReached\\TrialModeLimitReached", 2);
             GameObjectFactory.pInstance.AddTemplate("GameObjects\\UI\\TrialModeLimit\\TrialModeLimitReachedBG\\TrialModeLimitReachedBG", 1);
+            GameObjectFactory.pInstance.AddTemplate("GameObjects\\UI\\TrialModeLimit\\TrialModePurchaseButton\\TrialModePurchaseButton", 1);
+            GameObjectFactory.pInstance.AddTemplate("GameObjects\\UI\\TrialModeLimit\\TrialModeEndGameButton\\TrialModeEndGameButton", 1);
             GameObjectFactory.pInstance.AddTemplate("GameObjects\\UI\\Tutorial\\TapToContinue\\TapToContinue", 1);
 
             // Add objects that exist from the moment the game starts.
@@ -494,12 +497,11 @@ namespace BumpSetSpike
         {
             base.OnActivated(sender, args);
 
-            //Guide.SimulateTrialMode ^= true;
-
 #if WINDOWS
             // IsTrialMode does not work on Windows.
             Boolean isTrial = true;
 #else
+            //Guide.SimulateTrialMode ^= true;
             Boolean isTrial = Guide.IsTrialMode;
 #endif
 

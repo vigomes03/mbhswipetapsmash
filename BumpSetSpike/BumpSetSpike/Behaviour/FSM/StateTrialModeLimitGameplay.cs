@@ -38,7 +38,7 @@ namespace BumpSetSpike.Behaviour.FSM
         {
             base.OnBegin();
 
-            mTrialLimitReached = GameObjectFactory.pInstance.GetTemplate("GameObjects\\UI\\TrialModeLimit\\TrialModeLimitReached\\TrialModeLimitReached");
+            mTrialLimitReached = GameObjectFactory.pInstance.GetTemplate("GameObjects\\UI\\TrialModeLimit\\TrialModeInputDisabled\\TrialModeInputDisabled");
             GameObjectManager.pInstance.Add(mTrialLimitReached);
         }
 
