@@ -7,6 +7,7 @@ using MBHEngine.GameObject;
 using MBHEngine.Input;
 using BumpSetSpike.Gameflow;
 using Microsoft.Xna.Framework.Input.Touch;
+using MBHEngine.Trial;
 
 namespace BumpSetSpike.Behaviour.FSM
 {
@@ -78,7 +79,7 @@ namespace BumpSetSpike.Behaviour.FSM
         {
             base.OnMessage(ref msg);
 
-            if (msg is Player.OnGameRestartMessage || msg is Player.OnMatchRestartMessage)
+            if (msg is Player.OnGameRestartMessage || msg is Player.OnMatchRestartMessage || msg is TrialModeManager.OnTrialModeChangedMessage)
             {
                 mSetStateMsg.Reset();
                 mSetStateMsg.mNextState_In = "StateEmpty";
