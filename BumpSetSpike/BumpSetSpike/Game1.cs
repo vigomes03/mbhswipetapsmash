@@ -211,9 +211,10 @@ namespace BumpSetSpike
             GameObjectFactory.pInstance.AddTemplate("GameObjects\\UI\\Options\\Tutorial\\Checkbox\\Checkbox", 1);
             GameObjectFactory.pInstance.AddTemplate("GameObjects\\UI\\Options\\Tutorial\\Checkmark\\Checkmark", 1);
             GameObjectFactory.pInstance.AddTemplate("GameObjects\\UI\\Options\\Tutorial\\Label\\Label", 1);
+            GameObjectFactory.pInstance.AddTemplate("GameObjects\\UI\\PauseMainMenuButton\\PauseMainMenuButton", 1);
             GameObjectFactory.pInstance.AddTemplate("GameObjects\\UI\\PauseQuitButton\\PauseQuitButton", 1);
             GameObjectFactory.pInstance.AddTemplate("GameObjects\\UI\\PauseResumeButton\\PauseResumeButton", 1);
-            GameObjectFactory.pInstance.AddTemplate("GameObjects\\UI\\PauseMainMenuButton\\PauseMainMenuButton", 1);
+            GameObjectFactory.pInstance.AddTemplate("GameObjects\\UI\\PauseTrialModePurchaseButton\\PauseTrialModePurchaseButton", 1);
             GameObjectFactory.pInstance.AddTemplate("GameObjects\\UI\\PointDisplay\\PointDisplay", 32);
             GameObjectFactory.pInstance.AddTemplate("GameObjects\\UI\\RecentTrickDisplay\\RecentTrickDisplay", 1);
             GameObjectFactory.pInstance.AddTemplate("GameObjects\\UI\\ScoreLabel\\ScoreLabel", 1);

@@ -6,6 +6,7 @@ using MBHEngine.Behaviour;
 using MBHEngine.GameObject;
 using MBHEngine.Input;
 using BumpSetSpike.Gameflow;
+using MBHEngine.Trial;
 
 namespace BumpSetSpike.Behaviour.FSM
 {
@@ -17,6 +18,7 @@ namespace BumpSetSpike.Behaviour.FSM
         private GameObject mResumeButton;
         private GameObject mQuitButton;
         private GameObject mMainMenuButton;
+        private GameObject mPurchaseButton;
 
         private SaveGameManager.ForceUpdateSaveDataMessage mForceUpdateSaveGameDataMsg;
 
@@ -36,6 +38,12 @@ namespace BumpSetSpike.Behaviour.FSM
 
             mMainMenuButton = GameObjectFactory.pInstance.GetTemplate("GameObjects\\UI\\PauseMainMenuButton\\PauseMainMenuButton");
             GameObjectManager.pInstance.Add(mMainMenuButton);
+
+            if (TrialModeManager.pInstance.pIsTrialMode)
+            {
+                mPurchaseButton = GameObjectFactory.pInstance.GetTemplate("GameObjects\\UI\\PauseTrialModePurchaseButton\\PauseTrialModePurchaseButton");
+                GameObjectManager.pInstance.Add(mPurchaseButton);
+            }
 
             mForceUpdateSaveGameDataMsg = new SaveGameManager.ForceUpdateSaveDataMessage();
         }
@@ -77,6 +85,11 @@ namespace BumpSetSpike.Behaviour.FSM
             {
                 GameObjectManager.pInstance.Remove(mMainMenuButton);
                 mMainMenuButton = null;
+            }
+            if (mPurchaseButton != null)
+            {
+                GameObjectManager.pInstance.Remove(mPurchaseButton);
+                mPurchaseButton = null;
             }
 
             base.OnEnd();
@@ -121,6 +134,14 @@ namespace BumpSetSpike.Behaviour.FSM
                     GameObjectManager.pInstance.Add(mainMenu);
 
                     GameObjectManager.pInstance.Remove(pParentGOH);
+                }
+            }
+            else if (msg is TrialModeManager.OnTrialModeChangedMessage)
+            {
+                if (mPurchaseButton != null)
+                {
+                    GameObjectManager.pInstance.Remove(mPurchaseButton);
+                    mPurchaseButton = null;
                 }
             }
         }
