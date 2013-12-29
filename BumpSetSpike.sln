@@ -33,6 +33,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BumpSetSpikeContentDefs_MonoGL", "BumpSetSpikeContentDefs\BumpSetSpikeContentDefs_MonoGL.csproj", "{7E3CFA59-8730-4A54-98AB-BBEF9B95C1B9}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BumpSetSpike_MonoGL", "BumpSetSpike\BumpSetSpike\BumpSetSpike_MonoGL.csproj", "{2B697A5A-6F51-41A0-BD2D-DA22860FDAD6}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C287FB09-F7BB-4FB0-BE6F-E62C04D0C4AC} = {C287FB09-F7BB-4FB0-BE6F-E62C04D0C4AC}
+		{5695A72A-B5D9-497D-BB23-911FFC28123F} = {5695A72A-B5D9-497D-BB23-911FFC28123F}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -416,6 +420,7 @@ Global
 		{6DEDFF34-2E03-4847-863A-F03EA03352CD}.Release|WP - Build and Deploy.ActiveCfg = Release|x86
 		{6DEDFF34-2E03-4847-863A-F03EA03352CD}.Release|x86 - Build.ActiveCfg = Release|x86
 		{6DEDFF34-2E03-4847-863A-F03EA03352CD}.Tune|All - Build.ActiveCfg = Release|x86
+		{6DEDFF34-2E03-4847-863A-F03EA03352CD}.Tune|All - Build.Build.0 = Release|x86
 		{6DEDFF34-2E03-4847-863A-F03EA03352CD}.Tune|All - Build and Deploy.ActiveCfg = Release|x86
 		{6DEDFF34-2E03-4847-863A-F03EA03352CD}.Tune|MonoGL - Build.ActiveCfg = Release|x86
 		{6DEDFF34-2E03-4847-863A-F03EA03352CD}.Tune|WP - Build and Deploy.ActiveCfg = Release|x86

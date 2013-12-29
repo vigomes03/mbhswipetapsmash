@@ -999,15 +999,21 @@ namespace MBHEngine.GameObject
         /// <param name="sender">The object sending the message.</param>
         public void BroadcastMessage(BehaviourMessage msg, GameObject sender)
         {
-            for (Int32 i = 0; i < mGameObjects.Count; i++)
+            if (mGameObjects != null)
             {
-                mGameObjects[i].OnMessage(msg, sender);
+                for (Int32 i = 0; i < mGameObjects.Count; i++)
+                {
+                    mGameObjects[i].OnMessage(msg, sender);
+                }
             }
 
-            // These objects haven't been officially added, but they may want to react to events.
-            for (Int32 i = 0; i < mGameObjectsToAdd.Count; i++)
+            if (mGameObjectsToAdd != null)
             {
-                mGameObjectsToAdd[i].OnMessage(msg, sender);
+                // These objects haven't been officially added, but they may want to react to events.
+                for (Int32 i = 0; i < mGameObjectsToAdd.Count; i++)
+                {
+                    mGameObjectsToAdd[i].OnMessage(msg, sender);
+                }
             }
         }
 
