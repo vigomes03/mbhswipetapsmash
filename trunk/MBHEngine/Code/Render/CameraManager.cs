@@ -107,7 +107,7 @@ namespace MBHEngine.Render
         public void Initialize(GraphicsDevice device)
         {
             mTransform = Matrix.Identity;
-            mTargetPosition = new Vector2(device.Viewport.Width * 0.5f, device.Viewport.Height * 0.5f);
+            mTargetPosition = new Vector2(GameObjectManager.pInstance.pGraphics.PreferredBackBufferWidth * 0.5f, GameObjectManager.pInstance.pGraphics.PreferredBackBufferHeight * 0.5f);
             mLastPosition = new Vector2();
             mCurBlendFrames = 0;
             mCurZoomBlendFrames = 0;
@@ -115,7 +115,7 @@ namespace MBHEngine.Render
             mBlendFrames = 10;
             mZoomBlendFrames = 0;
 
-            mScreenCenter = Matrix.CreateTranslation(device.Viewport.Width * 0.5f, device.Viewport.Height * 0.5f, 0);
+            mScreenCenter = Matrix.CreateTranslation(GameObjectManager.pInstance.pGraphics.PreferredBackBufferWidth * 0.5f, GameObjectManager.pInstance.pGraphics.PreferredBackBufferHeight * 0.5f, 0);
 #if WINDOWS_PHONE
             mZoomAmount = 4.0f;
 #elif SMALL_WINDOW
@@ -137,8 +137,8 @@ namespace MBHEngine.Render
             mViewRectangle = new Math.Rectangle();
 
             // Find the center of the screen.
-            Single x = ((GameObjectManager.pInstance.pGraphicsDevice.Viewport.Width * 0.5f) / pZoomScale);
-            Single y = ((GameObjectManager.pInstance.pGraphicsDevice.Viewport.Height * 0.5f) / pZoomScale);
+            Single x = ((GameObjectManager.pInstance.pGraphics.PreferredBackBufferWidth * 0.5f) / pZoomScale);
+            Single y = ((GameObjectManager.pInstance.pGraphics.PreferredBackBufferHeight * 0.5f) / pZoomScale);
 
             // Since the screen always has 0,0 at the top left of the screen, we can get the width and height simply
             // by doubling the center point.

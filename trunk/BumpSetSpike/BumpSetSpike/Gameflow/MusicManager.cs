@@ -56,13 +56,18 @@ namespace BumpSetSpike.Gameflow
         /// </summary>
         public void Initialize()
         {
+#if MONOGL && WINDOWS
+            //mMainMenuMusic = GameObjectManager.pInstance.pContentManager.Load<Song>("Audio\\Music\\MikeImmonen_Menu_Wave");
+            //mGameplayMusic = GameObjectManager.pInstance.pContentManager.Load<Song>("Audio\\Music\\MikeImmonen_Gameplay_Wave");
+#else
             mMainMenuMusic = GameObjectManager.pInstance.pContentManager.Load<Song>("Audio\\Music\\MikeImmonen_Menu");
             mGameplayMusic = GameObjectManager.pInstance.pContentManager.Load<Song>("Audio\\Music\\MikeImmonen_Gameplay");
+#endif
 
             // All music in the game repeats.
             MediaPlayer.IsRepeating = true;
 
-#if WINDOWS_PHONE && DEBUG
+#if (WINDOWS_PHONE && DEBUG) || (MONOGL && WINDOWS)
             mDebugMusicDisabled = true; // We can't pass command line args to WP.
 #else
             mDebugMusicDisabled = CommandLineManager.pInstance["DisableMusic"] != null;
