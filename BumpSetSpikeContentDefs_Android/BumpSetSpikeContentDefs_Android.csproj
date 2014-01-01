@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>10.0.0</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{D60A7B21-6869-4ADF-A238-416C79B07415}</ProjectGuid>
+    <ProjectTypeGuids>{EFBA0AD7-5A72-4C68-AF49-83D382785DCF};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <RootNamespace>BumpSetSpikeContentDefs</RootNamespace>
+    <MonoAndroidAssetsPrefix>Assets</MonoAndroidAssetsPrefix>
+    <AndroidUseLatestPlatformSdk>False</AndroidUseLatestPlatformSdk>
+    <MonoAndroidResourcePrefix>Resources</MonoAndroidResourcePrefix>
+    <AndroidResgenFile>Resources\Resource.designer.cs</AndroidResgenFile>
+    <AndroidResgenClass>Resource</AndroidResgenClass>
+    <AssemblyName>BumpSetSpikeContentDefs</AssemblyName>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;__MOBILE__;__ANDROID__;LLOW_DEBUG_SHAPES;ALLOW_GARBAGE;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AndroidLinkMode>None</AndroidLinkMode>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>full</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release</OutputPath>
+    <DefineConstants>__MOBILE__;__ANDROID__;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AndroidUseSharedRuntime>false</AndroidUseSharedRuntime>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Core" />
+    <Reference Include="Mono.Android" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Resources\Resource.designer.cs" />
+    <Compile Include="..\BumpSetSpikeContentDefs\Behaviour\BallDefinition.cs">
+      <Link>Behaviour\BallDefinition.cs</Link>
+    </Compile>
+    <Compile Include="..\BumpSetSpikeContentDefs\Behaviour\ButtonDefinition.cs">
+      <Link>Behaviour\ButtonDefinition.cs</Link>
+    </Compile>
+    <Compile Include="..\BumpSetSpikeContentDefs\Behaviour\ButtonMultiStageDefinition.cs">
+      <Link>Behaviour\ButtonMultiStageDefinition.cs</Link>
+    </Compile>
+    <Compile Include="..\BumpSetSpikeContentDefs\Behaviour\EffectEmitterDefinition.cs">
+      <Link>Behaviour\EffectEmitterDefinition.cs</Link>
+    </Compile>
+    <Compile Include="..\BumpSetSpikeContentDefs\Behaviour\FSMMainMenuDefinition.cs">
+      <Link>Behaviour\FSMMainMenuDefinition.cs</Link>
+    </Compile>
+    <Compile Include="..\BumpSetSpikeContentDefs\Behaviour\FSMPauseScreenDefinition.cs">
+      <Link>Behaviour\FSMPauseScreenDefinition.cs</Link>
+    </Compile>
+    <Compile Include="..\BumpSetSpikeContentDefs\Behaviour\FSMTrialModeLimitDefinition.cs">
+      <Link>Behaviour\FSMTrialModeLimitDefinition.cs</Link>
+    </Compile>
+    <Compile Include="..\BumpSetSpikeContentDefs\Behaviour\GameOverDefinition.cs">
+      <Link>Behaviour\GameOverDefinition.cs</Link>
+    </Compile>
+    <Compile Include="..\BumpSetSpikeContentDefs\Behaviour\GroundShadowDefinition.cs">
+      <Link>Behaviour\GroundShadowDefinition.cs</Link>
+    </Compile>
+    <Compile Include="..\BumpSetSpikeContentDefs\Behaviour\HitCountDisplayDefinition.cs">
+      <Link>Behaviour\HitCountDisplayDefinition.cs</Link>
+    </Compile>
+    <Compile Include="..\BumpSetSpikeContentDefs\Behaviour\NewHighScoreDefinition.cs">
+      <Link>Behaviour\NewHighScoreDefinition.cs</Link>
+    </Compile>
+    <Compile Include="..\BumpSetSpikeContentDefs\Behaviour\OpponentDefinition.cs">
+      <Link>Behaviour\OpponentDefinition.cs</Link>
+    </Compile>
+    <Compile Include="..\BumpSetSpikeContentDefs\Behaviour\PartnerDefinition.cs">
+      <Link>Behaviour\PartnerDefinition.cs</Link>
+    </Compile>
+    <Compile Include="..\BumpSetSpikeContentDefs\Behaviour\PlayerDefinition.cs">
+      <Link>Behaviour\PlayerDefinition.cs</Link>
+    </Compile>
+    <Compile Include="..\BumpSetSpikeContentDefs\Behaviour\PointDisplayDefinition.cs">
+      <Link>Behaviour\PointDisplayDefinition.cs</Link>
+    </Compile>
+    <Compile Include="..\BumpSetSpikeContentDefs\Behaviour\RecentTrickDisplayDefinition.cs">
+      <Link>Behaviour\RecentTrickDisplayDefinition.cs</Link>
+    </Compile>
+    <Compile Include="..\BumpSetSpikeContentDefs\Behaviour\ScoreSummaryDefinition.cs">
+      <Link>Behaviour\ScoreSummaryDefinition.cs</Link>
+    </Compile>
+    <Compile Include="..\BumpSetSpikeContentDefs\Behaviour\WobbleDefinition.cs">
+      <Link>Behaviour\WobbleDefinition.cs</Link>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\AboutResources.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\values\Strings.xml" />
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
+  <ItemGroup>
+    <Folder Include="Behaviour\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\..\..\..\Program Files %28x86%29\MonoGame\v3.0\ThirdParty\Lidgren.Network\Lidgren.Network.Android.csproj">
+      <Project>{565129E0-4EE5-4F6F-B403-C3484C9740BE}</Project>
+      <Name>Lidgren.Network.Android</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MBHEngine_Android\MBHEngine_Android.csproj">
+      <Project>{C8909BF3-CA94-4F0C-9699-32635BFE7C1F}</Project>
+      <Name>MBHEngine_Android</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\..\Program Files %28x86%29\MonoGame\v3.0\MonoGame.Framework\MonoGame.Framework.Android.csproj">
+      <Project>{BA9476CF-99BA-4D03-92F2-73D2C5E58883}</Project>
+      <Name>MonoGame.Framework.Android</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MBHEngineContentDefs_Android\MBHEngineContentDefs_Android.csproj">
+      <Project>{AD612BF1-5483-4214-8942-12393F3FD7D2}</Project>
+      <Name>MBHEngineContentDefs_Android</Name>
+    </ProjectReference>
+  </ItemGroup>
+</Project>

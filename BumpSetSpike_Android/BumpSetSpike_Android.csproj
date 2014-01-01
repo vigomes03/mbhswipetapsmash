@@ -1,0 +1,508 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>10.0.0</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{56F1E9C4-FAAC-4206-8533-0EB94AF15ED8}</ProjectGuid>
+    <ProjectTypeGuids>{EFBA0AD7-5A72-4C68-AF49-83D382785DCF};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <RootNamespace>BumpSetSpike</RootNamespace>
+    <MonoAndroidResourcePrefix>Resources</MonoAndroidResourcePrefix>
+    <MonoAndroidAssetsPrefix>Assets</MonoAndroidAssetsPrefix>
+    <AndroidUseLatestPlatformSdk>False</AndroidUseLatestPlatformSdk>
+    <AndroidApplication>True</AndroidApplication>
+    <AndroidResgenFile>Resources\Resource.designer.cs</AndroidResgenFile>
+    <AndroidResgenClass>Resource</AndroidResgenClass>
+    <AssemblyName>BumpSetSpike</AssemblyName>
+    <AndroidManifest>Properties\AndroidManifest.xml</AndroidManifest>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;__MOBILE__;__ANDROID__;ALLOW_DEBUG_SHAPES;ALLOW_GARBAGE;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AndroidLinkMode>None</AndroidLinkMode>
+    <ConsolePause>false</ConsolePause>
+    <EmbedAssembliesIntoApk>True</EmbedAssembliesIntoApk>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release</OutputPath>
+    <DefineConstants>__MOBILE__;__ANDROID__;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AndroidUseSharedRuntime>false</AndroidUseSharedRuntime>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Core" />
+    <Reference Include="Mono.Android" />
+    <Reference Include="OpenTK" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Activity1.cs" />
+    <Compile Include="Resources\Resource.designer.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="..\BumpSetSpike\BumpSetSpike\Behaviour\Ball.cs">
+      <Link>Behaviour\Ball.cs</Link>
+    </Compile>
+    <Compile Include="..\BumpSetSpike\BumpSetSpike\Behaviour\Button.cs">
+      <Link>Behaviour\Button.cs</Link>
+    </Compile>
+    <Compile Include="..\BumpSetSpike\BumpSetSpike\Behaviour\ButtonMultiStage.cs">
+      <Link>Behaviour\ButtonMultiStage.cs</Link>
+    </Compile>
+    <Compile Include="..\BumpSetSpike\BumpSetSpike\Behaviour\ClientBehaviourCreator.cs">
+      <Link>Behaviour\ClientBehaviourCreator.cs</Link>
+    </Compile>
+    <Compile Include="..\BumpSetSpike\BumpSetSpike\Behaviour\EffectEmitter.cs">
+      <Link>Behaviour\EffectEmitter.cs</Link>
+    </Compile>
+    <Compile Include="..\BumpSetSpike\BumpSetSpike\Behaviour\GameOver.cs">
+      <Link>Behaviour\GameOver.cs</Link>
+    </Compile>
+    <Compile Include="..\BumpSetSpike\BumpSetSpike\Behaviour\GroundShadow.cs">
+      <Link>Behaviour\GroundShadow.cs</Link>
+    </Compile>
+    <Compile Include="..\BumpSetSpike\BumpSetSpike\Behaviour\HitCountDisplay.cs">
+      <Link>Behaviour\HitCountDisplay.cs</Link>
+    </Compile>
+    <Compile Include="..\BumpSetSpike\BumpSetSpike\Behaviour\NewHighScore.cs">
+      <Link>Behaviour\NewHighScore.cs</Link>
+    </Compile>
+    <Compile Include="..\BumpSetSpike\BumpSetSpike\Behaviour\Opponent.cs">
+      <Link>Behaviour\Opponent.cs</Link>
+    </Compile>
+    <Compile Include="..\BumpSetSpike\BumpSetSpike\Behaviour\Partner.cs">
+      <Link>Behaviour\Partner.cs</Link>
+    </Compile>
+    <Compile Include="..\BumpSetSpike\BumpSetSpike\Behaviour\Player.cs">
+      <Link>Behaviour\Player.cs</Link>
+    </Compile>
+    <Compile Include="..\BumpSetSpike\BumpSetSpike\Behaviour\PointDisplay.cs">
+      <Link>Behaviour\PointDisplay.cs</Link>
+    </Compile>
+    <Compile Include="..\BumpSetSpike\BumpSetSpike\Behaviour\RecentTrickDisplay.cs">
+      <Link>Behaviour\RecentTrickDisplay.cs</Link>
+    </Compile>
+    <Compile Include="..\BumpSetSpike\BumpSetSpike\Behaviour\ScoreSummary.cs">
+      <Link>Behaviour\ScoreSummary.cs</Link>
+    </Compile>
+    <Compile Include="..\BumpSetSpike\BumpSetSpike\Behaviour\Wobble.cs">
+      <Link>Behaviour\Wobble.cs</Link>
+    </Compile>
+    <Compile Include="..\BumpSetSpike\BumpSetSpike\Behaviour\FSM\FSMMainMenu.cs">
+      <Link>Behaviour\FSM\FSMMainMenu.cs</Link>
+    </Compile>
+    <Compile Include="..\BumpSetSpike\BumpSetSpike\Behaviour\FSM\FSMPauseScreen.cs">
+      <Link>Behaviour\FSM\FSMPauseScreen.cs</Link>
+    </Compile>
+    <Compile Include="..\BumpSetSpike\BumpSetSpike\Behaviour\FSM\FSMTrialModeLimit.cs">
+      <Link>Behaviour\FSM\FSMTrialModeLimit.cs</Link>
+    </Compile>
+    <Compile Include="..\BumpSetSpike\BumpSetSpike\Behaviour\FSM\StateEmpty.cs">
+      <Link>Behaviour\FSM\StateEmpty.cs</Link>
+    </Compile>
+    <Compile Include="..\BumpSetSpike\BumpSetSpike\Behaviour\FSM\StateMainMenuCameraPan.cs">
+      <Link>Behaviour\FSM\StateMainMenuCameraPan.cs</Link>
+    </Compile>
+    <Compile Include="..\BumpSetSpike\BumpSetSpike\Behaviour\FSM\StateMainMenuCredits.cs">
+      <Link>Behaviour\FSM\StateMainMenuCredits.cs</Link>
+    </Compile>
+    <Compile Include="..\BumpSetSpike\BumpSetSpike\Behaviour\FSM\StateMainMenuModeSelect.cs">
+      <Link>Behaviour\FSM\StateMainMenuModeSelect.cs</Link>
+    </Compile>
+    <Compile Include="..\BumpSetSpike\BumpSetSpike\Behaviour\FSM\StateMainMenuModeSelectDesc.cs">
+      <Link>Behaviour\FSM\StateMainMenuModeSelectDesc.cs</Link>
+    </Compile>
+    <Compile Include="..\BumpSetSpike\BumpSetSpike\Behaviour\FSM\StateMainMenuRoot.cs">
+      <Link>Behaviour\FSM\StateMainMenuRoot.cs</Link>
+    </Compile>
+    <Compile Include="..\BumpSetSpike\BumpSetSpike\Behaviour\FSM\StatePauseRoot.cs">
+      <Link>Behaviour\FSM\StatePauseRoot.cs</Link>
+    </Compile>
+    <Compile Include="..\BumpSetSpike\BumpSetSpike\Behaviour\FSM\StateTrialModeLimitGameplay.cs">
+      <Link>Behaviour\FSM\StateTrialModeLimitGameplay.cs</Link>
+    </Compile>
+    <Compile Include="..\BumpSetSpike\BumpSetSpike\Behaviour\FSM\StateTrialModeLimitRoot.cs">
+      <Link>Behaviour\FSM\StateTrialModeLimitRoot.cs</Link>
+    </Compile>
+    <Compile Include="..\BumpSetSpike\BumpSetSpike\Gameflow\GameModeManager.cs">
+      <Link>Gameflow\GameModeManager.cs</Link>
+    </Compile>
+    <Compile Include="..\BumpSetSpike\BumpSetSpike\Gameflow\LeaderBoardManager.cs">
+      <Link>Gameflow\LeaderBoardManager.cs</Link>
+    </Compile>
+    <Compile Include="..\BumpSetSpike\BumpSetSpike\Gameflow\MusicManager.cs">
+      <Link>Gameflow\MusicManager.cs</Link>
+    </Compile>
+    <Compile Include="..\BumpSetSpike\BumpSetSpike\Gameflow\SaveGameManager.cs">
+      <Link>Gameflow\SaveGameManager.cs</Link>
+    </Compile>
+    <Compile Include="..\BumpSetSpike\BumpSetSpike\Gameflow\ScoreManager.cs">
+      <Link>Gameflow\ScoreManager.cs</Link>
+    </Compile>
+    <Compile Include="..\BumpSetSpike\BumpSetSpike\Gameflow\TutorialManager.cs">
+      <Link>Gameflow\TutorialManager.cs</Link>
+    </Compile>
+    <Compile Include="..\BumpSetSpike\BumpSetSpike\Game1.cs">
+      <Link>Game1.cs</Link>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\AboutResources.txt" />
+    <None Include="Assets\AboutAssets.txt" />
+    <None Include="Properties\AndroidManifest.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\Splash.png" />
+    <AndroidResource Include="Resources\values\Styles.xml" />
+    <AndroidResource Include="..\BumpSetSpike\BumpSetSpike\icon.png">
+      <Link>Resources\drawable\icon.png</Link>
+    </AndroidResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\..\..\..\Program Files %28x86%29\MonoGame\v3.0\ThirdParty\Lidgren.Network\Lidgren.Network.Android.csproj">
+      <Project>{565129E0-4EE5-4F6F-B403-C3484C9740BE}</Project>
+      <Name>Lidgren.Network.Android</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\..\Program Files %28x86%29\MonoGame\v3.0\MonoGame.Framework\MonoGame.Framework.Android.csproj">
+      <Project>{BA9476CF-99BA-4D03-92F2-73D2C5E58883}</Project>
+      <Name>MonoGame.Framework.Android</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MBHEngine_Android\MBHEngine_Android.csproj">
+      <Project>{C8909BF3-CA94-4F0C-9699-32635BFE7C1F}</Project>
+      <Name>MBHEngine_Android</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BumpSetSpikeContentDefs_Android\BumpSetSpikeContentDefs_Android.csproj">
+      <Project>{D60A7B21-6869-4ADF-A238-416C79B07415}</Project>
+      <Name>BumpSetSpikeContentDefs_Android</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MBHEngineContentDefs_Android\MBHEngineContentDefs_Android.csproj">
+      <Project>{AD612BF1-5483-4214-8942-12393F3FD7D2}</Project>
+      <Name>MBHEngineContentDefs_Android</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Behaviour\" />
+    <Folder Include="Gameflow\" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Content\Audio\FX\Bump.xnb" />
+    <AndroidAsset Include="Content\Audio\FX\GameOver.xnb" />
+    <AndroidAsset Include="Content\Audio\FX\HighScore.xnb" />
+    <AndroidAsset Include="Content\Audio\FX\HitOpponent.xnb" />
+    <AndroidAsset Include="Content\Audio\FX\HitOpponentLand.xnb" />
+    <AndroidAsset Include="Content\Audio\FX\HitSand.xnb" />
+    <AndroidAsset Include="Content\Audio\FX\Jump.xnb" />
+    <AndroidAsset Include="Content\Audio\FX\MenuSelect.xnb" />
+    <AndroidAsset Include="Content\Audio\FX\SpikeHit.xnb" />
+    <AndroidAsset Include="Content\Audio\FX\SpikeMiss.xnb" />
+    <AndroidAsset Include="Content\Audio\Music\MikeImmonen_Gameplay.wma" />
+    <AndroidAsset Include="Content\Audio\Music\MikeImmonen_Gameplay.xnb" />
+    <AndroidAsset Include="Content\Audio\Music\MikeImmonen_Menu.wma" />
+    <AndroidAsset Include="Content\Audio\Music\MikeImmonen_Menu.xnb" />
+    <AndroidAsset Include="Content\Fonts\DebugDisplay.xnb" />
+    <AndroidAsset Include="Content\Fonts\TrickDisplay.xnb" />
+    <AndroidAsset Include="Content\GameObjects\Characters\Opponent\Behaviours\Opponent.xnb" />
+    <AndroidAsset Include="Content\GameObjects\Characters\Opponent\Behaviours\Sprite.xnb" />
+    <AndroidAsset Include="Content\GameObjects\Characters\Opponent\Opponent.xnb" />
+    <AndroidAsset Include="Content\GameObjects\Characters\Partner\Behaviours\Partner.xnb" />
+    <AndroidAsset Include="Content\GameObjects\Characters\Partner\Behaviours\Sprite.xnb" />
+    <AndroidAsset Include="Content\GameObjects\Characters\Partner\Partner.xnb" />
+    <AndroidAsset Include="Content\GameObjects\Characters\Player\Behaviours\MotionTrail.xnb" />
+    <AndroidAsset Include="Content\GameObjects\Characters\Player\Behaviours\Player.xnb" />
+    <AndroidAsset Include="Content\GameObjects\Characters\Player\Behaviours\Sprite.xnb" />
+    <AndroidAsset Include="Content\GameObjects\Characters\Player\Player.xnb" />
+    <AndroidAsset Include="Content\GameObjects\Items\Ball\Ball.xnb" />
+    <AndroidAsset Include="Content\GameObjects\Items\Ball\Behaviours\Ball.xnb" />
+    <AndroidAsset Include="Content\GameObjects\Items\Ball\Behaviours\MotionTrail.xnb" />
+    <AndroidAsset Include="Content\GameObjects\Items\Ball\Behaviours\Sprite.xnb" />
+    <AndroidAsset Include="Content\GameObjects\Items\BallShadow\BallShadow.xnb" />
+    <AndroidAsset Include="Content\GameObjects\Items\BallShadow\Behaviours\GroundShadow.xnb" />
+    <AndroidAsset Include="Content\GameObjects\Items\BallShadow\Behaviours\Sprite.xnb" />
+    <AndroidAsset Include="Content\GameObjects\Items\Blood\Behaviours\Sprite.xnb" />
+    <AndroidAsset Include="Content\GameObjects\Items\Blood\Blood.xnb" />
+    <AndroidAsset Include="Content\GameObjects\Items\Court\Behaviours\Sprite.xnb" />
+    <AndroidAsset Include="Content\GameObjects\Items\Court\Court.xnb" />
+    <AndroidAsset Include="Content\GameObjects\Items\Dust\Behaviours\Sprite.xnb" />
+    <AndroidAsset Include="Content\GameObjects\Items\Dust\Dust.xnb" />
+    <AndroidAsset Include="Content\GameObjects\Items\Kabooom\Behaviours\Sprite.xnb" />
+    <AndroidAsset Include="Content\GameObjects\Items\Kabooom\Behaviours\Wobble.xnb" />
+    <AndroidAsset Include="Content\GameObjects\Items\Kabooom\Kabooom.xnb" />
+    <AndroidAsset Include="Content\GameObjects\Items\Net\Behaviours\Sprite.xnb" />
+    <AndroidAsset Include="Content\GameObjects\Items\Net\Net.xnb" />
+    <AndroidAsset Include="Content\GameObjects\Items\PlayerShadow\Behaviours\GroundShadow.xnb" />
+    <AndroidAsset Include="Content\GameObjects\Items\PlayerShadow\Behaviours\Sprite.xnb" />
+    <AndroidAsset Include="Content\GameObjects\Items\PlayerShadow\PlayerShadow.xnb" />
+    <AndroidAsset Include="Content\GameObjects\Items\SparkEmitter\Behaviours\EffectEmitter.xnb" />
+    <AndroidAsset Include="Content\GameObjects\Items\SparkEmitter\SparkEmitter.xnb" />
+    <AndroidAsset Include="Content\GameObjects\Items\Sparks\Behaviours\SimpleMomentum.xnb" />
+    <AndroidAsset Include="Content\GameObjects\Items\Sparks\Behaviours\Sprite.xnb" />
+    <AndroidAsset Include="Content\GameObjects\Items\Sparks\Sparks.xnb" />
+    <AndroidAsset Include="Content\GameObjects\Items\Tutorial\Faster\Behaviours\Sprite.xnb" />
+    <AndroidAsset Include="Content\GameObjects\Items\Tutorial\Faster\Behaviours\Wobble.xnb" />
+    <AndroidAsset Include="Content\GameObjects\Items\Tutorial\Faster\Faster.xnb" />
+    <AndroidAsset Include="Content\GameObjects\Items\Tutorial\FingerSwipe\Behaviours\Sprite.xnb" />
+    <AndroidAsset Include="Content\GameObjects\Items\Tutorial\FingerSwipe\FingerSwipe.xnb" />
+    <AndroidAsset Include="Content\GameObjects\Items\Tutorial\Slower\Behaviours\Sprite.xnb" />
+    <AndroidAsset Include="Content\GameObjects\Items\Tutorial\Slower\Behaviours\Wobble.xnb" />
+    <AndroidAsset Include="Content\GameObjects\Items\Tutorial\Slower\Slower.xnb" />
+    <AndroidAsset Include="Content\GameObjects\Items\Tutorial\Swipe\Behaviours\Sprite.xnb" />
+    <AndroidAsset Include="Content\GameObjects\Items\Tutorial\Swipe\Swipe.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\Credits\Backdrop\Backdrop.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\Credits\Backdrop\Behaviours\Sprite.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\Credits\BG\Behaviours\Sprite.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\Credits\BG\BG.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\Credits\CKuklaButton\Behaviours\Button.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\Credits\CKuklaButton\Behaviours\Sprite.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\Credits\CKuklaButton\CKuklaButton.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\Credits\MHughsonButton\Behaviours\Button.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\Credits\MHughsonButton\Behaviours\Sprite.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\Credits\MHughsonButton\MHughsonButton.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\Credits\MImmonenButton\Behaviours\Button.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\Credits\MImmonenButton\Behaviours\Sprite.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\Credits\MImmonenButton\MImmonenButton.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\Credits\SMcGeeButton\Behaviours\Button.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\Credits\SMcGeeButton\Behaviours\Sprite.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\Credits\SMcGeeButton\SMcGeeButton.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\Credits\SPaxtonButton\Behaviours\Button.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\Credits\SPaxtonButton\Behaviours\Sprite.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\Credits\SPaxtonButton\SPaxtonButton.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\CreditsButton\Behaviours\Button.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\CreditsButton\Behaviours\Sprite.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\CreditsButton\CreditsButton.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\FacebookButton\Behaviours\Button.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\FacebookButton\Behaviours\Sprite.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\FacebookButton\FacebookButton.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\FSMPauseScreen\Behaviours\FSMPauseScreen.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\FSMPauseScreen\FSMPauseScreen.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\GameOver\Behaviours\GameOver.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\GameOver\Behaviours\Sprite.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\GameOver\GameOver.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\HiScoreLabel\Behaviours\Sprite.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\HiScoreLabel\HiScoreLabel.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\HitCountDisplay\Behaviours\HitCountDisplay.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\HitCountDisplay\HitCountDisplay.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\HitCountDisplayRecord\Behaviours\HitCountDisplay.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\HitCountDisplayRecord\HitCountDisplayRecord.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\IndieDBButton\Behaviours\Button.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\IndieDBButton\Behaviours\Sprite.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\IndieDBButton\IndieDBButton.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\LeaveCreditsButton\Behaviours\Button.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\LeaveCreditsButton\Behaviours\Sprite.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\LeaveCreditsButton\LeaveCreditsButton.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\MainMenu\FSMMainMenu\Behaviours\FSMMainMenu.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\MainMenu\FSMMainMenu\FSMMainMenu.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\MainMenu\ModeSelect\EnduranceModeBG\Behaviours\Sprite.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\MainMenu\ModeSelect\EnduranceModeBG\EnduranceModeBG.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\MainMenu\ModeSelect\EnduranceModeButton\Behaviours\Button.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\MainMenu\ModeSelect\EnduranceModeButton\Behaviours\Sprite.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\MainMenu\ModeSelect\EnduranceModeButton\EnduranceModeButton.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\MainMenu\ModeSelect\EnduranceModeDesc\Behaviours\Sprite.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\MainMenu\ModeSelect\EnduranceModeDesc\EnduranceModeDesc.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\MainMenu\ModeSelect\GoButton\Behaviours\Button.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\MainMenu\ModeSelect\GoButton\Behaviours\Sprite.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\MainMenu\ModeSelect\GoButton\Behaviours\Wobble.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\MainMenu\ModeSelect\GoButton\GoButton.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\MainMenu\ModeSelect\ModeSelectBG\Behaviours\Sprite.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\MainMenu\ModeSelect\ModeSelectBG\ModeSelectBG.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\MainMenu\ModeSelect\ModeSelectTitle\Behaviours\Sprite.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\MainMenu\ModeSelect\ModeSelectTitle\ModeSelectTitle.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\MainMenu\ModeSelect\ScoreAttackModeBG\Behaviours\Sprite.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\MainMenu\ModeSelect\ScoreAttackModeBG\ScoreAttackModeBG.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\MainMenu\ModeSelect\ScoreAttackModeButton\Behaviours\Button.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\MainMenu\ModeSelect\ScoreAttackModeButton\Behaviours\Sprite.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\MainMenu\ModeSelect\ScoreAttackModeButton\ScoreAttackModeButton.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\MainMenu\ModeSelect\ScoreAttackModeDesc\Behaviours\Sprite.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\MainMenu\ModeSelect\ScoreAttackModeDesc\ScoreAttackModeDesc.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\MusicCredit\Behaviours\Button.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\MusicCredit\Behaviours\Sprite.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\MusicCredit\Behaviours\Wobble.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\MusicCredit\MusicCredit.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\NewHighScore\Behaviours\NewHighScore.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\NewHighScore\Behaviours\Sprite.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\NewHighScore\Behaviours\Wobble.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\NewHighScore\NewHighScore.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\NumFont\Behaviours\Sprite.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\NumFont\NumFont.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\NumFontUI\Behaviours\Sprite.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\NumFontUI\NumFontUI.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\Options\Tutorial\Checkbox\Behaviours\Sprite.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\Options\Tutorial\Checkbox\Checkbox.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\Options\Tutorial\Checkmark\Behaviours\Button.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\Options\Tutorial\Checkmark\Behaviours\Sprite.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\Options\Tutorial\Checkmark\Checkmark.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\Options\Tutorial\Label\Behaviours\Sprite.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\Options\Tutorial\Label\Label.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\PauseButton\Behaviours\Button.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\PauseButton\Behaviours\Sprite.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\PauseButton\PauseButton.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\PausedBackdrop\Behaviours\Sprite.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\PausedBackdrop\PausedBackdrop.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\PausedOverlay\Behaviours\Sprite.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\PausedOverlay\PausedOverlay.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\PauseMainMenuButton\Behaviours\Button.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\PauseMainMenuButton\Behaviours\Sprite.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\PauseMainMenuButton\PauseMainMenuButton.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\PauseQuitButton\Behaviours\Button.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\PauseQuitButton\Behaviours\Sprite.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\PauseQuitButton\PauseQuitButton.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\PauseResumeButton\Behaviours\Button.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\PauseResumeButton\Behaviours\Sprite.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\PauseResumeButton\PauseResumeButton.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\PauseTrialModePurchaseButton\Behaviours\Button.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\PauseTrialModePurchaseButton\Behaviours\Sprite.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\PauseTrialModePurchaseButton\Behaviours\Wobble.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\PauseTrialModePurchaseButton\PauseTrialModePurchaseButton.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\PointDisplay\Behaviours\PointDisplay.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\PointDisplay\PointDisplay.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\RecentTrickDisplay\Behaviours\RecentTrickDisplay.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\RecentTrickDisplay\RecentTrickDisplay.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\ScoreLabel\Behaviours\Sprite.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\ScoreLabel\ScoreLabel.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\ScoreSummary\Behaviours\ScoreSummary.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\ScoreSummary\ScoreSummary.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\ScoreSummaryBG\Behaviours\Sprite.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\ScoreSummaryBG\ScoreSummaryBG.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\TapStart\Behaviours\Button.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\TapStart\Behaviours\Sprite.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\TapStart\Behaviours\Wobble.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\TapStart\TapStart.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\TrialModeLimit\FSMTrialModeLimit\Behaviours\FSMTrialModeLimit.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\TrialModeLimit\FSMTrialModeLimit\FSMTrialModeLimit.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\TrialModeLimit\TrialModeEndGameButton\Behaviours\Button.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\TrialModeLimit\TrialModeEndGameButton\Behaviours\Sprite.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\TrialModeLimit\TrialModeEndGameButton\TrialModeEndGameButton.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\TrialModeLimit\TrialModeInputDisabled\Behaviours\Sprite.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\TrialModeLimit\TrialModeInputDisabled\TrialModeInputDisabled.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\TrialModeLimit\TrialModeLimitReached\Behaviours\Sprite.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\TrialModeLimit\TrialModeLimitReached\TrialModeLimitReached.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\TrialModeLimit\TrialModeLimitReachedBG\Behaviours\Sprite.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\TrialModeLimit\TrialModeLimitReachedBG\TrialModeLimitReachedBG.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\TrialModeLimit\TrialModePurchaseButton\Behaviours\Button.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\TrialModeLimit\TrialModePurchaseButton\Behaviours\Sprite.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\TrialModeLimit\TrialModePurchaseButton\Behaviours\Wobble.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\TrialModeLimit\TrialModePurchaseButton\TrialModePurchaseButton.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\TrialModeLimit\TrialModeWatermark\Behaviours\Button.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\TrialModeLimit\TrialModeWatermark\Behaviours\EnableForTrial.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\TrialModeLimit\TrialModeWatermark\Behaviours\Sprite.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\TrialModeLimit\TrialModeWatermark\TrialModeWatermark.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\Tutorial\AllThereIs\AllThereIs.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\Tutorial\AllThereIs\Behaviours\Sprite.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\Tutorial\Backdrop\Backdrop.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\Tutorial\Backdrop\Behaviours\Sprite.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\Tutorial\BumpAuto\Behaviours\Sprite.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\Tutorial\BumpAuto\BumpAuto.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\Tutorial\InRow\Behaviours\Sprite.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\Tutorial\InRow\InRow.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\Tutorial\NiceWork\Behaviours\Sprite.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\Tutorial\NiceWork\Behaviours\Wobble.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\Tutorial\NiceWork\NiceWork.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\Tutorial\PlayerTry\Behaviours\Sprite.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\Tutorial\PlayerTry\Behaviours\Wobble.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\Tutorial\PlayerTry\PlayerTry.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\Tutorial\RealThing\Behaviours\Sprite.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\Tutorial\RealThing\Behaviours\Wobble.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\Tutorial\RealThing\RealThing.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\Tutorial\SetAuto\Behaviours\Sprite.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\Tutorial\SetAuto\SetAuto.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\Tutorial\SwipeJump\Behaviours\Sprite.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\Tutorial\SwipeJump\SwipeJump.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\Tutorial\SwipeTapSmash\Behaviours\Sprite.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\Tutorial\SwipeTapSmash\SwipeTapSmash.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\Tutorial\Tap\Behaviours\Sprite.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\Tutorial\Tap\Tap.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\Tutorial\TapToContinue\Behaviours\Sprite.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\Tutorial\TapToContinue\TapToContinue.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\Tutorial\Title\Behaviours\Sprite.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\Tutorial\Title\Title.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\Tutorial\TryAgain\Behaviours\Sprite.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\Tutorial\TryAgain\Behaviours\Wobble.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\Tutorial\TryAgain\TryAgain.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\Tutorial\WaitForServe\Behaviours\Sprite.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\Tutorial\WhenBallHigh\Behaviours\Sprite.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\Tutorial\WhenBallHigh\WhenBallHigh.xnb" />
+    <AndroidAsset Include="Content\Shaders\Default.xnb" />
+    <AndroidAsset Include="Content\Shaders\Desaturate.xnb" />
+    <AndroidAsset Include="Content\Sprites\Ball_sp.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </AndroidAsset>
+    <AndroidAsset Include="Content\Sprites\BallShadow.xnb" />
+    <AndroidAsset Include="Content\Sprites\BeachCourt_sp.xnb" />
+    <AndroidAsset Include="Content\Sprites\BlackBox.xnb" />
+    <AndroidAsset Include="Content\Sprites\Blood_sp.xnb" />
+    <AndroidAsset Include="Content\Sprites\CreditsButton.xnb" />
+    <AndroidAsset Include="Content\Sprites\CreditsCKukla.xnb" />
+    <AndroidAsset Include="Content\Sprites\CreditsMHughson.xnb" />
+    <AndroidAsset Include="Content\Sprites\CreditsMImmonen.xnb" />
+    <AndroidAsset Include="Content\Sprites\CreditsSMcGee.xnb" />
+    <AndroidAsset Include="Content\Sprites\CreditsSPaxton.xnb" />
+    <AndroidAsset Include="Content\Sprites\CreditsTitle.xnb" />
+    <AndroidAsset Include="Content\Sprites\Dust.xnb" />
+    <AndroidAsset Include="Content\Sprites\FacebookLogo.xnb" />
+    <AndroidAsset Include="Content\Sprites\FingerSwipe.xnb" />
+    <AndroidAsset Include="Content\Sprites\GameOver.xnb" />
+    <AndroidAsset Include="Content\Sprites\IndieDBLogo.xnb" />
+    <AndroidAsset Include="Content\Sprites\Kapooow_sp.xnb" />
+    <AndroidAsset Include="Content\Sprites\ModeSelectBG.xnb" />
+    <AndroidAsset Include="Content\Sprites\ModeSelectEnduranceDesc.xnb" />
+    <AndroidAsset Include="Content\Sprites\ModeSelectEnduranceLabel.xnb" />
+    <AndroidAsset Include="Content\Sprites\ModeSelectGo.xnb" />
+    <AndroidAsset Include="Content\Sprites\ModeSelectTitle.xnb" />
+    <AndroidAsset Include="Content\Sprites\ModeSelectTrickAttackDesc.xnb" />
+    <AndroidAsset Include="Content\Sprites\ModeSelectTrickAttackLabel.xnb" />
+    <AndroidAsset Include="Content\Sprites\MusicNote.xnb" />
+    <AndroidAsset Include="Content\Sprites\Net_sp.xnb" />
+    <AndroidAsset Include="Content\Sprites\NewHighScore.xnb" />
+    <AndroidAsset Include="Content\Sprites\Numbers.xnb" />
+    <AndroidAsset Include="Content\Sprites\OptionTutCheckBox.xnb" />
+    <AndroidAsset Include="Content\Sprites\OptionTutCheckMark.xnb" />
+    <AndroidAsset Include="Content\Sprites\OptionTutLabel.xnb" />
+    <AndroidAsset Include="Content\Sprites\Pause.xnb" />
+    <AndroidAsset Include="Content\Sprites\PausedOverlay.xnb" />
+    <AndroidAsset Include="Content\Sprites\PauseMainMenu.xnb" />
+    <AndroidAsset Include="Content\Sprites\PauseQuit.xnb" />
+    <AndroidAsset Include="Content\Sprites\PauseResume.xnb" />
+    <AndroidAsset Include="Content\Sprites\PlayerBlue.xnb" />
+    <AndroidAsset Include="Content\Sprites\PlayerRed.xnb" />
+    <AndroidAsset Include="Content\Sprites\PlayerShadow.xnb" />
+    <AndroidAsset Include="Content\Sprites\Resume.xnb" />
+    <AndroidAsset Include="Content\Sprites\Return.xnb" />
+    <AndroidAsset Include="Content\Sprites\Score.xnb" />
+    <AndroidAsset Include="Content\Sprites\Sparks.xnb" />
+    <AndroidAsset Include="Content\Sprites\TapStart.xnb" />
+    <AndroidAsset Include="Content\Sprites\TrialModeEndGameButton.xnb" />
+    <AndroidAsset Include="Content\Sprites\TrialModePurchaseButton.xnb" />
+    <AndroidAsset Include="Content\Sprites\TrialModeScoreLimitReached.xnb" />
+    <AndroidAsset Include="Content\Sprites\TrialModeScoreLimitReachedInput.xnb" />
+    <AndroidAsset Include="Content\Sprites\TrialModeTitle.xnb" />
+    <AndroidAsset Include="Content\Sprites\TutAllThereIs.xnb" />
+    <AndroidAsset Include="Content\Sprites\TutBumpAuto.xnb" />
+    <AndroidAsset Include="Content\Sprites\TutFaster.xnb" />
+    <AndroidAsset Include="Content\Sprites\TutInRow.xnb" />
+    <AndroidAsset Include="Content\Sprites\TutNiceWork.xnb" />
+    <AndroidAsset Include="Content\Sprites\TutorialNotification.xnb" />
+    <AndroidAsset Include="Content\Sprites\TutPlayerTry.xnb" />
+    <AndroidAsset Include="Content\Sprites\TutRealThing.xnb" />
+    <AndroidAsset Include="Content\Sprites\TutSetAuto.xnb" />
+    <AndroidAsset Include="Content\Sprites\TutSlower.xnb" />
+    <AndroidAsset Include="Content\Sprites\TutSwipe.xnb" />
+    <AndroidAsset Include="Content\Sprites\TutSwipeJump.xnb" />
+    <AndroidAsset Include="Content\Sprites\TutSwipeTapSmash.xnb" />
+    <AndroidAsset Include="Content\Sprites\TutTap.xnb" />
+    <AndroidAsset Include="Content\Sprites\TutTapToContinue.xnb" />
+    <AndroidAsset Include="Content\Sprites\TutTryAgain.xnb" />
+    <AndroidAsset Include="Content\Sprites\TutWaitForServe.xnb" />
+    <AndroidAsset Include="Content\Sprites\TutWhenBallHigh.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\Tutorial\WaitForServe\WaitForServe.xnb" />
+  </ItemGroup>
+</Project>

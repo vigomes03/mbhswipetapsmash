@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>10.0.0</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{AD612BF1-5483-4214-8942-12393F3FD7D2}</ProjectGuid>
+    <ProjectTypeGuids>{EFBA0AD7-5A72-4C68-AF49-83D382785DCF};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <RootNamespace>MBHEngineContentDefs</RootNamespace>
+    <MonoAndroidAssetsPrefix>Assets</MonoAndroidAssetsPrefix>
+    <AndroidUseLatestPlatformSdk>False</AndroidUseLatestPlatformSdk>
+    <MonoAndroidResourcePrefix>Resources</MonoAndroidResourcePrefix>
+    <AndroidResgenFile>Resources\Resource.designer.cs</AndroidResgenFile>
+    <AndroidResgenClass>Resource</AndroidResgenClass>
+    <AssemblyName>MBHEngineContentDefs</AssemblyName>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;__MOBILE__;__ANDROID__;LLOW_DEBUG_SHAPES;ALLOW_GARBAGE;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AndroidLinkMode>None</AndroidLinkMode>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>full</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release</OutputPath>
+    <DefineConstants>__MOBILE__;__ANDROID__;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AndroidUseSharedRuntime>false</AndroidUseSharedRuntime>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Core" />
+    <Reference Include="Mono.Android" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Resources\Resource.designer.cs" />
+    <Compile Include="..\MBHEngineContentDefs\Behaviour\BehaviourDefinition.cs">
+      <Link>Behaviour\BehaviourDefinition.cs</Link>
+    </Compile>
+    <Compile Include="..\MBHEngineContentDefs\Behaviour\EnableForTrialDefinition.cs">
+      <Link>Behaviour\EnableForTrialDefinition.cs</Link>
+    </Compile>
+    <Compile Include="..\MBHEngineContentDefs\Behaviour\FaceForwardDefinition.cs">
+      <Link>Behaviour\FaceForwardDefinition.cs</Link>
+    </Compile>
+    <Compile Include="..\MBHEngineContentDefs\Behaviour\HealNearbyDefinition.cs">
+      <Link>Behaviour\HealNearbyDefinition.cs</Link>
+    </Compile>
+    <Compile Include="..\MBHEngineContentDefs\Behaviour\HealthDefinition.cs">
+      <Link>Behaviour\HealthDefinition.cs</Link>
+    </Compile>
+    <Compile Include="..\MBHEngineContentDefs\Behaviour\LevelDefinition.cs">
+      <Link>Behaviour\LevelDefinition.cs</Link>
+    </Compile>
+    <Compile Include="..\MBHEngineContentDefs\Behaviour\MagneticDefinition.cs">
+      <Link>Behaviour\MagneticDefinition.cs</Link>
+    </Compile>
+    <Compile Include="..\MBHEngineContentDefs\Behaviour\MotionTrailDefinition.cs">
+      <Link>Behaviour\MotionTrailDefinition.cs</Link>
+    </Compile>
+    <Compile Include="..\MBHEngineContentDefs\Behaviour\OgmoRenderDefinition.cs">
+      <Link>Behaviour\OgmoRenderDefinition.cs</Link>
+    </Compile>
+    <Compile Include="..\MBHEngineContentDefs\Behaviour\PathFindDefinition.cs">
+      <Link>Behaviour\PathFindDefinition.cs</Link>
+    </Compile>
+    <Compile Include="..\MBHEngineContentDefs\Behaviour\PathFollowDefinition.cs">
+      <Link>Behaviour\PathFollowDefinition.cs</Link>
+    </Compile>
+    <Compile Include="..\MBHEngineContentDefs\Behaviour\RemoveTileOnDeathDefinition.cs">
+      <Link>Behaviour\RemoveTileOnDeathDefinition.cs</Link>
+    </Compile>
+    <Compile Include="..\MBHEngineContentDefs\Behaviour\ShapeRenderDefinition.cs">
+      <Link>Behaviour\ShapeRenderDefinition.cs</Link>
+    </Compile>
+    <Compile Include="..\MBHEngineContentDefs\Behaviour\SimpleMomentumDefinition.cs">
+      <Link>Behaviour\SimpleMomentumDefinition.cs</Link>
+    </Compile>
+    <Compile Include="..\MBHEngineContentDefs\Behaviour\SimulatedPhysicsDefinition.cs">
+      <Link>Behaviour\SimulatedPhysicsDefinition.cs</Link>
+    </Compile>
+    <Compile Include="..\MBHEngineContentDefs\Behaviour\SpawnOnDeathDefinition.cs">
+      <Link>Behaviour\SpawnOnDeathDefinition.cs</Link>
+    </Compile>
+    <Compile Include="..\MBHEngineContentDefs\Behaviour\SpriteRenderDefinition.cs">
+      <Link>Behaviour\SpriteRenderDefinition.cs</Link>
+    </Compile>
+    <Compile Include="..\MBHEngineContentDefs\Behaviour\TileCollisionDefinition.cs">
+      <Link>Behaviour\TileCollisionDefinition.cs</Link>
+    </Compile>
+    <Compile Include="..\MBHEngineContentDefs\Behaviour\TileMapRenderDefinition.cs">
+      <Link>Behaviour\TileMapRenderDefinition.cs</Link>
+    </Compile>
+    <Compile Include="..\MBHEngineContentDefs\GameObject\GameObjectDefinition.cs">
+      <Link>GameObject\GameObjectDefinition.cs</Link>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\AboutResources.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\values\Strings.xml" />
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\..\..\..\Program Files %28x86%29\MonoGame\v3.0\ThirdParty\Lidgren.Network\Lidgren.Network.Android.csproj">
+      <Project>{565129E0-4EE5-4F6F-B403-C3484C9740BE}</Project>
+      <Name>Lidgren.Network.Android</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\..\Program Files %28x86%29\MonoGame\v3.0\MonoGame.Framework\MonoGame.Framework.Android.csproj">
+      <Project>{BA9476CF-99BA-4D03-92F2-73D2C5E58883}</Project>
+      <Name>MonoGame.Framework.Android</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Behaviour\" />
+    <Folder Include="GameObject\" />
+  </ItemGroup>
+</Project>

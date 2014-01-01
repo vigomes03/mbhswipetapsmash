@@ -1,0 +1,64 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BumpSetSpike_Android", "BumpSetSpike_Android\BumpSetSpike_Android.csproj", "{56F1E9C4-FAAC-4206-8533-0EB94AF15ED8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lidgren.Network.Android", "..\..\..\..\..\..\Program Files (x86)\MonoGame\v3.0\ThirdParty\Lidgren.Network\Lidgren.Network.Android.csproj", "{565129E0-4EE5-4F6F-B403-C3484C9740BE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MonoGame.Framework.Android", "..\..\..\..\..\..\Program Files (x86)\MonoGame\v3.0\MonoGame.Framework\MonoGame.Framework.Android.csproj", "{BA9476CF-99BA-4D03-92F2-73D2C5E58883}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MBHEngineContentDefs_Android", "MBHEngineContentDefs_Android\MBHEngineContentDefs_Android.csproj", "{AD612BF1-5483-4214-8942-12393F3FD7D2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MBHEngine_Android", "MBHEngine_Android\MBHEngine_Android.csproj", "{C8909BF3-CA94-4F0C-9699-32635BFE7C1F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BumpSetSpikeContentDefs_Android", "BumpSetSpikeContentDefs_Android\BumpSetSpikeContentDefs_Android.csproj", "{D60A7B21-6869-4ADF-A238-416C79B07415}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{565129E0-4EE5-4F6F-B403-C3484C9740BE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{565129E0-4EE5-4F6F-B403-C3484C9740BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{565129E0-4EE5-4F6F-B403-C3484C9740BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{565129E0-4EE5-4F6F-B403-C3484C9740BE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{56F1E9C4-FAAC-4206-8533-0EB94AF15ED8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{56F1E9C4-FAAC-4206-8533-0EB94AF15ED8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{56F1E9C4-FAAC-4206-8533-0EB94AF15ED8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{56F1E9C4-FAAC-4206-8533-0EB94AF15ED8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AD612BF1-5483-4214-8942-12393F3FD7D2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AD612BF1-5483-4214-8942-12393F3FD7D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AD612BF1-5483-4214-8942-12393F3FD7D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AD612BF1-5483-4214-8942-12393F3FD7D2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BA9476CF-99BA-4D03-92F2-73D2C5E58883}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BA9476CF-99BA-4D03-92F2-73D2C5E58883}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BA9476CF-99BA-4D03-92F2-73D2C5E58883}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BA9476CF-99BA-4D03-92F2-73D2C5E58883}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C8909BF3-CA94-4F0C-9699-32635BFE7C1F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C8909BF3-CA94-4F0C-9699-32635BFE7C1F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C8909BF3-CA94-4F0C-9699-32635BFE7C1F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C8909BF3-CA94-4F0C-9699-32635BFE7C1F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D60A7B21-6869-4ADF-A238-416C79B07415}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D60A7B21-6869-4ADF-A238-416C79B07415}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D60A7B21-6869-4ADF-A238-416C79B07415}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D60A7B21-6869-4ADF-A238-416C79B07415}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = BumpSetSpike_Android\BumpSetSpike_Android.csproj
+		Policies = $0
+		$0.TextStylePolicy = $1
+		$1.inheritsSet = null
+		$1.scope = text/x-csharp
+		$0.CSharpFormattingPolicy = $2
+		$2.AfterDelegateDeclarationParameterComma = True
+		$2.inheritsSet = Mono
+		$2.inheritsScope = text/x-csharp
+		$2.scope = text/x-csharp
+		$0.TextStylePolicy = $3
+		$3.FileWidth = 120
+		$3.inheritsSet = VisualStudio
+		$3.inheritsScope = text/plain
+		$3.scope = text/plain
+	EndGlobalSection
+EndGlobal
