@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>10.0.0</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{C8909BF3-CA94-4F0C-9699-32635BFE7C1F}</ProjectGuid>
+    <ProjectTypeGuids>{EFBA0AD7-5A72-4C68-AF49-83D382785DCF};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <RootNamespace>MBHEngine</RootNamespace>
+    <MonoAndroidAssetsPrefix>Assets</MonoAndroidAssetsPrefix>
+    <AndroidUseLatestPlatformSdk>False</AndroidUseLatestPlatformSdk>
+    <MonoAndroidResourcePrefix>Resources</MonoAndroidResourcePrefix>
+    <AndroidResgenFile>Resources\Resource.designer.cs</AndroidResgenFile>
+    <AndroidResgenClass>Resource</AndroidResgenClass>
+    <AssemblyName>MBHEngine</AssemblyName>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;__MOBILE__;__ANDROID__;LLOW_DEBUG_SHAPES;ALLOW_GARBAGE;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AndroidLinkMode>None</AndroidLinkMode>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>full</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release</OutputPath>
+    <DefineConstants>__MOBILE__;__ANDROID__;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AndroidUseSharedRuntime>false</AndroidUseSharedRuntime>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Core" />
+    <Reference Include="Mono.Android" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Resources\Resource.designer.cs" />
+    <Compile Include="..\MBHEngine\Code\Behaviour\Behaviour.cs">
+      <Link>Code\Behaviour\Behaviour.cs</Link>
+    </Compile>
+    <Compile Include="..\MBHEngine\Code\Behaviour\BehaviourCreator.cs">
+      <Link>Code\Behaviour\BehaviourCreator.cs</Link>
+    </Compile>
+    <Compile Include="..\MBHEngine\Code\Behaviour\BehaviourMessage.cs">
+      <Link>Code\Behaviour\BehaviourMessage.cs</Link>
+    </Compile>
+    <Compile Include="..\MBHEngine\Code\Behaviour\EnableForTrial.cs">
+      <Link>Code\Behaviour\EnableForTrial.cs</Link>
+    </Compile>
+    <Compile Include="..\MBHEngine\Code\Behaviour\Example.cs">
+      <Link>Code\Behaviour\Example.cs</Link>
+    </Compile>
+    <Compile Include="..\MBHEngine\Code\Behaviour\FaceForward.cs">
+      <Link>Code\Behaviour\FaceForward.cs</Link>
+    </Compile>
+    <Compile Include="..\MBHEngine\Code\Behaviour\FiniteStateMachine.cs">
+      <Link>Code\Behaviour\FiniteStateMachine.cs</Link>
+    </Compile>
+    <Compile Include="..\MBHEngine\Code\Behaviour\FrameRateDisplay.cs">
+      <Link>Code\Behaviour\FrameRateDisplay.cs</Link>
+    </Compile>
+    <Compile Include="..\MBHEngine\Code\Behaviour\HealNearby.cs">
+      <Link>Code\Behaviour\HealNearby.cs</Link>
+    </Compile>
+    <Compile Include="..\MBHEngine\Code\Behaviour\Health.cs">
+      <Link>Code\Behaviour\Health.cs</Link>
+    </Compile>
+    <Compile Include="..\MBHEngine\Code\Behaviour\InfiniteBG.cs">
+      <Link>Code\Behaviour\InfiniteBG.cs</Link>
+    </Compile>
+    <Compile Include="..\MBHEngine\Code\Behaviour\Level.cs">
+      <Link>Code\Behaviour\Level.cs</Link>
+    </Compile>
+    <Compile Include="..\MBHEngine\Code\Behaviour\Magnetic.cs">
+      <Link>Code\Behaviour\Magnetic.cs</Link>
+    </Compile>
+    <Compile Include="..\MBHEngine\Code\Behaviour\MotionTrail.cs">
+      <Link>Code\Behaviour\MotionTrail.cs</Link>
+    </Compile>
+    <Compile Include="..\MBHEngine\Code\Behaviour\PathFind.cs">
+      <Link>Code\Behaviour\PathFind.cs</Link>
+    </Compile>
+    <Compile Include="..\MBHEngine\Code\Behaviour\PathFollow.cs">
+      <Link>Code\Behaviour\PathFollow.cs</Link>
+    </Compile>
+    <Compile Include="..\MBHEngine\Code\Behaviour\RemoveTileOnDeath.cs">
+      <Link>Code\Behaviour\RemoveTileOnDeath.cs</Link>
+    </Compile>
+    <Compile Include="..\MBHEngine\Code\Behaviour\ShapeRender.cs">
+      <Link>Code\Behaviour\ShapeRender.cs</Link>
+    </Compile>
+    <Compile Include="..\MBHEngine\Code\Behaviour\SimpleMomentum.cs">
+      <Link>Code\Behaviour\SimpleMomentum.cs</Link>
+    </Compile>
+    <Compile Include="..\MBHEngine\Code\Behaviour\SpawnOnDeath.cs">
+      <Link>Code\Behaviour\SpawnOnDeath.cs</Link>
+    </Compile>
+    <Compile Include="..\MBHEngine\Code\Behaviour\SpriteRender.cs">
+      <Link>Code\Behaviour\SpriteRender.cs</Link>
+    </Compile>
+    <Compile Include="..\MBHEngine\Code\Behaviour\TileCollision.cs">
+      <Link>Code\Behaviour\TileCollision.cs</Link>
+    </Compile>
+    <Compile Include="..\MBHEngine\Code\Debug\DebugMessageDisplay.cs">
+      <Link>Code\Debug\DebugMessageDisplay.cs</Link>
+    </Compile>
+    <Compile Include="..\MBHEngine\Code\Debug\DebugShapeDisplay.cs">
+      <Link>Code\Debug\DebugShapeDisplay.cs</Link>
+    </Compile>
+    <Compile Include="..\MBHEngine\Code\GameObject\GameObjectFactory.cs">
+      <Link>Code\GameObject\GameObjectFactory.cs</Link>
+    </Compile>
+    <Compile Include="..\MBHEngine\Code\GameObject\GameObjectFlood.cs">
+      <Link>Code\GameObject\GameObjectFlood.cs</Link>
+    </Compile>
+    <Compile Include="..\MBHEngine\Code\GameObject\GameObjectManager.cs">
+      <Link>Code\GameObject\GameObjectManager.cs</Link>
+    </Compile>
+    <Compile Include="..\MBHEngine\Code\GameObject\GameObjectPicker.cs">
+      <Link>Code\GameObject\GameObjectPicker.cs</Link>
+    </Compile>
+    <Compile Include="..\MBHEngine\Code\Input\InputManager.cs">
+      <Link>Code\Input\InputManager.cs</Link>
+    </Compile>
+    <Compile Include="..\MBHEngine\Code\IO\CommandLineManager.cs">
+      <Link>Code\IO\CommandLineManager.cs</Link>
+    </Compile>
+    <Compile Include="..\MBHEngine\Code\IO\DatabaseManager.cs">
+      <Link>Code\IO\DatabaseManager.cs</Link>
+    </Compile>
+    <Compile Include="..\MBHEngine\Code\Math\LineSegment.cs">
+      <Link>Code\Math\LineSegment.cs</Link>
+    </Compile>
+    <Compile Include="..\MBHEngine\Code\Math\RandomManager.cs">
+      <Link>Code\Math\RandomManager.cs</Link>
+    </Compile>
+    <Compile Include="..\MBHEngine\Code\Math\Rectangle.cs">
+      <Link>Code\Math\Rectangle.cs</Link>
+    </Compile>
+    <Compile Include="..\MBHEngine\Code\Math\StopWatch.cs">
+      <Link>Code\Math\StopWatch.cs</Link>
+    </Compile>
+    <Compile Include="..\MBHEngine\Code\Math\StopWatchManager.cs">
+      <Link>Code\Math\StopWatchManager.cs</Link>
+    </Compile>
+    <Compile Include="..\MBHEngine\Code\Math\Tween.cs">
+      <Link>Code\Math\Tween.cs</Link>
+    </Compile>
+    <Compile Include="..\MBHEngine\Code\Math\Util.cs">
+      <Link>Code\Math\Util.cs</Link>
+    </Compile>
+    <Compile Include="..\MBHEngine\Code\PathFind\AStar\Planner.cs">
+      <Link>Code\PathFind\AStar\Planner.cs</Link>
+    </Compile>
+    <Compile Include="..\MBHEngine\Code\PathFind\GenericAStar\Graph.cs">
+      <Link>Code\PathFind\GenericAStar\Graph.cs</Link>
+    </Compile>
+    <Compile Include="..\MBHEngine\Code\PathFind\GenericAStar\GraphNode.cs">
+      <Link>Code\PathFind\GenericAStar\GraphNode.cs</Link>
+    </Compile>
+    <Compile Include="..\MBHEngine\Code\PathFind\GenericAStar\PathNode.cs">
+      <Link>Code\PathFind\GenericAStar\PathNode.cs</Link>
+    </Compile>
+    <Compile Include="..\MBHEngine\Code\PathFind\GenericAStar\Planner.cs">
+      <Link>Code\PathFind\GenericAStar\Planner.cs</Link>
+    </Compile>
+    <Compile Include="..\MBHEngine\Code\PathFind\GenericAStar\TileGraphNode.cs">
+      <Link>Code\PathFind\GenericAStar\TileGraphNode.cs</Link>
+    </Compile>
+    <Compile Include="..\MBHEngine\Code\PathFind\HPAStar\Cluster.cs">
+      <Link>Code\PathFind\HPAStar\Cluster.cs</Link>
+    </Compile>
+    <Compile Include="..\MBHEngine\Code\PathFind\HPAStar\NavMesh.cs">
+      <Link>Code\PathFind\HPAStar\NavMesh.cs</Link>
+    </Compile>
+    <Compile Include="..\MBHEngine\Code\PathFind\HPAStar\NavMeshTileGraphNode.cs">
+      <Link>Code\PathFind\HPAStar\NavMeshTileGraphNode.cs</Link>
+    </Compile>
+    <Compile Include="..\MBHEngine\Code\Render\CameraManager.cs">
+      <Link>Code\Render\CameraManager.cs</Link>
+    </Compile>
+    <Compile Include="..\MBHEngine\Code\Render\DebugSpritePoly.cs">
+      <Link>Code\Render\DebugSpritePoly.cs</Link>
+    </Compile>
+    <Compile Include="..\MBHEngine\Code\StateMachine\FSMState.cs">
+      <Link>Code\StateMachine\FSMState.cs</Link>
+    </Compile>
+    <Compile Include="..\MBHEngine\Code\Trial\TrialModeManager.cs">
+      <Link>Code\Trial\TrialModeManager.cs</Link>
+    </Compile>
+    <Compile Include="..\MBHEngine\Code\World\WorldManager.cs">
+      <Link>Code\World\WorldManager.cs</Link>
+    </Compile>
+    <Compile Include="..\MBHEngine\Code\GameObject\GameObject.cs">
+      <Link>Code\GameObject\GameObject.cs</Link>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\AboutResources.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\values\Strings.xml" />
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\..\..\..\Program Files %28x86%29\MonoGame\v3.0\ThirdParty\Lidgren.Network\Lidgren.Network.Android.csproj">
+      <Project>{565129E0-4EE5-4F6F-B403-C3484C9740BE}</Project>
+      <Name>Lidgren.Network.Android</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MBHEngineContentDefs_Android\MBHEngineContentDefs_Android.csproj">
+      <Project>{AD612BF1-5483-4214-8942-12393F3FD7D2}</Project>
+      <Name>MBHEngineContentDefs_Android</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\..\Program Files %28x86%29\MonoGame\v3.0\MonoGame.Framework\MonoGame.Framework.Android.csproj">
+      <Project>{BA9476CF-99BA-4D03-92F2-73D2C5E58883}</Project>
+      <Name>MonoGame.Framework.Android</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Code\" />
+  </ItemGroup>
+</Project>

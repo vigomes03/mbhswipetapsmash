@@ -264,7 +264,7 @@ namespace BumpSetSpike.Behaviour
 
             // Is the player flicking the screen, trying to throw the player into the air?
             if ((TutorialManager.pInstance.pTutorialCompleted || validTutTapState) &&
-                (InputManager.pInstance.CheckGesture(GestureType.Flick, ref gesture)) &&
+				(InputManager.pInstance.CheckGesture(GestureType.Flick, ref gesture)) &&
                 !mTrialLimitReached)
             {
                 // Only allow jumping if you are currently in the Idle state.
@@ -293,10 +293,13 @@ namespace BumpSetSpike.Behaviour
                     }
                     // The flick deltas are HUGE compared to the scale of our game, so scale it down so that largers
                     // flicks have a more reasonable impact.
-                    const Single deltaScale = 0.0008f;
+					#if __ANDROID__
+					const Single deltaScale = 0.5f;
+					#else
+                    const Single deltaScale = 1.0f;
+					#endif
 
-                    // TODO: Why is time based? Impulses should be instantanious.
-                    mParentGOH.pDirection.mForward = delta * deltaScale;
+					mParentGOH.pDirection.mForward = ((delta / 60.0f) / 6.4f) * deltaScale;
 
                     // We are now jumping.
                     mCurrentState = State.Jump;

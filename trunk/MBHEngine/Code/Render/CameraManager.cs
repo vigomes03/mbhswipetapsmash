@@ -118,6 +118,8 @@ namespace MBHEngine.Render
             mScreenCenter = Matrix.CreateTranslation(GameObjectManager.pInstance.pGraphics.PreferredBackBufferWidth * 0.5f, GameObjectManager.pInstance.pGraphics.PreferredBackBufferHeight * 0.5f, 0);
 #if WINDOWS_PHONE
             mZoomAmount = 4.0f;
+#elif __ANDROID__
+			mZoomAmount = 6.4f;
 #elif SMALL_WINDOW
             mZoomAmount = 3.2f;
 #else

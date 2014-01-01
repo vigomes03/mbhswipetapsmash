@@ -52,7 +52,7 @@ namespace BumpSetSpike.Gameflow
         /// </summary>
         private static SaveGameManager mInstance;
 
-#if WINDOWS_PHONE
+#if WINDOWS_PHONE || __ANDROID__
         /// <summary>
         /// Name of the file where we will save our data.
         /// </summary>
@@ -69,7 +69,7 @@ namespace BumpSetSpike.Gameflow
         /// </summary>
         public void Inititalize()
         {
-#if WINDOWS_PHONE
+#if WINDOWS_PHONE || __ANDROID__
             mSaveData = new SaveGameData();
 #endif
         }
@@ -96,7 +96,7 @@ namespace BumpSetSpike.Gameflow
         /// <remarks>Only works on Windows Phone.</remarks>
         public void ReadSaveGameXML()
         {
-#if WINDOWS_PHONE
+#if WINDOWS_PHONE || __ANDROID__
             try
             {
                 using (IsolatedStorageFile myIsolatedStorage = IsolatedStorageFile.GetUserStoreForApplication())
@@ -123,7 +123,7 @@ namespace BumpSetSpike.Gameflow
         /// <remarks>Only works on Windows Phone.</remarks>
         public void WriteSaveGameXML()
         {
-#if WINDOWS_PHONE
+#if WINDOWS_PHONE || __ANDROID__
             // Write to the Isolated Storage
             XmlWriterSettings xmlWriterSettings = new XmlWriterSettings();
             xmlWriterSettings.Indent = true;

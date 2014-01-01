@@ -149,7 +149,7 @@ namespace MBHEngine.Input
             
             bool cheat_selection = CommandLineManager.pInstance["CheatGamePadSelection"] != null;
 
-#if WINDOWS_PHONE 
+#if WINDOWS_PHONE || __ANDROID__
             // On WP just always use controller one, which should be the phone itself.
             cheat_selection = true;
 #endif
@@ -178,9 +178,26 @@ namespace MBHEngine.Input
 				
                 mCurrentGestureSamples.Add(g);
             }
-#elif WINDOWS
+#elif WINDOWS || __ANDROID__
 
+			#if WINDOWS
             mCurrentMouseState = Mouse.GetState();
+			#elif __ANDROID__
+			TouchCollection touch = TouchPanel.GetState();
+			if (touch.Count > 0)
+			{
+				//for (Int32 i = 0; i < TouchPanel.GetState().Count; i++)
+				{
+					TouchLocation state = touch[0];
+					Vector2 pos = state.Position;
+					mCurrentMouseState = new MouseState((Int32)pos.X, (Int32)pos.Y, 0, ButtonState.Pressed, ButtonState.Released, ButtonState.Released, ButtonState.Released, ButtonState.Released);
+				}
+			}
+			else
+			{
+				mCurrentMouseState = new MouseState((Int32)mPreviousMouseState.Position.X, (Int32)mPreviousMouseState.Position.Y, 0, ButtonState.Released, ButtonState.Released, ButtonState.Released, ButtonState.Released, ButtonState.Released);
+			}
+			#endif
 
             // While the left mouse button is being held, store the recent history.
             if (mCurrentMouseState.LeftButton == ButtonState.Pressed)
@@ -233,7 +250,7 @@ namespace MBHEngine.Input
 
                 // Limit really small flicks.
                 Single minFlickLength = (Single)System.Math.Pow(1000.0, 2.0);
-                if (flickDelta.LengthSquared() >= minFlickLength)
+				//if (flickDelta.LengthSquared() >= minFlickLength)
                 {
                     // Build the Flick Gesture. 
                     // Time Stamp is missing.
@@ -760,7 +777,11 @@ namespace MBHEngine.Input
         {
             get
             { 
-                return GamePad.GetState(pActiveControllerIndex, GamePadDeadZone.Circular);
+#if __ANDROID__
+                return GamePad.GetState(pActiveControllerIndex);
+#else
+				return GamePad.GetState(pActiveControllerIndex, GamePadDeadZone.Circular);
+#endif
             }
         }
     }

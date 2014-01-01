@@ -225,7 +225,9 @@ namespace MBHEngine.GameObject
 
                 for (Int32 i = 0; i < def.mBehaviourFileNames.Count; i++)
                 {
-                    String goRootPath = System.IO.Path.GetDirectoryName(fileName);
+					// On android GetDirectoryName fails with \\ so switch them for /
+					String goRootPath = fileName.Replace ("\\", "/");
+					goRootPath = System.IO.Path.GetDirectoryName(goRootPath);
                     Behaviour.Behaviour temp = CreateBehaviourByName(def.mBehaviourClassNames[i], goRootPath + "\\Behaviours\\" + def.mBehaviourFileNames[i]);
                     mBehaviours.Add(temp);
                 }

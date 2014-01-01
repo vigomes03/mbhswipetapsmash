@@ -80,6 +80,12 @@ namespace BumpSetSpike
 #endif
 #endif
 
+#if __ANDROID__
+			mGraphics.PreferredBackBufferWidth = 1280; // 1366; // 1280;
+			mGraphics.PreferredBackBufferHeight = 720; // 768; // 720;
+			mGraphics.IsFullScreen = true;
+#endif
+
 #if false
             //mGraphics.PreferredBackBufferWidth = 1920; // 1280;
             //mGraphics.PreferredBackBufferHeight = 1080; // 720;
@@ -88,7 +94,7 @@ namespace BumpSetSpike
             mGraphics.IsFullScreen = true;
 #endif
 
-            Content.RootDirectory = "Content";
+			Content.RootDirectory = "Content";
 
             // Avoid the "jitter".
             // http://forums.create.msdn.com/forums/p/9934/53561.aspx#53561
@@ -116,6 +122,18 @@ namespace BumpSetSpike
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             mSpriteBatch = new SpriteBatch(GraphicsDevice);
+
+			String goRootPath = System.IO.Path.GetDirectoryName("111\\2222\\333.txt");
+			goRootPath = System.IO.Path.GetDirectoryName("111\\2222\\333");
+			goRootPath = System.IO.Path.GetDirectoryName("111/2222/333.txt");
+			goRootPath = System.IO.Path.GetDirectoryName("111/2222/333");
+
+            /*
+			Texture2D t = Content.Load<Texture2D> ("Ball_sp");
+			t = Content.Load<Texture2D> ("Sprites\\BallShadow");
+			t = Content.Load<Texture2D> ("Sprites/BeachCourt_sp");
+			GameObjectDefinition g = Content.Load<GameObjectDefinition> ("GameObjects\\UI\\Tutorial\\WaitForServe\\WaitForServe");
+            */
 
             GameObjectManager.pInstance.Initialize(Content, mGraphics);
             GameObject.AddBehaviourCreator(new ClientBehaviourCreator());
@@ -473,7 +491,7 @@ namespace BumpSetSpike
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            //GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // First draw all the objects managed by the game object manager.
             GameObjectManager.pInstance.Render(mSpriteBatch, (mFameSkipCount == 0));
