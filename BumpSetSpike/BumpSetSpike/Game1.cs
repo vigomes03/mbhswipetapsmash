@@ -121,19 +121,7 @@ namespace BumpSetSpike
         protected override void Initialize()
         {
             // Create a new SpriteBatch, which can be used to draw textures.
-            mSpriteBatch = new SpriteBatch(GraphicsDevice);
-
-			String goRootPath = System.IO.Path.GetDirectoryName("111\\2222\\333.txt");
-			goRootPath = System.IO.Path.GetDirectoryName("111\\2222\\333");
-			goRootPath = System.IO.Path.GetDirectoryName("111/2222/333.txt");
-			goRootPath = System.IO.Path.GetDirectoryName("111/2222/333");
-
-            /*
-			Texture2D t = Content.Load<Texture2D> ("Ball_sp");
-			t = Content.Load<Texture2D> ("Sprites\\BallShadow");
-			t = Content.Load<Texture2D> ("Sprites/BeachCourt_sp");
-			GameObjectDefinition g = Content.Load<GameObjectDefinition> ("GameObjects\\UI\\Tutorial\\WaitForServe\\WaitForServe");
-            */
+            mSpriteBatch = new SpriteBatch (GraphicsDevice);        
 
             GameObjectManager.pInstance.Initialize(Content, mGraphics);
             GameObject.AddBehaviourCreator(new ClientBehaviourCreator());

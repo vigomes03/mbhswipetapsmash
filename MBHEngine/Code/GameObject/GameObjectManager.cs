@@ -1154,6 +1154,14 @@ namespace MBHEngine.GameObject
             }
             set
             {
+#if __ANDROID__
+                if (value == MBHEngineContentDefs.BehaviourDefinition.Passes.QUIT)
+                {
+                    System.Diagnostics.Debug.Assert(false, "Cannot QUIT to OS on Android.");
+                    return;
+                }
+#endif
+
                 if (mCurrentUpdatePass == value)
                 {
                     return;

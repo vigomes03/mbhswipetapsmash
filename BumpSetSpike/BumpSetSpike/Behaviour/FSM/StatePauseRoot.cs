@@ -30,8 +30,11 @@ namespace BumpSetSpike.Behaviour.FSM
         {
             base.OnBegin();
 
+            // Android does not support quiting to OS.
+#if !__ANDROID__
             mQuitButton = GameObjectFactory.pInstance.GetTemplate("GameObjects\\UI\\PauseQuitButton\\PauseQuitButton");
             GameObjectManager.pInstance.Add(mQuitButton);
+#endif
 
             mResumeButton = GameObjectFactory.pInstance.GetTemplate("GameObjects\\UI\\PauseResumeButton\\PauseResumeButton");
             GameObjectManager.pInstance.Add(mResumeButton);
