@@ -196,16 +196,6 @@
     <Folder Include="Gameflow\" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidAsset Include="Content\Audio\FX\Bump.xnb" />
-    <AndroidAsset Include="Content\Audio\FX\GameOver.xnb" />
-    <AndroidAsset Include="Content\Audio\FX\HighScore.xnb" />
-    <AndroidAsset Include="Content\Audio\FX\HitOpponent.xnb" />
-    <AndroidAsset Include="Content\Audio\FX\HitOpponentLand.xnb" />
-    <AndroidAsset Include="Content\Audio\FX\HitSand.xnb" />
-    <AndroidAsset Include="Content\Audio\FX\Jump.xnb" />
-    <AndroidAsset Include="Content\Audio\FX\MenuSelect.xnb" />
-    <AndroidAsset Include="Content\Audio\FX\SpikeHit.xnb" />
-    <AndroidAsset Include="Content\Audio\FX\SpikeMiss.xnb" />
     <AndroidAsset Include="Content\Audio\Music\MikeImmonen_Gameplay.wma" />
     <AndroidAsset Include="Content\Audio\Music\MikeImmonen_Gameplay.xnb" />
     <AndroidAsset Include="Content\Audio\Music\MikeImmonen_Menu.wma" />
@@ -504,5 +494,15 @@
     <AndroidAsset Include="Content\Sprites\TutWaitForServe.xnb" />
     <AndroidAsset Include="Content\Sprites\TutWhenBallHigh.xnb" />
     <AndroidAsset Include="Content\GameObjects\UI\Tutorial\WaitForServe\WaitForServe.xnb" />
+    <AndroidAsset Include="Content\Audio\FX\Jump.wav" />
+    <AndroidAsset Include="Content\Audio\FX\Bump.wav" />
+    <AndroidAsset Include="Content\Audio\FX\GameOver.wav" />
+    <AndroidAsset Include="Content\Audio\FX\HighScore.wav" />
+    <AndroidAsset Include="Content\Audio\FX\HitOpponent.wav" />
+    <AndroidAsset Include="Content\Audio\FX\HitOpponentLand.wav" />
+    <AndroidAsset Include="Content\Audio\FX\HitSand.wav" />
+    <AndroidAsset Include="Content\Audio\FX\MenuSelect.wav" />
+    <AndroidAsset Include="Content\Audio\FX\SpikeHit.wav" />
+    <AndroidAsset Include="Content\Audio\FX\SpikeMiss.wav" />
   </ItemGroup>
 </Project>
