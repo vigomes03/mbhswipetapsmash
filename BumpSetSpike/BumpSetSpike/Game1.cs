@@ -32,6 +32,12 @@ namespace BumpSetSpike
         private SpriteBatch mSpriteBatch;
 
         /// <summary>
+        /// Color of the sky used for flushing the screen to a color which will transition seamlessly
+        /// with main menu.
+        /// </summary>
+        private Color mSkyColor;
+
+        /// <summary>
         /// Whether or not to draw debug information.
         /// </summary>
         private Boolean mDebugDrawEnabled;
@@ -104,6 +110,8 @@ namespace BumpSetSpike
 
             // Frame rate is 30 fps by default for Windows Phone.
             TargetElapsedTime = TimeSpan.FromTicks(333333);
+
+            mSkyColor = new Color(146, 225, 255);
 
             //mGraphics.GraphicsDevice.PresentationParameters.MultiSampleType = MultiSampleType.TwoSamples;
             //mGraphics.GraphicsDevice.RenderState.MultiSampleAntiAlias = true;
@@ -479,7 +487,7 @@ namespace BumpSetSpike
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(mSkyColor);
 
             // First draw all the objects managed by the game object manager.
             GameObjectManager.pInstance.Render(mSpriteBatch, (mFameSkipCount == 0));
