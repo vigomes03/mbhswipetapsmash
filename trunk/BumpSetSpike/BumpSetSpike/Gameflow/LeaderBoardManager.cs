@@ -135,6 +135,7 @@ namespace BumpSetSpike.Gameflow
                 if (value > mRecords.mScore)
                 {
                     mRecords.mScore = value;
+                    SaveGameManager.pInstance.WriteSaveGameXML();
                 }
             }
         }
@@ -154,6 +155,7 @@ namespace BumpSetSpike.Gameflow
                 if (value > mRecords.mHits)
                 {
                     mRecords.mHits = value;
+                    SaveGameManager.pInstance.WriteSaveGameXML();
                 }
             }
         }
