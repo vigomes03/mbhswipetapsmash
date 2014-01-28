@@ -726,8 +726,8 @@ namespace BumpSetSpike.Gameflow
         /// <returns>True if the swipe is valid.</returns>
         public Boolean IsValidTutorialSwipe(Vector2 swipe_delta, Vector2 pos)
         {
-            const Single length = 5972.28f;
-            const Single length_delta = 2000.0f;
+            const Single length = 2629;
+            const Single length_delta = 1000.0f;
             const Single min_length = length - length_delta;
             const Single max_length = length + (length_delta * 0.5f);
 
