@@ -81,6 +81,14 @@ namespace MBHEngine.Input
         private Queue<MouseState> mMouseHoldHistory;
 
         /// <summary>
+        /// Used for drawing the mouse history. We dont just use mMouseHoldHistory because that gets cleared
+        /// too soon.
+        /// </summary>
+#if ALLOW_GARBAGE
+        private Queue<MouseState> mDebugMouseHist;
+#endif
+
+        /// <summary>
         /// Stores all the Gestures that we pending at the start of a frame.
         /// </summary>
         private List<GestureSample> mCurrentGestureSamples;
@@ -146,6 +154,9 @@ namespace MBHEngine.Input
             mPreviousMouseState = mCurrentMouseState = Mouse.GetState();
 
             mMouseHoldHistory = new Queue<MouseState>();
+#if ALLOW_GARBAGE
+            mDebugMouseHist = new Queue<MouseState> ();
+#endif
             
             bool cheat_selection = CommandLineManager.pInstance["CheatGamePadSelection"] != null;
 
@@ -202,17 +213,33 @@ namespace MBHEngine.Input
             // While the left mouse button is being held, store the recent history.
             if (mCurrentMouseState.LeftButton == ButtonState.Pressed)
             {
+                // Android duplicates the final index, so this really means use the last 2 pieces of data.
+                int maxHist = 5; 
+
+#if ALLOW_GARBAGE
+                if (mMouseHoldHistory.Count == 0)
+                {
+                    mDebugMouseHist.Clear();
+                }
+#endif
+
                 // Old store the most recent presses, so that if the user moves the mouse in a 
                 // non-straight line, we only react the last few moments, as you would expect with
                 // flicking something.
-                if (mMouseHoldHistory.Count >= 5)
+                if (mMouseHoldHistory.Count >= maxHist)
                 {
                     // Get rid of the oldest item which should be at the front of the queue.
                     mMouseHoldHistory.Dequeue();
+#if ALLOW_GARBAGE
+                    mDebugMouseHist.Dequeue();
+#endif
                 }
 
                 // Add the new mouse state to the back of the cue.
                 mMouseHoldHistory.Enqueue(mCurrentMouseState);
+#if ALLOW_GARBAGE
+                mDebugMouseHist.Enqueue(mCurrentMouseState);
+#endif
             }
 
             // Mouse Released.
@@ -238,7 +265,7 @@ namespace MBHEngine.Input
                 Vector2 startClick = new Vector2(start.X, start.Y);
 
                 // A magic number to put actual delta into WP scale.
-                const Single WPMagicNumber = 20.0f;
+                const Single WPMagicNumber = 10.0f;
 
                 // Find the delta between where we started and where we released. This gets multiplied by
                 // a magic number because on Windows Phone, the delta is huge, and this simplifies code everywhere
@@ -249,8 +276,8 @@ namespace MBHEngine.Input
                 Vector2 flickDelta = (newMouse - startClick) * WPMagicNumber;
 
                 // Limit really small flicks.
-                Single minFlickLength = (Single)System.Math.Pow(1000.0, 2.0);
-				//if (flickDelta.LengthSquared() >= minFlickLength)
+                Single minFlickLengthSq = (Single)System.Math.Pow(100.0, 2.0);
+                if (flickDelta.LengthSquared() >= minFlickLengthSq)
                 {
                     // Build the Flick Gesture. 
                     // Time Stamp is missing.
@@ -272,6 +299,19 @@ namespace MBHEngine.Input
         /// </summary>
         public void UpdateEnd()
         {
+            #if ALLOW_GARBAGE
+            MouseState[] array = new MouseState[mDebugMouseHist.Count];
+            mDebugMouseHist.CopyTo(array, 0);
+
+            for (int i = 0; i < array.Length - 1; i++) 
+            {
+                MBHEngine.Math.LineSegment line = new MBHEngine.Math.LineSegment ();
+                line.pPointA = CameraManager.pInstance.ProjectMouseToWorldSpace(new Vector2 (array [i].X, array [i].Y));
+                line.pPointB = CameraManager.pInstance.ProjectMouseToWorldSpace(new Vector2 (array [i+1].X, array [i+1].Y));
+                DebugShapeDisplay.pInstance.AddSegment (line, Color.Blue);
+            }
+            #endif
+
             mPreviousKeyboardState = Keyboard.GetState();
 			
             if (mIsControllerLocked == true)

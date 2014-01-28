@@ -289,12 +289,12 @@ namespace BumpSetSpike.Behaviour
                             return;
                         }
 
-                        delta = new Vector2(3083.0f, -5115.0f);
+                        delta = new Vector2(1440.0f, -2200.0f);
                     }
                     // The flick deltas are HUGE compared to the scale of our game, so scale it down so that largers
                     // flicks have a more reasonable impact.
 					#if __ANDROID__
-					const Single deltaScale = 0.5f;
+                    const Single deltaScale = 1.0f;
 					#else
                     const Single deltaScale = 1.0f;
 					#endif
