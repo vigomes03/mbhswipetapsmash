@@ -21,7 +21,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug</OutputPath>
-    <DefineConstants>DEBUG;__MOBILE__;__ANDROID__;LLOW_DEBUG_SHAPES;ALLOW_GARBAGE;</DefineConstants>
+    <DefineConstants>DEBUG;__MOBILE__;__ANDROID__;ALLOW_DEBUG_SHAPES;ALLOW_GARBAGE;</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <AndroidLinkMode>None</AndroidLinkMode>
