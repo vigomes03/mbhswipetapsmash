@@ -295,7 +295,9 @@ namespace BumpSetSpike.Behaviour
                     // flicks have a more reasonable impact.
 					#if __ANDROID__
                     const Single deltaScale = 1.0f;
-					#else
+					#elif WINDOWS_PHONE
+                    const Single deltaScale = 1.0f;
+                    #else
                     const Single deltaScale = 1.0f;
 					#endif
 
