@@ -6,12 +6,6 @@ using Microsoft.Xna.Framework.Input.Touch;
 using MBHEngine.Input;
 using MBHEngine.GameObject;
 using Microsoft.Xna.Framework;
-using Android.Content;
-
-
-#if WINDOWS_PHONE
-using Microsoft.Phone.Tasks;
-#endif
 using MBHEngine.Render;
 using BumpSetSpikeContentDefs;
 using MBHEngineContentDefs;
@@ -20,6 +14,12 @@ using System.Diagnostics;
 using MBHEngine.Behaviour;
 using Microsoft.Xna.Framework.GamerServices;
 using MBHEngine.Trial;
+#if __ANDROID__
+using Android.Content;
+#endif
+#if WINDOWS_PHONE
+using Microsoft.Phone.Tasks;
+#endif
 
 namespace BumpSetSpike.Behaviour
 {
