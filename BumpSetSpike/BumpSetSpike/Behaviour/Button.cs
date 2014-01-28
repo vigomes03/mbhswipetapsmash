@@ -6,6 +6,9 @@ using Microsoft.Xna.Framework.Input.Touch;
 using MBHEngine.Input;
 using MBHEngine.GameObject;
 using Microsoft.Xna.Framework;
+using Android.Content;
+
+
 #if WINDOWS_PHONE
 using Microsoft.Phone.Tasks;
 #endif
@@ -133,6 +136,10 @@ namespace BumpSetSpike.Behaviour
                             browser.Uri = new Uri(task.mData, UriKind.Absolute);
                             browser.Show();
 
+                            return true;
+#elif __ANDROID__
+                            var intent = new Intent(Intent.ActionView, Android.Net.Uri.Parse(task.mData));
+                            Game1.Activity.StartActivity(intent);
                             return true;
 #else
                             Process.Start(task.mData);
