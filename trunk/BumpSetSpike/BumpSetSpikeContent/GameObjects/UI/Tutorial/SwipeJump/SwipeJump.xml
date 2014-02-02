@@ -4,7 +4,11 @@
     <mRenderPriority>100</mRenderPriority>
     <mDoUpdate>true</mDoUpdate>
     <mDoRender>true</mDoRender>
-    <mPosition>0 0</mPosition>
+    <mPosition>0 8</mPosition>
+    <mScreenRelativeAnchorPoint>
+      <X>CENTER</X>
+      <Y>CENTER</Y>
+    </mScreenRelativeAnchorPoint>
     <mRotation>0</mRotation>
     <mScale>1 1</mScale>
     <mMotionRoot>128 16</mMotionRoot>

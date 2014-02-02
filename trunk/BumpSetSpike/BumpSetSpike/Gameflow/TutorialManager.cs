@@ -317,77 +317,24 @@ namespace BumpSetSpike.Gameflow
                 pTutorialCompleted = true;
             }
 
-            Single x = ((GameObjectManager.pInstance.pGraphicsDevice.Viewport.Width * 0.5f) / CameraManager.pInstance.pZoomScale);
-            Single y = ((GameObjectManager.pInstance.pGraphicsDevice.Viewport.Height * 0.5f) / CameraManager.pInstance.pZoomScale);
-
-            Single bottom = ((GameObjectManager.pInstance.pGraphicsDevice.Viewport.Height) / CameraManager.pInstance.pZoomScale);
-
             mTxtWaitForServe = new GameObject("GameObjects\\UI\\Tutorial\\WaitForServe\\WaitForServe");
-            mTxtWaitForServe.pPosX = x;
-            mTxtWaitForServe.pPosY = 30.0f;
-
             mTxtBumpAuto = new GameObject("GameObjects\\UI\\Tutorial\\BumpAuto\\BumpAuto");
-            mTxtBumpAuto.pPosX = 12;
-            mTxtBumpAuto.pPosY = y;
-
             mTxtSetAuto = new GameObject("GameObjects\\UI\\Tutorial\\SetAuto\\SetAuto");
-            mTxtSetAuto.pPosX = x - 10;
-            mTxtSetAuto.pPosY = y;
-
             mTxtWhenBallHigh = new GameObject("GameObjects\\UI\\Tutorial\\WhenBallHigh\\WhenBallHigh");
-            mTxtWhenBallHigh.pPosX = x;
-            mTxtWhenBallHigh.pPosY = y - 8;
-
             mTxtSwipeJump = new GameObject("GameObjects\\UI\\Tutorial\\SwipeJump\\SwipeJump");
-            mTxtSwipeJump.pPosX = x;
-            mTxtSwipeJump.pPosY = y + 8;
-
             mTxtTap = new GameObject("GameObjects\\UI\\Tutorial\\Tap\\Tap");
-            mTxtTap.pPosX = x;
-            mTxtTap.pPosY = y - 8;
-
             mTxtPlayerTry = new GameObject("GameObjects\\UI\\Tutorial\\PlayerTry\\PlayerTry");
-            mTxtPlayerTry.pPosX = x;
-            mTxtPlayerTry.pPosY = y;
-
             mTxtTryAgain = new GameObject("GameObjects\\UI\\Tutorial\\TryAgain\\TryAgain");
-            mTxtTryAgain.pPosX = x;
-            mTxtTryAgain.pPosY = y;
-
             mTxtWellDone = new GameObject("GameObjects\\UI\\Tutorial\\NiceWork\\NiceWork");
-            mTxtWellDone.pPosX = x;
-            mTxtWellDone.pPosY = y;
-
             mTxtThatsAll = new GameObject("GameObjects\\UI\\Tutorial\\AllThereIs\\AllThereIs");
-            mTxtThatsAll.pPosX = x;
-            mTxtThatsAll.pPosY = y;
-
             mTxtRecap = new GameObject("GameObjects\\UI\\Tutorial\\SwipeTapSmash\\SwipeTapSmash");
-            mTxtRecap.pPosX = x;
-            mTxtRecap.pPosY = y;
-
             mTxtRules = new GameObject("GameObjects\\UI\\Tutorial\\InRow\\InRow");
-            mTxtRules.pPosX = x;
-            mTxtRules.pPosY = y;
-
             mTxtTitle = new GameObject("GameObjects\\UI\\Tutorial\\Title\\Title");
-            mTxtTitle.pPosX = x;
-            mTxtTitle.pPosY = 5.0f;
-
             mTxtRealThing = new GameObject("GameObjects\\UI\\Tutorial\\RealThing\\RealThing");
-            mTxtRealThing.pPosX = x;
-            mTxtRealThing.pPosY = y;
-
             mTxtTapContinue = new GameObject("GameObjects\\UI\\Tutorial\\TapToContinue\\TapToContinue");
-            mTxtTapContinue.pPosX = x;
-            mTxtTapContinue.pPosY = bottom - 16.0f;
-
             mImgSwipe = new GameObject("GameObjects\\Items\\Tutorial\\Swipe\\Swipe");
             mImgFingerSwipe = new GameObject("GameObjects\\Items\\Tutorial\\FingerSwipe\\FingerSwipe");
-
             mImgBackdrop = new GameObject("GameObjects\\UI\\Tutorial\\Backdrop\\Backdrop");
-            mImgBackdrop.pPosX = x;
-            mImgBackdrop.pPosY = y;
 
             mInputDelay = StopWatchManager.pInstance.GetNewStopWatch();
             mInputDelay.pLifeTime = 15.0f;
@@ -529,6 +476,9 @@ namespace BumpSetSpike.Gameflow
             mTutorialStates[(Int32)State.COMPLETE_GET_READY] = state;
         }
 
+        /// <summary>
+        /// Attempts to start the tutorial.
+        /// </summary>
         public void StartTutorial()
         {
             if (!pTutorialCompleted && GameModeManager.pInstance.pMode == GameModeManager.GameMode.Endurance)
