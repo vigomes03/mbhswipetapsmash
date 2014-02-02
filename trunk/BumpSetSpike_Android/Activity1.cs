@@ -10,7 +10,7 @@ using BumpSetSpike;
 
 namespace BumpSetSpike_Android
 {
-	[Activity (Label = "BumpSetSpike_Android", 
+    [Activity (Label = "Swipe Tap Smash", 
 		MainLauncher = true,
 		Icon = "@drawable/icon",
 		Theme = "@style/Theme.Splash",
