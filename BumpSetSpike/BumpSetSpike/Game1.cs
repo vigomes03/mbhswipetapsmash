@@ -92,12 +92,12 @@ namespace BumpSetSpike
 			mGraphics.IsFullScreen = true;
 #endif
 
-#if false
-            //mGraphics.PreferredBackBufferWidth = 1920; // 1280;
-            //mGraphics.PreferredBackBufferHeight = 1080; // 720;
-            mGraphics.PreferredBackBufferWidth = mGraphics.GraphicsDevice.DisplayMode.Width;
-            mGraphics.PreferredBackBufferHeight = mGraphics.GraphicsDevice.DisplayMode.Height;
-            mGraphics.IsFullScreen = true;
+#if true
+            mGraphics.PreferredBackBufferWidth = 1920; // 1280;
+            mGraphics.PreferredBackBufferHeight = 1080; // 720;
+            //mGraphics.PreferredBackBufferWidth = mGraphics.GraphicsDevice.DisplayMode.Width;
+            //mGraphics.PreferredBackBufferHeight = mGraphics.GraphicsDevice.DisplayMode.Height;
+            mGraphics.IsFullScreen = false;
 #endif
 
 			Content.RootDirectory = "Content";
