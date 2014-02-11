@@ -67,7 +67,7 @@ namespace BumpSetSpike.Gameflow
             // All music in the game repeats.
             MediaPlayer.IsRepeating = true;
 
-#if (WINDOWS_PHONE && DEBUG) || (MONOGL && WINDOWS)
+#if (WINDOWS_PHONE && DEBUG) || (MONOGL && WINDOWS) || (__ANDROID__ && DEBUG)
             mDebugMusicDisabled = true; // We can't pass command line args to WP.
 #else
             mDebugMusicDisabled = CommandLineManager.pInstance["DisableMusic"] != null;
