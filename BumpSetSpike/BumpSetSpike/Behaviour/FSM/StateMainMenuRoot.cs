@@ -114,6 +114,10 @@ namespace BumpSetSpike.Behaviour.FSM
 
                 if (msg.pSender == mTapStart)
                 {
+#if __ANDROID__
+                    (Game1.Activity as BumpSetSpike_Android.Activity1).LoginToGoogle();
+#endif //__ANDROID__
+
                     mSetStateMsg.Reset();
                     mSetStateMsg.mNextState_In = "StateMainMenuModeSelect";
                     pParentGOH.OnMessage(mSetStateMsg, pParentGOH);
