@@ -1,5 +1,19 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionName="1.2.0" package="BumpSetSpike_Android.BumpSetSpike_Android" android:versionCode="120">
-	<uses-sdk />
-	<application android:label="Swipe Tap Smash"></application>
+	<uses-sdk android:minSdkVersion="10" />
+	<application android:label="Swipe Tap Smash">
+		<meta-data android:name="com.google.android.gms.version" android:value="@integer/google_play_services_version" />
+	</application>
+    <!-- We need to be able to download map tiles and access Google Play Services-->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <!-- Allow the application to access Google web-based services. -->
+    <!-- Google Maps for Android v2 will cache map tiles on external storage -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <!-- Google Maps for Android v2 needs this permission so that it may check the connection state as it must download data -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <!-- These are optional, but recommended. They will allow Maps to use the My Location provider. -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.USE_CREDENTIALS" />
 </manifest>
