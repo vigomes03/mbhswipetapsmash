@@ -173,6 +173,7 @@
       <Link>Resources\drawable\icon.png</Link>
     </AndroidResource>
     <AndroidResource Include="Resources\Layout\Main.axml" />
+    <AndroidResource Include="Resources\values\Strings.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
   <ItemGroup>
@@ -200,6 +201,7 @@
   <ItemGroup>
     <Folder Include="Behaviour\" />
     <Folder Include="Gameflow\" />
+    <Folder Include="Resources\strings\" />
   </ItemGroup>
   <ItemGroup>
     <AndroidAsset Include="Content\Audio\Music\MikeImmonen_Gameplay.wma" />
@@ -513,7 +515,6 @@
   </ItemGroup>
   <ItemGroup>
     <XamarinComponentReference Include="googleplayservices">
-      <InstallationInProgress>True</InstallationInProgress>
       <Version>13.0</Version>
       <Visible>False</Visible>
     </XamarinComponentReference>

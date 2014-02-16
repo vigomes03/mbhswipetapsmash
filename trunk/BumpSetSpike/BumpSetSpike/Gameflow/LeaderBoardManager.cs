@@ -2,6 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+#if __ANDROID__
+using BumpSetSpike_Android;
+#endif // __ANDROID__
 
 namespace BumpSetSpike.Gameflow
 {
@@ -156,6 +159,15 @@ namespace BumpSetSpike.Gameflow
                 {
                     mRecords.mHits = value;
                     SaveGameManager.pInstance.WriteSaveGameXML();
+
+#if __ANDROID__
+                    BumpSetSpike_Android.Activity1 activity = (Game1.Activity as BumpSetSpike_Android.Activity1);
+                    if(!activity.pGooglePlayClient.IsConnected)
+                        return;
+                    activity.pGooglePlayClient.SubmitScore(activity.Resources.GetString(Resource.String.leaderboard_endurnace), mRecords.mHits);
+                    activity.StartActivityForResult(activity.pGooglePlayClient.GetLeaderboardIntent(activity.Resources.GetString(Resource.String.leaderboard_endurnace)), Activity1.REQUEST_LEADERBOARD);
+
+#endif // __ANDROID__
                 }
             }
         }

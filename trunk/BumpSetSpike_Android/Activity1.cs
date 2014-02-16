@@ -12,6 +12,8 @@ using Android.Gms.Plus.Model.People;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using BumpSetSpike;
+using Android.Gms.Games;
+using MBHEngine.GameObject;
 
 namespace BumpSetSpike_Android
 {
@@ -20,77 +22,37 @@ namespace BumpSetSpike_Android
 		Icon = "@drawable/icon",
 		Theme = "@style/Theme.Splash",
         AlwaysRetainTaskState = true,
-        LaunchMode = Android.Content.PM.LaunchMode.SingleTask,
+        LaunchMode = Android.Content.PM.LaunchMode.SingleTask, // SingleTask means we only run a single instance, but can open other Activities (eg. Google+)
 		ConfigurationChanges = Android.Content.PM.ConfigChanges.Orientation |
 		Android.Content.PM.ConfigChanges.KeyboardHidden |
         Android.Content.PM.ConfigChanges.Keyboard)]
-    public class Activity1 : AndroidGameActivity, IGooglePlayServicesClientConnectionCallbacks, IGooglePlayServicesClientOnConnectionFailedListener, PlusClient.IOnAccessRevokedListener
+    public class Activity1 : AndroidGameActivity, IGooglePlayServicesClientConnectionCallbacks, IGooglePlayServicesClientOnConnectionFailedListener
     {
-        private static int REQUEST_CODE_RESOLVE_ERR = 9000;
-        //request code must be >= 0
-        private static int PLUS_ONE_REQUEST_CODE = 0;
+        // Aribitrary numbers just used for identifying requests to the Google services.
+        public static int REQUEST_CODE_RESOLVE_ERR = 9000;
+        public static int REQUEST_LEADERBOARD      = 9001;
 
-        PlusClient plusClient;
-        ConnectionResult connectionResult;
-        ProgressDialog progressDialog;
-        PlusOneButton plusOneButton;
-        //ImageLoader imageLoader; 
-        SignInButton googleLoginButton;
+        // The main interface for GooglePlay services.
+        private GamesClient mGooglePlayClient;
 
+        // Tracks what happened last time we tried to log in (this session).
+        private ConnectionResult mConnectionResult;
+
+        /// <summary>
+        /// See parent.
+        /// </summary>
+        /// <param name="bundle"></param>
         protected override void OnCreate (Bundle bundle)
         {
             base.OnCreate (bundle);
 
-            // Set our view from the "main" layout resource
-            //SetContentView (Resource.Layout.Main);
-            //imageLoader = new ImageLoader (this);
-            progressDialog = new ProgressDialog (this);
-            progressDialog.Indeterminate = true;
-            progressDialog.SetMessage ("Connecting");
+            // Create the interface used to interact with Google Play.
+            mGooglePlayClient = new GamesClient.Builder(this, this, this)
+                .SetGravityForPopups((int)(GravityFlags.Bottom | GravityFlags.CenterHorizontal))
+                .Create();
 
-            plusClient = new PlusClient.Builder (this, this, this).Build();
-
-            /*            
-            googleLoginButton = FindViewById<SignInButton> (Resource.Id.sign_in_button);
-            plusOneButton = FindViewById<PlusOneButton> (Resource.Id.plus_one_button);
-
-            var logoutButton = FindViewById<Button> (Resource.Id.logout_button);
-
-            logoutButton.Click += (sender, e) => {
-                if(!plusClient.IsConnected || plusClient.IsConnecting)
-                    return;
-
-                plusClient.RevokeAccessAndDisconnect(this);
-            };
-
-
-            googleLoginButton.Click += (sender, e) => {
-                if(plusClient.IsConnected || plusClient.IsConnecting)
-                    return;
-
-                progressDialog.Show();
-
-                if (connectionResult == null) {
-                    plusClient.Connect();
-                } 
-                else{
-                    ResolveLogin(connectionResult);
-                }
-            };
-            */
-
-            /*
-            int status=GooglePlayServicesUtil.IsGooglePlayServicesAvailable(this.BaseContext);
-            if (status != ConnectionResult.Success) {
-                Toast.MakeText (this, "Not Available!", ToastLength.Long).Show ();
-            } else {
-
-                Toast.MakeText (this, "Available!", ToastLength.Long).Show ();
-            }
-            */
-
-            plusClient.RegisterConnectionCallbacks (this);
-            plusClient.IsConnectionFailedListenerRegistered (this);
+            pGooglePlayClient.RegisterConnectionCallbacks (this);
+            pGooglePlayClient.IsConnectionFailedListenerRegistered (this);
 
 			// Create our OpenGL view, and display it
 			Game1.Activity = this;
@@ -99,113 +61,137 @@ namespace BumpSetSpike_Android
 			g.Run ();
         }
 
+        /// <summary>
+        /// Helper function for attempting to Log into Google Play servers.
+        /// </summary>
         public void LoginToGoogle()
         {
-            if(plusClient.IsConnected || plusClient.IsConnecting)
+            // If we are already connected/connecting, no need to try again.
+            if(pGooglePlayClient.IsConnected || pGooglePlayClient.IsConnecting)
                 return;
 
-            progressDialog.Show();
-
-            if (connectionResult == null) {
-                plusClient.Connect();
+            // If we haven't already tried to login, do so now. Other wise, try to resolve
+            // the issue from the last login attempt.
+            if (mConnectionResult == null) 
+            {
+                pGooglePlayClient.Connect();
             } 
-            else{
-                ResolveLogin(connectionResult);
+            else
+            {
+                ResolveLogin(mConnectionResult);
             }
         }
 
+        /// <param name="requestCode">The integer request code originally supplied to
+        ///  startActivityForResult(), allowing you to identify who this
+        ///  result came from.</param>
+        /// <param name="resultCode">The integer result code returned by the child activity
+        ///  through its setResult().</param>
+        /// <param name="data">An Intent, which can return result data to the caller
+        ///  (various data can be attached to Intent "extras").</param>
+        /// <summary>
+        /// Called when an activity you launched exits, giving you the requestCode
+        ///  you started it with, the resultCode it returned, and any additional
+        ///  data from it.
+        /// </summary>
         protected override void OnActivityResult (int requestCode, Result resultCode, Intent data)
         {
             base.OnActivityResult (requestCode, resultCode, data);
 
+            // Check if this was the error code we supplied. That is the only one we care about.
             if (requestCode != REQUEST_CODE_RESOLVE_ERR)
                 return;
 
-            if (resultCode == Result.Ok) {
-                plusClient.Connect ();
-            } else {
-                progressDialog.Dismiss ();
+            if (resultCode == Result.Ok) 
+            {
+                pGooglePlayClient.Connect();
             }
         }
 
+        /// <summary>
+        /// Called onces the player has successfully logged into the Google Play services.
+        /// </summary>
+        /// <param name="p0">P0.</param>
         public void OnConnected (Bundle p0)
         {
-            progressDialog.Dismiss ();
-            RefreshPlusOneButton ();
-            UpdateProfile ();
             Toast.MakeText (this, "Connected!", ToastLength.Long).Show ();
         }
 
+        /// <summary>
+        /// Called when the player disconnects from Google Play.
+        /// </summary>
         public void OnDisconnected ()
         {
             Toast.MakeText (this, "Disconnected!", ToastLength.Long).Show ();
         }
 
+        /// <summary>
+        /// We attempted to connect to Google Play, but failed for some reason.
+        /// </summary>
+        /// <param name="result">Why we failed.</param>
         public void OnConnectionFailed (ConnectionResult result)
         {
-            if (progressDialog.IsShowing) 
-            {
-                ResolveLogin (result);
-            }
+            // We actually will always fail the first time we try to connect. When that happens we need
+            // to resolve the reason, which is to log into the users Google account.
+            ResolveLogin (result);
 
-            connectionResult = result;
+            // Store the result for later use.
+            mConnectionResult = result;
+
             Toast.MakeText (this, "Connection Failed!", ToastLength.Long).Show ();
         }
 
         /// <summary>
-        /// Checks to see if we have a resolution
+        /// After we fail to connect to Google Play, it will tell us why. In some cases the
+        /// failure reason can be automatically resolved (eg. Login Required).
         /// </summary>
-        /// <param name="result">Result.</param>
+        /// <param name="result">The reason we failed to connect.</param>
         private void ResolveLogin(ConnectionResult result)
         {
-            if (result.HasResolution) {
-                try {
-                    result.StartResolutionForResult (this, REQUEST_CODE_RESOLVE_ERR);
-                } catch (Android.Content.IntentSender.SendIntentException e) {
-                    plusClient.Connect ();
+            // Does this failure reason have a solution?
+            if (result.HasResolution) 
+            {
+                try 
+                {
+                    // Try to resolve the problem automatically.
+                    result.StartResolutionForResult(this, REQUEST_CODE_RESOLVE_ERR);
+                } 
+                catch (Android.Content.IntentSender.SendIntentException e) 
+                {
+                    // Not really sure why this is here.
+                    pGooglePlayClient.Connect();
                 }
-            } else if(progressDialog != null && progressDialog.IsShowing) {
-                progressDialog.Dismiss ();
             }
         }
 
-        public void OnAccessRevoked (ConnectionResult p0)
+        /// <summary>
+        /// Called when the App first starts, after OnCreate is called.
+        /// </summary>
+        protected override void OnStart()
         {
-            RefreshPlusOneButton ();
+            base.OnStart();
+
+            // Just try to connect to Google Play right away. No point in waiting.
+            pGooglePlayClient.Connect();
         }
 
-        private void RefreshPlusOneButton ()
-        {   
-            plusOneButton.Initialize ("http://blog.xamarin.com/microsoft-and-xamarin-partner-globally/", PLUS_ONE_REQUEST_CODE);
+        /// <summary>
+        /// Called when the app is about to stop.
+        /// </summary>
+        protected override void OnStop()
+        {
+            base.OnStop();
+
+            // Not sure if this is actually needed, but was in some examples (at least for Google+).
+            pGooglePlayClient.Disconnect();
         }
 
-        protected override void OnResume ()
+        public GamesClient pGooglePlayClient
         {
-            base.OnResume ();
-            if (plusClient.IsConnected)
-                RefreshPlusOneButton ();
-
-        }
-
-        protected override void OnStart ()
-        {
-            base.OnStart ();
-            plusClient.Connect ();
-        }
-
-        protected override void OnStop ()
-        {
-            base.OnStop ();
-            plusClient.Disconnect ();
-        }
-
-        private void UpdateProfile()
-        {
-            var imageView = FindViewById<ImageView> (Resource.Id.profile_image);
-            FindViewById<TextView> (Resource.Id.profile_name).Text = plusClient.CurrentPerson.DisplayName;
-            FindViewById<TextView> (Resource.Id.profile_nickname).Text = plusClient.CurrentPerson.Nickname;
-            FindViewById<TextView> (Resource.Id.profile_about).Text = plusClient.CurrentPerson.AboutMe;
-            //imageLoader.DisplayImage (plusClient.CurrentPerson.Image.Url, imageView, Resource.Drawable.icon); 
+            get 
+            {
+                return mGooglePlayClient;
+            }
         }
     }
 }
