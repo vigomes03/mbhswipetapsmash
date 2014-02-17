@@ -31,6 +31,7 @@ namespace BumpSetSpike_Android
         // Aribitrary numbers just used for identifying requests to the Google services.
         public static int REQUEST_CODE_RESOLVE_ERR = 9000;
         public static int REQUEST_LEADERBOARD      = 9001;
+        public static int REQUEST_ACHIEVEMENTS     = 9002;
 
         // The main interface for GooglePlay services.
         private GamesClient mGooglePlayClient;

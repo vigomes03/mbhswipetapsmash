@@ -1,6 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+Google Play game services IDs.
+Save this file as res/values/games-ids.xml in your project.
+-->
 <resources>
-    <string name="app_id">974774150255</string>
-    <string name="leaderboard_endurnace">CgkI78jEqK8cEAIQAA</string>
-    <string name="leaderboard_trick_attack">CgkI78jEqK8cEAIQAQ</string>
-</resources>
+  <string name="app_id">974774150255</string>
+  <string name="achievement_the_ubi">CgkI78jEqK8cEAIQAw</string>
+  <string name="achievement_participation">CgkI78jEqK8cEAIQBw</string>
+  <string name="achievement_bend_the_rules">CgkI78jEqK8cEAIQCA</string>
+  <string name="achievement_double_trouble">CgkI78jEqK8cEAIQCQ</string>
+  <string name="achievement_fortune_500">CgkI78jEqK8cEAIQCg</string>
+  <string name="achievement_lucky_7">CgkI78jEqK8cEAIQCw</string>
+  <string name="leaderboard_endurnace">CgkI78jEqK8cEAIQAA</string>
+  <string name="leaderboard_trick_attack">CgkI78jEqK8cEAIQAQ</string>
+</resources>  

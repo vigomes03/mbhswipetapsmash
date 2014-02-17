@@ -19,6 +19,7 @@ namespace BumpSetSpike.Behaviour.FSM
         private GameObject mQuitButton;
         private GameObject mMainMenuButton;
         private GameObject mPurchaseButton;
+        private GameObject mAchievementsButton;
 
         private SaveGameManager.ForceUpdateSaveDataMessage mForceUpdateSaveGameDataMsg;
 
@@ -34,7 +35,12 @@ namespace BumpSetSpike.Behaviour.FSM
 #if !__ANDROID__
             mQuitButton = GameObjectFactory.pInstance.GetTemplate("GameObjects\\UI\\PauseQuitButton\\PauseQuitButton");
             GameObjectManager.pInstance.Add(mQuitButton);
-#endif
+#endif // __ANDROID__
+
+#if __ANDROID__
+            mAchievementsButton = GameObjectFactory.pInstance.GetTemplate("GameObjects\\UI\\PauseAchievementsButton\\PauseAchievementsButton");
+            GameObjectManager.pInstance.Add(mAchievementsButton);
+#endif // __ANDROID__
 
             mResumeButton = GameObjectFactory.pInstance.GetTemplate("GameObjects\\UI\\PauseResumeButton\\PauseResumeButton");
             GameObjectManager.pInstance.Add(mResumeButton);
@@ -94,6 +100,11 @@ namespace BumpSetSpike.Behaviour.FSM
                 GameObjectManager.pInstance.Remove(mPurchaseButton);
                 mPurchaseButton = null;
             }
+            if (mAchievementsButton != null)
+            {
+                GameObjectManager.pInstance.Remove(mAchievementsButton);
+                mAchievementsButton = null;
+            }
 
             base.OnEnd();
         }
@@ -137,6 +148,14 @@ namespace BumpSetSpike.Behaviour.FSM
                     GameObjectManager.pInstance.Add(mainMenu);
 
                     GameObjectManager.pInstance.Remove(pParentGOH);
+                }
+                else if (msg.pSender == mAchievementsButton)
+                {
+#if __ANDROID__
+                    BumpSetSpike_Android.Activity1 activity = Game1.Activity as BumpSetSpike_Android.Activity1;
+                    //activity.StartActivityForResult(activity.pGooglePlayClient.AllLeaderboardsIntent, BumpSetSpike_Android.Activity1.REQUEST_ACHIEVEMENTS);
+                    activity.StartActivityForResult(activity.pGooglePlayClient.AchievementsIntent, BumpSetSpike_Android.Activity1.REQUEST_ACHIEVEMENTS);
+#endif // __ANDROID__
                 }
             }
             else if (msg is TrialModeManager.OnTrialModeChangedMessage)

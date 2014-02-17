@@ -2118,6 +2118,63 @@
       <Processor>PassThroughProcessor</Processor>
     </Compile>
   </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Sprites\GooglePlusLeaderboardButton.png">
+      <Name>GooglePlusLeaderboardButton</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="GameObjects\UI\GoogleLeaderboardButton\GoogleLeaderboardButton.xml">
+      <Name>GoogleLeaderboardButton</Name>
+      <Importer>XmlImporter</Importer>
+      <Processor>PassThroughProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="GameObjects\UI\GoogleLeaderboardButton\Behaviours\Sprite.xml">
+      <Name>Sprite</Name>
+      <Importer>XmlImporter</Importer>
+      <Processor>PassThroughProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="GameObjects\UI\GoogleLeaderboardButton\Behaviours\Button.xml">
+      <SubType>Designer</SubType>
+      <Name>Button</Name>
+      <Importer>XmlImporter</Importer>
+      <Processor>PassThroughProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Sprites\PauseAchievements.png">
+      <Name>PauseAchievements</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="GameObjects\UI\PauseAchievementsButton\PauseAchievementsButton.xml">
+      <Name>PauseAchievementsButton</Name>
+      <Importer>XmlImporter</Importer>
+      <Processor>PassThroughProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="GameObjects\UI\PauseAchievementsButton\Behaviours\Button.xml">
+      <Name>Button</Name>
+      <Importer>XmlImporter</Importer>
+      <Processor>PassThroughProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="GameObjects\UI\PauseAchievementsButton\Behaviours\Sprite.xml">
+      <Name>Sprite</Name>
+      <Importer>XmlImporter</Importer>
+      <Processor>PassThroughProcessor</Processor>
+    </Compile>
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />
   <!--  To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

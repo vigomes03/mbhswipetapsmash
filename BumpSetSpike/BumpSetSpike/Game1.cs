@@ -206,6 +206,7 @@ namespace BumpSetSpike
             GameObjectFactory.pInstance.AddTemplate("GameObjects\\UI\\CreditsButton\\CreditsButton", 1);
             GameObjectFactory.pInstance.AddTemplate("GameObjects\\UI\\FacebookButton\\FacebookButton", 1);
             GameObjectFactory.pInstance.AddTemplate("GameObjects\\UI\\FSMPauseScreen\\FSMPauseScreen", 1);
+            GameObjectFactory.pInstance.AddTemplate("GameObjects\\UI\\GoogleLeaderboardButton\\GoogleLeaderboardButton", 1);
             GameObjectFactory.pInstance.AddTemplate("GameObjects\\UI\\HiScoreLabel\\HiScoreLabel", 1);
             GameObjectFactory.pInstance.AddTemplate("GameObjects\\UI\\HitCountDisplay\\HitCountDisplay", 1);
             GameObjectFactory.pInstance.AddTemplate("GameObjects\\UI\\HitCountDisplayRecord\\HitCountDisplayRecord", 1);
@@ -227,6 +228,7 @@ namespace BumpSetSpike
             GameObjectFactory.pInstance.AddTemplate("GameObjects\\UI\\Options\\Tutorial\\Checkbox\\Checkbox", 1);
             GameObjectFactory.pInstance.AddTemplate("GameObjects\\UI\\Options\\Tutorial\\Checkmark\\Checkmark", 1);
             GameObjectFactory.pInstance.AddTemplate("GameObjects\\UI\\Options\\Tutorial\\Label\\Label", 1);
+            GameObjectFactory.pInstance.AddTemplate("GameObjects\\UI\\PauseAchievementsButton\\PauseAchievementsButton", 1);
             GameObjectFactory.pInstance.AddTemplate("GameObjects\\UI\\PauseMainMenuButton\\PauseMainMenuButton", 1);
             GameObjectFactory.pInstance.AddTemplate("GameObjects\\UI\\PauseQuitButton\\PauseQuitButton", 1);
             GameObjectFactory.pInstance.AddTemplate("GameObjects\\UI\\PauseResumeButton\\PauseResumeButton", 1);

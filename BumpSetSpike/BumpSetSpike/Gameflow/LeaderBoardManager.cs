@@ -165,8 +165,6 @@ namespace BumpSetSpike.Gameflow
                     if(!activity.pGooglePlayClient.IsConnected)
                         return;
                     activity.pGooglePlayClient.SubmitScore(activity.Resources.GetString(Resource.String.leaderboard_endurnace), mRecords.mHits);
-                    activity.StartActivityForResult(activity.pGooglePlayClient.GetLeaderboardIntent(activity.Resources.GetString(Resource.String.leaderboard_endurnace)), Activity1.REQUEST_LEADERBOARD);
-
 #endif // __ANDROID__
                 }
             }
