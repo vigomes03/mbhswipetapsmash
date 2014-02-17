@@ -42,11 +42,14 @@ namespace BumpSetSpike.Behaviour
         /// </summary>
         private GameObject mHighScore;
 
+        private GameObject mLeaderboardButton;
+
         /// <summary>
         /// Preallocated to avoid GC.
         /// </summary>
         private Player.OnGameRestartMessage mGameRestartMsg;
         private Player.GetCurrentStateMessage mGetCurrentStateMsg;
+        private HitCountDisplay.GetCurrentHitCountMessage mGetCurrentHitCountMsg;
 
         /// <summary>
         /// Constructor which also handles the process of loading in the Behaviour
@@ -73,6 +76,7 @@ namespace BumpSetSpike.Behaviour
 
             mGameRestartMsg = new Player.OnGameRestartMessage();
             mGetCurrentStateMsg = new Player.GetCurrentStateMessage();
+            mGetCurrentHitCountMsg = new HitCountDisplay.GetCurrentHitCountMessage();
         }
 
         /// <summary>
@@ -124,6 +128,12 @@ namespace BumpSetSpike.Behaviour
                         GameObjectManager.pInstance.Remove(mHighScore);
                         mHighScore = null;
                     }
+
+                    if (mLeaderboardButton != null)
+                    {
+                        GameObjectManager.pInstance.Remove(mLeaderboardButton);
+                        mLeaderboardButton = null;
+                    }
                 }
 
                 handled = true;
@@ -143,7 +153,6 @@ namespace BumpSetSpike.Behaviour
                 GameObjectManager.pInstance.pCurUpdatePass != BehaviourDefinition.Passes.GAME_OVER_LOSS)
             {
                 mScoreSummary = GameObjectFactory.pInstance.GetTemplate("GameObjects\\UI\\ScoreSummary\\ScoreSummary");
-
                 GameObjectManager.pInstance.Add(mScoreSummary);
             }
             else if (mHighScore == null &&
@@ -152,6 +161,49 @@ namespace BumpSetSpike.Behaviour
             {
                 mHighScore = GameObjectFactory.pInstance.GetTemplate("GameObjects\\UI\\NewHighScore\\NewHighScore");
                 GameObjectManager.pInstance.Add(mHighScore);
+            }
+
+            // Show the leaderboard button regardless of whether or not we were successful.
+            if (mLeaderboardButton == null) 
+            {
+                mLeaderboardButton = GameObjectFactory.pInstance.GetTemplate("GameObjects\\UI\\GoogleLeaderboardButton\\GoogleLeaderboardButton");
+                GameObjectManager.pInstance.Add(mLeaderboardButton);
+            }
+        }
+
+        /// <summary>
+        /// See parent.
+        /// </summary>
+        /// <param name="msg"></param>
+        public override void OnMessage(ref BehaviourMessage msg)
+        {
+            base.OnMessage(ref msg);
+
+            if (msg is Button.OnButtonPressedMessage)
+            {
+                Button.OnButtonPressedMessage temp = msg as Button.OnButtonPressedMessage;
+
+                if (temp.pSender == mLeaderboardButton)
+                {
+#if __ANDROID__
+                    BumpSetSpike_Android.Activity1 activity = (Game1.Activity as BumpSetSpike_Android.Activity1);
+                    if(!activity.pGooglePlayClient.IsConnected)
+                        return;
+
+                    mGetCurrentHitCountMsg.Reset();
+                    GameObjectManager.pInstance.BroadcastMessage(mGetCurrentHitCountMsg, mParentGOH);
+
+                    // Show a different leaderboard based on the current
+                    int board = (GameModeManager.pInstance.pMode == GameModeManager.GameMode.Endurance) ? Resource.String.leaderboard_endurnace : Resource.String.leaderboard_trick_attack;
+
+                    // The high score will not have been saved yet, so we need to manually update it here.
+                    string boardString = activity.Resources.GetString(board);
+                    activity.pGooglePlayClient.SubmitScore(boardString, mGetCurrentHitCountMsg.mCount_Out);
+                    activity.StartActivityForResult(activity.pGooglePlayClient.GetLeaderboardIntent(boardString), BumpSetSpike_Android.Activity1.REQUEST_LEADERBOARD);
+#endif // __ANDROID__
+
+                    temp.mHandled_Out = true;
+                }
             }
         }
     }

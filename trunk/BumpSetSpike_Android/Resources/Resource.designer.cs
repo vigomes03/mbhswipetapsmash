@@ -328,6 +328,24 @@ namespace BumpSetSpike
 		public partial class String
 		{
 			
+			// aapt resource value: 0x7f06001e
+			public const int achievement_bend_the_rules = 2131099678;
+			
+			// aapt resource value: 0x7f06001f
+			public const int achievement_double_trouble = 2131099679;
+			
+			// aapt resource value: 0x7f060020
+			public const int achievement_fortune_500 = 2131099680;
+			
+			// aapt resource value: 0x7f060021
+			public const int achievement_lucky_7 = 2131099681;
+			
+			// aapt resource value: 0x7f06001d
+			public const int achievement_participation = 2131099677;
+			
+			// aapt resource value: 0x7f06001c
+			public const int achievement_the_ubi = 2131099676;
+			
 			// aapt resource value: 0x7f06001b
 			public const int app_id = 2131099675;
 			
@@ -409,11 +427,11 @@ namespace BumpSetSpike
 			// aapt resource value: 0x7f060013
 			public const int common_signin_button_text_long = 2131099667;
 			
-			// aapt resource value: 0x7f06001c
-			public const int leaderboard_endurnace = 2131099676;
+			// aapt resource value: 0x7f060022
+			public const int leaderboard_endurnace = 2131099682;
 			
-			// aapt resource value: 0x7f06001d
-			public const int leaderboard_trick_attack = 2131099677;
+			// aapt resource value: 0x7f060023
+			public const int leaderboard_trick_attack = 2131099683;
 			
 			// aapt resource value: 0x7f06001a
 			public const int library_name = 2131099674;

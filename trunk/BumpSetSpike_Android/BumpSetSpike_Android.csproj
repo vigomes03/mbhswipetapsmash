@@ -202,6 +202,8 @@
     <Folder Include="Behaviour\" />
     <Folder Include="Gameflow\" />
     <Folder Include="Resources\strings\" />
+    <Folder Include="Content\GameObjects\UI\GoogleLeaderboardButton\" />
+    <Folder Include="Content\GameObjects\UI\PauseAchievementsButton\" />
   </ItemGroup>
   <ItemGroup>
     <AndroidAsset Include="Content\Audio\Music\MikeImmonen_Gameplay.wma" />
@@ -512,6 +514,14 @@
     <AndroidAsset Include="Content\Audio\FX\MenuSelect.wav" />
     <AndroidAsset Include="Content\Audio\FX\SpikeHit.wav" />
     <AndroidAsset Include="Content\Audio\FX\SpikeMiss.wav" />
+    <AndroidAsset Include="Content\GameObjects\UI\GoogleLeaderboardButton\GoogleLeaderboardButton.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\GoogleLeaderboardButton\Behaviours\Sprite.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\GoogleLeaderboardButton\Behaviours\Button.xnb" />
+    <AndroidAsset Include="Content\Sprites\GooglePlusLeaderboardButton.xnb" />
+    <AndroidAsset Include="Content\Sprites\PauseAchievements.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\PauseAchievementsButton\Behaviours\Button.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\PauseAchievementsButton\Behaviours\Sprite.xnb" />
+    <AndroidAsset Include="Content\GameObjects\UI\PauseAchievementsButton\PauseAchievementsButton.xnb" />
   </ItemGroup>
   <ItemGroup>
     <XamarinComponentReference Include="googleplayservices">
