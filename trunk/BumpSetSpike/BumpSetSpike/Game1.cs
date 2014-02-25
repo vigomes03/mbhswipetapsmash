@@ -147,6 +147,7 @@ namespace BumpSetSpike
             SaveGameManager.pInstance.ReadSaveGameXML();
             RandomManager.pInstance.Initialize();
             TrialModeManager.pInstance.Initialize();
+            AchievementManager.pInstance.Initialize();
             //SaveGameManager.pInstance.WriteSaveGameXML();
             //SaveGameManager.pInstance.ReadSaveGameXML();
 

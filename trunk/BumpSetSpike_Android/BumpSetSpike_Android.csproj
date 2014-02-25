@@ -160,6 +160,9 @@
     <Compile Include="..\BumpSetSpike\BumpSetSpike\Game1.cs">
       <Link>Game1.cs</Link>
     </Compile>
+    <Compile Include="..\BumpSetSpike\BumpSetSpike\Gameflow\AchievementManager.cs">
+      <Link>Gameflow\AchievementManager.cs</Link>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />

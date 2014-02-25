@@ -135,6 +135,7 @@
     <Compile Include="Behaviour\Player.cs" />
     <Compile Include="Behaviour\ScoreSummary.cs" />
     <Compile Include="Behaviour\Wobble.cs" />
+    <Compile Include="Gameflow\AchievementManager.cs" />
     <Compile Include="Gameflow\GameModeManager.cs" />
     <Compile Include="Gameflow\LeaderBoardManager.cs" />
     <Compile Include="Gameflow\MusicManager.cs" />

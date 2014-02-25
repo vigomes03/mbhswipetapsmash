@@ -114,12 +114,8 @@ namespace BumpSetSpike.Behaviour.FSM
 
                 if (msg.pSender == mTapStart)
                 {
-#if __ANDROID__
-                    BumpSetSpike_Android.Activity1 activity = Game1.Activity as BumpSetSpike_Android.Activity1;
-                    activity.LoginToGoogle();
-                    activity.pGooglePlayClient.UnlockAchievement (activity.Resources.GetString (Resource.String.achievement_the_ubi));
-                    //(Game1.Activity as BumpSetSpike_Android.Activity1).StartActivityForResult((Game1.Activity as BumpSetSpike_Android.Activity1).pGooglePlayClient.AchievementsIntent, BumpSetSpike_Android.Activity1.REQUEST_ACHIEVEMENTS);
-#endif //__ANDROID__
+                    // The did it! They actually played the game!!
+                    AchievementManager.pInstance.UnlockAchievement(AchievementManager.Achievements.TheUbi);
 
                     mSetStateMsg.Reset();
                     mSetStateMsg.mNextState_In = "StateMainMenuModeSelect";
