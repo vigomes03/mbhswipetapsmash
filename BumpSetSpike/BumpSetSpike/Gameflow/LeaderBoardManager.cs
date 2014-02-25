@@ -134,6 +134,11 @@ namespace BumpSetSpike.Gameflow
             }
             set
             {
+                if (value >= 500)
+                {
+                    AchievementManager.pInstance.UnlockAchievement(AchievementManager.Achievements.Fortune500);
+                }
+
                 // Allow this property to be spammed, and only the best will be used.
                 if (value > mRecords.mScore)
                 {
@@ -154,17 +159,22 @@ namespace BumpSetSpike.Gameflow
             }
             set
             {
+                if (value >= 7)
+                {
+                    AchievementManager.pInstance.UnlockAchievement(AchievementManager.Achievements.Lucky_7);
+                }
+
                 // Allow this property to be spammed, and only the best will be used.
                 if (value > mRecords.mHits)
                 {
                     mRecords.mHits = value;
                     SaveGameManager.pInstance.WriteSaveGameXML();
-
 #if __ANDROID__
                     BumpSetSpike_Android.Activity1 activity = (Game1.Activity as BumpSetSpike_Android.Activity1);
-                    if(!activity.pGooglePlayClient.IsConnected)
-                        return;
-                    activity.pGooglePlayClient.SubmitScore(activity.Resources.GetString(Resource.String.leaderboard_endurnace), mRecords.mHits);
+                    if(activity.pGooglePlayClient.IsConnected)
+                    {
+                        activity.pGooglePlayClient.SubmitScore(activity.Resources.GetString(Resource.String.leaderboard_endurnace), mRecords.mHits);
+                    }
 #endif // __ANDROID__
                 }
             }

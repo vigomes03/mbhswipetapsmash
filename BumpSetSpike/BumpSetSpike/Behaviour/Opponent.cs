@@ -72,6 +72,11 @@ namespace BumpSetSpike.Behaviour
         private SoundEffect mFxHitGround;
 
         /// <summary>
+        /// How many opponents have been hit since this play started. Used for achievements.
+        /// </summary>
+        private static Int16 mKaboomCount = 0;
+
+        /// <summary>
         /// Preallocated messages to avoid GC.
         /// </summary>
         private SpriteRender.SetActiveAnimationMessage mSetActiveAnimationMsg;
@@ -260,6 +265,13 @@ namespace BumpSetSpike.Behaviour
                     kabooom.pPosY -= 32.0f - (mParentGOH.pDirection.mForward.Y * 2.0f);
                     GameObjectManager.pInstance.Add(kabooom);
 
+                    mKaboomCount++;
+
+                    if (mKaboomCount >= 2)
+                    {
+                        AchievementManager.pInstance.UnlockAchievement(AchievementManager.Achievements.DoubleTrouble);
+                    }
+
                     DebugMessageDisplay.pInstance.AddConstantMessage("Kabooom Angle: " + MathHelper.ToDegrees(kabooom.pRotation));
 
                     mGetAttachmentPointMsg.Reset();
@@ -294,12 +306,14 @@ namespace BumpSetSpike.Behaviour
             if (msg is Player.OnMatchRestartMessage)
             {
                 mKabooomAvail = true;
+                mKaboomCount = 0;
             }
             else if (msg is Player.OnGameRestartMessage)
             {
                 mKabooomAvail = true;
                 mCurrentState = State.Idle;
                 mParentGOH.pPosition = mStartPos;
+                mKaboomCount = 0;
             }
             else if (msg is Ball.OnPlayOverMessage)
             {

@@ -94,6 +94,11 @@ namespace BumpSetSpike.Behaviour
         private Boolean mPlayOver;
 
         /// <summary>
+        /// Tracks if the ball has hit the net this play. Used for achievement.
+        /// </summary>
+        private Boolean mHasHitNet;
+
+        /// <summary>
         /// Preallocated messages to avoid GC.
         /// </summary>
         private SpriteRender.SetActiveAnimationMessage mSetActiveAnimationMsg;
@@ -134,6 +139,7 @@ namespace BumpSetSpike.Behaviour
 
             mOnGround = false;
             mPlayOver = false;
+            mHasHitNet = false;
 
             mStartingRenderPriority = mParentGOH.pRenderPriority;
 
@@ -261,6 +267,11 @@ namespace BumpSetSpike.Behaviour
                     else
                     {
                         GameObjectManager.pInstance.pCurUpdatePass = BehaviourDefinition.Passes.GAME_OVER;
+
+                        if (mHasHitNet == true)
+                        {
+                            AchievementManager.pInstance.UnlockAchievement(AchievementManager.Achievements.BendTheRules);
+                        }
                     }
                 }
                 else
@@ -309,6 +320,12 @@ namespace BumpSetSpike.Behaviour
                         else
                         {
                             GameObjectManager.pInstance.BroadcastMessage(mIncrementHitCountMsg, mParentGOH);
+
+                            // We only award the achiement for actual gameplay. Not during the tutorial.
+                            if (mHasHitNet == true)
+                            {
+                                AchievementManager.pInstance.UnlockAchievement(AchievementManager.Achievements.BendTheRules);
+                            }
                         }
 
                         GameObjectManager.pInstance.BroadcastMessage(mOnMatchRestartMsg, mParentGOH);
@@ -357,6 +374,8 @@ namespace BumpSetSpike.Behaviour
                             mParentGOH.pPosX = intersect.X - mParentGOH.pCollisionRect.pDimensionsHalved.X;
 
                             ScoreManager.pInstance.AddScore(ScoreManager.ScoreType.Net, mParentGOH.pPosition);
+
+                            mHasHitNet = true;
                         }
                     }
                 }
@@ -375,6 +394,7 @@ namespace BumpSetSpike.Behaviour
             if (msg is Player.OnMatchRestartMessage || msg is Player.OnGameRestartMessage)
             {
                 mPlayOver = false;
+                mHasHitNet = false;
 
                 mParentGOH.pPosX = 110.0f;
                 mParentGOH.pPosY = -16.0f;

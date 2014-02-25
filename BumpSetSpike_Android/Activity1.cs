@@ -157,7 +157,7 @@ namespace BumpSetSpike_Android
                     // Try to resolve the problem automatically.
                     result.StartResolutionForResult(this, REQUEST_CODE_RESOLVE_ERR);
                 } 
-                catch (Android.Content.IntentSender.SendIntentException e) 
+                catch (Android.Content.IntentSender.SendIntentException /*e*/) 
                 {
                     // Not really sure why this is here.
                     pGooglePlayClient.Connect();
