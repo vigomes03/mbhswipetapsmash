@@ -375,6 +375,10 @@ namespace BumpSetSpike.Behaviour
 
                             ScoreManager.pInstance.AddScore(ScoreManager.ScoreType.Net, mParentGOH.pPosition);
 
+                            mSetActiveAnimationMsg.Reset();
+                            mSetActiveAnimationMsg.mAnimationSetName_In = "Bounce";
+                            net.OnMessage(mSetActiveAnimationMsg, mParentGOH);
+
                             mHasHitNet = true;
                         }
                     }
