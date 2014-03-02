@@ -14,12 +14,13 @@ using Microsoft.Xna.Framework;
 using BumpSetSpike;
 using Android.Gms.Games;
 using MBHEngine.GameObject;
+using System.Diagnostics;
 
 namespace BumpSetSpike_Android
 {
     [Activity (Label = "Swipe Tap Smash", 
 		MainLauncher = true,
-		Icon = "@drawable/icon",
+        Icon = "@drawable/icon_large",
 		Theme = "@style/Theme.Splash",
         AlwaysRetainTaskState = true,
         LaunchMode = Android.Content.PM.LaunchMode.SingleTask, // SingleTask means we only run a single instance, but can open other Activities (eg. Google+)
@@ -115,7 +116,7 @@ namespace BumpSetSpike_Android
         /// <param name="p0">P0.</param>
         public void OnConnected (Bundle p0)
         {
-            Toast.MakeText (this, "Connected!", ToastLength.Long).Show ();
+            ShowToasterMessage("Connected!");
         }
 
         /// <summary>
@@ -123,7 +124,7 @@ namespace BumpSetSpike_Android
         /// </summary>
         public void OnDisconnected ()
         {
-            Toast.MakeText (this, "Disconnected!", ToastLength.Long).Show ();
+            ShowToasterMessage("Disconnected!");
         }
 
         /// <summary>
@@ -139,7 +140,7 @@ namespace BumpSetSpike_Android
             // Store the result for later use.
             mConnectionResult = result;
 
-            Toast.MakeText (this, "Connection Failed!", ToastLength.Long).Show ();
+            ShowToasterMessage("Connection Failed!");
         }
 
         /// <summary>
@@ -193,6 +194,12 @@ namespace BumpSetSpike_Android
             {
                 return mGooglePlayClient;
             }
+        }
+
+        [Conditional("ALLOW_GARBAGE")]
+        private void ShowToasterMessage(string msg)
+        {
+            Toast.MakeText (this, msg, ToastLength.Long).Show();
         }
     }
 }

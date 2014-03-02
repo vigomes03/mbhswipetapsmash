@@ -232,7 +232,10 @@ namespace BumpSetSpike
 			public const int icon = 2130837532;
 			
 			// aapt resource value: 0x7f02001d
-			public const int Splash = 2130837533;
+			public const int icon_large = 2130837533;
+			
+			// aapt resource value: 0x7f02001e
+			public const int Splash = 2130837534;
 			
 			static Drawable()
 			{

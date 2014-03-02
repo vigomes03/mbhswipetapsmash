@@ -177,6 +177,9 @@
     </AndroidResource>
     <AndroidResource Include="Resources\Layout\Main.axml" />
     <AndroidResource Include="Resources\values\Strings.xml" />
+    <AndroidResource Include="..\BumpSetSpike\BumpSetSpike\icon_large.png">
+      <Link>Resources\drawable\icon_large.png</Link>
+    </AndroidResource>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
   <ItemGroup>
