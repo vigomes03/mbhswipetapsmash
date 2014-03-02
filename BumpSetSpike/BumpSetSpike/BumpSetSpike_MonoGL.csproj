@@ -99,6 +99,7 @@
     <Compile Include="Behaviour\ScoreSummary.cs" />
     <Compile Include="Behaviour\Wobble.cs" />
     <Compile Include="Game1.cs" />
+    <Compile Include="Gameflow\AchievementManager.cs" />
     <Compile Include="Gameflow\GameModeManager.cs" />
     <Compile Include="Gameflow\LeaderBoardManager.cs" />
     <Compile Include="Gameflow\MusicManager.cs" />

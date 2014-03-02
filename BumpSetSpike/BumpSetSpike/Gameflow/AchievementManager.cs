@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using MBHEngine.Debug;
 
-namespace BumpSetSpike.Gameflow
+namespace BumpSetSpike
 {
     /// <summary>
     /// Platform agnostic wrapper for achievement functionality.
@@ -83,7 +83,10 @@ namespace BumpSetSpike.Gameflow
         {
 #if __ANDROID__
             BumpSetSpike_Android.Activity1 activity = Game1.Activity as BumpSetSpike_Android.Activity1;
-            activity.pGooglePlayClient.UnlockAchievement(activity.Resources.GetString(mAchievementMapping[(Int32)ach].mResourceId));
+            if (activity.pGooglePlayClient.IsConnected)
+            {
+                activity.pGooglePlayClient.UnlockAchievement(activity.Resources.GetString(mAchievementMapping[(Int32)ach].mResourceId));
+            }
 #endif //__ANDROID__
             DebugMessageDisplay.pInstance.AddConstantMessage("Unlocked: " + ach.ToString());
         }

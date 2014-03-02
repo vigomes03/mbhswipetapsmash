@@ -153,8 +153,14 @@ namespace BumpSetSpike.Behaviour.FSM
                 {
 #if __ANDROID__
                     BumpSetSpike_Android.Activity1 activity = Game1.Activity as BumpSetSpike_Android.Activity1;
-                    //activity.StartActivityForResult(activity.pGooglePlayClient.AllLeaderboardsIntent, BumpSetSpike_Android.Activity1.REQUEST_ACHIEVEMENTS);
-                    activity.StartActivityForResult(activity.pGooglePlayClient.AchievementsIntent, BumpSetSpike_Android.Activity1.REQUEST_ACHIEVEMENTS);
+                    if (activity.pGooglePlayClient.IsConnected)
+                    {
+                        activity.StartActivityForResult(activity.pGooglePlayClient.AchievementsIntent, BumpSetSpike_Android.Activity1.REQUEST_ACHIEVEMENTS);
+                    }
+                    else
+                    {
+                        activity.pGooglePlayClient.Connect();
+                    }
 #endif // __ANDROID__
                 }
             }
