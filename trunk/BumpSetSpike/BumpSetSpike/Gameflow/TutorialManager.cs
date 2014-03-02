@@ -664,6 +664,8 @@ namespace BumpSetSpike.Gameflow
                 {
                     pTutorialCompleted = true;
 
+                    AchievementManager.pInstance.UnlockAchievement(AchievementManager.Achievements.Participation);
+
                     break;
                 }
             }
@@ -726,10 +728,6 @@ namespace BumpSetSpike.Gameflow
             }
             set
             {
-                if (value == true) 
-                {
-                    AchievementManager.pInstance.UnlockAchievement(AchievementManager.Achievements.Participation);
-                }
                 mTutorialCompleted = value;
             }
         }

@@ -187,19 +187,23 @@ namespace BumpSetSpike.Behaviour
                 {
 #if __ANDROID__
                     BumpSetSpike_Android.Activity1 activity = (Game1.Activity as BumpSetSpike_Android.Activity1);
-                    if(!activity.pGooglePlayClient.IsConnected)
-                        return;
+                    if (!activity.pGooglePlayClient.IsConnected)
+                    {
+                        activity.pGooglePlayClient.Connect();
+                    }
+                    else
+                    {
+                        mGetCurrentHitCountMsg.Reset();
+                        GameObjectManager.pInstance.BroadcastMessage(mGetCurrentHitCountMsg, mParentGOH);
 
-                    mGetCurrentHitCountMsg.Reset();
-                    GameObjectManager.pInstance.BroadcastMessage(mGetCurrentHitCountMsg, mParentGOH);
+                        // Show a different leaderboard based on the current
+                        int board = (GameModeManager.pInstance.pMode == GameModeManager.GameMode.Endurance) ? Resource.String.leaderboard_endurnace : Resource.String.leaderboard_trick_attack;
 
-                    // Show a different leaderboard based on the current
-                    int board = (GameModeManager.pInstance.pMode == GameModeManager.GameMode.Endurance) ? Resource.String.leaderboard_endurnace : Resource.String.leaderboard_trick_attack;
-
-                    // The high score will not have been saved yet, so we need to manually update it here.
-                    string boardString = activity.Resources.GetString(board);
-                    activity.pGooglePlayClient.SubmitScore(boardString, mGetCurrentHitCountMsg.mCount_Out);
-                    activity.StartActivityForResult(activity.pGooglePlayClient.GetLeaderboardIntent(boardString), BumpSetSpike_Android.Activity1.REQUEST_LEADERBOARD);
+                        // The high score will not have been saved yet, so we need to manually update it here.
+                        string boardString = activity.Resources.GetString(board);
+                        activity.pGooglePlayClient.SubmitScore(boardString, mGetCurrentHitCountMsg.mCount_Out);
+                        activity.StartActivityForResult(activity.pGooglePlayClient.GetLeaderboardIntent(boardString), BumpSetSpike_Android.Activity1.REQUEST_LEADERBOARD);
+                    }
 #endif // __ANDROID__
 
                     temp.mHandled_Out = true;
