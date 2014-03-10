@@ -5,6 +5,9 @@
 		<meta-data android:name="com.google.android.gms.version" android:value="@integer/google_play_services_version" />
 		<meta-data android:name="com.google.android.gms.games.APP_ID" android:value="@string/app_id" />
 	</application>
+	<!-- Required for in-app purchases -->
+	<uses-permission android:name="com.android.vending.BILLING" />
+	<uses-permission android:name="com.android.vending.INTERACT_ACROSS_USERS_FULL" />
 	<!-- We need to be able to download map tiles and access Google Play Services-->
 	<!-- <uses-permission android:name="android.permission.INTERNET" /> -->
 	<!-- Allow the application to access Google web-based services. -->
