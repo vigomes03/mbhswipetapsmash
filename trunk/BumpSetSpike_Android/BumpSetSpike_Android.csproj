@@ -50,6 +50,9 @@
     <Reference Include="GooglePlayServicesLib">
       <HintPath>..\Components\googleplayservices-13.0\lib\android\GooglePlayServicesLib.dll</HintPath>
     </Reference>
+    <Reference Include="Xamarin.InAppBilling">
+      <HintPath>..\Components\xamarin.inappbilling-1.3\lib\android\Xamarin.InAppBilling.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Activity1.cs" />
@@ -163,6 +166,7 @@
     <Compile Include="..\BumpSetSpike\BumpSetSpike\Gameflow\AchievementManager.cs">
       <Link>Gameflow\AchievementManager.cs</Link>
     </Compile>
+    <Compile Include="InAppBillingKey.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -532,6 +536,11 @@
   <ItemGroup>
     <XamarinComponentReference Include="googleplayservices">
       <Version>13.0</Version>
+      <Visible>False</Visible>
+    </XamarinComponentReference>
+    <XamarinComponentReference Include="xamarin.inappbilling">
+      <InstallationInProgress>True</InstallationInProgress>
+      <Version>1.3</Version>
       <Visible>False</Visible>
     </XamarinComponentReference>
   </ItemGroup>

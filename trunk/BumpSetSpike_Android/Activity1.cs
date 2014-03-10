@@ -15,6 +15,9 @@ using BumpSetSpike;
 using Android.Gms.Games;
 using MBHEngine.GameObject;
 using System.Diagnostics;
+using Xamarin.InAppBilling;
+using Xamarin.InAppBilling.Utilities;
+using System.Threading.Tasks;
 
 namespace BumpSetSpike_Android
 {
@@ -37,6 +40,11 @@ namespace BumpSetSpike_Android
         // The main interface for GooglePlay services.
         private GamesClient mGooglePlayClient;
 
+        // Connection to the Google Play billing service.
+        private InAppBillingServiceConnection mBillingConnection;
+
+        private IList<Product> mProducts;
+
         // Tracks what happened last time we tried to log in (this session).
         private ConnectionResult mConnectionResult;
 
@@ -56,11 +64,60 @@ namespace BumpSetSpike_Android
             pGooglePlayClient.RegisterConnectionCallbacks (this);
             pGooglePlayClient.IsConnectionFailedListenerRegistered (this);
 
+            // Create a new connection to the Google Play Service
+            mBillingConnection = new InAppBillingServiceConnection (this, InAppBillingKey.Key);
+            pBillingConnection.OnConnected += async () => {
+                // Attach to the various error handlers to report issues
+                pBillingConnection.BillingHandler.OnGetProductsError += (int responseCode, Bundle ownedItems) => {
+                    Console.WriteLine("Error getting products");
+                };
+
+                pBillingConnection.BillingHandler.OnInvalidOwnedItemsBundleReturned += (Bundle ownedItems) => {
+                    Console.WriteLine("Invalid owned items bundle returned");
+                };
+
+                pBillingConnection.BillingHandler.OnProductPurchasedError += (int responseCode, string sku) => {
+                    Console.WriteLine("Error purchasing item {0}",sku);
+                };
+
+                pBillingConnection.BillingHandler.OnPurchaseConsumedError += (int responseCode, string token) => {
+                    Console.WriteLine("Error consuming previous purchase");
+                };
+
+                pBillingConnection.BillingHandler.InAppBillingProcesingError += (message) => {
+                    Console.WriteLine("In app billing processing error {0}",message);
+                };
+
+                // Load inventory or available products
+                await GetInventory();
+                //UpdatePurchasedItems();
+
+                // Load any items already purchased
+                LoadPurchasedItems();
+            };
+
 			// Create our OpenGL view, and display it
 			Game1.Activity = this;
 			var g = new Game1 ();
 			SetContentView (g.Window);
 			g.Run ();
+        }
+
+        protected override void OnDestroy()
+        {
+            // Are we attached to the Google Play Service?
+            if (pGooglePlayClient != null) 
+            {
+                // Yes, disconnect
+                pGooglePlayClient.Disconnect();
+            }
+
+            if (pBillingConnection != null)
+            {
+                pBillingConnection.Disconnect();
+            }
+
+            base.OnDestroy();
         }
 
         /// <summary>
@@ -175,6 +232,9 @@ namespace BumpSetSpike_Android
 
             // Just try to connect to Google Play right away. No point in waiting.
             pGooglePlayClient.Connect();
+
+            // Attempt to connect to the service
+            pBillingConnection.Connect();
         }
 
         /// <summary>
@@ -183,9 +243,117 @@ namespace BumpSetSpike_Android
         protected override void OnStop()
         {
             base.OnStop();
+        }
 
-            // Not sure if this is actually needed, but was in some examples (at least for Google+).
-            pGooglePlayClient.Disconnect();
+        /// <summary>
+        /// Loads the purchased items.
+        /// </summary>
+        private void LoadPurchasedItems ()
+        {
+            UpdatePurchasedItems();
+            // Ask the open connection's billing handler to get any purchases
+            /*
+            var purchases = pBillingConnection.BillingHandler.GetPurchases (ItemType.Product);
+
+            foreach (Purchase p in purchases)
+            {
+                ShowToasterMessage(purchases.ToString());
+            }
+            */
+
+            // Display any existing purchases
+            //_purchasesAdapter = new PurchaseAdapter (this, purchases);
+            //_lvPurchsedItems.Adapter = _purchasesAdapter;
+
+        }
+
+        /// <summary>
+        /// Updates the purchased items.
+        /// </summary>
+        private void UpdatePurchasedItems ()
+        {
+
+            // Ask the open connection's billing handler to get any purchases
+            var purchases = pBillingConnection.BillingHandler.GetPurchases (ItemType.Product);
+
+            Console.WriteLine("Products Owned:");
+            foreach (Purchase p in purchases)
+            {
+                ShowToasterMessage(p.ToString());
+                Console.WriteLine(p.ToString());
+            }
+
+            /*
+            // Is there a data adapter for purchases?
+            if (_purchasesAdapter != null) {
+                // Yes, add new items to adapter
+                foreach (var item in purchases) {
+                    _purchasesAdapter.Items.Add (item);
+                }
+
+                // Ask the adapter to display the new items
+                _purchasesAdapter.NotifyDataSetChanged ();
+            }
+            */
+        }
+
+        public void PurchasePremiumUpgrade()
+        {
+            if (mProducts != null)
+            {
+                pBillingConnection.BillingHandler.BuyProduct(mProducts[0]);
+            }
+        }
+
+        /// <summary>
+        /// Connects to the Google Play Service and gets a list of products that are available
+        /// for purchase.
+        /// </summary>
+        /// <returns>The inventory.</returns>
+        private async Task GetInventory ()
+        {
+            // Ask the open connection's billing handler to return a list of avilable products for the 
+            // given list of items.
+            // NOTE: We are asking for the Reserved Test Product IDs that allow you to test In-App
+            // Billing without actually making a purchase.
+            mProducts = await pBillingConnection.BillingHandler.QueryInventoryAsync (new List<string> {
+                "premium_upgrade",
+                ReservedTestProductIDs.Purchased,
+                ReservedTestProductIDs.Canceled,
+                ReservedTestProductIDs.Refunded,
+                ReservedTestProductIDs.Unavailable,
+            }, ItemType.Product);
+
+            // Were any products returned?
+            if (mProducts == null) 
+            {
+                // No, abort
+                ShowToasterMessage("No products available.");
+                return;
+            }
+
+            Console.WriteLine("Products in Inventory:");
+            foreach (Product p in mProducts)
+            {
+                ShowToasterMessage(p.ToString());
+                Console.WriteLine(p.ToString());
+            }
+
+            // Enable the list of products
+            //mProdutctSpinner.Enabled = (mProducts.Count > 0);
+
+            // Populate list of available products
+            //var items = mProducts.Select (p => p.Title).ToList ();
+            //mProdutctSpinner.Adapter = 
+            //    new ArrayAdapter<string> (this, 
+            //        Android.Resource.Layout.SimpleSpinnerItem,
+            //        items);
+        }
+
+        //[Conditional("ALLOW_GARBAGE")]
+        private void ShowToasterMessage(string msg)
+        {
+            Toast.MakeText(this, msg, ToastLength.Long).Show();
         }
 
         public GamesClient pGooglePlayClient
@@ -196,10 +364,12 @@ namespace BumpSetSpike_Android
             }
         }
 
-        [Conditional("ALLOW_GARBAGE")]
-        private void ShowToasterMessage(string msg)
+        public InAppBillingServiceConnection pBillingConnection
         {
-            Toast.MakeText (this, msg, ToastLength.Long).Show();
+            get
+            {
+                return mBillingConnection;
+            }
         }
     }
 }
