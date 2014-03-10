@@ -517,16 +517,15 @@ namespace BumpSetSpike
         {
             base.OnActivated(sender, args);
 
-#if WINDOWS || __ANDROID__
+#if WINDOWS
             // IsTrialMode does not work on Windows.
             // On android assume we are in trial mode until we are told otherwise.
-            Boolean isTrial = true;
+            TrialModeManager.pInstance.pIsTrialMode = true;
+#elif __ANDROID__
 #else
             //Guide.SimulateTrialMode ^= true;
-            Boolean isTrial = Guide.IsTrialMode;
+            TrialModeManager.pInstance.pIsTrialMode = Guide.IsTrialMode;
 #endif
-
-            TrialModeManager.pInstance.pIsTrialMode = isTrial;
         }
 
         /// <summary>

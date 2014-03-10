@@ -18,6 +18,7 @@ using System.Diagnostics;
 using Xamarin.InAppBilling;
 using Xamarin.InAppBilling.Utilities;
 using System.Threading.Tasks;
+using MBHEngine.Trial;
 
 namespace BumpSetSpike_Android
 {
@@ -67,6 +68,11 @@ namespace BumpSetSpike_Android
             // Create a new connection to the Google Play Service
             mBillingConnection = new InAppBillingServiceConnection (this, InAppBillingKey.Key);
             pBillingConnection.OnConnected += async () => {
+
+                // Clear out the test purchase so that it can be tested again. Remove this 
+                // to test starting with test purchase already completed.
+                bool response = pBillingConnection.BillingHandler.ConsumePurchase("inapp:"+ PackageName +":android.test.purchased");
+
                 // Attach to the various error handlers to report issues
                 pBillingConnection.BillingHandler.OnGetProductsError += (int responseCode, Bundle ownedItems) => {
                     Console.WriteLine("Error getting products");
@@ -90,10 +96,9 @@ namespace BumpSetSpike_Android
 
                 // Load inventory or available products
                 await GetInventory();
-                //UpdatePurchasedItems();
 
                 // Load any items already purchased
-                LoadPurchasedItems();
+                UpdatePurchasedItems();
             };
 
 			// Create our OpenGL view, and display it
@@ -158,13 +163,17 @@ namespace BumpSetSpike_Android
             base.OnActivityResult (requestCode, resultCode, data);
 
             // Check if this was the error code we supplied. That is the only one we care about.
-            if (requestCode != REQUEST_CODE_RESOLVE_ERR)
-                return;
-
-            if (resultCode == Result.Ok) 
+            if (requestCode == REQUEST_CODE_RESOLVE_ERR && resultCode == Result.Ok) 
             {
                 pGooglePlayClient.Connect();
+                return;
             }
+
+            // Ask the open service connection's billing handler to process this request
+            pBillingConnection.BillingHandler.HandleActivityResult (requestCode, resultCode, data);
+
+            //TODO: Use a call back to update the purchased items
+            UpdatePurchasedItems();
         }
 
         /// <summary>
@@ -246,62 +255,35 @@ namespace BumpSetSpike_Android
         }
 
         /// <summary>
-        /// Loads the purchased items.
-        /// </summary>
-        private void LoadPurchasedItems ()
-        {
-            UpdatePurchasedItems();
-            // Ask the open connection's billing handler to get any purchases
-            /*
-            var purchases = pBillingConnection.BillingHandler.GetPurchases (ItemType.Product);
-
-            foreach (Purchase p in purchases)
-            {
-                ShowToasterMessage(purchases.ToString());
-            }
-            */
-
-            // Display any existing purchases
-            //_purchasesAdapter = new PurchaseAdapter (this, purchases);
-            //_lvPurchsedItems.Adapter = _purchasesAdapter;
-
-        }
-
-        /// <summary>
         /// Updates the purchased items.
         /// </summary>
         private void UpdatePurchasedItems ()
         {
+            bool isTrial = true;
 
             // Ask the open connection's billing handler to get any purchases
             var purchases = pBillingConnection.BillingHandler.GetPurchases (ItemType.Product);
 
-            Console.WriteLine("Products Owned:");
+            Console.WriteLine("Products Owned ( " + purchases.Count + " ) : ");
             foreach (Purchase p in purchases)
             {
                 ShowToasterMessage(p.ToString());
                 Console.WriteLine(p.ToString());
-            }
 
-            /*
-            // Is there a data adapter for purchases?
-            if (_purchasesAdapter != null) {
-                // Yes, add new items to adapter
-                foreach (var item in purchases) {
-                    _purchasesAdapter.Items.Add (item);
+                if (ReservedTestProductIDs.Purchased == p.ProductId)
+                {
+                    isTrial = false;
                 }
-
-                // Ask the adapter to display the new items
-                _purchasesAdapter.NotifyDataSetChanged ();
             }
-            */
+
+            TrialModeManager.pInstance.pIsTrialMode = isTrial;
         }
 
         public void PurchasePremiumUpgrade()
         {
             if (mProducts != null)
             {
-                pBillingConnection.BillingHandler.BuyProduct(mProducts[0]);
+                pBillingConnection.BillingHandler.BuyProduct(mProducts[2]);
             }
         }
 
@@ -317,7 +299,7 @@ namespace BumpSetSpike_Android
             // NOTE: We are asking for the Reserved Test Product IDs that allow you to test In-App
             // Billing without actually making a purchase.
             mProducts = await pBillingConnection.BillingHandler.QueryInventoryAsync (new List<string> {
-                "premium_upgrade",
+                //"premium_upgrade",
                 ReservedTestProductIDs.Purchased,
                 ReservedTestProductIDs.Canceled,
                 ReservedTestProductIDs.Refunded,
@@ -332,22 +314,12 @@ namespace BumpSetSpike_Android
                 return;
             }
 
-            Console.WriteLine("Products in Inventory:");
+            Console.WriteLine("Products Available ( " + mProducts.Count + " ) : ");
             foreach (Product p in mProducts)
             {
                 ShowToasterMessage(p.ToString());
                 Console.WriteLine(p.ToString());
             }
-
-            // Enable the list of products
-            //mProdutctSpinner.Enabled = (mProducts.Count > 0);
-
-            // Populate list of available products
-            //var items = mProducts.Select (p => p.Title).ToList ();
-            //mProdutctSpinner.Adapter = 
-            //    new ArrayAdapter<string> (this, 
-            //        Android.Resource.Layout.SimpleSpinnerItem,
-            //        items);
         }
 
         //[Conditional("ALLOW_GARBAGE")]
