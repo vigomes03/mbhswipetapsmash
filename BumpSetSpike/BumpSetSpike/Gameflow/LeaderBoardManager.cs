@@ -144,6 +144,14 @@ namespace BumpSetSpike.Gameflow
                 {
                     mRecords.mScore = value;
                     SaveGameManager.pInstance.WriteSaveGameXML();
+
+#if __ANDROID__
+                    BumpSetSpike_Android.Activity1 activity = (Game1.Activity as BumpSetSpike_Android.Activity1);
+                    if(activity.pGooglePlayClient.IsConnected)
+                    {
+                        activity.pGooglePlayClient.SubmitScore(activity.Resources.GetString(Resource.String.leaderboard_trick_attack), mRecords.mScore);
+                    }
+#endif // __ANDROID__
                 }
             }
         }
