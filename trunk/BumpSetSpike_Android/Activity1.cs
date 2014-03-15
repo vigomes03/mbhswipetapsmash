@@ -44,10 +44,20 @@ namespace BumpSetSpike_Android
         // Connection to the Google Play billing service.
         private InAppBillingServiceConnection mBillingConnection;
 
+        // The list of products available for this app.
         private IList<Product> mProducts;
 
         // Tracks what happened last time we tried to log in (this session).
         private ConnectionResult mConnectionResult;
+
+        private string mPremiumUpgradeProductID = ReservedTestProductIDs.Purchased;
+        /*
+        "premium_upgrade",
+        ReservedTestProductIDs.Purchased,
+        ReservedTestProductIDs.Canceled,
+        ReservedTestProductIDs.Refunded,
+        ReservedTestProductIDs.Unavailable,
+        */
 
         /// <summary>
         /// See parent.
@@ -270,7 +280,7 @@ namespace BumpSetSpike_Android
                 ShowToasterMessage(p.ToString());
                 Console.WriteLine(p.ToString());
 
-                if (ReservedTestProductIDs.Purchased == p.ProductId)
+                if (mPremiumUpgradeProductID == p.ProductId)
                 {
                     isTrial = false;
                 }
@@ -283,7 +293,14 @@ namespace BumpSetSpike_Android
         {
             if (mProducts != null)
             {
-                pBillingConnection.BillingHandler.BuyProduct(mProducts[2]);
+                foreach (Product p in mProducts)
+                {
+                    if (p.ProductId == mPremiumUpgradeProductID)
+                    {
+                        pBillingConnection.BillingHandler.BuyProduct(p);
+                        return;
+                    }
+                }
             }
         }
 
@@ -299,11 +316,7 @@ namespace BumpSetSpike_Android
             // NOTE: We are asking for the Reserved Test Product IDs that allow you to test In-App
             // Billing without actually making a purchase.
             mProducts = await pBillingConnection.BillingHandler.QueryInventoryAsync (new List<string> {
-                //"premium_upgrade",
-                ReservedTestProductIDs.Purchased,
-                ReservedTestProductIDs.Canceled,
-                ReservedTestProductIDs.Refunded,
-                ReservedTestProductIDs.Unavailable,
+                mPremiumUpgradeProductID,
             }, ItemType.Product);
 
             // Were any products returned?
