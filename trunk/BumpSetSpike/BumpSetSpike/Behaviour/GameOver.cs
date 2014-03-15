@@ -198,10 +198,19 @@ namespace BumpSetSpike.Behaviour
 
                         // Show a different leaderboard based on the current
                         int board = (GameModeManager.pInstance.pMode == GameModeManager.GameMode.Endurance) ? Resource.String.leaderboard_endurnace : Resource.String.leaderboard_trick_attack;
+                        int hiScore = (GameModeManager.pInstance.pMode == GameModeManager.GameMode.Endurance) ? LeaderBoardManager.pInstance.pTopHits : LeaderBoardManager.pInstance.pTopScore;
 
                         // The high score will not have been saved yet, so we need to manually update it here.
                         string boardString = activity.Resources.GetString(board);
-                        activity.pGooglePlayClient.SubmitScore(boardString, mGetCurrentHitCountMsg.mCount_Out);
+
+                        // Only submit a new score if it is greater than the current high-score.
+                        // This check should not be needed but it seems that if i submit a lower score shortly after submitting a higher
+                        // score, the lower score win out on submission.
+                        if (hiScore < mGetCurrentHitCountMsg.mCount_Out)
+                        {
+                            activity.pGooglePlayClient.SubmitScore(boardString, mGetCurrentHitCountMsg.mCount_Out);
+                        }
+
                         activity.StartActivityForResult(activity.pGooglePlayClient.GetLeaderboardIntent(boardString), BumpSetSpike_Android.Activity1.REQUEST_LEADERBOARD);
                     }
 #endif // __ANDROID__
