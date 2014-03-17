@@ -55,7 +55,7 @@ namespace BumpSetSpike_Android
         // Tracks what happened last time we tried to log in (this session).
         private ConnectionResult mConnectionResult;
 
-        private string mPremiumUpgradeProductID = ReservedTestProductIDs.Purchased;
+        private string mPremiumUpgradeProductID = "premium_upgrade";
         /*
         "premium_upgrade",
         ReservedTestProductIDs.Purchased,
