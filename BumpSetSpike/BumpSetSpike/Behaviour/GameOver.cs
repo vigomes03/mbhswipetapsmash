@@ -202,14 +202,7 @@ namespace BumpSetSpike.Behaviour
 
                         // The high score will not have been saved yet, so we need to manually update it here.
                         string boardString = activity.Resources.GetString(board);
-
-                        // Only submit a new score if it is greater than the current high-score.
-                        // This check should not be needed but it seems that if i submit a lower score shortly after submitting a higher
-                        // score, the lower score win out on submission.
-                        if (hiScore < mGetCurrentHitCountMsg.mCount_Out)
-                        {
-                            activity.pGooglePlayClient.SubmitScore(boardString, mGetCurrentHitCountMsg.mCount_Out);
-                        }
+                        activity.pGooglePlayClient.SubmitScoreImmediate(activity, boardString, mGetCurrentHitCountMsg.mCount_Out);
 
                         activity.StartActivityForResult(activity.pGooglePlayClient.GetLeaderboardIntent(boardString), BumpSetSpike_Android.Activity1.REQUEST_LEADERBOARD);
                     }

@@ -19,6 +19,7 @@ using Xamarin.InAppBilling;
 using Xamarin.InAppBilling.Utilities;
 using System.Threading.Tasks;
 using MBHEngine.Trial;
+using Android.Gms.Games.LeaderBoard;
 
 namespace BumpSetSpike_Android
 {
@@ -31,7 +32,11 @@ namespace BumpSetSpike_Android
 		ConfigurationChanges = Android.Content.PM.ConfigChanges.Orientation |
 		Android.Content.PM.ConfigChanges.KeyboardHidden |
         Android.Content.PM.ConfigChanges.Keyboard)]
-    public class Activity1 : AndroidGameActivity, IGooglePlayServicesClientConnectionCallbacks, IGooglePlayServicesClientOnConnectionFailedListener
+    public class Activity1 : 
+        AndroidGameActivity, 
+        IGooglePlayServicesClientConnectionCallbacks, 
+        IGooglePlayServicesClientOnConnectionFailedListener, 
+        IOnScoreSubmittedListener
     {
         // Aribitrary numbers just used for identifying requests to the Google services.
         public static int REQUEST_CODE_RESOLVE_ERR = 9000;
@@ -339,6 +344,18 @@ namespace BumpSetSpike_Android
         private void ShowToasterMessage(string msg)
         {
             Toast.MakeText(this, msg, ToastLength.Long).Show();
+        }
+
+        public void OnScoreSubmitted(int p0, SubmitScoreResult p1)
+        {
+            if (p1.StatusCode == 0)
+            {
+                ShowToasterMessage("Score Submitted!");
+            }
+            else
+            {
+                ShowToasterMessage("Score Failed!");
+            }
         }
 
         public GamesClient pGooglePlayClient
