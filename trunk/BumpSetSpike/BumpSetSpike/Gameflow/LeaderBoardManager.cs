@@ -149,7 +149,7 @@ namespace BumpSetSpike.Gameflow
                     BumpSetSpike_Android.Activity1 activity = (Game1.Activity as BumpSetSpike_Android.Activity1);
                     if(activity.pGooglePlayClient.IsConnected)
                     {
-                        activity.pGooglePlayClient.SubmitScore(activity.Resources.GetString(Resource.String.leaderboard_trick_attack), mRecords.mScore);
+                        activity.pGooglePlayClient.SubmitScoreImmediate(activity, activity.Resources.GetString(Resource.String.leaderboard_trick_attack), mRecords.mScore);
                     }
 #endif // __ANDROID__
                 }
@@ -181,7 +181,7 @@ namespace BumpSetSpike.Gameflow
                     BumpSetSpike_Android.Activity1 activity = (Game1.Activity as BumpSetSpike_Android.Activity1);
                     if(activity.pGooglePlayClient.IsConnected)
                     {
-                        activity.pGooglePlayClient.SubmitScore(activity.Resources.GetString(Resource.String.leaderboard_endurnace), mRecords.mHits);
+                        activity.pGooglePlayClient.SubmitScoreImmediate(activity, activity.Resources.GetString(Resource.String.leaderboard_endurnace), mRecords.mHits);
                     }
 #endif // __ANDROID__
                 }
