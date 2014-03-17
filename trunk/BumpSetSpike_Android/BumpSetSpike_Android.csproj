@@ -18,7 +18,7 @@
     <AssemblyName>BumpSetSpike</AssemblyName>
     <AndroidManifest>Properties\AndroidManifest.xml</AndroidManifest>
     <SignAssembly>false</SignAssembly>
-    <TargetFrameworkVersion>v4.3</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.4</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -539,7 +539,6 @@
       <Visible>False</Visible>
     </XamarinComponentReference>
     <XamarinComponentReference Include="xamarin.inappbilling">
-      <InstallationInProgress>True</InstallationInProgress>
       <Version>1.3</Version>
       <Visible>False</Visible>
     </XamarinComponentReference>
