@@ -87,8 +87,8 @@ namespace BumpSetSpike
 #endif
 
 #if __ANDROID__
-			mGraphics.PreferredBackBufferWidth = 1280; // 1366; // 1280;
-			mGraphics.PreferredBackBufferHeight = 720; // 768; // 720;
+            //mGraphics.PreferredBackBufferWidth = 1280; // 1366; // 1280;
+            //mGraphics.PreferredBackBufferHeight = 720; // 768; // 720;
 			mGraphics.IsFullScreen = true;
 #endif
 

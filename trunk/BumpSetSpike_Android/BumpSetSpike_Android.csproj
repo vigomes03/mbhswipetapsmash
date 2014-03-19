@@ -216,10 +216,6 @@
     <Folder Include="Content\GameObjects\UI\PauseAchievementsButton\" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidAsset Include="Content\Audio\Music\MikeImmonen_Gameplay.wma" />
-    <AndroidAsset Include="Content\Audio\Music\MikeImmonen_Gameplay.xnb" />
-    <AndroidAsset Include="Content\Audio\Music\MikeImmonen_Menu.wma" />
-    <AndroidAsset Include="Content\Audio\Music\MikeImmonen_Menu.xnb" />
     <AndroidAsset Include="Content\Fonts\DebugDisplay.xnb" />
     <AndroidAsset Include="Content\Fonts\TrickDisplay.xnb" />
     <AndroidAsset Include="Content\GameObjects\Characters\Opponent\Behaviours\Opponent.xnb" />
@@ -532,6 +528,8 @@
     <AndroidAsset Include="Content\GameObjects\UI\PauseAchievementsButton\Behaviours\Button.xnb" />
     <AndroidAsset Include="Content\GameObjects\UI\PauseAchievementsButton\Behaviours\Sprite.xnb" />
     <AndroidAsset Include="Content\GameObjects\UI\PauseAchievementsButton\PauseAchievementsButton.xnb" />
+    <AndroidAsset Include="Content\Audio\Music\MikeImmonen_Gameplay.ogg" />
+    <AndroidAsset Include="Content\Audio\Music\MikeImmonen_Menu.ogg" />
   </ItemGroup>
   <ItemGroup>
     <XamarinComponentReference Include="googleplayservices">
