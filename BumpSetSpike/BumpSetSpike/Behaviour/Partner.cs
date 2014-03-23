@@ -17,6 +17,22 @@ namespace BumpSetSpike.Behaviour
 {
     class Partner : MBHEngine.Behaviour.Behaviour
     {
+        public class GetCurrentHitCountMessage : MBHEngine.Behaviour.BehaviourMessage
+        {
+            /// <summary>
+            /// How many times has this object hit the ball this play.
+            /// </summary>
+            public Int32 mHitCount_Out;
+
+            /// <summary>
+            /// See parent.
+            /// </summary>
+            public override void Reset()
+            {
+                mHitCount_Out = 0;
+            }
+        }
+
         /// <summary>
         /// Tracks how long we have been in a state.
         /// </summary>
@@ -234,6 +250,12 @@ namespace BumpSetSpike.Behaviour
                 {
                     mParentGOH.pRenderPriority = mStartingRenderPriority;
                 }
+            }
+            else if (msg is GetCurrentHitCountMessage)
+            {
+                GetCurrentHitCountMessage temp = (GetCurrentHitCountMessage)msg;
+
+                temp.mHitCount_Out = mHitCount;
             }
         }
     }

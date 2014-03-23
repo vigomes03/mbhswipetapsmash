@@ -252,7 +252,7 @@ namespace MBHEngine.Input
                 // Create a new Tap Gesture, since the mouse was pressed and released.
                 // Time Stamp is missing.
                 GestureSample g = new GestureSample(GestureType.Tap, TimeSpan.Zero, newMouse, Vector2.Zero, Vector2.Zero, Vector2.Zero);
-                DebugMessageDisplay.pInstance.AddConstantMessage("Mouse Clicked: " + CameraManager.pInstance.ProjectMouseToWorldSpace(newMouse) + ", " + mCurrentMouseState);
+                //DebugMessageDisplay.pInstance.AddConstantMessage("Mouse Clicked: " + CameraManager.pInstance.ProjectMouseToWorldSpace(newMouse) + ", " + mCurrentMouseState);
 
                 mCurrentGestureSamples.Add(g);
 
@@ -282,7 +282,7 @@ namespace MBHEngine.Input
                     // Build the Flick Gesture. 
                     // Time Stamp is missing.
                     g = new GestureSample(GestureType.Flick, TimeSpan.Zero, Vector2.Zero, Vector2.Zero, flickDelta, Vector2.Zero);
-                    DebugMessageDisplay.pInstance.AddConstantMessage("Mouse Flicked: " + flickDelta);
+                    //DebugMessageDisplay.pInstance.AddConstantMessage("Mouse Flicked: " + flickDelta);
 
                     mCurrentGestureSamples.Add(g);
                 }
