@@ -108,6 +108,7 @@ namespace BumpSetSpike.Behaviour
         private HitCountDisplay.IncrementHitCountMessage mIncrementHitCountMsg;
         private GetServeDestinationMessage mSetServeDestinationMsg;
         private Player.GetCurrentStateMessage mGetCurrentStateMsg;
+        private Player.GetHasMultipleHitsBeforePartnerMessage mGetHasMultipleHitsBeforePartnerMsg;
 
         /// <summary>
         /// Constructor which also handles the process of loading in the Behaviour
@@ -150,6 +151,7 @@ namespace BumpSetSpike.Behaviour
             mIncrementHitCountMsg = new HitCountDisplay.IncrementHitCountMessage();
             mSetServeDestinationMsg = new GetServeDestinationMessage();
             mGetCurrentStateMsg = new Player.GetCurrentStateMessage();
+            mGetHasMultipleHitsBeforePartnerMsg = new Player.GetHasMultipleHitsBeforePartnerMessage();
         }
 
         /// <summary>
@@ -272,6 +274,24 @@ namespace BumpSetSpike.Behaviour
                         {
                             AchievementManager.pInstance.UnlockAchievement(AchievementManager.Achievements.BendTheRules);
                         }
+
+                        if (ScoreManager.pInstance.IsMovePerformed(ScoreManager.ScoreType.HangTime))
+                        {
+                            AchievementManager.pInstance.UnlockAchievement(AchievementManager.Achievements.HangTime);
+                        }
+
+                        if (ScoreManager.pInstance.CalMultiplier() >= 8)
+                        {
+                            AchievementManager.pInstance.UnlockAchievement(AchievementManager.Achievements.IsThatEvenPossible);
+                        }
+
+                        mGetHasMultipleHitsBeforePartnerMsg.Reset();
+                        GameObjectManager.pInstance.BroadcastMessage(mGetHasMultipleHitsBeforePartnerMsg, mParentGOH);
+
+                        if (mGetHasMultipleHitsBeforePartnerMsg.mHasMultipleHits_Out)
+                        {
+                            AchievementManager.pInstance.UnlockAchievement(AchievementManager.Achievements.PuttingTheIInTeam);
+                        }
                     }
                 }
                 else
@@ -325,6 +345,14 @@ namespace BumpSetSpike.Behaviour
                             if (mHasHitNet == true)
                             {
                                 AchievementManager.pInstance.UnlockAchievement(AchievementManager.Achievements.BendTheRules);
+                            }
+
+                            mGetHasMultipleHitsBeforePartnerMsg.Reset();
+                            GameObjectManager.pInstance.BroadcastMessage(mGetHasMultipleHitsBeforePartnerMsg, mParentGOH);
+
+                            if (mGetHasMultipleHitsBeforePartnerMsg.mHasMultipleHits_Out)
+                            {
+                                AchievementManager.pInstance.UnlockAchievement(AchievementManager.Achievements.PuttingTheIInTeam);
                             }
                         }
 

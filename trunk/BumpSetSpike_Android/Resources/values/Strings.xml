@@ -7,10 +7,14 @@ Save this file as res/values/games-ids.xml in your project.
   <string name="app_id">974774150255</string>
   <string name="achievement_the_ubi">CgkI78jEqK8cEAIQAw</string>
   <string name="achievement_participation">CgkI78jEqK8cEAIQBw</string>
-  <string name="achievement_bend_the_rules">CgkI78jEqK8cEAIQCA</string>
   <string name="achievement_double_trouble">CgkI78jEqK8cEAIQCQ</string>
   <string name="achievement_fortune_500">CgkI78jEqK8cEAIQCg</string>
   <string name="achievement_lucky_7">CgkI78jEqK8cEAIQCw</string>
+  <string name="achievement_bend_the_rules">CgkI78jEqK8cEAIQCA</string>
+  <string name="achievement_hang_time">CgkI78jEqK8cEAIQEA</string>
+  <string name="achievement_is_that_even_possible">CgkI78jEqK8cEAIQEQ</string>
+  <string name="achievement_putting_the_i_in_team">CgkI78jEqK8cEAIQEg</string>
+  <string name="achievement_lucky_20">CgkI78jEqK8cEAIQEw</string>
   <string name="leaderboard_endurnace">CgkI78jEqK8cEAIQAA</string>
   <string name="leaderboard_trick_attack">CgkI78jEqK8cEAIQAQ</string>
-</resources>  
+</resources>

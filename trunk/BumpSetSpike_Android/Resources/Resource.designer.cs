@@ -331,20 +331,32 @@ namespace BumpSetSpike
 		public partial class String
 		{
 			
+			// aapt resource value: 0x7f060021
+			public const int achievement_bend_the_rules = 2131099681;
+			
 			// aapt resource value: 0x7f06001e
-			public const int achievement_bend_the_rules = 2131099678;
+			public const int achievement_double_trouble = 2131099678;
 			
 			// aapt resource value: 0x7f06001f
-			public const int achievement_double_trouble = 2131099679;
+			public const int achievement_fortune_500 = 2131099679;
+			
+			// aapt resource value: 0x7f060022
+			public const int achievement_hang_time = 2131099682;
+			
+			// aapt resource value: 0x7f060023
+			public const int achievement_is_that_even_possible = 2131099683;
+			
+			// aapt resource value: 0x7f060025
+			public const int achievement_lucky_20 = 2131099685;
 			
 			// aapt resource value: 0x7f060020
-			public const int achievement_fortune_500 = 2131099680;
-			
-			// aapt resource value: 0x7f060021
-			public const int achievement_lucky_7 = 2131099681;
+			public const int achievement_lucky_7 = 2131099680;
 			
 			// aapt resource value: 0x7f06001d
 			public const int achievement_participation = 2131099677;
+			
+			// aapt resource value: 0x7f060024
+			public const int achievement_putting_the_i_in_team = 2131099684;
 			
 			// aapt resource value: 0x7f06001c
 			public const int achievement_the_ubi = 2131099676;
@@ -430,11 +442,11 @@ namespace BumpSetSpike
 			// aapt resource value: 0x7f060013
 			public const int common_signin_button_text_long = 2131099667;
 			
-			// aapt resource value: 0x7f060022
-			public const int leaderboard_endurnace = 2131099682;
+			// aapt resource value: 0x7f060026
+			public const int leaderboard_endurnace = 2131099686;
 			
-			// aapt resource value: 0x7f060023
-			public const int leaderboard_trick_attack = 2131099683;
+			// aapt resource value: 0x7f060027
+			public const int leaderboard_trick_attack = 2131099687;
 			
 			// aapt resource value: 0x7f06001a
 			public const int library_name = 2131099674;

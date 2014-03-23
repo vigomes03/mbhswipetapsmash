@@ -171,6 +171,10 @@ namespace BumpSetSpike.Gameflow
                 {
                     AchievementManager.pInstance.UnlockAchievement(AchievementManager.Achievements.Lucky_7);
                 }
+                if (value >= 20)
+                {
+                    AchievementManager.pInstance.UnlockAchievement(AchievementManager.Achievements.Lucky_20);
+                }
 
                 // Allow this property to be spammed, and only the best will be used.
                 if (value > mRecords.mHits)

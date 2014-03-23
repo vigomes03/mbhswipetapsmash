@@ -242,6 +242,11 @@ namespace BumpSetSpike.Gameflow
             return multiplier;
         }
 
+        public bool IsMovePerformed(ScoreType type)
+        {
+            return (mCurrentCombo[(Int32)type] > 0);
+        }
+
         /// <summary>
         /// Access to the array storing how much each move type was done.
         /// </summary>

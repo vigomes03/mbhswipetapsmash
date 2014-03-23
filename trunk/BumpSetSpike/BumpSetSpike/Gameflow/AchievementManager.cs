@@ -17,8 +17,12 @@ namespace BumpSetSpike
             Participation,      // Complete the Tutorial (Endurance Mode).
             DoubleTrouble,      // Knock down 2 opponents with 1 hit. "KAPOOOW!!"
             Fortune500,         // Get 500+ points in Trick Attack mode.
-            Lucky_7,            // Get 7+ points in Endurance Attack mode.
+            Lucky_7,            // Get 7+ points in Endurance mode.
             BendTheRules,       // Complete a play after the ball hits the net.
+            HangTime,           // Perform the "Hang Time" Trick in Trick Attack mode.
+            IsThatEvenPossible, // Perform 8 different tricks in a single round of Trick Attack.
+            PuttingTheIInTeam,  // Hit the ball twice before your partner (on a successful play).
+            Lucky_20,           // Get 20+ points in Endurance mode.
 
             Count,
         }
@@ -61,12 +65,16 @@ namespace BumpSetSpike
             mAchievementMapping = new Dictionary<Int32, AchievementData>
             {
 #if __ANDROID__
-                { (Int32)Achievements.TheUbi,           new AchievementData(Resource.String.achievement_the_ubi) }, 
-                { (Int32)Achievements.Participation,    new AchievementData(Resource.String.achievement_participation) }, 
-                { (Int32)Achievements.DoubleTrouble,    new AchievementData(Resource.String.achievement_double_trouble) }, 
-                { (Int32)Achievements.Fortune500,       new AchievementData(Resource.String.achievement_fortune_500) }, 
-                { (Int32)Achievements.Lucky_7,          new AchievementData(Resource.String.achievement_lucky_7) }, 
-                { (Int32)Achievements.BendTheRules,     new AchievementData(Resource.String.achievement_bend_the_rules) }, 
+                { (Int32)Achievements.TheUbi,               new AchievementData(Resource.String.achievement_the_ubi) }, 
+                { (Int32)Achievements.Participation,        new AchievementData(Resource.String.achievement_participation) }, 
+                { (Int32)Achievements.DoubleTrouble,        new AchievementData(Resource.String.achievement_double_trouble) }, 
+                { (Int32)Achievements.Fortune500,           new AchievementData(Resource.String.achievement_fortune_500) }, 
+                { (Int32)Achievements.Lucky_7,              new AchievementData(Resource.String.achievement_lucky_7) }, 
+                { (Int32)Achievements.BendTheRules,         new AchievementData(Resource.String.achievement_bend_the_rules) }, 
+                { (Int32)Achievements.HangTime,             new AchievementData(Resource.String.achievement_hang_time) }, 
+                { (Int32)Achievements.IsThatEvenPossible,   new AchievementData(Resource.String.achievement_is_that_even_possible) }, 
+                { (Int32)Achievements.PuttingTheIInTeam,    new AchievementData(Resource.String.achievement_putting_the_i_in_team) }, 
+                { (Int32)Achievements.Lucky_20,             new AchievementData(Resource.String.achievement_lucky_20) }, 
 #endif // __ANDROID__
             };
             

@@ -76,6 +76,16 @@ namespace BumpSetSpike.Behaviour
             }
         }
 
+        public class GetHasMultipleHitsBeforePartnerMessage : BehaviourMessage
+        {
+            public Boolean mHasMultipleHits_Out;
+
+            public override void Reset()
+            {
+                mHasMultipleHits_Out = false;
+            }
+        }
+
         /// <summary>
         /// The current state of the player.
         /// </summary>
@@ -140,6 +150,8 @@ namespace BumpSetSpike.Behaviour
         /// When the player reaches the Trial Limit, the player controls change.
         /// </summary>
         private Boolean mTrialLimitReached;
+        
+        private Boolean mHasMultipleHitsBeforePartner;
 
         /// <summary>
         /// Preallocated messages.
@@ -149,6 +161,7 @@ namespace BumpSetSpike.Behaviour
         private OnMatchRestartMessage mMatchRestartMsg;
         private OnGameRestartMessage mGameRestartMsg;
         private HitCountDisplay.GetCurrentHitCountMessage mGetCurrentHitCountMsg;
+        private Partner.GetCurrentHitCountMessage mGetPartnerHitCountMsg;
 
         /// <summary>
         /// Constructor which also handles the process of loading in the Behaviour
@@ -197,11 +210,14 @@ namespace BumpSetSpike.Behaviour
 
             mWalkSpeed = 3.0f;
 
+            mHasMultipleHitsBeforePartner = false;
+
             mSetActiveAnimationMsg = new SpriteRender.SetActiveAnimationMessage();
             mGetAttachmentPointMsg = new SpriteRender.GetAttachmentPointMessage();
             mMatchRestartMsg = new OnMatchRestartMessage();
             mGameRestartMsg = new OnGameRestartMessage();
             mGetCurrentHitCountMsg = new HitCountDisplay.GetCurrentHitCountMessage();
+            mGetPartnerHitCountMsg = new Partner.GetCurrentHitCountMessage();
         }
 
         /// <summary>
@@ -413,6 +429,20 @@ namespace BumpSetSpike.Behaviour
                     System.Diagnostics.Debug.Assert(mCollisionResults.Count == 1);
 
                     mFxSpikeHit.Play();
+
+                    List<GameObject> partners = GameObjectManager.pInstance.GetGameObjectsOfClassification(MBHEngineContentDefs.GameObjectDefinition.Classifications.ALLY);
+
+                    if (partners.Count > 0)
+                    {
+						System.Diagnostics.Debug.Assert(partners.Count == 1);
+                        mGetPartnerHitCountMsg.Reset();
+                        partners[0].OnMessage(mGetPartnerHitCountMsg);
+
+                        if (mGetPartnerHitCountMsg.mHitCount_Out <= 0)
+                        {
+                            mHasMultipleHitsBeforePartner = true;
+                        }
+                    }
 
                     // Now find any nets. We need the net to figure out where to hit the ball.
                     List<GameObject> nets = GameObjectManager.pInstance.GetGameObjectsOfClassification(MBHEngineContentDefs.GameObjectDefinition.Classifications.WALL);
@@ -681,6 +711,8 @@ namespace BumpSetSpike.Behaviour
             }
             else if (msg is Player.OnGameRestartMessage || msg is Player.OnMatchRestartMessage) // During tutorials if the player misses the ball we only do a match restart.
             {
+                mHasMultipleHitsBeforePartner = false;
+
                 if (msg is Player.OnGameRestartMessage)
                 {
                     mTrialLimitReached = false;
@@ -710,6 +742,12 @@ namespace BumpSetSpike.Behaviour
             else if (msg is TrialModeManager.OnTrialModeChangedMessage)
             {
                 mTrialLimitReached = false;
+            }
+            else if (msg is GetHasMultipleHitsBeforePartnerMessage)
+            {
+                GetHasMultipleHitsBeforePartnerMessage temp = (GetHasMultipleHitsBeforePartnerMessage)msg;
+
+                temp.mHasMultipleHits_Out = mHasMultipleHitsBeforePartner;
             }
         }
         
