@@ -340,7 +340,7 @@ namespace BumpSetSpike_Android
             }
         }
 
-        //[Conditional("ALLOW_GARBAGE")]
+        [Conditional("ALLOW_GARBAGE")]
         private void ShowToasterMessage(string msg)
         {
             Toast.MakeText(this, msg, ToastLength.Long).Show();

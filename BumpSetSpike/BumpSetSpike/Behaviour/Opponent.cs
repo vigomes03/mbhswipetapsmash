@@ -272,7 +272,7 @@ namespace BumpSetSpike.Behaviour
                         AchievementManager.pInstance.UnlockAchievement(AchievementManager.Achievements.DoubleTrouble);
                     }
 
-                    DebugMessageDisplay.pInstance.AddConstantMessage("Kabooom Angle: " + MathHelper.ToDegrees(kabooom.pRotation));
+                    //DebugMessageDisplay.pInstance.AddConstantMessage("Kabooom Angle: " + MathHelper.ToDegrees(kabooom.pRotation));
 
                     mGetAttachmentPointMsg.Reset();
                     mGetAttachmentPointMsg.mName_In = "Blood";
