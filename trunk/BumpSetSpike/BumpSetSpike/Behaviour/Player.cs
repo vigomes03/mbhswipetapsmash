@@ -294,7 +294,7 @@ namespace BumpSetSpike.Behaviour
 
                     Vector2 norm = gesture.Delta;
                     norm.Normalize();
-                    DebugMessageDisplay.pInstance.AddConstantMessage("Swipe: " + gesture.Delta + ", " + gesture.Delta.Length() + ", " + norm);
+                    //DebugMessageDisplay.pInstance.AddConstantMessage("Swipe: " + gesture.Delta + ", " + gesture.Delta.Length() + ", " + norm);
 
                     Vector2 delta = gesture.Delta;
 
@@ -356,10 +356,12 @@ namespace BumpSetSpike.Behaviour
                     mParentGOH.pDirection.mForward.Y = 0.0f;
                 }
 
+                /*
                 if (mFramesInAir != 0)
                 {
                     DebugMessageDisplay.pInstance.AddConstantMessage("Air Time:" + mFramesInAir);
                 }
+                 * */
 
                 // Reset the counter since we are now on the ground.
                 mFramesInAir = 0;
@@ -434,7 +436,6 @@ namespace BumpSetSpike.Behaviour
 
                     if (partners.Count > 0)
                     {
-						System.Diagnostics.Debug.Assert(partners.Count == 1);
                         mGetPartnerHitCountMsg.Reset();
                         partners[0].OnMessage(mGetPartnerHitCountMsg);
 
