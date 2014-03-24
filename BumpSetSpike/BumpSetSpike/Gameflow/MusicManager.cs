@@ -6,6 +6,9 @@ using Microsoft.Xna.Framework.Media;
 using MBHEngine.GameObject;
 using MBHEngine.IO;
 using MBHEngineContentDefs;
+#if __ANDROID__
+using Android.Content;
+#endif // __ANDROID__
 
 namespace BumpSetSpike.Gameflow
 {
@@ -34,6 +37,11 @@ namespace BumpSetSpike.Gameflow
         /// Cache the command line arg so we don't have to do string compare over and over.
         /// </summary>
         private Boolean mDebugMusicDisabled;
+
+        /// <summary>
+        /// Allows us to manually disable music. Useful for platform specfic functionality.
+        /// </summary>
+        private Boolean mManualMusicDisabled;
 
         /// <summary>
         /// Access to the singleton.
@@ -67,6 +75,8 @@ namespace BumpSetSpike.Gameflow
             // All music in the game repeats.
             MediaPlayer.IsRepeating = true;
 
+            mManualMusicDisabled = false;
+
 #if (WINDOWS_PHONE && DEBUG) || (MONOGL && WINDOWS) || (__ANDROID__ && DEBUG)
             mDebugMusicDisabled = true; // We can't pass command line args to WP.
 #else
@@ -94,9 +104,16 @@ namespace BumpSetSpike.Gameflow
         /// Call this when you want to evaluate the current state of the game and potentially change
         /// the music based on the current state.
         /// </summary>
-        private void ChangeMusic()
+        public void ChangeMusic()
         {
-            if (mDebugMusicDisabled || !MediaPlayer.GameHasControl)
+            bool AudioManagerDisabledAudio = false;
+
+            if (mDebugMusicDisabled || !MediaPlayer.GameHasControl || mManualMusicDisabled)
+            {
+                return;
+            }
+
+            if (mMainMenuMusic == null || mGameplayMusic == null)
             {
                 return;
             }
@@ -155,6 +172,18 @@ namespace BumpSetSpike.Gameflow
 
                     break;
                 }
+            }
+        }
+
+        public Boolean pManualMusicDisabled
+        {
+            get
+            {
+                return mManualMusicDisabled;
+            }
+            set
+            {
+                mManualMusicDisabled = value;
             }
         }
     }
