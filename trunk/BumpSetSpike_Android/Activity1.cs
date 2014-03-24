@@ -1,25 +1,26 @@
 using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Threading.Tasks;
 using Android.App;
 using Android.Content;
+using Android.Gms.Common;
+using Android.Gms.Games;
+using Android.Gms.Games.LeaderBoard;
+using Android.Gms.Plus;
+using Android.Gms.Plus.Model.People;
+using Android.Media;
+using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
-using Android.OS;
-using Android.Gms.Plus;
-using Android.Gms.Common;
-using Android.Media;
-using Android.Gms.Plus.Model.People;
-using System.Collections.Generic;
-using Microsoft.Xna.Framework;
-using BumpSetSpike;
-using Android.Gms.Games;
 using MBHEngine.GameObject;
-using System.Diagnostics;
+using MBHEngine.Trial;
+using Microsoft.Xna.Framework;
 using Xamarin.InAppBilling;
 using Xamarin.InAppBilling.Utilities;
-using System.Threading.Tasks;
-using MBHEngine.Trial;
-using Android.Gms.Games.LeaderBoard;
+using BumpSetSpike;
+using BumpSetSpike.Gameflow;
 
 namespace BumpSetSpike_Android
 {
@@ -32,11 +33,12 @@ namespace BumpSetSpike_Android
 		ConfigurationChanges = Android.Content.PM.ConfigChanges.Orientation |
 		Android.Content.PM.ConfigChanges.KeyboardHidden |
         Android.Content.PM.ConfigChanges.Keyboard)]
-    public class Activity1 : 
-        AndroidGameActivity, 
-        IGooglePlayServicesClientConnectionCallbacks, 
-        IGooglePlayServicesClientOnConnectionFailedListener, 
-        IOnScoreSubmittedListener
+    public class Activity1  
+        : AndroidGameActivity
+        , IGooglePlayServicesClientConnectionCallbacks
+        , IGooglePlayServicesClientOnConnectionFailedListener
+        , IOnScoreSubmittedListener
+        , AudioManager.IOnAudioFocusChangeListener
     {
         // Aribitrary numbers just used for identifying requests to the Google services.
         public static int REQUEST_CODE_RESOLVE_ERR = 9000;
@@ -121,6 +123,34 @@ namespace BumpSetSpike_Android
 			var g = new Game1 ();
 			SetContentView (g.Window);
 			g.Run ();
+        }
+
+        void RequestAudioResources()
+        {
+            AudioManager audioMan = (AudioManager) GetSystemService(Context.AudioService);
+            //AudioManager.IOnAudioFocusChangeListener listener  = new MyAudioListener(this);
+            var ret = audioMan.RequestAudioFocus (this, Stream.Music, AudioFocus.Gain );
+            if (ret == AudioFocusRequest.Granted) 
+            {
+                MusicManager.pInstance.pManualMusicDisabled = false;
+            } 
+            else if (ret == AudioFocusRequest.Failed) 
+            {
+                MusicManager.pInstance.pManualMusicDisabled = true;
+            }
+        }
+
+        public void OnAudioFocusChange(AudioFocus focusChange)
+        {
+            if (focusChange > 0)
+            {
+                MusicManager.pInstance.pManualMusicDisabled = false;
+            }
+            else if (focusChange < 0)
+            {
+                MusicManager.pInstance.pManualMusicDisabled = true;
+            }
+            MusicManager.pInstance.ChangeMusic();
         }
 
         protected override void OnDestroy()
@@ -253,6 +283,8 @@ namespace BumpSetSpike_Android
         protected override void OnStart()
         {
             base.OnStart();
+
+            RequestAudioResources();
 
             // Just try to connect to Google Play right away. No point in waiting.
             pGooglePlayClient.Connect();
