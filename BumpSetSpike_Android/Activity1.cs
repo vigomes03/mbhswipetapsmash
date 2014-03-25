@@ -88,7 +88,7 @@ namespace BumpSetSpike_Android
 
                 // Clear out the test purchase so that it can be tested again. Remove this 
                 // to test starting with test purchase already completed.
-                bool response = pBillingConnection.BillingHandler.ConsumePurchase("inapp:"+ PackageName +":android.test.purchased");
+                //bool response = pBillingConnection.BillingHandler.ConsumePurchase("inapp:"+ PackageName +":android.test.purchased");
 
                 // Attach to the various error handlers to report issues
                 pBillingConnection.BillingHandler.OnGetProductsError += (int responseCode, Bundle ownedItems) => {
