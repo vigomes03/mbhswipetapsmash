@@ -175,11 +175,11 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\Splash.png" />
+    <AndroidResource Include="Resources\drawable\splash_centered.xml" />
     <AndroidResource Include="Resources\values\Styles.xml" />
     <AndroidResource Include="..\BumpSetSpike\BumpSetSpike\icon.png">
       <Link>Resources\drawable\icon.png</Link>
     </AndroidResource>
-    <AndroidResource Include="Resources\Layout\Main.axml" />
     <AndroidResource Include="Resources\values\Strings.xml" />
     <AndroidResource Include="..\BumpSetSpike\BumpSetSpike\icon_large.png">
       <Link>Resources\drawable\icon_large.png</Link>
@@ -211,7 +211,6 @@
   <ItemGroup>
     <Folder Include="Behaviour\" />
     <Folder Include="Gameflow\" />
-    <Folder Include="Resources\strings\" />
     <Folder Include="Content\GameObjects\UI\GoogleLeaderboardButton\" />
     <Folder Include="Content\GameObjects\UI\PauseAchievementsButton\" />
   </ItemGroup>
