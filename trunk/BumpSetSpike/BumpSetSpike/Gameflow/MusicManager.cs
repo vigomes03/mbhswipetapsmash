@@ -106,8 +106,6 @@ namespace BumpSetSpike.Gameflow
         /// </summary>
         public void ChangeMusic()
         {
-            bool AudioManagerDisabledAudio = false;
-
             if (mDebugMusicDisabled || !MediaPlayer.GameHasControl || mManualMusicDisabled)
             {
                 return;
