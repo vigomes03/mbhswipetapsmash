@@ -273,6 +273,12 @@ namespace BumpSetSpike.Gameflow
         public Dictionary<Int32, TutorialState> mTutorialStates;
 
         /// <summary>
+        /// Tracks how many times the user has failed the "now you try" section of the tutorial. After a certain number
+        /// they will be put through the tutorial again from the start to make sure the understand.
+        /// </summary>
+        public Int32 pFailCount { get; set; }
+
+        /// <summary>
         /// Preallocated messages.
         /// </summary>
         private HighlightPlayerMessage mHighlightPlayerMsg;
@@ -483,6 +489,7 @@ namespace BumpSetSpike.Gameflow
         {
             if (!pTutorialCompleted && GameModeManager.pInstance.pMode == GameModeManager.GameMode.Endurance)
             {
+                pFailCount = 0;
                 pCurState = State.FIRST;
             }
         }

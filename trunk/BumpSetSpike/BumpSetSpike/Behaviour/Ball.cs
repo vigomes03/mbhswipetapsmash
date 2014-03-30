@@ -307,8 +307,17 @@ namespace BumpSetSpike.Behaviour
                         else if (TutorialManager.pInstance.pCurState == TutorialManager.State.TRYING_AGAIN)
                         {
                             GameObjectManager.pInstance.BroadcastMessage(mOnMatchRestartMsg, mParentGOH);
-                            TutorialManager.pInstance.StopTutorial();
-                            TutorialManager.pInstance.StartTutorial();
+                            TutorialManager.pInstance.pFailCount++;
+
+                            if (TutorialManager.pInstance.pFailCount < 10)
+                            {
+                                TutorialManager.pInstance.pCurState = TutorialManager.State.TRY_AGAIN;
+                            }
+                            else
+                            {
+                                TutorialManager.pInstance.StopTutorial();
+                                TutorialManager.pInstance.StartTutorial();
+                            }
                         }
                         else if (TutorialManager.pInstance.pCurState == TutorialManager.State.TAP_END)
                         {
