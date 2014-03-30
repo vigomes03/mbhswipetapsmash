@@ -242,9 +242,10 @@ namespace MBHEngine.Input
 #endif
             }
 
-            // Mouse Released.
-            if (mCurrentMouseState.LeftButton == ButtonState.Released && 
-                mPreviousMouseState.LeftButton == ButtonState.Pressed)
+            // Mouse Tap. We use the press event on windows and android because it feels more responsive when hitting.
+            // However, this means when you are navigating men
+            if (mCurrentMouseState.LeftButton == ButtonState.Pressed && 
+                mPreviousMouseState.LeftButton != ButtonState.Pressed)
             {
                 // Mouse stores its info as int. Needs to be converted to vector.
                 Vector2 newMouse = new Vector2(mCurrentMouseState.X, mCurrentMouseState.Y);
@@ -255,6 +256,22 @@ namespace MBHEngine.Input
                 //DebugMessageDisplay.pInstance.AddConstantMessage("Mouse Clicked: " + CameraManager.pInstance.ProjectMouseToWorldSpace(newMouse) + ", " + mCurrentMouseState);
 
                 mCurrentGestureSamples.Add(g);
+            }
+
+
+            // Mouse Released.
+            if (mCurrentMouseState.LeftButton == ButtonState.Released && 
+                mPreviousMouseState.LeftButton == ButtonState.Pressed)
+            {
+                // Mouse stores its info as int. Needs to be converted to vector.
+                Vector2 newMouse = new Vector2(mCurrentMouseState.X, mCurrentMouseState.Y);
+
+                // Create a new Tap Gesture, since the mouse was pressed and released.
+                // Time Stamp is missing.
+                //GestureSample g = new GestureSample(GestureType.Tap, TimeSpan.Zero, newMouse, Vector2.Zero, Vector2.Zero, Vector2.Zero);
+                //DebugMessageDisplay.pInstance.AddConstantMessage("Mouse Clicked: " + CameraManager.pInstance.ProjectMouseToWorldSpace(newMouse) + ", " + mCurrentMouseState);
+
+                //mCurrentGestureSamples.Add(g);
 
                 ///
 
@@ -281,7 +298,7 @@ namespace MBHEngine.Input
                 {
                     // Build the Flick Gesture. 
                     // Time Stamp is missing.
-                    g = new GestureSample(GestureType.Flick, TimeSpan.Zero, Vector2.Zero, Vector2.Zero, flickDelta, Vector2.Zero);
+                    GestureSample g = new GestureSample(GestureType.Flick, TimeSpan.Zero, Vector2.Zero, Vector2.Zero, flickDelta, Vector2.Zero);
                     //DebugMessageDisplay.pInstance.AddConstantMessage("Mouse Flicked: " + flickDelta);
 
                     mCurrentGestureSamples.Add(g);
