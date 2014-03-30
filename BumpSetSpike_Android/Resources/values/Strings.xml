@@ -15,6 +15,7 @@ Save this file as res/values/games-ids.xml in your project.
   <string name="achievement_is_that_even_possible">CgkI78jEqK8cEAIQEQ</string>
   <string name="achievement_putting_the_i_in_team">CgkI78jEqK8cEAIQEg</string>
   <string name="achievement_lucky_20">CgkI78jEqK8cEAIQEw</string>
-  <string name="leaderboard_endurnace">CgkI78jEqK8cEAIQAA</string>
+  <string name="leaderboard_endurance">CgkI78jEqK8cEAIQAA</string>
   <string name="leaderboard_trick_attack">CgkI78jEqK8cEAIQAQ</string>
 </resources>
+  

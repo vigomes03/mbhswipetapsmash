@@ -197,7 +197,7 @@ namespace BumpSetSpike.Behaviour
                         GameObjectManager.pInstance.BroadcastMessage(mGetCurrentHitCountMsg, mParentGOH);
 
                         // Show a different leaderboard based on the current
-                        int board = (GameModeManager.pInstance.pMode == GameModeManager.GameMode.Endurance) ? Resource.String.leaderboard_endurnace : Resource.String.leaderboard_trick_attack;
+                        int board = (GameModeManager.pInstance.pMode == GameModeManager.GameMode.Endurance) ? Resource.String.leaderboard_endurance : Resource.String.leaderboard_trick_attack;
                         int hiScore = (GameModeManager.pInstance.pMode == GameModeManager.GameMode.Endurance) ? LeaderBoardManager.pInstance.pTopHits : LeaderBoardManager.pInstance.pTopScore;
 
                         // The high score will not have been saved yet, so we need to manually update it here.

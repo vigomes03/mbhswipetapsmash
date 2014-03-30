@@ -409,7 +409,7 @@ namespace BumpSetSpike
 			public const int common_signin_button_text_long = 2131034131;
 			
 			// aapt resource value: 0x7f050026
-			public const int leaderboard_endurnace = 2131034150;
+			public const int leaderboard_endurance = 2131034150;
 			
 			// aapt resource value: 0x7f050027
 			public const int leaderboard_trick_attack = 2131034151;

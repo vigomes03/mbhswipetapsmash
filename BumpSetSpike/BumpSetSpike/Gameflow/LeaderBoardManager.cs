@@ -185,7 +185,7 @@ namespace BumpSetSpike.Gameflow
                     BumpSetSpike_Android.Activity1 activity = (Game1.Activity as BumpSetSpike_Android.Activity1);
                     if(activity.pGooglePlayClient.IsConnected)
                     {
-                        activity.pGooglePlayClient.SubmitScoreImmediate(activity, activity.Resources.GetString(Resource.String.leaderboard_endurnace), mRecords.mHits);
+                        activity.pGooglePlayClient.SubmitScoreImmediate(activity, activity.Resources.GetString(Resource.String.leaderboard_endurance), mRecords.mHits);
                     }
 #endif // __ANDROID__
                 }
