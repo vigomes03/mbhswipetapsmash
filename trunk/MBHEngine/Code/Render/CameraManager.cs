@@ -119,7 +119,14 @@ namespace MBHEngine.Render
 #if WINDOWS_PHONE
             mZoomAmount = 4.0f;
 #elif __ANDROID__
-			mZoomAmount = 6.4f;
+            if (GameObjectManager.pInstance.pGraphics.PreferredBackBufferHeight < 720.0f)
+            {
+                mZoomAmount = 3.2f;
+            }
+            else
+            {
+			    mZoomAmount = 6.4f;
+            }
 #elif SMALL_WINDOW
             mZoomAmount = 3.2f;
 #else
