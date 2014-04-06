@@ -90,6 +90,8 @@ namespace BumpSetSpike
             //mGraphics.PreferredBackBufferWidth = 1280; // 1366; // 1280;
             //mGraphics.PreferredBackBufferHeight = 720; // 768; // 720;
 			mGraphics.IsFullScreen = true;
+            //mGraphics.PreferredBackBufferHeight = Window.ClientBounds.Width;
+            //mGraphics.PreferredBackBufferWidth = Window.ClientBounds.Height;
 #endif
 
 #if false
