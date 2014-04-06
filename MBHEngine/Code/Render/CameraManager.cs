@@ -119,14 +119,21 @@ namespace MBHEngine.Render
 #if WINDOWS_PHONE
             mZoomAmount = 4.0f;
 #elif __ANDROID__
-            if (GameObjectManager.pInstance.pGraphics.PreferredBackBufferHeight < 720.0f)
-            {
-                mZoomAmount = 3.2f;
-            }
-            else
-            {
-			    mZoomAmount = 6.4f;
-            }
+
+            float originalHeight = 144.0f; 
+            float originalWidth = 204.8f; 
+            float originalScale = 1.0f; // at originalHeight/width the scale should be...
+
+            float scaleToOrigialY = GameObjectManager.pInstance.pGraphics.PreferredBackBufferHeight / originalHeight;
+            float scaleToOrigialX = GameObjectManager.pInstance.pGraphics.PreferredBackBufferWidth / originalWidth;
+
+            Console.WriteLine(
+                "Res: " +
+                GameObjectManager.pInstance.pGraphics.PreferredBackBufferWidth.ToString() + 
+                "x" + 
+                GameObjectManager.pInstance.pGraphics.PreferredBackBufferHeight.ToString());
+
+            mZoomAmount = originalScale * scaleToOrigialY;
 #elif SMALL_WINDOW
             mZoomAmount = 3.2f;
 #else
