@@ -30,8 +30,9 @@ namespace BumpSetSpike_Android
 		Theme = "@style/Theme.Splash",
         AlwaysRetainTaskState = true,
         LaunchMode = Android.Content.PM.LaunchMode.SingleTask, // SingleTask means we only run a single instance, but can open other Activities (eg. Google+)
-		ConfigurationChanges = Android.Content.PM.ConfigChanges.Orientation |
-		Android.Content.PM.ConfigChanges.KeyboardHidden |
+        ScreenOrientation = Android.Content.PM.ScreenOrientation.Landscape,
+        ConfigurationChanges = Android.Content.PM.ConfigChanges.Orientation |
+        Android.Content.PM.ConfigChanges.KeyboardHidden |
         Android.Content.PM.ConfigChanges.Keyboard)]
     public class Activity1  
         : AndroidGameActivity
@@ -156,13 +157,13 @@ namespace BumpSetSpike_Android
         protected override void OnDestroy()
         {
             // Are we attached to the Google Play Service?
-            if (pGooglePlayClient != null) 
+            if (pGooglePlayClient != null && pGooglePlayClient.IsConnected) 
             {
                 // Yes, disconnect
                 pGooglePlayClient.Disconnect();
             }
 
-            if (pBillingConnection != null)
+            if (pBillingConnection != null && pBillingConnection.Connected)
             {
                 pBillingConnection.Disconnect();
             }
