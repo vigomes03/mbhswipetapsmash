@@ -214,10 +214,7 @@ namespace BumpSetSpike.Behaviour
                             Guide.ShowMarketplace(PlayerIndex.One);
 #elif __ANDROID__
                             BumpSetSpike_Android.Activity1 activity = Game1.Activity as BumpSetSpike_Android.Activity1;
-                            if (activity.pGooglePlayClient.IsConnected)
-                            {
-                                activity.PurchasePremiumUpgrade();
-                            }
+                            activity.PurchasePremiumUpgrade();
 #else
                             TrialModeManager.pInstance.pIsTrialMode = false;
 #endif
